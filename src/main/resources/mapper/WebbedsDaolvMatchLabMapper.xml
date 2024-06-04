@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic.dao.WebbedsDaolvMatchLabDao">
+
+    <insert id="saveBatch" parameterType="com.example.basic.entity.WebbedsDaolvMatchLab">
+        insert into webbeds_daolv_match_lab (daolv_hotel_id, daolv_hotel_name, dotw_hotel_code, dotw_hotel_name,
+        webbeds_latitude, webbeds_longitude, daolv_latitude, daolv_longitude,
+        webbeds_address, daolv_address, webbeds_tel, daolv_tel, webbeds_country,
+        daolv_country, diff_meter, diff_level, name_match, address_match, tel_match, score,
+        multi_match)
+        values
+        <foreach collection="insertList" item="item" separator=",">
+            (#{item.daolvHotelId},#{item.daolvHotelName},#{item.dotwHotelCode},#{item.dotwHotelName},
+            #{item.webbedsLatitude},#{item.webbedsLongitude},#{item.daolvLatitude},#{item.daolvLongitude},
+            #{item.webbedsAddress},#{item.daolvAddress},#{item.webbedsTel},#{item.daolvTel},#{item.webbedsCountry},
+            #{item.daolvCountry},#{item.diffMeter},#{item.diffLevel},#{item.nameMatch},#{item.addressMatch},
+            #{item.telMatch},#{item.score},#{item.multiMatch})
+        </foreach>
+    </insert>
+
+    <insert id="saveBatch2" parameterType="com.example.basic.entity.WebbedsDaolvMatchLab">
+        insert into webbeds_daolv_match_lab_2 (daolv_hotel_id, daolv_hotel_name, dotw_hotel_code, dotw_hotel_name,
+        webbeds_latitude, webbeds_longitude, daolv_latitude, daolv_longitude,
+        webbeds_address, daolv_address, webbeds_tel, daolv_tel, webbeds_country,
+        daolv_country, diff_meter, diff_level, name_match, address_match, tel_match, score,
+        multi_match)
+        values
+        <foreach collection="insertList" item="item" separator=",">
+            (#{item.daolvHotelId},#{item.daolvHotelName},#{item.dotwHotelCode},#{item.dotwHotelName},
+            #{item.webbedsLatitude},#{item.webbedsLongitude},#{item.daolvLatitude},#{item.daolvLongitude},
+            #{item.webbedsAddress},#{item.daolvAddress},#{item.webbedsTel},#{item.daolvTel},#{item.webbedsCountry},
+            #{item.daolvCountry},#{item.diffMeter},#{item.diffLevel},#{item.nameMatch},#{item.addressMatch},
+            #{item.telMatch},#{item.score},#{item.multiMatch})
+        </foreach>
+    </insert>
+</mapper>

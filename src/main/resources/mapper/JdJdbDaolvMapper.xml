@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic.dao.JdJdbDaolvDao">
+    <select id="selectHavePrice" resultType="com.example.basic.entity.JdJdbDaolv">
+
+    </select>
+
+    <select id="selectHotelIdList"  resultType="java.lang.Integer">
+        SELECT `id`
+        FROM `jd_jdb_daolv`
+    </select>
+
+    <select id="selectListByIds" parameterType="java.util.List" resultType="com.example.basic.entity.JdJdbDaolv">
+        SELECT `id`,`name`,`longitude`,`latitude`
+        FROM `jd_jdb_daolv`
+        WHERE `id` IN
+        <foreach collection="daolvHotelIds" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="selectListByCountry" parameterType="java.lang.String" resultType="com.example.basic.entity.JdJdbDaolv">
+        SELECT id,name,address,country_code,longitude,latitude,telephone
+        FROM `jd_jdb_daolv`
+        WHERE `country_code` = #{countryCode}
+    </select>
+
+    <select id="selectCountryCodes" resultType="java.lang.String">
+        SELECT distinct `country_code`
+        FROM `jd_jdb_daolv`
+    </select>
+</mapper>

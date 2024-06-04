@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic.dao.BCityAirportDao">
+    <select id="selectAll" resultType="com.example.basic.entity.BCityAirport">
+        SELECT *
+        FROM b_city_airport
+    </select>
+
+    <update id="updateCityId" parameterType="com.example.basic.entity.BCityAirport">
+        UPDATE b_city_airport
+        SET `match` = 1, `city_id` = #{cityId}
+        WHERE `id` = #{id}
+    </update>
+
+    <select id="selectListByThreeCodes" parameterType="java.util.Set" resultType="com.example.basic.entity.BCityAirport">
+        SELECT *
+        FROM b_city_airport
+        WHERE `three_code` IN
+        <foreach collection="threeCodes" open="(" separator="," close=")" item="threeCode">
+            #{threeCode}
+        </foreach>
+    </select>
+
+    <update id="updateAirportEnName" parameterType="com.example.basic.entity.BCityAirport">
+        UPDATE b_city_airport
+        SET `e_name` = #{eName}
+        WHERE `id` = #{id}
+    </update>
+
+    <select id="selectList" resultType="com.example.basic.entity.BCityAirport">
+        select *
+        from b_city_airport
+        where three_code IN ('ZSA', 'ZIG', 'YYY', 'YVM', 'YTM', 'YIV', 'YGL', 'YBC', 'YAP', 'XMH', 'XKH', 'WWI', 'WUU', 'VXE', 'VLL', 'VDE', 'VAV', 'UTP', 'URJ', 'ULX', 'TUP', 'TUF', 'TTN', 'TOH', 'TNE', 'TLJ', 'TKP', 'SZY', 'SXM', 'SWJ', 'SVI', 'SSR', 'SSH', 'SOB', 'SNE', 'SLN', 'SJT', 'SJD', 'SID', 'SHI', 'SHC', 'SDY', 'RVD', 'RUS', 'RSI', 'ROP', 'RNJ', 'RGI', 'RFP', 'RCY', 'PZO', 'PZL', 'PQQ', 'PNI', 'PML', 'PIX', 'ONJ', 'ONJ', 'OKI', 'OKE', 'ODY', 'ODY', 'OAJ', 'OAJ', 'NWA', 'NUX', 'NTY', 'NOJ', 'NOB', 'NNT', 'NLK', 'NLK', 'NIF', 'NGL', 'MDR', 'LUR', 'LSI', 'LSE', 'LPQ', 'LNB', 'LKH', 'LEC', 'LDZ', 'LCR', 'LBP', 'KUG', 'KSA', 'KEG', 'KDO', 'KDM', 'IUE', 'IRA', 'HUB', 'HAQ', 'GTS', 'GND', 'GMZ', 'GCI', 'FUJ', 'FUE', 'FEN', 'FAV', 'EVE', 'EUX', 'ETZ', 'ELQ', 'ELH', 'EDO', 'ECN', 'EAM', 'DLY', 'DLH', 'DHM', 'DCF', 'CWL', 'CTL', 'CRK', 'CNP', 'CIU', 'CHY', 'CFS', 'CCK', 'BZK', 'BVE', 'BQK', 'BAP', 'ATD', 'AEU')
+    </select>
+
+    <select id="updateNewCityId">
+        UPDATE b_city_airport
+        SET `city_id` = #{cityId}, `match` = 1
+        WHERE `id` = #{id}
+    </select>
+
+    <select id="selectWantedList" resultType="com.example.basic.entity.BCityAirport">
+        SELECT *
+        FROM b_city_airport
+        WHERE international = 0 AND `match` = 0;
+    </select>
+
+    <insert id="saveBatch" parameterType="java.util.List">
+        INSERT INTO `b_city_airport`
+            (`id`, `city_id`, `airport_name`, `e_name`, `three_code`, `international`, `pyjsm`,
+             `fullspell`, `is_gk`, `type`, `createdate`, `remark`, `city_name`, `city_en_name`,
+             `nation`, `nation_name`, `nation_code`)
+        VALUES
+        <foreach collection="insertList" separator="," item="item">
+            (#{item.id}, #{item.cityId}, #{item.airportName}, #{item.eName}, #{item.threeCode}, #{item.international}, #{item.pyjsm},
+             #{item.fullspell}, #{item.isGk}, #{item.type}, #{item.createdate}, #{item.remark}, #{item.cityName}, #{item.cityEnName},
+             #{item.nation}, #{item.nationName}, #{item.nationCode})
+        </foreach>
+    </insert>
+</mapper>

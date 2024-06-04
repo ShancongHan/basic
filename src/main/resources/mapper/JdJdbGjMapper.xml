@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic.dao.JdJdbGjDao">
+    <select id="selectAll" resultType="com.example.basic.entity.JdJdbGj">
+        SELECT *
+        FROM `jd_jdb_gj`
+    </select>
+
+    <select id="selectInfo" parameterType="java.lang.Integer" resultType="com.example.basic.entity.JdJdbGj">
+        SELECT jjg.*
+        FROM `jd_jdb_gj`jjg
+        LEFT JOIN `zh_jd_jdb_gj_mapping` zjjgm ON jjg.id = zjjgm.local_id
+        WHERE zjjgm.`plat_id` = #{id}
+    </select>
+
+    <select id="selectInfoByIds" parameterType="java.util.List" resultType="com.example.basic.entity.JdJdbGj">
+        SELECT jjg.*, zjjgm.`plat_id`
+        FROM `jd_jdb_gj`jjg
+                 LEFT JOIN `zh_jd_jdb_gj_mapping` zjjgm ON jjg.id = zjjgm.local_id
+        WHERE zjjgm.`plat_id` IN
+              <foreach collection="daolvHotelIds" item="id" open="(" separator="," close=")">
+                  #{id}
+              </foreach>
+    </select>
+</mapper>

@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:mysql://120.79.68.97:3306/test_at_bdc?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: yf_hanshancong
+    password: kzZYA6aZSs31VSqUCMr
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  application:
+    name: basic
+server:
+  port: 9005
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true  #开启驼峰映射
+  type-handlers-package: com.example.data
+  mapper-locations: classpath*:/mapper/*.xml

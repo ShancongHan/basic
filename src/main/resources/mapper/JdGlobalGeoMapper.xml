@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic.dao.JdGlobalGeoDao">
+    <insert id="saveBatch" parameterType="com.example.basic.entity.JdGlobalGeo">
+        insert into jd_global_geo (id, geo_code, name, name_en, `desc`, full_name, pinyin, first_pinyin, parent_geo_code,
+                                   parent_id, level_tree, level, region, mark)
+        values
+        <foreach collection="dataList" separator="," item="item">
+            (#{item.id}, #{item.geoCode}, #{item.name}, #{item.nameEn}, #{item.desc}, #{item.fullName}, #{item.pinyin}, #{item.firstPinyin}, #{item.parentGeoCode},
+            #{item.parentId}, #{item.levelTree}, #{item.level}, #{item.region}, #{item.mark})
+        </foreach>
+    </insert>
+
+    <select id="selectCountryList" resultType="com.example.basic.entity.JdGlobalGeo">
+        select *
+        from jd_global_geo
+        where level = 3
+    </select>
+
+    <select id="selectProvinceList" resultType="com.example.basic.entity.JdGlobalGeo">
+        select *
+        from jd_global_geo
+        where level = 5 and parent_geo_code not in ('CN01','CN02');
+    </select>
+
+    <select id="selectCityList" resultType="com.example.basic.entity.JdGlobalGeo">
+        select *
+        from jd_global_geo
+        where level = 6 and level_tree not like '/1/21/101/%';
+    </select>
+
+    <select id="selectProvinceListByCountryCode" parameterType="java.lang.String" resultType="com.example.basic.entity.JdGlobalGeo">
+        select *
+        from jd_global_geo
+        where level = 6 and level_tree not like '/1/21/101/%';
+    </select>
+
+    <select id="selectProvinceListByCountryCodes"  parameterType="java.util.List" resultType="com.example.basic.entity.JdGlobalGeo">
+        select *
+        from jd_global_geo
+        where level = 5 and parent_geo_code in
+        <foreach collection="geoCodeList" open="(" close=")" separator="," item="item">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectCountryListByLevelTree" parameterType="java.lang.String" resultType="com.example.basic.entity.JdGlobalGeo">
+        select *
+        from jd_global_geo
+        where level_tree like CONCAT(#{levelTree}, '%');
+    </select>
+</mapper>

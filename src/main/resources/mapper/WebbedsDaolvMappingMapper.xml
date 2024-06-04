@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic.dao.WebbedsDaolvMappingDao">
+    <insert id="saveBatch" parameterType="com.example.basic.entity.WebbedsDaolvMapping">
+        insert into webbeds_daolv_mapping
+        (daolv_hotel_id, daolv_hotel_name, dotw_hotel_code, dotw_hotel_name, latitude,
+        longitude, giata_id, mapped)
+        values
+        <foreach collection="insertList" item="item" separator=",">
+            (#{item.daolvHotelId},#{item.daolvHotelName},#{item.dotwHotelCode},
+            #{item.dotwHotelName},#{item.latitude},#{item.longitude},
+            #{item.giataId},#{item.mapped})
+        </foreach>
+    </insert>
+
+    <select id="selectAll" resultType="com.example.basic.entity.WebbedsDaolvMapping">
+        SELECT *
+        FROM `webbeds_daolv_mapping`
+    </select>
+
+    <select id="selectWebbedsHotelIdList" resultType="java.lang.Integer">
+        SELECT `dotw_hotel_code`
+        FROM `webbeds_daolv_mapping`
+    </select>
+
+    <select id="selectDaolvHotelIdList" resultType="java.lang.Integer">
+        SELECT `daolv_hotel_id`
+        FROM `webbeds_daolv_mapping`
+    </select>
+
+
+</mapper>

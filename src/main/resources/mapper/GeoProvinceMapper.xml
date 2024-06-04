@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic.dao.GeoProvinceDao">
+    <select id="selectProvinceList" resultType="com.example.basic.entity.GeoProvince">
+        select *
+        from geo_province_copy
+        where nation != '00002'
+    </select>
+
+    <select id="selectAll" resultType="com.example.basic.entity.GeoProvince">
+        select *
+        from geo_province_copy
+    </select>
+
+    <insert id="saveBatch" parameterType="com.example.basic.entity.GeoProvince">
+        insert into geo_province_copy (province_name, province_full_name, province_ename, nation, nation_name, createdate)
+        values
+        <foreach collection="insertList" separator="," item="item">
+            (#{item.provinceName}, #{item.provinceFullName}, #{item.provinceEname}, #{item.nation}, #{item.nationName}, #{item.createdate})
+        </foreach>
+    </insert>
+
+    <select id="selectProvinceListByCountryCode" parameterType="java.lang.String" resultType="com.example.basic.entity.GeoProvince">
+        select *
+        from geo_province_copy
+        where nation = (select id from b_class where par_no = 101 and by3 = #{countryCode});
+    </select>
+
+    <select id="selectDuplicateList" parameterType="java.util.List" resultType="com.example.basic.entity.GeoProvince">
+        select *
+        from geo_province_copy
+        where nation IN
+        <foreach collection="nationIdList" open="(" close=")" separator="," item="item">
+            #{item}
+        </foreach>
+    </select>
+
+    <delete id="deleteByIds" parameterType="java.util.List">
+        DELETE FROM `geo_province_copy`
+        WHERE `id` IN
+        <foreach collection="ids" open="(" close=")" separator="," item="id">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="selectProvinceListByCountryCodes" parameterType="java.util.List" resultType="com.example.basic.entity.GeoProvince">
+        select *
+        from geo_province_copy
+        where nation IN
+        <foreach collection="nationIdList" open="(" close=")" separator="," item="item">
+            #{item}
+        </foreach>
+    </select>
+</mapper>

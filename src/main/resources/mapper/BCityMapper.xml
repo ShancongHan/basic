@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic.dao.BCityDao">
+    <select id="selectCityList" resultType="com.example.basic.entity.BCity">
+        select *
+        from b_city
+        where international = 0
+    </select>
+
+    <delete id="deleteByIds" parameterType="java.util.List">
+        DELETE FROM `b_city`
+        WHERE `id` IN
+        <foreach collection="list" open="(" close=")" separator="," item="id">
+            #{id}
+        </foreach>
+    </delete>
+
+    <insert id="saveBatch" parameterType="com.example.basic.entity.BCity">
+        insert into b_city (id, city_name, e_name, zfl, nation, province,
+        introduce, pyjsm, elong_id, fullspell, createdate, remark, international, city_type, is_airport, is_train_station)
+        values
+        <foreach collection="list" separator="," item="item">
+            (#{item.id}, #{item.cityName}, #{item.eName}, #{item.zfl},#{item.nation},
+            #{item.province},#{item.introduce},#{item.pyjsm},#{item.elongId},#{item.fullspell}, #{item.createdate},
+            #{item.remark}, #{item.international}, #{item.cityType}, #{item.isAirport}, #{item.isTrainStation})
+        </foreach>
+    </insert>
+
+    <update id="updateAirport" parameterType="java.util.List">
+        UPDATE `b_city`
+        SET `is_airport` = 1
+        WHERE id IN
+        <foreach collection="list" open="(" close=")" separator="," item="id">
+            #{id}
+        </foreach>
+    </update>
+
+    <select id="selectOldList" parameterType="java.util.List" resultType="com.example.basic.entity.BCity">
+        SELECT *
+        FROM `b_city_newly`
+        WHERE id IN
+        <foreach collection="list" open="(" close=")" separator="," item="id">
+            #{id}
+        </foreach>
+    </select>
+    
+    <select id="selectCityListByCountries" parameterType="java.util.List" resultType="com.example.basic.entity.BCity">
+        SELECT *
+        FROM `b_city`
+        WHERE `nation` IN
+        <foreach collection="countryList" open="(" close=")" separator="," item="nationId">
+            #{nationId}
+        </foreach>
+    </select>
+
+    <select id="selectList" resultType="com.example.basic.entity.BCity">
+        SELECT id,city_name,nation
+        FROM `b_city`
+        WHERE international = 0
+    </select>
+
+    <select id="selectDataList" resultType="com.example.basic.domain.CityData">
+        select bc.id as cityId, bc.city_name, bc.e_name as cityEnName, bc.nation as nationId, bc2.c_name as nationName, bc2.by3 as countryCode
+        from b_city bc
+        left join b_class bc2 on bc.nation = bc2.id
+    </select>
+</mapper>
