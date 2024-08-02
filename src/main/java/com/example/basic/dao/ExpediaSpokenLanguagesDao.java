@@ -10,5 +10,7 @@ import java.util.List;
  */
 public interface ExpediaSpokenLanguagesDao {
 
-    public List<ExpediaSpokenLanguages> selectAll();
+    List<ExpediaSpokenLanguages> selectAll();
+
+    void saveBatch(List<ExpediaSpokenLanguages> insertList);
 }

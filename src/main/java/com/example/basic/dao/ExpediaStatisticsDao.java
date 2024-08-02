@@ -9,5 +9,7 @@ import java.util.List;
  * @date 2024/8/2
  */
 public interface ExpediaStatisticsDao {
-    public List<ExpediaStatistics> selectAll();
+    List<ExpediaStatistics> selectAll();
+
+    void saveBatch(List<ExpediaStatistics> insertList);
 }

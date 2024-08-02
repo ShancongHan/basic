@@ -66,4 +66,16 @@ public class ExpediaController {
             System.out.println(Throwables.getStackTraceAsString(e));
         }
     }
+
+    /**
+     * 解析静态文件
+     */
+    @PostMapping(value = "analyze-static-file")
+    public void analyzeStaticFile() {
+        try {
+            expediaService.analyzeStaticFile();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
 }

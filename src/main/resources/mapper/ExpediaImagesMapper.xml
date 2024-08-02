@@ -5,4 +5,12 @@
         SELECT *
         FROM `expedia_images`
     </select>
+
+    <insert id="saveBatch" parameterType="com.example.basic.entity.ExpediaImages">
+        insert into expedia_images (id, `group`, name, create_time)
+        values
+        <foreach collection="insertList" separator="," item="item">
+            (#{item.id}, #{item.group}, #{item.name}, #{item.createTime})
+        </foreach>
+    </insert>
 </mapper>

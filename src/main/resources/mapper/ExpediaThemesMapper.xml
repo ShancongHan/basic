@@ -5,4 +5,12 @@
         SELECT *
         FROM `expedia_themes`
     </select>
+    
+    <insert id="saveBatch" parameterType="com.example.basic.entity.ExpediaThemes">
+        insert into expedia_themes (id, name, create_time)
+        values
+        <foreach collection="insertList" separator="," item="item">
+            (#{item.id}, #{item.name}, #{item.createTime})
+        </foreach>
+    </insert>
 </mapper>

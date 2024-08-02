@@ -10,5 +10,7 @@ import java.util.List;
  */
 public interface ExpediaRoomViewsDao {
 
-    public List<ExpediaRoomViews> selectAll();
+    List<ExpediaRoomViews> selectAll();
+
+    void saveBatch(List<ExpediaRoomViews> insertList);
 }

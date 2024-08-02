@@ -10,5 +10,7 @@ import java.util.List;
  */
 public interface ExpediaAttributesPetsDao {
 
-    public List<ExpediaAttributesPets> selectAll();
+    List<ExpediaAttributesPets> selectAll();
+
+    void saveBatch(List<ExpediaAttributesPets> insertList);
 }

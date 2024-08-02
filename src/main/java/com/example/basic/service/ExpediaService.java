@@ -12,6 +12,7 @@ import com.example.basic.domain.to.*;
 import com.example.basic.entity.*;
 import com.example.basic.entity.ExpediaContent;
 import com.example.basic.utils.HttpUtils;
+import com.example.basic.utils.IOUtils;
 import com.google.common.base.Throwables;
 import com.google.common.collect.Lists;
 import jakarta.annotation.Resource;
@@ -308,5 +309,20 @@ public class ExpediaService {
             expediaContent.setCreateTime(new Date());
             expediaContents.add(expediaContent);
         }
+    }
+
+    public void analyzeStaticFile() throws Exception {
+        String fileName = "C:\\wst_han\\打杂\\expedia\\Content_Reference_Lists_3.json";
+        String fileContent = IOUtils.inputStreamToString(new FileInputStream(fileName));
+        JSONObject jsonObject = JSON.parseObject(fileContent);
+        JSONObject value = (JSONObject) jsonObject.get("spoken_languages");
+        List<ExpediaSpokenLanguages> insertList = Lists.newArrayList();
+        Date now = new Date();
+        for (Map.Entry<String, Object> entry : value.entrySet()) {
+            ExpediaSpokenLanguages item = JSON.parseObject(entry.getValue().toString(), ExpediaSpokenLanguages.class);
+            item.setCreateTime(now);
+            insertList.add(item);
+        }
+        expediaSpokenLanguagesDao.saveBatch(insertList);
     }
 }

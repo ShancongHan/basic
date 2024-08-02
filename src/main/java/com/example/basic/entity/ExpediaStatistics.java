@@ -15,7 +15,7 @@ public class ExpediaStatistics {
 
     private String name;	// 名字
 
-    private Integer hasValue;	// 是否有值1-true;0-false
+    private Boolean hasValue;	// 是否有值1-true;0-false
 
     private Date createTime;	// 新增时间
 }

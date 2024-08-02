@@ -11,5 +11,7 @@ import java.util.List;
  */
 public interface ExpediaAmenitiesRoomsDao {
 
-    public List<ExpediaAmenitiesRooms> selectAll();
+    List<ExpediaAmenitiesRooms> selectAll();
+
+    void saveBatch(List<ExpediaAmenitiesRooms> insertList);
 }

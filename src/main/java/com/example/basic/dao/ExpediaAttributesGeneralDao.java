@@ -10,5 +10,7 @@ import java.util.List;
  */
 public interface ExpediaAttributesGeneralDao {
 
-    public List<ExpediaAttributesGeneral> selectAll();
+    List<ExpediaAttributesGeneral> selectAll();
+
+    void saveBatch(List<ExpediaAttributesGeneral> insertList);
 }

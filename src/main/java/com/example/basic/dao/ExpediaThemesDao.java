@@ -10,5 +10,7 @@ import java.util.List;
  */
 public interface ExpediaThemesDao {
 
-    public List<ExpediaThemes> selectAll();
+    List<ExpediaThemes> selectAll();
+
+    void saveBatch(List<ExpediaThemes> insertList);
 }

@@ -5,4 +5,12 @@
         SELECT *
         FROM `expedia_spoken_languages`
     </select>
+
+    <insert id="saveBatch" parameterType="com.example.basic.entity.ExpediaSpokenLanguages">
+        insert into expedia_spoken_languages (id, name, create_time)
+        values
+        <foreach collection="insertList" separator="," item="item">
+            (#{item.id}, #{item.name}, #{item.createTime})
+        </foreach>
+    </insert>
 </mapper>

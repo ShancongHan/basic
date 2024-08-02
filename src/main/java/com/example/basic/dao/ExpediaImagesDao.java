@@ -10,5 +10,7 @@ import java.util.List;
  */
 public interface ExpediaImagesDao {
 
-    public List<ExpediaImages> selectAll();
+    List<ExpediaImages> selectAll();
+
+    void saveBatch(List<ExpediaImages> insertList);
 }
