@@ -4,18 +4,13 @@ import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.read.listener.PageReadListener;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
-import com.example.basic.dao.ExpediaContentDao;
-import com.example.basic.dao.ExpediaContinentDao;
-import com.example.basic.dao.ExpediaCountryDao;
-import com.example.basic.dao.ExpediaRegionDao;
+import com.example.basic.dao.*;
 import com.example.basic.domain.Content;
 import com.example.basic.domain.ExpediaResponse;
 import com.example.basic.domain.Region;
 import com.example.basic.domain.to.*;
+import com.example.basic.entity.*;
 import com.example.basic.entity.ExpediaContent;
-import com.example.basic.entity.ExpediaContinent;
-import com.example.basic.entity.ExpediaCountry;
-import com.example.basic.entity.ExpediaRegion;
 import com.example.basic.utils.HttpUtils;
 import com.google.common.base.Throwables;
 import com.google.common.collect.Lists;
@@ -34,6 +29,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * @author han
@@ -54,6 +51,29 @@ public class ExpediaService {
 
     @Resource
     private ExpediaContentDao expediaContentDao;
+
+    @Resource
+    private ExpediaAmenitiesPropertyDao expediaAmenitiesPropertyDao;
+    @Resource
+    private ExpediaAmenitiesRatesDao expediaAmenitiesRatesDao;
+    @Resource
+    private ExpediaAmenitiesRoomsDao expediaAmenitiesRoomsDao;
+    @Resource
+    private ExpediaAttributesGeneralDao expediaAttributesGeneralDao;
+    @Resource
+    private ExpediaAttributesPetsDao expediaAttributesPetsDao;
+    @Resource
+    private ExpediaCategoriesDao expediaCategoriesDao;
+    @Resource
+    private ExpediaImagesDao expediaImagesDao;
+    @Resource
+    private ExpediaRoomViewsDao expediaRoomViewsDao;
+    @Resource
+    private ExpediaSpokenLanguagesDao expediaSpokenLanguagesDao;
+    @Resource
+    private ExpediaStatisticsDao expediaStatisticsDao;
+    @Resource
+    private ExpediaThemesDao expediaThemesDao;
 
     @Resource
     private HttpUtils httpUtils;
@@ -160,6 +180,29 @@ public class ExpediaService {
     }
 
     public void pullContent() throws Exception {
+        List<ExpediaAmenitiesProperty> expediaAmenitiesProperties = expediaAmenitiesPropertyDao.selectAll();
+        Map<Long, ExpediaAmenitiesProperty> amenitiesPropertyMap = expediaAmenitiesProperties.stream().collect(Collectors.toMap(ExpediaAmenitiesProperty::getId, Function.identity()));
+        List<ExpediaAmenitiesRates> expediaAmenitiesRates = expediaAmenitiesRatesDao.selectAll();
+        Map<Long, ExpediaAmenitiesRates> amenitiesRatesMap = expediaAmenitiesRates.stream().collect(Collectors.toMap(ExpediaAmenitiesRates::getId, Function.identity()));
+        List<ExpediaAmenitiesRooms> expediaAmenitiesRooms = expediaAmenitiesRoomsDao.selectAll();
+        Map<Long, ExpediaAmenitiesRooms> amenitiesRoomsMap = expediaAmenitiesRooms.stream().collect(Collectors.toMap(ExpediaAmenitiesRooms::getId, Function.identity()));
+        List<ExpediaAttributesGeneral> expediaAttributesGenerals = expediaAttributesGeneralDao.selectAll();
+        Map<Long, ExpediaAttributesGeneral> attributesGeneralMap = expediaAttributesGenerals.stream().collect(Collectors.toMap(ExpediaAttributesGeneral::getId, Function.identity()));
+        List<ExpediaAttributesPets> expediaAttributesPets = expediaAttributesPetsDao.selectAll();
+        Map<Long, ExpediaAttributesPets> attributesPetsMap = expediaAttributesPets.stream().collect(Collectors.toMap(ExpediaAttributesPets::getId, Function.identity()));
+        List<ExpediaCategories> expediaCategories = expediaCategoriesDao.selectAll();
+        Map<Long, ExpediaCategories> categoriesMap = expediaCategories.stream().collect(Collectors.toMap(ExpediaCategories::getId, Function.identity()));
+        List<ExpediaImages> expediaImages = expediaImagesDao.selectAll();
+        Map<Long, ExpediaImages> imagesMap = expediaImages.stream().collect(Collectors.toMap(ExpediaImages::getId, Function.identity()));
+        List<ExpediaRoomViews> expediaRoomViews = expediaRoomViewsDao.selectAll();
+        Map<Long, ExpediaRoomViews> roomViewsMap = expediaRoomViews.stream().collect(Collectors.toMap(ExpediaRoomViews::getId, Function.identity()));
+        List<ExpediaSpokenLanguages> expediaSpokenLanguages = expediaSpokenLanguagesDao.selectAll();
+        Map<String, ExpediaSpokenLanguages> spokenLanguagesMap = expediaSpokenLanguages.stream().collect(Collectors.toMap(ExpediaSpokenLanguages::getId, Function.identity()));
+        List<ExpediaStatistics> expediaStatistics = expediaStatisticsDao.selectAll();
+        Map<Long, ExpediaStatistics> statisticsMap = expediaStatistics.stream().collect(Collectors.toMap(ExpediaStatistics::getId, Function.identity()));
+        List<ExpediaThemes> expediaThemes = expediaThemesDao.selectAll();
+        Map<Long, ExpediaThemes> themesMap = expediaThemes.stream().collect(Collectors.toMap(ExpediaThemes::getId, Function.identity()));
+
         List<ExpediaContent> expediaContents = Lists.newArrayListWithCapacity(256);
         int page = 0;
         Integer load;
@@ -176,9 +219,11 @@ public class ExpediaService {
             load = response.getLoad();
             nextPageUrl = response.getNextPageUrl();
             try {
-                transferBody2(expediaContents, body);
+                transferBody2(expediaContents, body, amenitiesPropertyMap, amenitiesRoomsMap, amenitiesRatesMap,
+                        attributesPetsMap, attributesGeneralMap, themesMap, imagesMap, categoriesMap, statisticsMap,
+                        spokenLanguagesMap, roomViewsMap);
             } catch (Exception e) {
-                log.error("转换对象异常:{}",Throwables.getStackTraceAsString(e));
+                log.error("转换对象异常:{}", Throwables.getStackTraceAsString(e));
                 throw new Exception("当前第" + page + "页，请求路径：" + nextPageUrl + "转换数据出错");
             }
             expediaContentDao.saveBatch(expediaContents);
@@ -187,7 +232,18 @@ public class ExpediaService {
         } while (load > 0);
     }
 
-    private void transferBody2(List<ExpediaContent> expediaContents, String body) {
+    private void transferBody2(List<ExpediaContent> expediaContents, String body,
+                               Map<Long, ExpediaAmenitiesProperty> amenitiesPropertyMap,
+                               Map<Long, ExpediaAmenitiesRooms> amenitiesRoomsMap,
+                               Map<Long, ExpediaAmenitiesRates> amenitiesRatesMap,
+                               Map<Long, ExpediaAttributesPets> attributesPetsMap,
+                               Map<Long, ExpediaAttributesGeneral> attributesGeneralMap,
+                               Map<Long, ExpediaThemes> themesMap,
+                               Map<Long, ExpediaImages> imagesMap,
+                               Map<Long, ExpediaCategories> categoriesMap,
+                               Map<Long, ExpediaStatistics> statisticsMap,
+                               Map<String, ExpediaSpokenLanguages> spokenLanguagesMap,
+                               Map<Long, ExpediaRoomViews> roomViewsMap) {
         JSONObject jsonObject = JSON.parseObject(body);
         for (Map.Entry<String, Object> entry : jsonObject.entrySet()) {
             Object value = entry.getValue();
