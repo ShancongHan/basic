@@ -32,4 +32,10 @@
         FROM `webbeds_daolv_match`
         WHERE `diff_level` &lt;= 300
     </select>
+
+    <select id="selectEffectDataList" resultType="com.example.basic.entity.WebbedsDaolvMatch">
+        SELECT `dotw_hotel_code`, daolv_hotel_id
+        FROM `webbeds_daolv_match`
+        WHERE `diff_level` IS NOT NULL AND `diff_level` &lt;= 300
+    </select>
 </mapper>

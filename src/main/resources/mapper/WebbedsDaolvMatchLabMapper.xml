@@ -33,4 +33,10 @@
             #{item.telMatch},#{item.score},#{item.multiMatch})
         </foreach>
     </insert>
+
+    <select id="selectHighScoreList" resultType="com.example.basic.entity.WebbedsDaolvMatchLab">
+        SELECT daolv_hotel_id, dotw_hotel_code
+        FROM `webbeds_daolv_match_lab`
+        WHERE `score` IN (16, 15, 11, -16, -15)
+    </select>
 </mapper>

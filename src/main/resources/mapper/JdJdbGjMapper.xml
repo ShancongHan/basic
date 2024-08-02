@@ -22,4 +22,15 @@
                   #{id}
               </foreach>
     </select>
+
+    <select id="selectPartByCountryAndCityId" resultType="com.example.basic.entity.JdJdbGj">
+        SELECT id,name,name_cn,address,city_id,city_name_cn,
+               country_code,country_name_cn,
+               star_rating,longitude,latitude,telephone
+        FROM `jd_jdb_gj`
+        WHERE `country_code` = #{countryCode}
+        <if test="cityId != null">
+            AND `city_id` = #{cityId}
+        </if>
+    </select>
 </mapper>

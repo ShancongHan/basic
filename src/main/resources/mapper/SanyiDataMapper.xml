@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic.dao.SanyiDataDao">
+
+    <insert id="saveBatch" parameterType="java.util.List">
+        insert into sanyi_data
+            (`no`, country, city, longitude, latitude, address, country_code, country_mapped)
+        VALUES
+        <foreach collection="insertList" separator="," item="item">
+            (#{item.no},#{item.country},#{item.city},#{item.longitude},#{item.latitude},#{item.address}
+            ,#{item.countryCode},#{item.countryMapped})
+        </foreach>
+    </insert>
+
+    <select id="selectAll" resultType="com.example.basic.entity.SanyiData">
+        SELECT *
+        FROM `sanyi_data`
+    </select>
+
+    <select id="update" parameterType="com.example.basic.entity.SanyiData">
+        UPDATE `sanyi_data`
+        SET `city_id` = #{cityId}, `city_mapped` = #{cityMapped}
+        WHERE `id` = #{id}
+    </select>
+</mapper>

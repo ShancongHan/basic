@@ -13,4 +13,6 @@ public interface WebbedsDaolvMatchLabDao {
     void saveBatch(List<WebbedsDaolvMatchLab> insertList);
 
     void saveBatch2(List<WebbedsDaolvMatchLab> insertList);
+
+    List<WebbedsDaolvMatchLab> selectHighScoreList();
 }

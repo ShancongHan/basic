@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic.dao.ZhJdJdbGjMappingDao">
+
+    <select id="selectAll" resultType="com.example.basic.entity.ZhJdJdbGjMapping">
+        SELECT `local_id`,`plat_id`
+        FROM `zh_jd_jdb_gj_mapping`
+    </select>
+
+    <insert id="insertBatch" parameterType="com.example.basic.entity.ZhJdJdbGjMapping">
+        insert into `zh_jd_jdb_gj_mapping`
+        (`local_id`,`plat_id`,`plat`)
+        values
+        <foreach collection="insertList" item="item" separator=",">
+            (#{item.localId}, #{item.platId}, #{item.plat})
+        </foreach>
+    </insert>
+</mapper>

@@ -11,8 +11,6 @@ import java.math.BigDecimal;
  * @date 2024/5/29
  */
 @Data
-@Accessors(chain = true)
-@Builder
 public class WebbedsDaolvMatch {
     private Long id;	// id
 

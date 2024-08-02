@@ -18,4 +18,6 @@ public interface WebbedsDaolvMatchDao {
     void update(WebbedsDaolvMatch webbedsDaolvMatch);
 
     Set<Integer> alreadySuccessMatchId();
+
+    List<WebbedsDaolvMatch> selectEffectDataList();
 }

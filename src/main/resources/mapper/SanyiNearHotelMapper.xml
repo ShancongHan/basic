@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic.dao.SanyiNearHotelDao">
+    <insert id="saveBatch" parameterType="java.util.List">
+        insert into sanyi_near_hotel (`no`, country, city, longitude, latitude, address, country_code, city_id, hotel_id,
+        hotel_name, hotel_name_original, hotel_city_id, hotel_city_name, hotel_country_code,
+        hotel_country_name, hotel_longitude, hotel_latitude, star_rating, diff_meter,
+        hotel_address, telephone)
+        values
+        <foreach collection="insertList" separator="," item="item">
+            (#{item.no},#{item.country},#{item.city},#{item.longitude},#{item.latitude},#{item.address}
+            ,#{item.countryCode},#{item.cityId},#{item.hotelId},#{item.hotelName}
+            ,#{item.hotelNameOriginal},#{item.hotelCityId},#{item.hotelCityName},#{item.hotelCountryCode}
+            ,#{item.hotelCountryName},#{item.hotelLongitude},#{item.hotelLatitude},#{item.starRating},#{item.diffMeter}
+            ,#{item.hotelAddress},#{item.telephone})
+        </foreach>
+    </insert>
+
+    <select id="selectAll" resultType="com.example.basic.entity.SanyiNearHotel">
+        SELECT *
+        FROM `sanyi_near_hotel`
+    </select>
+</mapper>

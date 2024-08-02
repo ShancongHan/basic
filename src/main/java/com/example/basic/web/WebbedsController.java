@@ -80,4 +80,14 @@ public class WebbedsController {
             System.out.println(Throwables.getStackTraceAsString(e));
         }
     }
+
+    @PostMapping(value = "mapping")
+    public void mapping() {
+        try {
+            webbedsService.mapping();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
 }
+

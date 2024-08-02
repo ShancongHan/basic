@@ -2,6 +2,7 @@ package com.example.basic.dao;
 
 import com.example.basic.domain.CityData;
 import com.example.basic.entity.BCity;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -25,4 +26,6 @@ public interface BCityDao {
     List<BCity> selectList();
 
     List<CityData> selectDataList();
+
+    List<String> selectCityId(@Param(value = "countryCode") String countryCode, @Param(value = "cityName") String cityName);
 }

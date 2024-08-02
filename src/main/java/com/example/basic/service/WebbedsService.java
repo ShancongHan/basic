@@ -60,11 +60,14 @@ public class WebbedsService {
     @Resource
     private WebbedsNotMatchDao webbedsNotMatchDao;
 
-    private static final Integer CORE_POOL_SIZE = 200;
-    private static final Integer MAXIMUM_POOL_SIZE = 250;
+    @Resource
+    private ZhJdJdbGjMappingDao zhJdJdbGjMappingDao;
+
+    private static final Integer CORE_POOL_SIZE = 8;
+    private static final Integer MAXIMUM_POOL_SIZE = 16;
 
     private static final Executor executor = new ThreadPoolExecutor(CORE_POOL_SIZE, MAXIMUM_POOL_SIZE,
-            0L, TimeUnit.MILLISECONDS, new LinkedBlockingDeque<>(50000));
+            0L, TimeUnit.MILLISECONDS, new LinkedBlockingDeque<>(10000));
 
     @Transactional
     public void importData() throws Exception {
@@ -177,7 +180,7 @@ public class WebbedsService {
             JdJdbGj jdJdbGj = daolvHotelIdMap.get(daolvHotel);
             WebbedsHotelData webbedsHotelData = dotwHotelCodeMap.get(dotwHotel);
             if (jdJdbGj == null) {
-                WebbedsDaolvMatch webbedsDaolvMatch = WebbedsDaolvMatch.builder()
+                WebbedsDaolvMatch webbedsDaolvMatch = null;/*WebbedsDaolvMatch.builder()
                         .daolvHotelId(daolvHotel)
                         .daolvHotelName(null)
                         .dotwHotelCode(dotwHotel)
@@ -187,7 +190,7 @@ public class WebbedsService {
                         .daolvLatitude(null)
                         .daolvLongitude(null)
                         .diffMeter(null)
-                        .nameMatch(-1).build();
+                        .nameMatch(-1).build();*/
                 matchList.add(webbedsDaolvMatch);
                 continue;
             }
@@ -197,7 +200,7 @@ public class WebbedsService {
             double diffMeter = getDistanceMeter(daolv, webbeds, Ellipsoid.WGS84);
 
             boolean b = webbedsHotelData.getHotelName().equals(jdJdbGj.getName()) || webbedsHotelData.getHotelName().startsWith(jdJdbGj.getName());
-            WebbedsDaolvMatch webbedsDaolvMatch = WebbedsDaolvMatch.builder()
+            WebbedsDaolvMatch webbedsDaolvMatch = null;/*WebbedsDaolvMatch.builder()
                     .daolvHotelId(daolvHotel)
                     .daolvHotelName(jdJdbGj.getName())
                     .dotwHotelCode(dotwHotel)
@@ -207,7 +210,7 @@ public class WebbedsService {
                     .daolvLatitude(jdJdbGj.getLatitude().toString())
                     .daolvLongitude(jdJdbGj.getLongitude().toString())
                     .diffMeter(new BigDecimal(diffMeter))
-                    .nameMatch(b ? 1 : 0).build();
+                    .nameMatch(b ? 1 : 0).build();*/
             matchList.add(webbedsDaolvMatch);
         }
         webbedsDaolvMatchDao.saveBatch(matchList);
@@ -237,32 +240,28 @@ public class WebbedsService {
             double diffMeter = getDistanceMeter(daolv, webbeds, Ellipsoid.WGS84);
 
             boolean b = webbedsDaolvMatch.getDotwHotelName().equals(jdJdbDaolv.getName()) || webbedsDaolvMatch.getDotwHotelName().startsWith(jdJdbDaolv.getName());
-            webbedsDaolvMatch.setDaolvHotelName(jdJdbDaolv.getName())
+            /*webbedsDaolvMatch.setDaolvHotelName(jdJdbDaolv.getName())
                     .setDaolvLatitude(jdJdbDaolv.getLatitude().toString())
                     .setDaolvLongitude(jdJdbDaolv.getLongitude().toString())
                     .setDiffMeter(new BigDecimal(diffMeter))
-                    .setNameMatch(b ? 1 : 0);
+                    .setNameMatch(b ? 1 : 0);*/
             webbedsDaolvMatchDao.update(webbedsDaolvMatch);
             //System.out.println(webbedsDaolvMatch);
         }
     }
 
     public void matchTest3() throws Exception {
-        List<String> webbedsCountries = webbedsHotelDataDao.selectCountryCodes();
-        List<String> matchCountry = webbedsDaolvMatchLabCountDao.selectDownCountry();
+        //List<String> webbedsCountries = webbedsHotelDataDao.selectCountryCodes();
+        //List<String> matchCountry = webbedsDaolvMatchLabCountDao.selectDownCountry();
         List<String> notFoundCountry = Lists.newArrayList();
+        //List<String> skipCountry = Lists.newArrayList("MY", "MA", "ZA", "RU", "AT", "HR", "FR", "DE", "GR", "IT", "JP", "MX", "NL", "PL", "PT", "ES", "SE", "CH", "TR", "GB", "CN", "ID", "PH", "KR", "TW", "TH", "VN", "BR", "SA", "AR", "CO", "CA", "US", "AU", "NZ", "IN", "LK");
         List<String> skipCountry = Lists.newArrayList("MY");
-        List<String> skkkkipList = Lists.newArrayList();
-        for (String countryCode : webbedsCountries) {
+        for (String countryCode : skipCountry) {
             // 已经匹配过的国家不再处理
-            if (matchCountry.contains(countryCode)) {
+        /*    if (matchCountry.contains(countryCode)) {
                 continue;
             }
-            // 暂时跳过
-            if (skipCountry.contains(countryCode)) {
-                continue;
-            }
-            StopWatch watch = new StopWatch();
+        */    StopWatch watch = new StopWatch();
             watch.start("国家" + countryCode);
             WebbedsDaolvMatchLabCount matchLabCount = new WebbedsDaolvMatchLabCount();
             List<WebbedsHotelData> webbedsHotelDataList = webbedsHotelDataDao.selectListByCountry(countryCode);
@@ -279,10 +278,6 @@ public class WebbedsService {
             webbedsHotelDataList = webbedsHotelDataList.stream().filter(e -> !alreadyMatch.contains(e.getDotwHotelCode())).collect(Collectors.toList());
             matchLabCount.setWebbedsNeedMatchCount(webbedsHotelDataList.size());
             matchLabCount.setDaolvTotal(jdJdbDaolvList.size());
-            if (webbedsHotelDataList.size() * jdJdbDaolvList.size() > 10000000) {
-                skkkkipList.add(countryCode);
-                continue;
-            }
 
             Map<String, List<WebbedsHotelData>> webbedsDataMap = webbedsHotelDataList.stream().collect(Collectors.groupingBy(WebbedsHotelData::getHotelName));
             Map<String, List<JdJdbDaolv>> daolvDataMap = jdJdbDaolvList.stream().collect(Collectors.groupingBy(JdJdbDaolv::getName));
@@ -293,7 +288,7 @@ public class WebbedsService {
             for (Map.Entry<String, List<WebbedsHotelData>> entry : webbedsDataMap.entrySet()) {
                 String hotelName = entry.getKey();
                 long start = System.currentTimeMillis();
-                System.out.println("国家" + countryCode + hotelName + "计时开始" + start);
+                //System.out.println("国家：" + countryCode + "酒店：" +  hotelName + "-计时开始" + start);
                 //System.out.println("匹配第" + i + "家酒店，酒店名：" + hotelName + "还差" + (max - i));
                 List<WebbedsHotelData> webbedsHotelList = entry.getValue();
                 List<JdJdbDaolv> findDaolvHotels = daolvDataMap.get(hotelName);
@@ -304,7 +299,7 @@ public class WebbedsService {
                     // 无同名酒店，全部匹配计算得分绝对值
                     findMatch(uniqueList, webbedsHotelList, jdJdbDaolvList, zeroScores, multiList);
                 }
-                System.out.println("国家" + countryCode + hotelName + "计时结束,耗时" + (System.currentTimeMillis() - start));
+                System.out.println("国家" + countryCode + "酒店：" +  hotelName + "比对总耗时" + (System.currentTimeMillis() - start));
             }
             watch.stop();
             matchLabCount.setTime((int) watch.getTotalTimeSeconds());
@@ -318,7 +313,6 @@ public class WebbedsService {
             saveBatch3(multiList);
         }
         System.out.println("找不到这些国家" + notFoundCountry);
-        System.out.println("这些国家数据量过大，暂时跳过" + skkkkipList);
     }
 
     private void saveBatch2(List<WebbedsDaolvMatchLab> insertList) {
@@ -353,6 +347,8 @@ public class WebbedsService {
     private void findMatch(List<WebbedsDaolvMatchLab> uniqueList, List<WebbedsHotelData> webbedsHotelList,
                            List<JdJdbDaolv> daolvHotels, Set<Integer> zeroScores,
                            List<WebbedsDaolvMatchLab> multiList) throws Exception {
+        WebbedsHotelData webbedsHotelData1 = webbedsHotelList.get(0);
+        long start = System.currentTimeMillis();
         for (WebbedsHotelData webbedsHotelData : webbedsHotelList) {
             List<CompletableFuture<CalculateResult>> futures = Lists.newArrayListWithCapacity(256);
             int size = daolvHotels.size();
@@ -384,6 +380,8 @@ public class WebbedsService {
                     }
                 }
             }
+            System.out.println("国家：" + webbedsHotelData1.getShortCountryName() +
+                    "酒店：" +  webbedsHotelData1.getHotelName() + "计分耗时" + (System.currentTimeMillis() - start));
             // 一个webbeds酒店，最终没有分数，计为0分
             if (scoreMap.isEmpty()) {
                 zeroScores.add(webbedsHotelData.getDotwHotelCode());
@@ -443,7 +441,7 @@ public class WebbedsService {
     private WebbedsDaolvMatchLab createOneMatchLab(WebbedsHotelData webbedsHotelData, JdJdbDaolv jdJdbDaolv,
                                                    Integer score, boolean multiMatch) {
         Double meter = MappingScoreHelper.calculateMeter(webbedsHotelData, jdJdbDaolv);
-        return WebbedsDaolvMatchLab.builder()
+        return null;/*WebbedsDaolvMatchLab.builder()
                 .dotwHotelCode(webbedsHotelData.getDotwHotelCode())
                 .dotwHotelName(webbedsHotelData.getHotelName())
                 .webbedsCountry(webbedsHotelData.getShortCountryName())
@@ -463,7 +461,7 @@ public class WebbedsService {
                 .addressMatch(Math.abs(score) == 5 || Math.abs(score) == 6 || Math.abs(score) == 15 || Math.abs(score) == 16 ? 1 : 0)
                 .telMatch(Math.abs(score) == 1 || Math.abs(score) == 6 || Math.abs(score) == 11 || Math.abs(score) == 16 ? 1 : 0)
                 .score(score)
-                .multiMatch(multiMatch ? 1 : 0).build();
+                .multiMatch(multiMatch ? 1 : 0).build();*/
     }
 
     public void matchTest4() {
@@ -474,4 +472,74 @@ public class WebbedsService {
         System.out.println("找不到的" + webbedsCountries);
 
     }
+
+    public void mapping() {
+        // 导入12+6(5) 数据至zh_jd_jdb_gj_mapping表
+        // 查询出分数等于16, 15, 11, -16, -15的酒店匹配数据
+        List<WebbedsDaolvMatchLab> webbedsDaolvMatchLabList = webbedsDaolvMatchLabDao.selectHighScoreList();
+        Map<Integer, List<WebbedsDaolvMatchLab>> daolvIdMap = webbedsDaolvMatchLabList.stream().collect(Collectors.groupingBy(WebbedsDaolvMatchLab::getDaolvHotelId));
+
+        // 查询出webbeds给的经纬度访问在300米以内的酒店匹配数据
+        List<WebbedsDaolvMatch> webbedsDaolvMatchList = webbedsDaolvMatchDao.selectEffectDataList();
+        Map<Integer, List<WebbedsDaolvMatch>> daolvIdMap2 = webbedsDaolvMatchList.stream().collect(Collectors.groupingBy(WebbedsDaolvMatch::getDaolvHotelId));
+
+        // 查询出当前的本地酒店映射表
+        List<ZhJdJdbGjMapping> zhJdJdbGjMappingList = zhJdJdbGjMappingDao.selectAll();
+        Map<String, Long> daolvExistMap = zhJdJdbGjMappingList.stream().collect(Collectors.toMap(ZhJdJdbGjMapping::getPlatId, ZhJdJdbGjMapping::getLocalId));
+
+
+        List<ZhJdJdbGjMapping> insertList = Lists.newArrayListWithCapacity(webbedsDaolvMatchLabList.size() + webbedsDaolvMatchList.size());
+
+        for (Map.Entry<Integer, List<WebbedsDaolvMatchLab>> entry : daolvIdMap.entrySet()) {
+            String daolvId = entry.getKey().toString();
+            List<WebbedsDaolvMatchLab> labs = entry.getValue();
+            if (daolvExistMap.containsKey(daolvId)) {
+                Long localId = daolvExistMap.get(daolvId);
+                for (WebbedsDaolvMatchLab lab : labs) {
+                    String dotwHotelCode = lab.getDotwHotelCode().toString();
+                    ZhJdJdbGjMapping zhJdJdbGjMapping = new ZhJdJdbGjMapping();
+                    zhJdJdbGjMapping.setLocalId(localId);
+                    zhJdJdbGjMapping.setPlatId(dotwHotelCode);
+                    zhJdJdbGjMapping.setPlat(2000071);
+                    insertList.add(zhJdJdbGjMapping);
+                }
+            }
+        }
+
+        for (Map.Entry<Integer, List<WebbedsDaolvMatch>> entry : daolvIdMap2.entrySet()) {
+            String daolvId = entry.getKey().toString();
+            List<WebbedsDaolvMatch> matches = entry.getValue();
+            if (daolvExistMap.containsKey(daolvId)) {
+                Long localId = daolvExistMap.get(daolvId);
+                for (WebbedsDaolvMatch match : matches) {
+                    String dotwHotelCode = match.getDotwHotelCode().toString();
+                    ZhJdJdbGjMapping zhJdJdbGjMapping = new ZhJdJdbGjMapping();
+                    zhJdJdbGjMapping.setLocalId(localId);
+                    zhJdJdbGjMapping.setPlatId(dotwHotelCode);
+                    zhJdJdbGjMapping.setPlat(2000071);
+                    insertList.add(zhJdJdbGjMapping);
+                }
+            }
+        }
+        //
+        saveBatch4(insertList);
+        System.out.println(insertList.size());
+    }
+
+    private void saveBatch4(List<ZhJdJdbGjMapping> insertList) {
+        int start = 0;
+        for (int j = 0; j < insertList.size(); j++) {
+            if (j != 0 && j % 1000 == 0) {
+                List<ZhJdJdbGjMapping> list = insertList.subList(start, j);
+                zhJdJdbGjMappingDao.insertBatch(list);
+                start = j;
+            }
+        }
+        List<ZhJdJdbGjMapping> list = insertList.subList(start, insertList.size());
+        if (CollectionUtils.isNotEmpty(list)) {
+            zhJdJdbGjMappingDao.insertBatch(list);
+        }
+
+    }
+
 }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic.dao.ExpediaContentDao">
+    <insert id="saveBatch" parameterType="com.example.basic.entity.ExpediaContent">
+        insert into `expedia_content` (hotel_id, `name`, name_en, address, address_en, country_code,
+        state_province_code,
+        state_province_name, city, zip_code, star_rating, longitude, latitude, telephone, fax,
+        category, category_en, rank, check_in_all_day, check_in_start_time, check_in_end_time, check_in_instructions,
+        check_in_instructions_en, check_in_special_instructions, check_in_special_instructions_en,
+        check_in_min_age, check_out_time, check_out_time_en, fees, fees_en, know_before_you_go,
+        attributes, attributes_en, amenities, amenities_en, images, rooms, rooms_en, rates,
+        rates_en, added_time, updated_time, descriptions, statistics, airports, themes,
+        all_inclusive, tax_id, `chain`, brand, spoken_languages, create_time)
+        values
+        <foreach collection="insertList" separator="," item="item">
+            (#{item.hotelId}, #{item.name}, #{item.nameEn}, #{item.address}, #{item.addressEn}, #{item.countryCode}
+            , #{item.stateProvinceCode}, #{item.stateProvinceName}, #{item.city}, #{item.zipCode},#{item.starRating}
+            , #{item.longitude}, #{item.latitude}, #{item.telephone}, #{item.fax}, #{item.category}, #{item.categoryEn}
+            , #{item.rank}, #{item.checkInAllDay}, #{item.checkInStartTime}, #{item.checkInEndTime}, #{item.checkInInstructions}
+            , #{item.checkInInstructionsEn}, #{item.checkInSpecialInstructions},#{item.checkInSpecialInstructionsEn}
+            , #{item.checkInMinAge}, #{item.checkOutTime}, #{item.checkOutTimeEn}, #{item.fees}, #{item.feesEn}
+            , #{item.knowBeforeYouGo}, #{item.attributes}, #{item.attributesEn}, #{item.amenities}, #{item.amenitiesEn}
+            , #{item.images}, #{item.rooms}, #{item.roomsEn}, #{item.rates}, #{item.ratesEn}, #{item.addedTime}
+            , #{item.updatedTime}, #{item.descriptions}, #{item.statistics}, #{item.airports}, #{item.themes}
+            , #{item.allInclusive}, #{item.taxId}, #{item.chain}, #{item.brand}, #{item.spokenLanguages},
+            #{item.createTime})
+        </foreach>
+    </insert>
+</mapper>

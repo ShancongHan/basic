@@ -64,4 +64,10 @@
         from b_city bc
         left join b_class bc2 on bc.nation = bc2.id
     </select>
+
+    <select id="selectCityId" resultType="java.lang.String">
+        SELECT id
+        FROM `b_city`
+        WHERE `nation` = #{countryCode} and (`city_name` LIKE CONCAT('%',#{cityName},'%') OR `e_name` LIKE CONCAT('%',#{cityName},'%'))
+    </select>
 </mapper>
