@@ -1,5 +1,6 @@
 package com.example.basic.domain;
 
+import com.alibaba.fastjson2.JSONObject;
 import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -17,4 +18,5 @@ public class ExpediaResponse {
     private String nextPageUrl;
     private Integer load;
     private String body;
+    private JSONObject jsonObject;
 }

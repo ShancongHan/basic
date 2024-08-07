@@ -59,9 +59,9 @@ public class ExpediaController {
      * 获取酒店
      */
     @PostMapping(value = "pull-content")
-    public void pullContent() {
+    public void pullContent(Integer page, String url) {
         try {
-            expediaService.pullContent();
+            expediaService.pullContent(page, url);
         } catch (Exception e) {
             System.out.println(Throwables.getStackTraceAsString(e));
         }
@@ -74,6 +74,21 @@ public class ExpediaController {
     public void analyzeStaticFile() {
         try {
             expediaService.analyzeStaticFile();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
+
+    /**
+     * 完善区域
+     *
+     * @param page page
+     * @param url   url
+     */
+    @PostMapping(value = "finish-regions")
+    public void finishRegions(Integer page, String url) {
+        try {
+            expediaService.finishRegions(page, url);
         } catch (Exception e) {
             System.out.println(Throwables.getStackTraceAsString(e));
         }

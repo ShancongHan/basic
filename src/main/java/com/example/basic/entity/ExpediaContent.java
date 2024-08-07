@@ -44,69 +44,17 @@ public class ExpediaContent {
 
     private String fax;	// 传真
 
-    private String category;	// 分类
+    private Long categoryId;	// 分类id
 
-    private String categoryEn;	// 英文分类
+    private String category;	// 分类
 
     private Long rank;	// 排序
 
-    private String checkInAllDay;	// 24hour checkIn
+    private Boolean expediaCollect;	// expedia: 1-true,0-false
 
-    private String checkInStartTime;	// checkIn开始时间
-
-    private String checkInEndTime;	// checkIn结束时间
-
-    private String checkInInstructions;	// checkIn入住政策
-
-    private String checkInInstructionsEn;	// checkIn入住政策英文
-
-    private String checkInSpecialInstructions;	// checkIn任何特别说明
-
-    private String checkInSpecialInstructionsEn;	// checkIn任何特别说明英文
-
-    private Integer checkInMinAge;	// checkIn最小年龄
-
-    private String checkOutTime;	// checkOut时间
-
-    private String checkOutTimeEn;	// checkOut时间英文
-
-    private String fees;	// Information related to a property fees.
-
-    private String feesEn;	// Information related to a property fees.
-
-    private String knowBeforeYouGo;	// 入住须知
-
-    private String attributes;	// 宠物属性和物业属性
-
-    private String attributesEn;	// 宠物属性和物业属性英文
-
-    private String amenities;	// 设施
-
-    private String amenitiesEn;	// 设施英文
-
-    private String images;	// 图片
-
-    private String rooms;	// 房型
-
-    private String roomsEn;	// 房型英文
-
-    private String rates;	// 价格计划
-
-    private String ratesEn;	// 价格计划英文
-
-    private String addedTime;	// 加入expedia时间
-
-    private String updatedTime;	// expedia更新时间
-
-    private String descriptions;	// 酒店描述
-
-    private String statistics;	// 房产的统计数据，例如楼层数
-
-    private String airports;	// 推荐机场
+    private Boolean propertyCollect;	// property: 1-true,0-false
 
     private String themes;	// 酒店主题
-
-    private String allInclusive;	// 全包服务说明
 
     private String taxId;	// Tax ID.
 
@@ -116,5 +64,14 @@ public class ExpediaContent {
 
     private String spokenLanguages;	// 支持语言
 
+    private String heroImageMin;	// 70px图
+
+    private String heroImageMiddle;	// 350px图
+
+    private String addedTime;	// 加入expedia时间
+
+    private String updatedTime;	// expedia更新时间
+
     private Date createTime;	// 新增时间
+
 }

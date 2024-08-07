@@ -11,4 +11,6 @@ import java.util.List;
 public interface ExpediaRegionDao {
 
     void saveBatch(List<ExpediaRegion> insertList);
+
+    int update(ExpediaRegion expediaRegion);
 }

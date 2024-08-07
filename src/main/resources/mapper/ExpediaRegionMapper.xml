@@ -14,4 +14,11 @@
              #{item.descendants})
         </foreach>
     </insert>
+
+
+    <update id="update" parameterType="com.example.basic.entity.ExpediaRegion">
+        UPDATE `expedia_region`
+        SET `name_en` = #{nameEn}, `name_full_en` = #{nameFullEn}
+        WHERE `region_id` = #{regionId};
+    </update>
 </mapper>

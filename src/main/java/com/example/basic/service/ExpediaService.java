@@ -27,10 +27,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -180,8 +177,8 @@ public class ExpediaService {
         }
     }
 
-    public void pullContent() throws Exception {
-        List<ExpediaAmenitiesProperty> expediaAmenitiesProperties = expediaAmenitiesPropertyDao.selectAll();
+    public void pullContent(Integer page, String url) throws Exception {
+        /*List<ExpediaAmenitiesProperty> expediaAmenitiesProperties = expediaAmenitiesPropertyDao.selectAll();
         Map<Long, ExpediaAmenitiesProperty> amenitiesPropertyMap = expediaAmenitiesProperties.stream().collect(Collectors.toMap(ExpediaAmenitiesProperty::getId, Function.identity()));
         List<ExpediaAmenitiesRates> expediaAmenitiesRates = expediaAmenitiesRatesDao.selectAll();
         Map<Long, ExpediaAmenitiesRates> amenitiesRatesMap = expediaAmenitiesRates.stream().collect(Collectors.toMap(ExpediaAmenitiesRates::getId, Function.identity()));
@@ -202,27 +199,29 @@ public class ExpediaService {
         List<ExpediaStatistics> expediaStatistics = expediaStatisticsDao.selectAll();
         Map<Long, ExpediaStatistics> statisticsMap = expediaStatistics.stream().collect(Collectors.toMap(ExpediaStatistics::getId, Function.identity()));
         List<ExpediaThemes> expediaThemes = expediaThemesDao.selectAll();
-        Map<Long, ExpediaThemes> themesMap = expediaThemes.stream().collect(Collectors.toMap(ExpediaThemes::getId, Function.identity()));
+        Map<Long, ExpediaThemes> themesMap = expediaThemes.stream().collect(Collectors.toMap(ExpediaThemes::getId, Function.identity()));*/
 
         List<ExpediaContent> expediaContents = Lists.newArrayListWithCapacity(256);
-        int page = 0;
+        page = page == null ? 0 : page;
         Integer load;
-        String nextPageUrl = null;
+        String nextPageUrl = url;
         // 629479
+        // 632249
         do {
             StopWatch watch = new StopWatch();
             watch.start();
             if ("".equals(nextPageUrl)) break;
             ExpediaResponse response = httpUtils.pullContent(nextPageUrl);
             watch.stop();
-            log.info("获取第{}页内容, cost[s]: {},请求路径:{}", page, watch.getTotalTimeSeconds(), nextPageUrl);
+
             String body = response.getBody();
+            //JSONObject jsonObject = response.getJsonObject();
             load = response.getLoad();
+            log.info("获取第{}页内容, cost[s]: {},当前请求路径:{}", page, watch.getTotalTimeSeconds(), nextPageUrl);
             nextPageUrl = response.getNextPageUrl();
+            log.info("下一页请求路径:{}", nextPageUrl);
             try {
-                transferBody2(expediaContents, body, amenitiesPropertyMap, amenitiesRoomsMap, amenitiesRatesMap,
-                        attributesPetsMap, attributesGeneralMap, themesMap, imagesMap, categoriesMap, statisticsMap,
-                        spokenLanguagesMap, roomViewsMap);
+                transferBody2(expediaContents, body);
             } catch (Exception e) {
                 log.error("转换对象异常:{}", Throwables.getStackTraceAsString(e));
                 throw new Exception("当前第" + page + "页，请求路径：" + nextPageUrl + "转换数据出错");
@@ -233,19 +232,8 @@ public class ExpediaService {
         } while (load > 0);
     }
 
-    private void transferBody2(List<ExpediaContent> expediaContents, String body,
-                               Map<Long, ExpediaAmenitiesProperty> amenitiesPropertyMap,
-                               Map<Long, ExpediaAmenitiesRooms> amenitiesRoomsMap,
-                               Map<Long, ExpediaAmenitiesRates> amenitiesRatesMap,
-                               Map<Long, ExpediaAttributesPets> attributesPetsMap,
-                               Map<Long, ExpediaAttributesGeneral> attributesGeneralMap,
-                               Map<Long, ExpediaThemes> themesMap,
-                               Map<Long, ExpediaImages> imagesMap,
-                               Map<Long, ExpediaCategories> categoriesMap,
-                               Map<Long, ExpediaStatistics> statisticsMap,
-                               Map<String, ExpediaSpokenLanguages> spokenLanguagesMap,
-                               Map<Long, ExpediaRoomViews> roomViewsMap) {
-        JSONObject jsonObject = JSON.parseObject(body);
+    private void transferBody2(List<ExpediaContent> expediaContents, String json) {
+        JSONObject jsonObject = JSON.parseObject(json);
         for (Map.Entry<String, Object> entry : jsonObject.entrySet()) {
             Object value = entry.getValue();
             Content content = JSON.parseObject(value.toString(), Content.class);
@@ -260,52 +248,55 @@ public class ExpediaService {
             expediaContent.setCity(address.getCity());
             expediaContent.setZipCode(address.getPostal_code());
             Ratings ratings = content.getRatings();
-            if (ratings != null && ratings.getProperty() != null) {
+            if (ratings != null && ratings.getProperty() != null && ratings.getProperty().getRating() != null) {
                 expediaContent.setStarRating(new BigDecimal(ratings.getProperty().getRating()));
             }
             Location location = content.getLocation();
-            expediaContent.setLongitude(location.getCoordinates().getLongitude());
-            expediaContent.setLatitude(location.getCoordinates().getLatitude());
+            if (location != null && location.getCoordinates() != null) {
+                expediaContent.setLongitude(location.getCoordinates().getLongitude());
+                expediaContent.setLatitude(location.getCoordinates().getLatitude());
+            }
             expediaContent.setTelephone(content.getPhone());
             expediaContent.setFax(content.getFax());
             String category = content.getCategory();
+            expediaContent.setCategoryId(Long.valueOf(JSON.parseObject(category).get("id").toString()));
             expediaContent.setCategory(JSON.parseObject(category).get("name").toString());
             expediaContent.setRank((long) content.getRank());
-            Checkin checkin = content.getCheckin();
-            expediaContent.setCheckInAllDay(checkin.get_24hour());
-            expediaContent.setCheckInStartTime(checkin.getBegin_time());
-            expediaContent.setCheckInEndTime(checkin.getEnd_time());
-            expediaContent.setCheckInInstructions(checkin.getInstructions());
-            expediaContent.setCheckInSpecialInstructions(checkin.getSpecial_instructions());
-            expediaContent.setCheckInMinAge(checkin.getMin_age());
-            Checkout checkout = content.getCheckout();
-            expediaContent.setCheckOutTime(checkout.getTime());
-            expediaContent.setFees(JSON.toJSONString(content.getFees()));
-            Policies policies = content.getPolicies();
-            expediaContent.setKnowBeforeYouGo(policies == null ? null : policies.getKnow_before_you_go());
-            expediaContent.setAttributes(JSON.toJSONString(content.getAttributes()));
-            expediaContent.setAmenities(content.getAmenities());
-            List<Images> images = content.getImages();
-            expediaContent.setImages(JSON.toJSONString(images));
-            Map<String, Room> rooms = content.getRooms();
-            if (rooms != null) {
-                expediaContent.setRooms(JSON.toJSONString(rooms.values()));
+            BusinessModel businessModel = content.getBusiness_model();
+            if (businessModel != null) {
+                expediaContent.setExpediaCollect(businessModel.isExpedia_collect());
+                expediaContent.setPropertyCollect(businessModel.isProperty_collect());
             }
-            expediaContent.setRates(content.getRates());
             HotelDates dates = content.getDates();
-            expediaContent.setAddedTime(dates.getAdded());
-            expediaContent.setUpdatedTime(dates.getUpdated());
-            Descriptions descriptions = content.getDescriptions();
-            expediaContent.setDescriptions(JSON.toJSONString(descriptions));
-            expediaContent.setStatistics(content.getStatistics());
-            String airports = content.getAirports();
-            expediaContent.setAirports(airports);
-            expediaContent.setThemes(content.getThemes());
-            expediaContent.setAllInclusive(JSON.toJSONString(content.getAll_inclusive()));
+            if (dates != null) {
+                expediaContent.setAddedTime(dates.getAdded());
+                expediaContent.setUpdatedTime(dates.getUpdated());
+            }
+            String themes = content.getThemes();
+            if (StringUtils.hasLength(themes)) {
+                expediaContent.setThemes(String.join(",", JSON.parseObject(themes).keySet()));
+            }
             expediaContent.setTaxId(content.getTax_id());
-            expediaContent.setChain(content.getChain());
-            expediaContent.setBrand(content.getBrand());
-            expediaContent.setSpokenLanguages(content.getSpoken_languages());
+            String chain = content.getChain();
+            if (StringUtils.hasLength(chain)) {
+                expediaContent.setChain(JSON.parseObject(chain).values().stream().map(Object::toString).collect(Collectors.joining(",")));
+            }
+            String brand = content.getBrand();
+            if (StringUtils.hasLength(brand)) {
+                expediaContent.setBrand(JSON.parseObject(brand).values().stream().map(Object::toString).collect(Collectors.joining(",")));
+            }
+            String spokenLanguages = content.getSpoken_languages();
+            if (StringUtils.hasLength(spokenLanguages)) {
+                expediaContent.setSpokenLanguages(String.join(",", JSON.parseObject(spokenLanguages).keySet()));
+            }
+            List<Images> images = content.getImages();
+            if (CollectionUtils.isNotEmpty(images)) {
+                Optional<Images> first = images.stream().filter(Images::isHero_image).findFirst();
+                first.ifPresent(e -> {
+                    expediaContent.setHeroImageMin(((JSONObject) JSON.parseObject(e.getLinks()).get("70px")).get("href").toString());
+                    expediaContent.setHeroImageMiddle(((JSONObject) JSON.parseObject(e.getLinks()).get("350px")).get("href").toString());
+                });
+            }
             expediaContent.setCreateTime(new Date());
             expediaContents.add(expediaContent);
         }
@@ -324,5 +315,59 @@ public class ExpediaService {
             insertList.add(item);
         }
         expediaSpokenLanguagesDao.saveBatch(insertList);
+    }
+
+    public void finishRegions(Integer page, String url) throws Exception {
+        List<ExpediaRegion> expediaRegions = Lists.newArrayListWithCapacity(128);
+        List<ExpediaRegion> notFoundExpediaRegions = Lists.newArrayList();
+        page = page == null ? 0 : page;
+        Integer load;
+        String nextPageUrl = url;
+        do {
+            StopWatch watch = new StopWatch();
+            watch.start();
+            if ("".equals(nextPageUrl)) break;
+            ExpediaResponse response = httpUtils.pullRegionsEn(nextPageUrl);
+            watch.stop();
+            log.info("获取第{}页内容, cost[s]: {},请求路径:{}", page, watch.getTotalTimeSeconds(), nextPageUrl);
+            String body = response.getBody();
+            load = response.getLoad();
+            nextPageUrl = response.getNextPageUrl();
+            log.info("下一页请求路径:{}", nextPageUrl);
+            try {
+                addBody(expediaRegions, body);
+            } catch (Exception e) {
+                Throwables.getStackTraceAsString(e);
+            }
+            update(expediaRegions, notFoundExpediaRegions);
+            expediaRegions.clear();
+            log.info("第{}页中存在这些ids:{}没有数据", page, notFoundExpediaRegions.stream().map(ExpediaRegion::getId).toList());
+            notFoundExpediaRegions.clear();
+            page++;
+        } while (load > 0);
+    }
+
+    private void update(List<ExpediaRegion> expediaRegions, List<ExpediaRegion> notFoundExpediaRegions) {
+        for (ExpediaRegion expediaRegion : expediaRegions) {
+            int update = expediaRegionDao.update(expediaRegion);
+            if (update != 1) {
+                notFoundExpediaRegions.add(expediaRegion);
+            }
+        }
+
+    }
+
+    private void addBody(List<ExpediaRegion> expediaRegions, String body) {
+        List<Region> regionList = JSON.parseArray(body, Region.class);
+        if (CollectionUtils.isNotEmpty(regionList)) {
+            //转换成expediaRegions
+            for (Region region : regionList) {
+                ExpediaRegion expediaRegion = new ExpediaRegion();
+                expediaRegion.setRegionId(region.getId());
+                expediaRegion.setNameEn(region.getName());
+                expediaRegion.setNameFullEn(region.getName_full());
+                expediaRegions.add(expediaRegion);
+            }
+        }
     }
 }

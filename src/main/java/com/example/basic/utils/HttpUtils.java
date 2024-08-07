@@ -44,8 +44,6 @@ public class HttpUtils {
     private final static String LINK_HEAD_KEY = "Link";
     private final static String LODA_HEAD_KEY = "Load";
 
-    public static final MediaType MEDIA_TYPE_JSON = MediaType.parse("application/json; charset=utf-8");
-
     @Resource
     private OkHttpClient okHttpClient;
 
@@ -91,11 +89,13 @@ public class HttpUtils {
         Call call = okHttpClient.newCall(request);
         Response response = call.execute();
         watch.stop();
-        watch.start("解析http内容");
+        watch.start("解析http头");
         String link = response.header(LINK_HEAD_KEY);
         String nextPageUrl = StringUtils.isBlank(link) ? "" : link.substring(link.indexOf('<') + 1, link.indexOf('>'));
         String total = response.header(PAGE_HEAD_KEY);
         String load = response.header(LODA_HEAD_KEY);
+        watch.stop();
+        watch.start("解析http body");
         String body = response.body().string();
         watch.stop();
         ExpediaResponse real = ExpediaResponse.builder().build().setBody(body).setTotal(Integer.parseInt(total)).setNextPageUrl(nextPageUrl).setLoad(Integer.parseInt(load));
@@ -118,5 +118,32 @@ public class HttpUtils {
             sb.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1));
         }
         return "EAN apikey=" + KEY + ",signature=" + sb + ",timestamp=" + timestamp;
+    }
+
+    public ExpediaResponse pullRegionsEn(String sourceUrl) throws Exception {
+        String url = StringUtils.isNotBlank(sourceUrl) ? sourceUrl : ENDPOINT + REGIONS;
+        StopWatch watch = new StopWatch();
+        watch.start("http发送请求");
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
+        urlBuilder.addQueryParameter(INCLUDE_KEY, INCLUDE_VALUE);
+        urlBuilder.addQueryParameter(LANGUAGE_KEY, LANGUAGE);
+        Request request = new Request.Builder()
+                .url(urlBuilder.build().url())
+                .header("Accept", "application/json")
+                .header("Authorization", createSign())
+                .build();
+        Call call = okHttpClient.newCall(request);
+        Response response = call.execute();
+        watch.stop();
+        watch.start("解析http内容");
+        String link = response.header(LINK_HEAD_KEY);
+        String nextPageUrl = StringUtils.isBlank(link) ? "" : link.substring(link.indexOf('<') + 1, link.indexOf('>'));
+        String total = response.header(PAGE_HEAD_KEY);
+        String load = response.header(LODA_HEAD_KEY);
+        String body = response.body().string();
+        watch.stop();
+        ExpediaResponse real = ExpediaResponse.builder().build().setBody(body).setTotal(Integer.parseInt(total)).setNextPageUrl(nextPageUrl).setLoad(Integer.parseInt(load));
+        log.info("http整体耗时:{}, {}", watch.getTotalTimeSeconds(), watch.prettyPrint());
+        return real;
     }
 }

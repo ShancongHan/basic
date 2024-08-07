@@ -57,4 +57,52 @@
              #{item.nation}, #{item.nationName}, #{item.nationCode})
         </foreach>
     </insert>
+    <insert id="xx">
+        INSERT INTO tr_refund (id, refund_no, is_outline_refund, tr_outline_refund_id, product_type, pms_refund_no,
+                               purchase_status, customer_status, order_from, tr_order_id, tr_ticket_id, ticket_code, train_code,
+                               from_station_code, from_station_name, from_city, from_city_name, from_date, from_time, from_week,
+                               to_station_code, to_station_name, to_city, to_city_name, to_date, to_time, travel_time,
+                               seat_type, seat_code, passenger_name, id_type, id_code, passenger_type, sex, emp_id, emp_deptid,
+                               fs_emp_id, fs_emp_no, fs_emp_name, fs_emp_dept_id, cost_center, cost_center_code,
+                               cost_center_name, purchase_units, purchase_units_name, purchase_mothed, purchase_mothed_name,
+                               purchase_subject, purchase_subject_name, return_prices, refund_service_charge,
+                               sell_service_charge, purchase_refund_rate, purchase_refund_poundage, purchase_refund_amount,
+                               buy_service_charge, cg_zfsxf, cu_refund_rate, cu_refund_poundage, cu_refund_amount, yhje,
+                               pay_status, ishd, pay_mothed, pay_mothed_name, pay_subject, pay_subject_name, pay_user,
+                               pay_user_name, pay_dept, pay_dept_name, pay_comp, pay_comp_name, pay_date, zfsxf, pay_amount,
+                               pay_bank_card, pay_billno, pay_remark, if_pay_ol, jszt, recon_id, dept_type, jszt_dh, jszq,
+                               js_repay_date, js_lxr, js_lxr_mobile, js_bz, js_hksj, jsr, jsr_name, jsr_dept, jsr_dept_name,
+                               jsr_comp, jsr_comp_name, cg_pk_jszt, cg_pk_jsdh, cg_pk_jsrq, cg_pk_jsr, cg_pk_jsrmc, cg_pk_jsbm,
+                               cg_pk_jsbmmc, cg_pk_jsgs, cg_pk_jsgsmc, back_descriptor, refund_reason_vip, current_dept,
+                               current_dept_name, current_comp, current_comp_name, ddr, ddr_name, ddbm, ddbm_name, ddgs,
+                               ddgs_name, ddsj, ddbz, apply_user, apply_user_name, apply_dept, apply_dept_name, apply_comp,
+                               apply_comp_name, apply_date, cfm_user, cfm_user_name, cfm_dept, cfm_dept_name, cfm_comp,
+                               cfm_comp_name, cfm_date, check_user, check_user_name, check_dept, check_dept_name, check_comp,
+                               check_comp_name, check_date, cgtjr, cgtjrmc, cgtjbm, cgtjbmmc, cgtjgs, cgtjgsmc, cgtjsj, cgwcr,
+                               cgwcrmc, cgwcbm, cgwcbmmc, cgwcgs, cgwcgsmc, cgwcsj, khwcr, khwcrmc, khwcbm, khwcbmmc, khwcgs,
+                               khwcgsmc, khwcsj, pszt, psr, psr_name, psbm, psbm_name, psgs, psgs_name, pssj, psbz, print_num,
+                               send_wsptg_msg, corp_code, corp_name, corp_id, company_super, is_noseat, app_id, app_user,
+                               app_date, vip_status, linker, link_mobile, link_email, send_mode, recipient, reci_phone,
+                               reci_email, post_code, post_order_id, reci_addr, psyqsj, post_mothed, is_change,
+                               change_ticket_id, sfgrcdfy, remarks_cu, cu_id, creator, createdate, mu_id, mender, savedate,
+                               remark, del_flag, version, bzbz)
+        VALUES ('52a2b68817f1446a9648f2074cba7443', 'HCT2408020003', 1, 'e0fa0be34b9d46cc9ecd9428f3ea7f3d', 2, 'SHCT2408020003',
+                2, 2, 10509, 'e677ceb09e18410abcd9e5902f89fbc3', 'cfbdf7d0a0bf4d84b55a831d309a661e', 'EKW0776489107018C',
+                'G6446', 'SZQ', '深圳', 10511, '深圳', '2024-07-25', '12:33', '周四', 'OGQ', '汕尾', 10106, '汕尾', '2024-07-25',
+                '13:45', 72, '0', '07车厢,18C号', '黄绍明', 1, '421023198612234917', 1, 'M', '92acc92eb9e84b9c94cc3782aaa52ff8',
+                '1631d81aed8f4705bbf33c899188a008',
+                null,
+                null, null, null, null, null, null, '513559195605430272', '星空平台(万顺通)', 12107, '采购预存款', '1210701',
+                'SINGA预存款支付', '-103.0', 0.0, 0.0, 0.0, 86.5, -16.5, 0.0, null, 0.0,  86.5, -16.5, 0.0, 0, null, 12105, '公司支付',
+                1210501, '协议欠款', null, null, null, null, null, null,
+                null,
+                ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+                ?,
+                ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+                ?,
+                ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+                ?,
+                ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+             , (Integer), , (String), (String), (String), (String), , , , null, null, null, null, 0.0(Double), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 线下退款(String), f2b9af1b5165445d87554963bfb4a4d0(String), 商旅事业部(String), 2f00edabf95140d7be95a8e4aafe4f63(String), 深圳万顺通(String), b973bea9cea644b6890d4e21362029b7(String), 9541 毕岩(String), f2b9af1b5165445d87554963bfb4a4d0(String), 2f00edabf95140d7be95a8e4aafe4f63(String), 商旅事业部(String), 深圳万顺通(String), 2024-08-02 14:31:04.574(Timestamp), null, a192f4c8ed79469b882e9b5a00d89586(String), 15820768351 李晓环(String), 1631d81aed8f4705bbf33c899188a008(String), null, edb3c22d690a4abc8ebba1461ef0a9df(String), 深圳市三德冠精密电路科技有限公司(String), 2024-08-02 14:31:04.574(Timestamp), 1d80f545c0a94821950c96b0b8eab89d(String), 9484 马韵岚(String), f2b9af1b5165445d87554963bfb4a4d0(String), 商旅事业部(String), 2f00edabf95140d7be95a8e4aafe4f63(String), 深圳万顺通(String), 2024-08-02 14:31:04.574(Timestamp), b973bea9cea644b6890d4e21362029b7(String), 9541 毕岩(String), f2b9af1b5165445d87554963bfb4a4d0(String), 商旅事业部(String), 2f00edabf95140d7be95a8e4aafe4f63(String), 深圳万顺通(String), 2024-08-02 14:31:04.574(Timestamp), b973bea9cea644b6890d4e21362029b7(String), 9541 毕岩(String), f2b9af1b5165445d87554963bfb4a4d0(String), 商旅事业部(String), 2f00edabf95140d7be95a8e4aafe4f63(String), 深圳万顺通(String), 2024-08-02 14:31:04.574(Timestamp), 9541毕岩(String), 9541 毕岩(String), f2b9af1b5165445d87554963bfb4a4d0(String), 商旅事业部(String), 2f00edabf95140d7be95a8e4aafe4f63(String), 深圳万顺通(String), 2024-07-24 22:06:52.0(Timestamp), null, null, null, null, null, null, null, 1(String), b973bea9cea644b6890d4e21362029b7(String), 9541 毕岩(String), f2b9af1b5165445d87554963bfb4a4d0(String), 商旅事业部(String), 2f00edabf95140d7be95a8e4aafe4f63(String), 深圳万顺通(String), null, null, null, null, SDGJM0938(String), 深圳市三德冠精密电路科技有限公司(String), edb3c22d690a4abc8ebba1461ef0a9df(String), 2f00edabf95140d7be95a8e4aafe4f63(String), null, null, null, null, 4(String), 王琳(String), 15820768351(String), (String), null, null, null, null, null, null, null, null, null, null, null, null, 退票申请(String), b973bea9cea644b6890d4e21362029b7(String), 9541 毕岩(String), 2024-08-02 14:31:04.0(Timestamp), b973bea9cea644b6890d4e21362029b7(String), 9541 毕岩(String), 2024-08-02 14:31:04.0(Timestamp), 线下退票生成退票订单(String), 0(Integer), 0(Integer), null
+    </insert>
 </mapper>
