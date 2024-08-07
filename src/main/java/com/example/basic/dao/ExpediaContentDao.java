@@ -11,4 +11,6 @@ import java.util.List;
 public interface ExpediaContentDao {
 
     void saveBatch(List<ExpediaContent> insertList);
+
+    List<ExpediaContent> selectNeedUpdate(int start, int end);
 }

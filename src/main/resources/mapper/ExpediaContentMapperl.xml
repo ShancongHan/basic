@@ -26,4 +26,10 @@
             #{item.createTime})
         </foreach>
     </insert>
+
+    <select id="selectNeedUpdate" resultType="java.util.Map">
+        SELECT id, hotel_id
+        FROM `expedia_content_basic`
+        WHERE `name_en` IS NULL
+    </select>
 </mapper>

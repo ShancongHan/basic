@@ -93,4 +93,16 @@ public class ExpediaController {
             System.out.println(Throwables.getStackTraceAsString(e));
         }
     }
+
+    /**
+     * 获取连锁和品牌信息
+     */
+    @PostMapping(value = "pull-chain")
+    public void pullChain() {
+        try {
+            expediaService.pullChain();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
 }

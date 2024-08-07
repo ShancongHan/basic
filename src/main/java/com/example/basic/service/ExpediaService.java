@@ -72,6 +72,8 @@ public class ExpediaService {
     private ExpediaStatisticsDao expediaStatisticsDao;
     @Resource
     private ExpediaThemesDao expediaThemesDao;
+    @Resource
+    private ExpediaChainBrandsDao expediaChainBrandsDao;
 
     @Resource
     private HttpUtils httpUtils;
@@ -368,6 +370,40 @@ public class ExpediaService {
                 expediaRegion.setNameFullEn(region.getName_full());
                 expediaRegions.add(expediaRegion);
             }
+        }
+    }
+
+    public void pullChain() throws Exception {
+        List<ExpediaChainBrands> expediaChainBrandsList = Lists.newArrayList();
+        String response = httpUtils.pullChain();
+        try {
+            transferBody3(expediaChainBrandsList, response);
+        } catch (Exception e) {
+            Throwables.getStackTraceAsString(e);
+        }
+        expediaChainBrandsDao.saveBatch(expediaChainBrandsList);
+
+    }
+
+    private void transferBody3(List<ExpediaChainBrands> expediaChainBrandsList, String body) {
+        JSONObject jsonObject = JSON.parseObject(body);
+        for (Map.Entry<String, Object> entry : jsonObject.entrySet()) {
+            ExpediaChainBrands expediaChainBrands = new ExpediaChainBrands();
+            JSONObject value = (JSONObject) entry.getValue();
+            expediaChainBrands.setChainId((String) value.get("id"));
+            expediaChainBrands.setName((String) value.get("name"));
+            JSONObject object = (JSONObject) value.get("brands");
+
+            StringBuilder ids = new StringBuilder();
+            StringBuilder names = new StringBuilder();
+            for (Map.Entry<String, Object> entry1 : object.entrySet()) {
+                JSONObject value1 = (JSONObject) entry1.getValue();
+                ids.append(value1.get("id")).append(",");
+                names.append(value1.get("name")).append(",");
+            }
+            expediaChainBrands.setBrandsId(ids.substring(0, ids.length() - 1));
+            expediaChainBrands.setBrandsName(names.substring(0, names.length() - 1));
+            expediaChainBrandsList.add(expediaChainBrands);
         }
     }
 }

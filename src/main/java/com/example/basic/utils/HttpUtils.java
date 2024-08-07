@@ -29,6 +29,7 @@ public class HttpUtils {
     private final static String CHINESE_LANGUAGE = "zh-CN";
     private final static String SHA_512 = "SHA-512";
     private final static String REGIONS = "regions";
+    private final static String CHAINS = "chains";
     private final static String CONTENT = "properties/content";
 
 
@@ -145,5 +146,17 @@ public class HttpUtils {
         ExpediaResponse real = ExpediaResponse.builder().build().setBody(body).setTotal(Integer.parseInt(total)).setNextPageUrl(nextPageUrl).setLoad(Integer.parseInt(load));
         log.info("http整体耗时:{}, {}", watch.getTotalTimeSeconds(), watch.prettyPrint());
         return real;
+    }
+
+    public String pullChain() throws Exception {
+        String url =  ENDPOINT + CHAINS;
+        Request request = new Request.Builder()
+                .url(url)
+                .header("Accept", "application/json")
+                .header("Authorization", createSign())
+                .build();
+        Call call = okHttpClient.newCall(request);
+        Response response = call.execute();
+        return response.body().string();
     }
 }
