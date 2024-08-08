@@ -105,4 +105,28 @@ public class ExpediaController {
             System.out.println(Throwables.getStackTraceAsString(e));
         }
     }
+
+    /**
+     * 解析酒店基础信息静态文件
+     */
+    @PostMapping(value = "analyze-property-static-file")
+    public void analyzePropertyStaticFile() {
+        try {
+            expediaService.analyzePropertyStaticFile();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
+
+    /**
+     * 解析酒店基础信息静态文件2
+     */
+    @PostMapping(value = "analyze-property-static-file2")
+    public void analyzePropertyStaticFile2() {
+        try {
+            expediaService.analyzePropertyStaticFile2();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
 }

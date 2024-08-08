@@ -14,19 +14,21 @@ import com.example.basic.entity.ExpediaContent;
 import com.example.basic.utils.HttpUtils;
 import com.example.basic.utils.IOUtils;
 import com.google.common.base.Throwables;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import com.google.common.io.Files;
+import com.google.common.io.LineProcessor;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StopWatch;
 import org.springframework.util.StringUtils;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.math.BigDecimal;
+import java.nio.charset.Charset;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -74,6 +76,8 @@ public class ExpediaService {
     private ExpediaThemesDao expediaThemesDao;
     @Resource
     private ExpediaChainBrandsDao expediaChainBrandsDao;
+    @Resource
+    private ExpediaPropertyBasicDao expediaPropertyBasicDao;
 
     @Resource
     private HttpUtils httpUtils;
@@ -382,7 +386,6 @@ public class ExpediaService {
             Throwables.getStackTraceAsString(e);
         }
         expediaChainBrandsDao.saveBatch(expediaChainBrandsList);
-
     }
 
     private void transferBody3(List<ExpediaChainBrands> expediaChainBrandsList, String body) {
@@ -405,5 +408,210 @@ public class ExpediaService {
             expediaChainBrands.setBrandsName(names.substring(0, names.length() - 1));
             expediaChainBrandsList.add(expediaChainBrands);
         }
+    }
+
+    public void matchRegion() {
+
+    }
+
+    public void analyzePropertyStaticFile() throws Exception {
+        String fileName = "C:\\wst_han\\打杂\\expedia\\对接\\zh-CN.expediacollect.propertycatalog.jsonl";
+        ImmutableList<String> lines = Files.asCharSource(new File(fileName), Charset.defaultCharset()).readLines();
+        List<ExpediaPropertyBasic> expediaPropertyBasics = Lists.newArrayListWithCapacity(1000);
+        for (String line : lines) {
+            ExpediaPropertyBasic expediaPropertyBasic = parseTo(line);
+            expediaPropertyBasics.add(expediaPropertyBasic);
+            if (expediaPropertyBasics.size() == 1000) {
+                expediaPropertyBasicDao.saveBatch(expediaPropertyBasics);
+                expediaPropertyBasics.clear();
+            }
+        }
+        if (expediaPropertyBasics.size() > 0) {
+            expediaPropertyBasicDao.saveBatch(expediaPropertyBasics);
+        }
+    }
+
+    private ExpediaPropertyBasic parseTo(String line) {
+        JSONObject jsonObject = JSON.parseObject(line);
+        ExpediaPropertyBasic expediaPropertyBasic = new ExpediaPropertyBasic();
+        expediaPropertyBasic.setPropertyId((String) jsonObject.get("property_id"));
+        expediaPropertyBasic.setName((String) jsonObject.get("name"));
+        JSONObject address = (JSONObject) jsonObject.get("address");
+        if (address != null) {
+            String line1 = (String) address.get("line_1");
+            String line2 = (String) address.get("line_2");
+            expediaPropertyBasic.setAddress(line1 + (StringUtils.hasLength(line2) ? line2 : ""));
+            expediaPropertyBasic.setCountryCode((String) address.get("country_code"));
+            expediaPropertyBasic.setStateProvinceCode((String) address.get("state_province_code"));
+            expediaPropertyBasic.setStateProvinceName((String) address.get("state_province_name"));
+            expediaPropertyBasic.setCity((String) address.get("city"));
+            expediaPropertyBasic.setZipCode((String) address.get("postal_code"));
+        }
+
+        JSONObject ratings = (JSONObject) jsonObject.get("ratings");
+        if (ratings != null) {
+            JSONObject property = (JSONObject) ratings.get("property");
+            if (property != null) {
+                expediaPropertyBasic.setStarRating(new BigDecimal((String) property.get("rating")));
+            }
+        }
+
+        JSONObject location = (JSONObject) jsonObject.get("location");
+        if (location != null) {
+            Object object = location.get("coordinates");
+            if (StringUtils.hasLength(object.toString())) {
+                Coordinates coordinates1 = JSON.parseObject(object.toString(), Coordinates.class);
+                expediaPropertyBasic.setLongitude(coordinates1.getLongitude());
+                expediaPropertyBasic.setLatitude(coordinates1.getLatitude());
+                //String latitude = (String) coordinates.get("latitude");
+                //expediaPropertyBasic.setLatitude((BigDecimal) coordinates.get("latitude"));
+            }
+        }
+
+        expediaPropertyBasic.setTelephone((String) jsonObject.get("phone"));
+
+        JSONObject category = (JSONObject) jsonObject.get("category");
+        if (category != null) {
+            expediaPropertyBasic.setCategoryId(Long.valueOf((String) category.get("id")));
+            expediaPropertyBasic.setCategory((String) category.get("name"));
+        }
+        Integer rank = (Integer) jsonObject.get("rank");
+        expediaPropertyBasic.setRank(Long.parseLong(String.valueOf(rank)));
+
+        JSONObject businessModel = (JSONObject) jsonObject.get("business_model");
+        if (businessModel != null) {
+            expediaPropertyBasic.setExpediaCollect((Boolean) businessModel.get("expedia_collect"));
+            expediaPropertyBasic.setPropertyCollect((Boolean) businessModel.get("property_collect"));
+        }
+
+        JSONObject statistics = (JSONObject) jsonObject.get("statistics");
+        if (statistics != null) {
+            StringBuilder ids = new StringBuilder();
+            StringBuilder values = new StringBuilder();
+            for (Map.Entry<String, Object> entry : statistics.entrySet()) {
+                ids.append(entry.getKey()).append(",");
+                values.append(((JSONObject)entry.getValue()).get("value")).append(",");
+            }
+            expediaPropertyBasic.setStatisticsId(ids.substring(0, ids.length() -1));
+            expediaPropertyBasic.setStatisticsValues(values.substring(0, values.length() - 1));
+        }
+
+        JSONObject chain = (JSONObject) jsonObject.get("chain");
+        if (chain != null) {
+            expediaPropertyBasic.setChainId((String) chain.get("id"));
+        }
+
+        JSONObject brand = (JSONObject) jsonObject.get("brand");
+        if (brand != null) {
+            expediaPropertyBasic.setBrandId((String) brand.get("id"));
+        }
+        expediaPropertyBasic.setSupplySource((String) jsonObject.get("supply_source"));
+
+        JSONObject dates = (JSONObject) jsonObject.get("dates");
+        if (dates != null) {
+            expediaPropertyBasic.setAddedTime((String) dates.get("added"));
+            expediaPropertyBasic.setUpdatedTime((String) dates.get("updated"));
+        }
+        return expediaPropertyBasic;
+    }
+
+    public void analyzePropertyStaticFile2() throws Exception {
+        String fileName = "C:\\wst_han\\打杂\\expedia\\对接\\en-US.expediacollect.propertycatalog.jsonl";
+        ImmutableList<String> lines = Files.asCharSource(new File(fileName), Charset.defaultCharset()).readLines();
+        List<ExpediaPropertyBasic> expediaPropertyBasics = Lists.newArrayListWithCapacity(3000);
+        for (String line : lines) {
+            ExpediaPropertyBasic expediaPropertyBasic = parseTo2(line);
+            int update = expediaPropertyBasicDao.update(expediaPropertyBasic);
+            if (update != 1) {
+                expediaPropertyBasics.add(expediaPropertyBasic);
+            }
+        }
+        if (expediaPropertyBasics.size() > 0) {
+            expediaPropertyBasicDao.saveBatch(expediaPropertyBasics);
+        }
+    }
+
+    private ExpediaPropertyBasic parseTo2(String line) {
+        JSONObject jsonObject = JSON.parseObject(line);
+        ExpediaPropertyBasic expediaPropertyBasic = new ExpediaPropertyBasic();
+        expediaPropertyBasic.setPropertyId((String) jsonObject.get("property_id"));
+        expediaPropertyBasic.setNameEn((String) jsonObject.get("name"));
+        JSONObject address = (JSONObject) jsonObject.get("address");
+        if (address != null) {
+            String line1 = (String) address.get("line_1");
+            String line2 = (String) address.get("line_2");
+            expediaPropertyBasic.setAddressEn(line1 + (StringUtils.hasLength(line2) ? line2 : ""));
+            expediaPropertyBasic.setCountryCode((String) address.get("country_code"));
+            expediaPropertyBasic.setStateProvinceCode((String) address.get("state_province_code"));
+            expediaPropertyBasic.setStateProvinceName((String) address.get("state_province_name"));
+            expediaPropertyBasic.setCity((String) address.get("city"));
+            expediaPropertyBasic.setZipCode((String) address.get("postal_code"));
+        }
+
+        JSONObject ratings = (JSONObject) jsonObject.get("ratings");
+        if (ratings != null) {
+            JSONObject property = (JSONObject) ratings.get("property");
+            if (property != null) {
+                expediaPropertyBasic.setStarRating(new BigDecimal((String) property.get("rating")));
+            }
+        }
+
+        JSONObject location = (JSONObject) jsonObject.get("location");
+        if (location != null) {
+            Object object = location.get("coordinates");
+            if (StringUtils.hasLength(object.toString())) {
+                Coordinates coordinates1 = JSON.parseObject(object.toString(), Coordinates.class);
+                expediaPropertyBasic.setLongitude(coordinates1.getLongitude());
+                expediaPropertyBasic.setLatitude(coordinates1.getLatitude());
+                //String latitude = (String) coordinates.get("latitude");
+                //expediaPropertyBasic.setLatitude((BigDecimal) coordinates.get("latitude"));
+            }
+        }
+
+        expediaPropertyBasic.setTelephone((String) jsonObject.get("phone"));
+
+        JSONObject category = (JSONObject) jsonObject.get("category");
+        if (category != null) {
+            expediaPropertyBasic.setCategoryId(Long.valueOf((String) category.get("id")));
+            expediaPropertyBasic.setCategory((String) category.get("name"));
+        }
+        Integer rank = (Integer) jsonObject.get("rank");
+        expediaPropertyBasic.setRank(Long.parseLong(String.valueOf(rank)));
+
+        JSONObject businessModel = (JSONObject) jsonObject.get("business_model");
+        if (businessModel != null) {
+            expediaPropertyBasic.setExpediaCollect((Boolean) businessModel.get("expedia_collect"));
+            expediaPropertyBasic.setPropertyCollect((Boolean) businessModel.get("property_collect"));
+        }
+
+        JSONObject statistics = (JSONObject) jsonObject.get("statistics");
+        if (statistics != null) {
+            StringBuilder ids = new StringBuilder();
+            StringBuilder values = new StringBuilder();
+            for (Map.Entry<String, Object> entry : statistics.entrySet()) {
+                ids.append(entry.getKey()).append(",");
+                values.append(((JSONObject)entry.getValue()).get("value")).append(",");
+            }
+            expediaPropertyBasic.setStatisticsId(ids.substring(0, ids.length() -1));
+            expediaPropertyBasic.setStatisticsValues(values.substring(0, values.length() - 1));
+        }
+
+        JSONObject chain = (JSONObject) jsonObject.get("chain");
+        if (chain != null) {
+            expediaPropertyBasic.setChainId((String) chain.get("id"));
+        }
+
+        JSONObject brand = (JSONObject) jsonObject.get("brand");
+        if (brand != null) {
+            expediaPropertyBasic.setBrandId((String) brand.get("id"));
+        }
+        expediaPropertyBasic.setSupplySource((String) jsonObject.get("supply_source"));
+
+        JSONObject dates = (JSONObject) jsonObject.get("dates");
+        if (dates != null) {
+            expediaPropertyBasic.setAddedTime((String) dates.get("added"));
+            expediaPropertyBasic.setUpdatedTime((String) dates.get("updated"));
+        }
+        return expediaPropertyBasic;
     }
 }

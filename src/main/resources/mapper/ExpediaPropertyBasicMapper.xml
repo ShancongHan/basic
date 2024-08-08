@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic.dao.ExpediaPropertyBasicDao">
+    <insert id="saveBatch" parameterType="com.example.basic.entity.ExpediaPropertyBasic">
+        insert into `expedia_property_basic` (property_id, `name`, name_en, address, address_en, country_code,
+        state_province_code, state_province_name, city, zip_code, star_rating, longitude,
+        latitude, telephone, category_id, category, rank, expedia_collect, property_collect,
+        statistics_id, statistics_values, chain_id, brand_id, supply_source, added_time, updated_time, create_time)
+        values
+        <foreach collection="insertList" separator="," item="item">
+            (#{item.propertyId}, #{item.name}, #{item.nameEn}, #{item.address}, #{item.addressEn}, #{item.countryCode}
+            , #{item.stateProvinceCode}, #{item.stateProvinceName}, #{item.city}, #{item.zipCode},#{item.starRating}
+            , #{item.longitude}, #{item.latitude}, #{item.telephone},  #{item.categoryId}, #{item.category}, #{item.rank}
+            , #{item.expediaCollect}, #{item.propertyCollect}, #{item.statisticsId}, #{item.statisticsValues}
+            , #{item.chainId}, #{item.brandId}, #{item.supplySource},#{item.addedTime}, #{item.updatedTime}, #{item.createTime})
+        </foreach>
+    </insert>
+
+    <update id="update" parameterType="com.example.basic.entity.ExpediaPropertyBasic">
+        UPDATE `expedia_property_basic`
+        SET `name_en` = #{nameEn}, `address_en` = #{addressEn}
+        WHERE `property_id` = #{propertyId};
+    </update>
+</mapper>
