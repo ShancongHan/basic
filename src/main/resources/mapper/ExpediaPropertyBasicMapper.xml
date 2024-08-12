@@ -18,7 +18,32 @@
 
     <update id="update" parameterType="com.example.basic.entity.ExpediaPropertyBasic">
         UPDATE `expedia_property_basic`
-        SET `name_en` = #{nameEn}, `address_en` = #{addressEn}
+        <set>
+            <if test="nameEn != null and nameEn != ''">
+                `name_en` = #{nameEn},
+            </if>
+            <if test="addressEn != null and addressEn != ''">
+                `address_en` = #{addressEn}
+            </if>
+            <if test="name != null and name != ''">
+                `name` = #{name},
+            </if>
+            <if test="address != null and address != ''">
+                `address` = #{address}
+            </if>
+        </set>
         WHERE `property_id` = #{propertyId};
     </update>
+
+    <select id="selectListByCountry" parameterType="java.lang.String" resultType="com.example.basic.entity.ExpediaPropertyBasic">
+        SELECT *
+        FROM `expedia_property_basic`
+        WHERE `country_code` = #{countryCode}
+    </select>
+
+    <select id="selectNeedUpdate" resultType="java.lang.String">
+        SELECT `property_id`
+        FROM `expedia_property_basic`
+        WHERE `address_en` is null
+    </select>
 </mapper>

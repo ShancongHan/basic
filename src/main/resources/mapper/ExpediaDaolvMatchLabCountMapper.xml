@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic.dao.ExpediaDaolvMatchLabCountDao">
+
+    <select id="alreadyMatchCountry" resultType="java.lang.String">
+        SELECT country_code
+        FROM `expedia_daolv_match_lab_count`
+    </select>
+
+    <insert id="insert" parameterType="com.example.basic.entity.ExpediaDaolvMatchLabCount">
+        insert into expedia_daolv_match_lab_count
+        (country_code, expedia_total, expedia_score_count, expedia_not_score_count, expedia_unique_score_count,
+         expedia_multi_score_count, daolv_total, daolv_matched_count, `time`)
+        values (#{countryCode}, #{expediaTotal}, #{expediaScoreCount}, #{expediaNotScoreCount},
+                #{expediaUniqueScoreCount}, #{expediaMultiScoreCount}, #{daolvTotal}, #{daolvMatchedCount}, #{time})
+    </insert>
+</mapper>

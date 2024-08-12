@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic.dao.ExpediaDaolvMatchLabDao">
+    <insert id="saveBatch" parameterType="com.example.basic.entity.ExpediaDaolvMatchLab">
+        insert into expedia_daolv_match_lab (daolv_hotel_id, daolv_hotel_name, expedia_hotel_Id, expedia_hotel_name,
+        expedia_latitude, expedia_longitude, daolv_latitude, daolv_longitude,
+        expedia_address, daolv_address, expedia_tel, daolv_tel, expedia_country,
+        daolv_country, expedia_category, diff_meter, diff_level, name_match, address_match,
+        tel_match, score, multi_match)
+        values
+        <foreach collection="insertList" item="item" separator=",">
+            (#{item.daolvHotelId},#{item.daolvHotelName},#{item.expediaHotelId},#{item.expediaHotelName},
+            #{item.expediaLatitude},#{item.expediaLongitude},#{item.daolvLatitude},#{item.daolvLongitude},
+            #{item.expediaAddress},#{item.daolvAddress},#{item.expediaTel},#{item.daolvTel},#{item.expediaCountry},
+            #{item.daolvCountry},#{item.expediaCategory},#{item.diffMeter},#{item.diffLevel},#{item.nameMatch},#{item.addressMatch},
+            #{item.telMatch},#{item.score},#{item.multiMatch})
+        </foreach>
+    </insert>
+
+    <insert id="saveBatch2" parameterType="com.example.basic.entity.WebbedsDaolvMatchLab">
+        insert into expedia_daolv_match_lab_2 (daolv_hotel_id, daolv_hotel_name, expedia_hotel_Id, expedia_hotel_name,
+        expedia_latitude, expedia_longitude, daolv_latitude, daolv_longitude,
+        expedia_address, daolv_address, expedia_tel, daolv_tel, expedia_country,
+        daolv_country, expedia_category, diff_meter, diff_level, name_match, address_match,
+        tel_match, score, multi_match)
+        values
+        <foreach collection="insertList" item="item" separator=",">
+            (#{item.daolvHotelId},#{item.daolvHotelName},#{item.expediaHotelId},#{item.expediaHotelName},
+            #{item.expediaLatitude},#{item.expediaLongitude},#{item.daolvLatitude},#{item.daolvLongitude},
+            #{item.expediaAddress},#{item.daolvAddress},#{item.expediaTel},#{item.daolvTel},#{item.expediaCountry},
+            #{item.daolvCountry},#{item.expediaCategory},#{item.diffMeter},#{item.diffLevel},#{item.nameMatch},#{item.addressMatch},
+            #{item.telMatch},#{item.score},#{item.multiMatch})
+        </foreach>
+    </insert>
+</mapper>

@@ -13,6 +13,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author han
@@ -150,6 +151,23 @@ public class HttpUtils {
 
     public String pullChain() throws Exception {
         String url =  ENDPOINT + CHAINS;
+        Request request = new Request.Builder()
+                .url(url)
+                .header("Accept", "application/json")
+                .header("Authorization", createSign())
+                .build();
+        Call call = okHttpClient.newCall(request);
+        Response response = call.execute();
+        return response.body().string();
+    }
+
+    public String pullPropertyListByIds(List<String> propertyIds) throws Exception {
+        // /properties/content?supply_source=expedia&property_id=107291302&language=zh-CN
+        StringBuilder sb = new StringBuilder("?supply_source=expedia&language=zh-CN&");
+        for (String propertyId : propertyIds) {
+            sb.append("property_id=").append(propertyId).append("&");
+        }
+        String url =  ENDPOINT + CONTENT + sb.substring(0, sb.length() -1);
         Request request = new Request.Builder()
                 .url(url)
                 .header("Accept", "application/json")

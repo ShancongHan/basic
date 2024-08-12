@@ -13,4 +13,8 @@ public interface ExpediaPropertyBasicDao {
     void saveBatch(List<ExpediaPropertyBasic> insertList);
 
     int update(ExpediaPropertyBasic expediaPropertyBasic);
+
+    List<ExpediaPropertyBasic> selectListByCountry(String countryCode);
+
+    List<String> selectNeedUpdate();
 }

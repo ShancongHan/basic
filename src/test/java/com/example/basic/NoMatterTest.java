@@ -1,6 +1,7 @@
 package com.example.basic;
 
 import com.example.basic.helper.MappingScoreHelper;
+import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
 import java.net.URLDecoder;
@@ -16,12 +17,15 @@ import java.util.List;
 public class NoMatterTest {
 
     public static void main(String[] args) {
-
-        System.out.println(10216%10);
+        String s = handlerTel("63-22498745");
+        String s2 = handlerTel("+63 2 22498745");
+        System.out.println(s);
+        System.out.println(s2);
+        /*System.out.println(10216%10);
 
         String s= ",,,,";
         System.out.println(s.replaceAll(",",""));
-        System.out.println(s);
+        System.out.println(s);*/
         //System.out.println(URLDecoder.decode("/cn/%E6%9C%BA%E5%9C%BA%E5%9C%A8-%E4%B8%8D%E4%B8%B9-bt", StandardCharsets.UTF_8));
         //System.out.println(510100 % 10);
 
@@ -31,6 +35,15 @@ public class NoMatterTest {
                 ,"4.765295","01, Rue Frantz Fanon Bordj Bou Arreridj Algérie","00213-770521828"
                 ,"Bodrum Park Resort",new BigDecimal("36.982981")
                 ,new BigDecimal("7.561266"),"塞赖迪Yalıciftlik Mevkii 48410 Bodrum Turkey, 阿尔及利亚","0");*/
+    }
+
+    public static String handlerTel(String telephone){
+        return StringUtils.hasLength(telephone) ? telephone.replaceAll("-", "")
+                .replaceAll("\\+", "")
+                .replaceAll(" ", " ")
+                .replaceAll(" +", "")
+                .replaceAll("\\s+", "")
+                .toUpperCase() : "***";
     }
 
     public static List<String> row80Char(String str, Character featureSymbol) {

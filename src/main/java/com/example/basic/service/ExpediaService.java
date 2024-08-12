@@ -5,23 +5,25 @@ import com.alibaba.excel.read.listener.PageReadListener;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import com.example.basic.dao.*;
+import com.example.basic.domain.CalculateResult;
 import com.example.basic.domain.Content;
 import com.example.basic.domain.ExpediaResponse;
 import com.example.basic.domain.Region;
 import com.example.basic.domain.to.*;
 import com.example.basic.entity.*;
 import com.example.basic.entity.ExpediaContent;
+import com.example.basic.helper.MappingScoreHelper2;
 import com.example.basic.utils.HttpUtils;
 import com.example.basic.utils.IOUtils;
 import com.google.common.base.Throwables;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 import com.google.common.io.Files;
-import com.google.common.io.LineProcessor;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StopWatch;
 import org.springframework.util.StringUtils;
@@ -30,6 +32,7 @@ import java.io.*;
 import java.math.BigDecimal;
 import java.nio.charset.Charset;
 import java.util.*;
+import java.util.concurrent.*;
 import java.util.stream.Collectors;
 
 /**
@@ -78,9 +81,21 @@ public class ExpediaService {
     private ExpediaChainBrandsDao expediaChainBrandsDao;
     @Resource
     private ExpediaPropertyBasicDao expediaPropertyBasicDao;
+    @Resource
+    private JdJdbDaolvDao jdJdbDaolvDao;
+    @Resource
+    private ExpediaDaolvMatchLabCountDao expediaDaolvMatchLabCountDao;
+    @Resource
+    private ExpediaDaolvMatchLabDao expediaDaolvMatchLabDao;
 
     @Resource
     private HttpUtils httpUtils;
+
+    private static final Integer CORE_POOL_SIZE = 200;
+    private static final Integer MAXIMUM_POOL_SIZE = 250;
+
+    private static final Executor executor = new ThreadPoolExecutor(CORE_POOL_SIZE, MAXIMUM_POOL_SIZE,
+            0L, TimeUnit.MILLISECONDS, new LinkedBlockingDeque<>(3000));
 
     public void continent() throws Exception {
         String fileName = "C:\\wst_han\\打杂\\expedia\\对接\\expedia大洲划分.xlsx";
@@ -490,9 +505,9 @@ public class ExpediaService {
             StringBuilder values = new StringBuilder();
             for (Map.Entry<String, Object> entry : statistics.entrySet()) {
                 ids.append(entry.getKey()).append(",");
-                values.append(((JSONObject)entry.getValue()).get("value")).append(",");
+                values.append(((JSONObject) entry.getValue()).get("value")).append(",");
             }
-            expediaPropertyBasic.setStatisticsId(ids.substring(0, ids.length() -1));
+            expediaPropertyBasic.setStatisticsId(ids.substring(0, ids.length() - 1));
             expediaPropertyBasic.setStatisticsValues(values.substring(0, values.length() - 1));
         }
 
@@ -590,9 +605,9 @@ public class ExpediaService {
             StringBuilder values = new StringBuilder();
             for (Map.Entry<String, Object> entry : statistics.entrySet()) {
                 ids.append(entry.getKey()).append(",");
-                values.append(((JSONObject)entry.getValue()).get("value")).append(",");
+                values.append(((JSONObject) entry.getValue()).get("value")).append(",");
             }
-            expediaPropertyBasic.setStatisticsId(ids.substring(0, ids.length() -1));
+            expediaPropertyBasic.setStatisticsId(ids.substring(0, ids.length() - 1));
             expediaPropertyBasic.setStatisticsValues(values.substring(0, values.length() - 1));
         }
 
@@ -613,5 +628,249 @@ public class ExpediaService {
             expediaPropertyBasic.setUpdatedTime((String) dates.get("updated"));
         }
         return expediaPropertyBasic;
+    }
+
+    public void mapping() throws Exception {
+        List<String> countries = Lists.newArrayList("ID", "IN", "GB", "IT", "US");
+        //已经匹配完成的国家，跳过去
+        Set<String> alreadyMatch = expediaDaolvMatchLabCountDao.alreadyMatchCountry();
+        for (String countryCode : countries) {
+            if (alreadyMatch.contains(countryCode)) continue;
+
+            StopWatch stopWatch = new StopWatch();
+            stopWatch.start();
+            ExpediaDaolvMatchLabCount matchLabCount = new ExpediaDaolvMatchLabCount();
+
+            List<ExpediaPropertyBasic> expediaPropertyBasics = expediaPropertyBasicDao.selectListByCountry(countryCode);
+            List<JdJdbDaolv> jdJdbDaolvList = jdJdbDaolvDao.selectListByCountry(countryCode);
+            if (CollectionUtils.isEmpty(jdJdbDaolvList)) continue;
+
+            matchLabCount.setCountryCode(countryCode);
+            matchLabCount.setExpediaTotal(expediaPropertyBasics.size());
+            matchLabCount.setDaolvTotal(jdJdbDaolvList.size());
+
+            Map<String, List<ExpediaPropertyBasic>> expediaDataMap = expediaPropertyBasics.stream().filter(e -> StringUtils.hasLength(e.getNameEn())).collect(Collectors.groupingBy(ExpediaPropertyBasic::getNameEn));
+            Map<String, List<JdJdbDaolv>> daolvDataMap = jdJdbDaolvList.stream().collect(Collectors.groupingBy(JdJdbDaolv::getName));
+
+            List<ExpediaDaolvMatchLab> uniqueList = Lists.newArrayListWithCapacity(expediaPropertyBasics.size() * 2);
+            List<ExpediaDaolvMatchLab> multiList = Lists.newArrayListWithCapacity(expediaPropertyBasics.size() * 2);
+            Set<String> zeroScores = Sets.newHashSetWithExpectedSize(expediaPropertyBasics.size());
+            int index = 1;
+            int max = expediaDataMap.entrySet().size();
+            for (Map.Entry<String, List<ExpediaPropertyBasic>> entry : expediaDataMap.entrySet()) {
+                String hotelName = entry.getKey();
+                StopWatch watch = new StopWatch();
+                watch.start("酒店: " + countryCode + "-" + hotelName);
+                List<ExpediaPropertyBasic> expediaPropertyBasicList = entry.getValue();
+                List<JdJdbDaolv> findDaolvHotels = daolvDataMap.get(hotelName);
+                int size = jdJdbDaolvList.size();
+                // 有同名酒店，计算得分
+                if (CollectionUtils.isNotEmpty(findDaolvHotels)) {
+                    size = findDaolvHotels.size();
+                    findMatch(uniqueList, expediaPropertyBasicList, findDaolvHotels, zeroScores, multiList);
+                } else {
+                    // 无同名酒店，全部匹配计算得分绝对值
+                    findMatch(uniqueList, expediaPropertyBasicList, jdJdbDaolvList, zeroScores, multiList);
+                }
+                watch.stop();
+                System.out.println("[" + index + "/" + max + "]酒店: " + countryCode + "-" + hotelName +
+                        "查询范围为:" + size + ";耗时" + (int) watch.getTotalTimeMillis());
+                index++;
+            }
+            stopWatch.stop();
+            matchLabCount.setTime((int) stopWatch.getTotalTimeSeconds());
+            matchLabCount.setExpediaNotScoreCount(zeroScores.size());
+            matchLabCount.setExpediaUniqueScoreCount((int) uniqueList.stream().map(ExpediaDaolvMatchLab::getExpediaHotelId).distinct().count());
+            matchLabCount.setExpediaMultiScoreCount((int) multiList.stream().map(ExpediaDaolvMatchLab::getExpediaHotelId).distinct().count());
+            matchLabCount.setExpediaScoreCount(matchLabCount.getExpediaMultiScoreCount() + matchLabCount.getExpediaUniqueScoreCount());
+            expediaDaolvMatchLabCountDao.insert(matchLabCount);
+            saveBatch2(uniqueList);
+            saveBatch3(multiList);
+        }
+    }
+
+    private void findMatch(List<ExpediaDaolvMatchLab> uniqueList, List<ExpediaPropertyBasic> expediaPropertyBasicList,
+                           List<JdJdbDaolv> daolvHotels, Set<String> zeroScores,
+                           List<ExpediaDaolvMatchLab> multiList) throws Exception {
+        for (ExpediaPropertyBasic expediaPropertyBasic : expediaPropertyBasicList) {
+            List<CompletableFuture<CalculateResult>> futures = Lists.newArrayListWithCapacity(256);
+            int size = daolvHotels.size();
+            if (size < CORE_POOL_SIZE) {
+                futures.add(executeOnceTask(expediaPropertyBasic, daolvHotels));
+            } else {
+                int chunkSize = (size / CORE_POOL_SIZE) + 1;
+                for (int i = 0; i < daolvHotels.size(); i += chunkSize) {
+                    final int endIndex = Math.min(i + chunkSize, daolvHotels.size());
+                    futures.add(executeOnceTask(expediaPropertyBasic, daolvHotels.subList(i, endIndex)));
+                }
+            }
+            CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
+
+            Map<Integer, List<JdJdbDaolv>> scoreMap = Maps.newHashMapWithExpectedSize(265);
+            for (CompletableFuture<CalculateResult> future : futures) {
+                CalculateResult result = future.get();
+                // 如果0分，跳过此部分评分
+                if (result.getZero()) {
+                    continue;
+                }
+                for (Map.Entry<Integer, List<JdJdbDaolv>> reslutEntry : result.getScoreMap().entrySet()) {
+                    Integer score = reslutEntry.getKey();
+                    List<JdJdbDaolv> sameScoreHotels = reslutEntry.getValue();
+                    if (scoreMap.containsKey(score)) {
+                        scoreMap.get(score).addAll(sameScoreHotels);
+                    } else {
+                        scoreMap.put(score, sameScoreHotels);
+                    }
+                }
+            }
+            // 一个webbeds酒店，最终没有分数，计为0分
+            if (scoreMap.isEmpty()) {
+                zeroScores.add(expediaPropertyBasic.getPropertyId());
+                return;
+            }
+            // 一次结束后，能得到同名的最大得分的记录，唯一一条存入uniqueList，存在同分的多条存入multiList
+            scoreMap.entrySet().stream()
+                    .max(Comparator.comparingInt(entry1 -> Math.abs(entry1.getKey())))
+                    .ifPresent(max -> createMatchResult(expediaPropertyBasic, max, uniqueList, multiList));
+        }
+    }
+
+    private CompletableFuture<CalculateResult> executeOnceTask(ExpediaPropertyBasic expediaPropertyBasic, List<JdJdbDaolv> daolvHotels) {
+        return CompletableFuture.supplyAsync(() -> {
+            Map<Integer, List<JdJdbDaolv>> scoreMap = Maps.newConcurrentMap();
+            for (JdJdbDaolv daolvHotel : daolvHotels) {
+                Integer score = MappingScoreHelper2.calculateScore(expediaPropertyBasic, daolvHotel);
+                if (score == 0) continue;
+                if (score == 16 || score == -16) {
+                    CalculateResult result = new CalculateResult();
+                    Map<Integer, List<JdJdbDaolv>> fullScoreMap = Maps.newConcurrentMap();
+                    fullScoreMap.put(score, Lists.newArrayList(daolvHotel));
+                    result.setScoreMap(fullScoreMap);
+                    result.setZero(Boolean.FALSE);
+                    return result;
+                }
+                if (scoreMap.containsKey(score)) {
+                    scoreMap.get(score).add(daolvHotel);
+                } else {
+                    scoreMap.put(score, Lists.newArrayList(daolvHotel));
+                }
+            }
+            CalculateResult result = new CalculateResult();
+            result.setScoreMap(scoreMap);
+            if (scoreMap.isEmpty()) {
+                result.setZero(Boolean.TRUE);
+            } else {
+                result.setZero(Boolean.FALSE);
+            }
+            return result;
+        }, executor);
+    }
+
+    private void createMatchResult(ExpediaPropertyBasic expediaPropertyBasic, Map.Entry<Integer, List<JdJdbDaolv>> max,
+                                   List<ExpediaDaolvMatchLab> uniqueList, List<ExpediaDaolvMatchLab> multiList) {
+        Integer score = max.getKey();
+        List<JdJdbDaolv> jdJdbDaolvs = max.getValue();
+        if (jdJdbDaolvs.size() > 1) {
+            // -1分数过多，直接丢弃
+            if (score.equals(-1)) {
+                return;
+            }
+            for (JdJdbDaolv jdJdbDaolv : jdJdbDaolvs) {
+                multiList.add(createOneMatchLab(expediaPropertyBasic, jdJdbDaolv, score, true));
+            }
+            return;
+        }
+        uniqueList.add(createOneMatchLab(expediaPropertyBasic, jdJdbDaolvs.get(0), score, false));
+    }
+
+    private ExpediaDaolvMatchLab createOneMatchLab(ExpediaPropertyBasic expediaPropertyBasic, JdJdbDaolv jdJdbDaolv,
+                                                   Integer score, boolean multiMatch) {
+        Double meter = MappingScoreHelper2.calculateMeter(expediaPropertyBasic, jdJdbDaolv);
+        return ExpediaDaolvMatchLab.builder()
+                .expediaHotelId(expediaPropertyBasic.getPropertyId())
+                .expediaHotelName(expediaPropertyBasic.getNameEn())
+                .expediaCountry(expediaPropertyBasic.getCountryCode())
+                .expediaLatitude(expediaPropertyBasic.getLatitude().toString())
+                .expediaLongitude(expediaPropertyBasic.getLongitude().toString())
+                .expediaAddress(expediaPropertyBasic.getAddress())
+                .expediaTel(expediaPropertyBasic.getTelephone())
+                .expediaCategory(expediaPropertyBasic.getCategory())
+                .daolvHotelId(jdJdbDaolv.getId())
+                .daolvHotelName(jdJdbDaolv.getName())
+                .daolvLatitude(jdJdbDaolv.getLatitude() == null ? null : jdJdbDaolv.getLatitude().toString())
+                .daolvLongitude(jdJdbDaolv.getLongitude() == null ? null : jdJdbDaolv.getLongitude().toString())
+                .daolvCountry(jdJdbDaolv.getCountryCode())
+                .daolvAddress(jdJdbDaolv.getAddress())
+                .daolvTel(jdJdbDaolv.getTelephone())
+                .diffMeter(meter == null ? null : BigDecimal.valueOf(meter))
+                .nameMatch(Math.abs(score) >= 10 ? 1 : 0)
+                .addressMatch(Math.abs(score) == 5 || Math.abs(score) == 6 || Math.abs(score) == 15 || Math.abs(score) == 16 ? 1 : 0)
+                .telMatch(Math.abs(score) == 1 || Math.abs(score) == 6 || Math.abs(score) == 11 || Math.abs(score) == 16 ? 1 : 0)
+                .score(score)
+                .multiMatch(multiMatch ? 1 : 0).build();
+    }
+
+    private void saveBatch2(List<ExpediaDaolvMatchLab> insertList) {
+        int start = 0;
+        for (int j = 0; j < insertList.size(); j++) {
+            if (j != 0 && j % 1000 == 0) {
+                List<ExpediaDaolvMatchLab> list = insertList.subList(start, j);
+                expediaDaolvMatchLabDao.saveBatch(list);
+                start = j;
+            }
+        }
+        List<ExpediaDaolvMatchLab> list = insertList.subList(start, insertList.size());
+        if (CollectionUtils.isNotEmpty(list)) {
+            expediaDaolvMatchLabDao.saveBatch(list);
+        }
+    }
+
+    private void saveBatch3(List<ExpediaDaolvMatchLab> insertList) {
+        int start = 0;
+        for (int j = 0; j < insertList.size(); j++) {
+            if (j != 0 && j % 1000 == 0) {
+                List<ExpediaDaolvMatchLab> list = insertList.subList(start, j);
+                expediaDaolvMatchLabDao.saveBatch2(list);
+                start = j;
+            }
+        }
+        List<ExpediaDaolvMatchLab> list = insertList.subList(start, insertList.size());
+        if (CollectionUtils.isNotEmpty(list)) {
+            expediaDaolvMatchLabDao.saveBatch2(list);
+        }
+    }
+
+    public void finishProperty() throws Exception {
+        List<String> propertyIds = expediaPropertyBasicDao.selectNeedUpdate();
+        int max = Math.max(250, propertyIds.size());
+        for (int i = 0; i < max; ) {
+            int start = i;
+            int end = Math.min(i + 250, max);
+            List<String> queryList = propertyIds.subList(start, end);
+            String body = httpUtils.pullPropertyListByIds(queryList);
+            i += 250;
+            JSONObject jsonObject = JSON.parseObject(body);
+            for (Map.Entry<String, Object> entry : jsonObject.entrySet()) {
+                System.out.println(entry.getKey());
+                /*ExpediaPropertyBasic expediaPropertyBasic = new ExpediaPropertyBasic();
+                String key = entry.getKey();
+                expediaPropertyBasic.setPropertyId(key);
+                JSONObject value = (JSONObject) entry.getValue();
+                //expediaPropertyBasic.setNameEn((String) value.get("name"));
+                JSONObject address = (JSONObject) value.get("address");
+                if (address != null) {
+                    String line1 = (String) address.get("line_1");
+                    String line2 = (String) address.get("line_2");
+                    expediaPropertyBasic.setAddressEn(line1 + (StringUtils.hasLength(line2) ? line2 : ""));
+                    expediaPropertyBasic.setCountryCode((String) address.get("country_code"));
+                    expediaPropertyBasic.setStateProvinceCode((String) address.get("state_province_code"));
+                    expediaPropertyBasic.setStateProvinceName((String) address.get("state_province_name"));
+                    expediaPropertyBasic.setCity((String) address.get("city"));
+                    expediaPropertyBasic.setZipCode((String) address.get("postal_code"));
+                }
+                expediaPropertyBasicDao.update(expediaPropertyBasic);*/
+            }
+        }
+
     }
 }

@@ -129,4 +129,28 @@ public class ExpediaController {
             System.out.println(Throwables.getStackTraceAsString(e));
         }
     }
+
+    /**
+     * 完善酒店名称
+     */
+    @PostMapping(value = "finish-property")
+    public void finishProperty() {
+        try {
+            expediaService.finishProperty();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
+
+    /**
+     * 匹配expedia和道旅酒店
+     */
+    @PostMapping(value = "mapping")
+    public void mapping() {
+        try {
+            expediaService.mapping();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
 }
