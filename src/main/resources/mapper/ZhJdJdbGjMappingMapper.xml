@@ -15,4 +15,13 @@
             (#{item.localId}, #{item.platId}, #{item.plat})
         </foreach>
     </insert>
+
+    <select id="selectMatchCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT count(1)
+        FROM zh_jd_jdb_gj_mapping
+        WHERE plat = '2000071' AND plat_id IN
+        <foreach collection="hotelIds" open="(" close=")" item="id" separator=",">
+            #{id}
+        </foreach>
+    </select>
 </mapper>

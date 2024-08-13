@@ -13,4 +13,6 @@ public interface ZhJdJdbGjMappingDao {
     List<ZhJdJdbGjMapping> selectAll();
 
     void insertBatch(List<ZhJdJdbGjMapping> insertList);
+
+    int selectMatchCount(List<String> hotelIds);
 }

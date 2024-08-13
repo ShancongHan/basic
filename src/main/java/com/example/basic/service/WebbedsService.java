@@ -4,6 +4,7 @@ import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.read.listener.PageReadListener;
 import com.example.basic.dao.*;
 import com.example.basic.domain.CalculateResult;
+import com.example.basic.domain.ExcelFile;
 import com.example.basic.domain.WebbedsDaolvMappingBean;
 import com.example.basic.domain.WebbedsImportBean;
 import com.example.basic.entity.*;
@@ -22,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StopWatch;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.*;
@@ -542,4 +544,16 @@ public class WebbedsService {
 
     }
 
+    public void analyzeSellHotel() throws Exception {
+        String fileName = "全球热卖过去60天.xlsx";
+        String file = "C:\\wst_han\\打杂\\webbeds\\？？？\\" + fileName;
+        InputStream inputStream = new FileInputStream(file);
+        List<ExcelFile> excelFileList = Lists.newArrayListWithCapacity(25000);
+        EasyExcel.read(inputStream, ExcelFile.class, new PageReadListener<ExcelFile>(excelFileList::addAll, 1000)).headRowNumber(1).sheet().doRead();
+        int recordCount = excelFileList.size();
+        List<String> hotelIds = excelFileList.stream().map(ExcelFile::getHotelId).distinct().toList();
+        int hotelIdCount = hotelIds.size();
+        int i = zhJdJdbGjMappingDao.selectMatchCount(hotelIds);
+        System.out.println("文件"+fileName+"记录行数:"+recordCount+";有效酒店id数:"+hotelIdCount+"已映射数量:" + i);
+    }
 }

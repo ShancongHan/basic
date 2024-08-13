@@ -89,5 +89,14 @@ public class WebbedsController {
             System.out.println(Throwables.getStackTraceAsString(e));
         }
     }
+
+    @PostMapping(value = "analyze-sell-hotel")
+    public void analyzeSellHotel() {
+        try {
+            webbedsService.analyzeSellHotel();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
 }
 
