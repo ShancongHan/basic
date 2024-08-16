@@ -98,5 +98,23 @@ public class WebbedsController {
             System.out.println(Throwables.getStackTraceAsString(e));
         }
     }
+
+    @PostMapping(value = "export-webbeds_mapping")
+    public void exportWebbedsMapping() {
+        try {
+            webbedsService.exportWebbedsMapping();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
+
+    @PostMapping(value = "analyze-new-mapping")
+    public void analyzeNewMapping() {
+        try {
+            webbedsService.analyzeNewMapping();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
 }
 

@@ -25,4 +25,8 @@ public interface WebbedsHotelDataDao {
     List<WebbedsHotelData> selectListByCountry(String countryCode);
 
     List<String> selectCountryCodes();
+
+    List<String> selectEffectIds(List<String> webbedsHotelIds);
+
+    WebbedsHotelData selectByHotelId(String webbedsHotelId);
 }

@@ -20,4 +20,8 @@ public interface JdJdbDaolvDao {
     List<JdJdbDaolv> selectListByCountry(String countryCode);
 
     List<String> selectCountryCodes();
+
+    List<String> selectEffectIds(List<String> daolvHotelIds);
+
+    JdJdbDaolv selectById(Integer daolvHotelId);
 }

@@ -3,10 +3,7 @@ package com.example.basic.service;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.read.listener.PageReadListener;
 import com.example.basic.dao.*;
-import com.example.basic.domain.CalculateResult;
-import com.example.basic.domain.ExcelFile;
-import com.example.basic.domain.WebbedsDaolvMappingBean;
-import com.example.basic.domain.WebbedsImportBean;
+import com.example.basic.domain.*;
 import com.example.basic.entity.*;
 import com.example.basic.helper.MappingScoreHelper;
 import com.google.common.collect.Lists;
@@ -21,11 +18,10 @@ import org.gavaghan.geodesy.GlobalCoordinates;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StopWatch;
+import org.springframework.util.StringUtils;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.math.BigDecimal;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.function.Function;
@@ -263,7 +259,8 @@ public class WebbedsService {
         /*    if (matchCountry.contains(countryCode)) {
                 continue;
             }
-        */    StopWatch watch = new StopWatch();
+        */
+            StopWatch watch = new StopWatch();
             watch.start("国家" + countryCode);
             WebbedsDaolvMatchLabCount matchLabCount = new WebbedsDaolvMatchLabCount();
             List<WebbedsHotelData> webbedsHotelDataList = webbedsHotelDataDao.selectListByCountry(countryCode);
@@ -301,7 +298,7 @@ public class WebbedsService {
                     // 无同名酒店，全部匹配计算得分绝对值
                     findMatch(uniqueList, webbedsHotelList, jdJdbDaolvList, zeroScores, multiList);
                 }
-                System.out.println("国家" + countryCode + "酒店：" +  hotelName + "比对总耗时" + (System.currentTimeMillis() - start));
+                System.out.println("国家" + countryCode + "酒店：" + hotelName + "比对总耗时" + (System.currentTimeMillis() - start));
             }
             watch.stop();
             matchLabCount.setTime((int) watch.getTotalTimeSeconds());
@@ -331,6 +328,7 @@ public class WebbedsService {
             webbedsDaolvMatchLabDao.saveBatch(list);
         }
     }
+
     private void saveBatch3(List<WebbedsDaolvMatchLab> insertList) {
         int start = 0;
         for (int j = 0; j < insertList.size(); j++) {
@@ -383,7 +381,7 @@ public class WebbedsService {
                 }
             }
             System.out.println("国家：" + webbedsHotelData1.getShortCountryName() +
-                    "酒店：" +  webbedsHotelData1.getHotelName() + "计分耗时" + (System.currentTimeMillis() - start));
+                    "酒店：" + webbedsHotelData1.getHotelName() + "计分耗时" + (System.currentTimeMillis() - start));
             // 一个webbeds酒店，最终没有分数，计为0分
             if (scoreMap.isEmpty()) {
                 zeroScores.add(webbedsHotelData.getDotwHotelCode());
@@ -396,7 +394,7 @@ public class WebbedsService {
         }
     }
 
-    private CompletableFuture<CalculateResult> executeOnceTask(WebbedsHotelData webbedsHotelData,List<JdJdbDaolv> daolvHotels) {
+    private CompletableFuture<CalculateResult> executeOnceTask(WebbedsHotelData webbedsHotelData, List<JdJdbDaolv> daolvHotels) {
         return CompletableFuture.supplyAsync(() -> {
             Map<Integer, List<JdJdbDaolv>> scoreMap = Maps.newConcurrentMap();
             for (JdJdbDaolv daolvHotel : daolvHotels) {
@@ -545,7 +543,7 @@ public class WebbedsService {
     }
 
     public void analyzeSellHotel() throws Exception {
-        String fileName = "全球热卖过去60天.xlsx";
+        String fileName = "webbeds已匹配酒店.xlsx";
         String file = "C:\\wst_han\\打杂\\webbeds\\？？？\\" + fileName;
         InputStream inputStream = new FileInputStream(file);
         List<ExcelFile> excelFileList = Lists.newArrayListWithCapacity(25000);
@@ -554,6 +552,87 @@ public class WebbedsService {
         List<String> hotelIds = excelFileList.stream().map(ExcelFile::getHotelId).distinct().toList();
         int hotelIdCount = hotelIds.size();
         int i = zhJdJdbGjMappingDao.selectMatchCount(hotelIds);
-        System.out.println("文件"+fileName+"记录行数:"+recordCount+";有效酒店id数:"+hotelIdCount+"已映射数量:" + i);
+        System.out.println("文件" + fileName + "记录行数:" + recordCount + ";有效酒店id数:" + hotelIdCount + "已映射数量:" + i);
+    }
+
+    public void exportWebbedsMapping() {
+        String file = "C:\\wst_han\\打杂\\webbeds\\？？？\\webbeds已匹配酒店.xlsx";
+        //List<WebbedsMappingExport> exports = Lists.newArrayListWithCapacity(160000);
+        //List<ZhJdJdbGjMapping> zhJdJdbGjMappings = zhJdJdbGjMappingDao.selectWebbedsData();
+        List<WebbedsMappingExport> exports = zhJdJdbGjMappingDao.selectWebbeds();
+        //int start = 0;
+        /*for (int j = 0; j < zhJdJdbGjMappings.size(); j++) {
+            if (j != 0 && j % 1000 == 0) {
+                List<ZhJdJdbGjMapping> list = zhJdJdbGjMappings.subList(start, j);
+                List<String> webbedIds = list.stream().map(ZhJdJdbGjMapping::getPlatId).toList();
+                List<Long> ids = list.stream().map(ZhJdJdbGjMapping::getLocalId).toList();
+                List<WebbedsHotelData> webbedsHotelData = webbedsHotelDataDao.selectInfoByIds(webbedIds);
+                List<JdJdbGj> jdJdbGjs = jdJdbGjDao.selectInfoByIds(ids);
+                start = j;
+            }
+        }*/
+        //List<ZhJdJdbGjMapping> list = zhJdJdbGjMappings.subList(start, zhJdJdbGjMappings.size());
+        EasyExcel.write(file, WebbedsMappingExport.class).sheet("webbeds已映射数据").doWrite(exports);
+    }
+
+    public void analyzeNewMapping() throws Exception {
+        String fileName = "DOTWID&didaid0815.xlsx";
+        String file = "C:\\wst_han\\打杂\\webbeds\\20240815\\" + fileName;
+        InputStream inputStream = new FileInputStream(file);
+        List<WebbedsDaolv0815> excelFileList = Lists.newArrayListWithCapacity(6000);
+        EasyExcel.read(inputStream, WebbedsDaolv0815.class, new PageReadListener<WebbedsDaolv0815>(excelFileList::addAll, 1000)).headRowNumber(1).sheet().doRead();
+        int totalCount = excelFileList.size();
+        List<WebbedsDaolv0815> intelDataList = excelFileList.stream().filter(e -> !"CN".equals(e.getDaolvCountry())).toList();
+        int intelCount = intelDataList.size();
+        List<WebbedsDaolv0815> legalDataList = intelDataList.stream().filter(e -> StringUtils.hasLength(e.getDaolvCityCode()) && StringUtils.hasLength(e.getWebbedsHotelId())).toList();
+        int legalCount = legalDataList.size();
+
+        int i = 0;
+        List<WebbedsDaolv0815> result = Lists.newArrayListWithCapacity(legalCount);
+        List<ZhJdJdbGjMapping> insertList = Lists.newArrayListWithCapacity(3000);
+        for (WebbedsDaolv0815 webbedsDaolv0815 : legalDataList) {
+            String webbedsHotelId = webbedsDaolv0815.getWebbedsHotelId();
+            String daolvHotelId = webbedsDaolv0815.getDaolvHotelId();
+            WebbedsHotelData webbedsHotelData = webbedsHotelDataDao.selectByHotelId(webbedsHotelId);
+            if (webbedsHotelData == null) {
+                webbedsDaolv0815.setStatus("webbeds酒店id找不到");
+                result.add(webbedsDaolv0815);
+                continue;
+            }
+            JdJdbDaolv jdJdbDaolv = jdJdbDaolvDao.selectById(Integer.valueOf(daolvHotelId));
+            if (jdJdbDaolv == null) {
+                webbedsDaolv0815.setStatus("daolv酒店id找不到");
+                result.add(webbedsDaolv0815);
+                continue;
+            }
+            List<ZhJdJdbGjMapping> mappings = zhJdJdbGjMappingDao.selectDaolvOrWebbedsMapping(webbedsHotelId, daolvHotelId);
+            if (CollectionUtils.isEmpty(mappings)) {
+                webbedsDaolv0815.setStatus("此daolv酒店还没映射");
+                result.add(webbedsDaolv0815);
+                continue;
+            }
+            int size = mappings.size();
+            if (size == 1) {
+                Integer plat = mappings.get(0).getPlat();
+                if (2000069 == plat) {
+                    webbedsDaolv0815.setStatus("准备映射");
+                    result.add(webbedsDaolv0815);
+                    ZhJdJdbGjMapping zhJdJdbGjMapping = new ZhJdJdbGjMapping();
+                    zhJdJdbGjMapping.setPlat(2000071);
+                    zhJdJdbGjMapping.setLocalId(mappings.get(0).getLocalId());
+                    zhJdJdbGjMapping.setPlatId(webbedsHotelId);
+                    insertList.add(zhJdJdbGjMapping);
+                    i++;
+                }
+            } else {
+                webbedsDaolv0815.setStatus("此webbeds酒店已经映射过了");
+                result.add(webbedsDaolv0815);
+            }
+        }
+        saveBatch4(insertList);
+        System.out.println("文件" + fileName + "记录行数:" + totalCount + "非CN行数:" + intelCount +
+                "; 合法行数:" + legalCount + "; 准备插入行数:" + i);
+        //String resultFile = "C:\\wst_han\\打杂\\webbeds\\20240815\\result.xlsx";
+        //EasyExcel.write(resultFile, WebbedsDaolv0815.class).sheet("解析结果").doWrite(result);
     }
 }

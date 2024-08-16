@@ -24,4 +24,27 @@
             #{id}
         </foreach>
     </select>
+
+    <select id="selectWebbedsData" resultType="com.example.basic.entity.ZhJdJdbGjMapping">
+        SELECT *
+        FROM `zh_jd_jdb_gj_mapping`
+        WHERE plat = '2000071'
+    </select>
+
+    <select id="selectWebbeds" resultType="com.example.basic.domain.WebbedsMappingExport">
+        SELECT zjjgm.`plat_id` as webbedsHotelId,
+               jjg.`city_id`,
+               jjg.`city_name`,
+               jjg.`name`,
+               jjg.`address`
+        FROM `zh_jd_jdb_gj_mapping` zjjgm
+                 LEFT JOIN `jd_jdb_gj` jjg ON zjjgm.`local_id` = jjg.`id`
+        WHERE zjjgm.`plat` = '2000071'
+    </select>
+
+    <select id="selectDaolvOrWebbedsMapping" resultType="com.example.basic.entity.ZhJdJdbGjMapping">
+        SELECT *
+        FROM `zh_jd_jdb_gj_mapping`
+        WHERE (plat = '2000071' and plat_id = #{webbedsHotelId}) OR (plat = '2000069' AND plat_id = #{daolvHotelId})
+    </select>
 </mapper>

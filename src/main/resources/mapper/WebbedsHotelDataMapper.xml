@@ -49,4 +49,19 @@
         SELECT distinct `short_country_name`
         FROM `webbeds_hotel_data`
     </select>
+
+    <select id="selectEffectIds" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT dotw_hotel_code
+        FROM `webbeds_hotel_data`
+        WHERE dotw_hotel_code IN
+        <foreach collection="webbedsHotelIds" item="code" open="(" separator="," close=")">
+            #{code}
+        </foreach>
+    </select>
+
+    <select id="selectByHotelId" parameterType="java.lang.String" resultType="com.example.basic.entity.WebbedsHotelData">
+        SELECT *
+        FROM `webbeds_hotel_data`
+        WHERE `dotw_hotel_code` = #{webbedsHotelId}
+    </select>
 </mapper>

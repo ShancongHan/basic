@@ -1,227 +1,150 @@
-2024-08-13T14:44:08.553+08:00  INFO 7744 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 7744 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
-2024-08-13T14:44:08.568+08:00  INFO 7744 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
-2024-08-13T14:44:09.732+08:00  INFO 7744 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-08-13T14:44:09.735+08:00  INFO 7744 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-08-13T14:44:09.759+08:00  INFO 7744 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 12 ms. Found 0 Redis repository interfaces.
-2024-08-13T14:44:10.187+08:00  INFO 7744 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
-2024-08-13T14:44:10.195+08:00  INFO 7744 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2024-08-13T14:44:10.196+08:00  INFO 7744 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
-2024-08-13T14:44:10.259+08:00  INFO 7744 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2024-08-13T14:44:10.260+08:00  INFO 7744 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1648 ms
-2024-08-13T14:44:11.456+08:00  INFO 7744 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
-2024-08-13T14:44:11.462+08:00  INFO 7744 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 3.299 seconds (process running for 3.961)
-2024-08-13T14:44:51.809+08:00  INFO 7744 --- [http-nio-9008-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-08-13T14:44:51.809+08:00  INFO 7744 --- [http-nio-9008-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2024-08-13T14:44:51.810+08:00  INFO 7744 --- [http-nio-9008-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
-2024-08-13T14:49:00.441+08:00  INFO 3176 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 3176 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
-2024-08-13T14:49:00.443+08:00  INFO 3176 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
-2024-08-13T14:49:00.855+08:00  INFO 3176 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-08-13T14:49:00.857+08:00  INFO 3176 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-08-13T14:49:00.876+08:00  INFO 3176 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 9 ms. Found 0 Redis repository interfaces.
-2024-08-13T14:49:01.450+08:00  INFO 3176 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
-2024-08-13T14:49:01.456+08:00  INFO 3176 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2024-08-13T14:49:01.456+08:00  INFO 3176 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
-2024-08-13T14:49:01.521+08:00  INFO 3176 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2024-08-13T14:49:01.521+08:00  INFO 3176 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1051 ms
-2024-08-13T14:49:02.336+08:00  INFO 3176 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
-2024-08-13T14:49:02.341+08:00  INFO 3176 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 2.112 seconds (process running for 2.473)
-2024-08-13T14:49:30.430+08:00  INFO 12452 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 12452 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
-2024-08-13T14:49:30.432+08:00  INFO 12452 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
-2024-08-13T14:49:30.848+08:00  INFO 12452 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-08-13T14:49:30.850+08:00  INFO 12452 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-08-13T14:49:30.872+08:00  INFO 12452 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 12 ms. Found 0 Redis repository interfaces.
-2024-08-13T14:49:31.245+08:00  INFO 12452 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
-2024-08-13T14:49:31.251+08:00  INFO 12452 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2024-08-13T14:49:31.251+08:00  INFO 12452 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
-2024-08-13T14:49:31.311+08:00  INFO 12452 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2024-08-13T14:49:31.311+08:00  INFO 12452 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 853 ms
-2024-08-13T14:49:32.065+08:00  INFO 12452 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
-2024-08-13T14:49:32.070+08:00  INFO 12452 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 1.867 seconds (process running for 2.229)
-2024-08-13T14:49:44.214+08:00  INFO 12452 --- [http-nio-9008-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-08-13T14:49:44.214+08:00  INFO 12452 --- [http-nio-9008-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2024-08-13T14:49:44.215+08:00  INFO 12452 --- [http-nio-9008-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
-2024-08-13T14:49:44.868+08:00  INFO 12452 --- [http-nio-9008-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-08-13T14:49:45.190+08:00  INFO 12452 --- [http-nio-9008-exec-2] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@59e9a94f
-2024-08-13T14:49:45.192+08:00  INFO 12452 --- [http-nio-9008-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-08-13T14:50:24.376+08:00  INFO 12452 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-08-13T14:50:24.383+08:00  INFO 12452 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2024-08-13T14:50:26.460+08:00  INFO 2684 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 2684 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
-2024-08-13T14:50:26.462+08:00  INFO 2684 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
-2024-08-13T14:50:26.868+08:00  INFO 2684 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-08-13T14:50:26.869+08:00  INFO 2684 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-08-13T14:50:26.892+08:00  INFO 2684 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 12 ms. Found 0 Redis repository interfaces.
-2024-08-13T14:50:27.255+08:00  INFO 2684 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
-2024-08-13T14:50:27.261+08:00  INFO 2684 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2024-08-13T14:50:27.261+08:00  INFO 2684 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
-2024-08-13T14:50:27.318+08:00  INFO 2684 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2024-08-13T14:50:27.318+08:00  INFO 2684 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 830 ms
-2024-08-13T14:50:28.155+08:00  INFO 2684 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
-2024-08-13T14:50:28.162+08:00  INFO 2684 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 1.943 seconds (process running for 2.342)
-2024-08-13T14:50:29.600+08:00  INFO 2684 --- [http-nio-9008-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-08-13T14:50:29.600+08:00  INFO 2684 --- [http-nio-9008-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2024-08-13T14:50:29.601+08:00  INFO 2684 --- [http-nio-9008-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
-2024-08-13T14:50:30.265+08:00  INFO 2684 --- [http-nio-9008-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-08-13T14:50:30.511+08:00  INFO 2684 --- [http-nio-9008-exec-2] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3123e49d
-2024-08-13T14:50:30.514+08:00  INFO 2684 --- [http-nio-9008-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-08-13T14:53:44.480+08:00  INFO 2684 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-08-13T14:53:44.483+08:00  INFO 2684 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2024-08-13T14:53:50.386+08:00  INFO 18120 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 18120 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
-2024-08-13T14:53:50.389+08:00  INFO 18120 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
-2024-08-13T14:53:50.801+08:00  INFO 18120 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-08-13T14:53:50.803+08:00  INFO 18120 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-08-13T14:53:50.823+08:00  INFO 18120 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 Redis repository interfaces.
-2024-08-13T14:53:51.186+08:00  INFO 18120 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
-2024-08-13T14:53:51.192+08:00  INFO 18120 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2024-08-13T14:53:51.192+08:00  INFO 18120 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
-2024-08-13T14:53:51.248+08:00  INFO 18120 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2024-08-13T14:53:51.248+08:00  INFO 18120 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 830 ms
-2024-08-13T14:53:52.004+08:00  INFO 18120 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
-2024-08-13T14:53:52.010+08:00  INFO 18120 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 1.848 seconds (process running for 2.239)
-2024-08-13T14:53:58.843+08:00  INFO 18120 --- [http-nio-9008-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-08-13T14:53:58.843+08:00  INFO 18120 --- [http-nio-9008-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2024-08-13T14:53:58.844+08:00  INFO 18120 --- [http-nio-9008-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
-2024-08-13T14:53:59.243+08:00  INFO 18120 --- [http-nio-9008-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-08-13T14:53:59.501+08:00  INFO 18120 --- [http-nio-9008-exec-2] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@17e8b3a2
-2024-08-13T14:53:59.503+08:00  INFO 18120 --- [http-nio-9008-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-08-13T14:54:44.111+08:00  INFO 18120 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-08-13T14:54:44.115+08:00  INFO 18120 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2024-08-13T14:54:49.564+08:00  INFO 13060 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 13060 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
-2024-08-13T14:54:49.566+08:00  INFO 13060 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
-2024-08-13T14:54:49.975+08:00  INFO 13060 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-08-13T14:54:49.977+08:00  INFO 13060 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-08-13T14:54:49.998+08:00  INFO 13060 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 Redis repository interfaces.
-2024-08-13T14:54:50.357+08:00  INFO 13060 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
-2024-08-13T14:54:50.363+08:00  INFO 13060 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2024-08-13T14:54:50.363+08:00  INFO 13060 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
-2024-08-13T14:54:50.419+08:00  INFO 13060 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2024-08-13T14:54:50.419+08:00  INFO 13060 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 825 ms
-2024-08-13T14:54:51.207+08:00  INFO 13060 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
-2024-08-13T14:54:51.212+08:00  INFO 13060 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 1.865 seconds (process running for 2.228)
-2024-08-13T14:54:53.617+08:00  INFO 13060 --- [http-nio-9008-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-08-13T14:54:53.618+08:00  INFO 13060 --- [http-nio-9008-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2024-08-13T14:54:53.618+08:00  INFO 13060 --- [http-nio-9008-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
-2024-08-13T14:54:53.888+08:00  INFO 13060 --- [http-nio-9008-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-08-13T14:54:54.154+08:00  INFO 13060 --- [http-nio-9008-exec-1] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@dadd811
-2024-08-13T14:54:54.158+08:00  INFO 13060 --- [http-nio-9008-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-08-13T14:55:19.403+08:00  INFO 13060 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-08-13T14:55:19.408+08:00  INFO 13060 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2024-08-13T14:55:25.446+08:00  INFO 7516 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 7516 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
-2024-08-13T14:55:25.448+08:00  INFO 7516 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
-2024-08-13T14:55:25.871+08:00  INFO 7516 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-08-13T14:55:25.873+08:00  INFO 7516 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-08-13T14:55:25.894+08:00  INFO 7516 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 11 ms. Found 0 Redis repository interfaces.
-2024-08-13T14:55:26.258+08:00  INFO 7516 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
-2024-08-13T14:55:26.265+08:00  INFO 7516 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2024-08-13T14:55:26.265+08:00  INFO 7516 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
-2024-08-13T14:55:26.320+08:00  INFO 7516 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2024-08-13T14:55:26.320+08:00  INFO 7516 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 842 ms
-2024-08-13T14:55:27.096+08:00  INFO 7516 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
-2024-08-13T14:55:27.101+08:00  INFO 7516 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 1.874 seconds (process running for 2.225)
-2024-08-13T14:55:28.252+08:00  INFO 7516 --- [http-nio-9008-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-08-13T14:55:28.252+08:00  INFO 7516 --- [http-nio-9008-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2024-08-13T14:55:28.253+08:00  INFO 7516 --- [http-nio-9008-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
-2024-08-13T14:55:28.527+08:00  INFO 7516 --- [http-nio-9008-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-08-13T14:55:28.792+08:00  INFO 7516 --- [http-nio-9008-exec-2] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1c831ceb
-2024-08-13T14:55:28.794+08:00  INFO 7516 --- [http-nio-9008-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-08-13T14:55:52.556+08:00  INFO 7516 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-08-13T14:55:52.560+08:00  INFO 7516 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2024-08-13T14:55:57.958+08:00  INFO 20116 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 20116 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
-2024-08-13T14:55:57.960+08:00  INFO 20116 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
-2024-08-13T14:55:58.353+08:00  INFO 20116 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-08-13T14:55:58.355+08:00  INFO 20116 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-08-13T14:55:58.374+08:00  INFO 20116 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 9 ms. Found 0 Redis repository interfaces.
-2024-08-13T14:55:58.724+08:00  INFO 20116 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
-2024-08-13T14:55:58.729+08:00  INFO 20116 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2024-08-13T14:55:58.730+08:00  INFO 20116 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
-2024-08-13T14:55:58.783+08:00  INFO 20116 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2024-08-13T14:55:58.783+08:00  INFO 20116 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 796 ms
-2024-08-13T14:55:59.544+08:00  INFO 20116 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
-2024-08-13T14:55:59.549+08:00  INFO 20116 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 1.809 seconds (process running for 2.151)
-2024-08-13T14:56:03.957+08:00  INFO 20116 --- [http-nio-9008-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-08-13T14:56:03.958+08:00  INFO 20116 --- [http-nio-9008-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2024-08-13T14:56:03.959+08:00  INFO 20116 --- [http-nio-9008-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
-2024-08-13T14:56:04.234+08:00  INFO 20116 --- [http-nio-9008-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-08-13T14:56:04.462+08:00  INFO 20116 --- [http-nio-9008-exec-2] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4632a77c
-2024-08-13T14:56:04.463+08:00  INFO 20116 --- [http-nio-9008-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-08-13T14:56:27.226+08:00  INFO 20116 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-08-13T14:56:27.230+08:00  INFO 20116 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2024-08-13T14:56:32.857+08:00  INFO 21076 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 21076 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
-2024-08-13T14:56:32.859+08:00  INFO 21076 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
-2024-08-13T14:56:33.274+08:00  INFO 21076 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-08-13T14:56:33.275+08:00  INFO 21076 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-08-13T14:56:33.297+08:00  INFO 21076 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 11 ms. Found 0 Redis repository interfaces.
-2024-08-13T14:56:33.655+08:00  INFO 21076 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
-2024-08-13T14:56:33.661+08:00  INFO 21076 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2024-08-13T14:56:33.661+08:00  INFO 21076 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
-2024-08-13T14:56:33.717+08:00  INFO 21076 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2024-08-13T14:56:33.718+08:00  INFO 21076 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 832 ms
-2024-08-13T14:56:34.674+08:00  INFO 21076 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
-2024-08-13T14:56:34.680+08:00  INFO 21076 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 2.04 seconds (process running for 2.398)
-2024-08-13T14:56:35.669+08:00  INFO 21076 --- [http-nio-9008-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-08-13T14:56:35.670+08:00  INFO 21076 --- [http-nio-9008-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2024-08-13T14:56:35.670+08:00  INFO 21076 --- [http-nio-9008-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
-2024-08-13T14:56:35.951+08:00  INFO 21076 --- [http-nio-9008-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-08-13T14:56:36.205+08:00  INFO 21076 --- [http-nio-9008-exec-1] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3e19968c
-2024-08-13T14:56:36.207+08:00  INFO 21076 --- [http-nio-9008-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-08-13T14:57:01.129+08:00  INFO 21076 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-08-13T14:57:01.133+08:00  INFO 21076 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2024-08-13T14:57:07.014+08:00  INFO 21436 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 21436 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
-2024-08-13T14:57:07.017+08:00  INFO 21436 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
-2024-08-13T14:57:07.433+08:00  INFO 21436 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-08-13T14:57:07.435+08:00  INFO 21436 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-08-13T14:57:07.457+08:00  INFO 21436 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 12 ms. Found 0 Redis repository interfaces.
-2024-08-13T14:57:07.833+08:00  INFO 21436 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
-2024-08-13T14:57:07.839+08:00  INFO 21436 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2024-08-13T14:57:07.839+08:00  INFO 21436 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
-2024-08-13T14:57:07.897+08:00  INFO 21436 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2024-08-13T14:57:07.897+08:00  INFO 21436 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 853 ms
-2024-08-13T14:57:08.676+08:00  INFO 21436 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
-2024-08-13T14:57:08.682+08:00  INFO 21436 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 1.896 seconds (process running for 2.251)
-2024-08-13T14:57:10.492+08:00  INFO 21436 --- [http-nio-9008-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-08-13T14:57:10.492+08:00  INFO 21436 --- [http-nio-9008-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2024-08-13T14:57:10.493+08:00  INFO 21436 --- [http-nio-9008-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
-2024-08-13T14:57:10.951+08:00  INFO 21436 --- [http-nio-9008-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-08-13T14:57:11.238+08:00  INFO 21436 --- [http-nio-9008-exec-2] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7c5b6711
-2024-08-13T14:57:11.241+08:00  INFO 21436 --- [http-nio-9008-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-08-13T14:57:44.362+08:00  INFO 21436 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-08-13T14:57:44.367+08:00  INFO 21436 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2024-08-13T14:57:50.475+08:00  INFO 21056 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 21056 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
-2024-08-13T14:57:50.477+08:00  INFO 21056 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
-2024-08-13T14:57:50.873+08:00  INFO 21056 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-08-13T14:57:50.875+08:00  INFO 21056 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-08-13T14:57:50.895+08:00  INFO 21056 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 11 ms. Found 0 Redis repository interfaces.
-2024-08-13T14:57:51.234+08:00  INFO 21056 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
-2024-08-13T14:57:51.239+08:00  INFO 21056 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2024-08-13T14:57:51.239+08:00  INFO 21056 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
-2024-08-13T14:57:51.290+08:00  INFO 21056 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2024-08-13T14:57:51.291+08:00  INFO 21056 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 786 ms
-2024-08-13T14:57:52.029+08:00  INFO 21056 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
-2024-08-13T14:57:52.034+08:00  INFO 21056 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 1.771 seconds (process running for 2.141)
-2024-08-13T14:57:54.020+08:00  INFO 21056 --- [http-nio-9008-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-08-13T14:57:54.021+08:00  INFO 21056 --- [http-nio-9008-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2024-08-13T14:57:54.021+08:00  INFO 21056 --- [http-nio-9008-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
-2024-08-13T14:57:54.360+08:00  INFO 21056 --- [http-nio-9008-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-08-13T14:57:54.630+08:00  INFO 21056 --- [http-nio-9008-exec-1] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3159d29a
-2024-08-13T14:57:54.631+08:00  INFO 21056 --- [http-nio-9008-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-08-13T14:58:26.028+08:00  INFO 21056 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-08-13T14:58:26.032+08:00  INFO 21056 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2024-08-13T14:58:32.263+08:00  INFO 20732 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 20732 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
-2024-08-13T14:58:32.266+08:00  INFO 20732 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
-2024-08-13T14:58:33.047+08:00  INFO 20732 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-08-13T14:58:33.050+08:00  INFO 20732 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-08-13T14:58:33.082+08:00  INFO 20732 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 17 ms. Found 0 Redis repository interfaces.
-2024-08-13T14:58:33.691+08:00  INFO 20732 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
-2024-08-13T14:58:33.700+08:00  INFO 20732 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2024-08-13T14:58:33.701+08:00  INFO 20732 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
-2024-08-13T14:58:33.799+08:00  INFO 20732 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2024-08-13T14:58:33.799+08:00  INFO 20732 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1477 ms
-2024-08-13T14:58:35.177+08:00  INFO 20732 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
-2024-08-13T14:58:35.187+08:00  INFO 20732 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 3.33 seconds (process running for 3.997)
-2024-08-13T14:58:39.878+08:00  INFO 20732 --- [http-nio-9008-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-08-13T14:58:39.879+08:00  INFO 20732 --- [http-nio-9008-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2024-08-13T14:58:39.879+08:00  INFO 20732 --- [http-nio-9008-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
-2024-08-13T14:58:41.995+08:00  INFO 20732 --- [http-nio-9008-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-08-13T14:58:42.227+08:00  INFO 20732 --- [http-nio-9008-exec-1] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5a73ed24
-2024-08-13T14:58:42.229+08:00  INFO 20732 --- [http-nio-9008-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-08-13T15:02:13.488+08:00  INFO 20732 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-08-13T15:02:13.490+08:00  INFO 20732 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-08-15T16:17:26.434+08:00  INFO 9948 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 9948 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
+2024-08-15T16:17:26.444+08:00  INFO 9948 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
+2024-08-15T16:17:27.572+08:00  INFO 9948 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-08-15T16:17:27.574+08:00  INFO 9948 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-08-15T16:17:27.611+08:00  INFO 9948 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 23 ms. Found 0 Redis repository interfaces.
+2024-08-15T16:17:28.064+08:00  INFO 9948 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
+2024-08-15T16:17:28.071+08:00  INFO 9948 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-15T16:17:28.071+08:00  INFO 9948 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
+2024-08-15T16:17:28.137+08:00  INFO 9948 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-15T16:17:28.137+08:00  INFO 9948 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1659 ms
+2024-08-15T16:17:29.623+08:00  INFO 9948 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
+2024-08-15T16:17:29.630+08:00  INFO 9948 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 3.452 seconds (process running for 3.986)
+2024-08-15T16:17:32.851+08:00  INFO 9948 --- [http-nio-9008-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-08-15T16:17:32.851+08:00  INFO 9948 --- [http-nio-9008-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-08-15T16:17:32.852+08:00  INFO 9948 --- [http-nio-9008-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-08-15T16:18:07.990+08:00  INFO 10024 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 10024 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
+2024-08-15T16:18:07.991+08:00  INFO 10024 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
+2024-08-15T16:18:08.391+08:00  INFO 10024 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-08-15T16:18:08.392+08:00  INFO 10024 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-08-15T16:18:08.412+08:00  INFO 10024 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 9 ms. Found 0 Redis repository interfaces.
+2024-08-15T16:18:08.766+08:00  INFO 10024 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
+2024-08-15T16:18:08.772+08:00  INFO 10024 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-15T16:18:08.773+08:00  INFO 10024 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
+2024-08-15T16:18:08.833+08:00  INFO 10024 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-15T16:18:08.833+08:00  INFO 10024 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 814 ms
+2024-08-15T16:18:09.802+08:00  INFO 10024 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
+2024-08-15T16:18:09.807+08:00  INFO 10024 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 2.036 seconds (process running for 2.417)
+2024-08-15T16:18:16.224+08:00  INFO 10024 --- [http-nio-9008-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-08-15T16:18:16.224+08:00  INFO 10024 --- [http-nio-9008-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-08-15T16:18:16.225+08:00  INFO 10024 --- [http-nio-9008-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2024-08-15T16:18:16.609+08:00  INFO 10024 --- [http-nio-9008-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-08-15T16:18:16.878+08:00  INFO 10024 --- [http-nio-9008-exec-2] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@33822fd5
+2024-08-15T16:18:16.880+08:00  INFO 10024 --- [http-nio-9008-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-08-15T16:20:19.543+08:00  INFO 10024 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-08-15T16:20:19.546+08:00  INFO 10024 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-08-15T16:20:25.602+08:00  INFO 15820 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 15820 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
+2024-08-15T16:20:25.604+08:00  INFO 15820 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
+2024-08-15T16:20:26.007+08:00  INFO 15820 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-08-15T16:20:26.009+08:00  INFO 15820 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-08-15T16:20:26.029+08:00  INFO 15820 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 Redis repository interfaces.
+2024-08-15T16:20:26.378+08:00  INFO 15820 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
+2024-08-15T16:20:26.383+08:00  INFO 15820 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-15T16:20:26.383+08:00  INFO 15820 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
+2024-08-15T16:20:26.445+08:00  INFO 15820 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-15T16:20:26.446+08:00  INFO 15820 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 814 ms
+2024-08-15T16:20:27.202+08:00  INFO 15820 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
+2024-08-15T16:20:27.207+08:00  INFO 15820 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 1.825 seconds (process running for 2.193)
+2024-08-15T16:20:34.066+08:00  INFO 15820 --- [http-nio-9008-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-08-15T16:20:34.066+08:00  INFO 15820 --- [http-nio-9008-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-08-15T16:20:34.067+08:00  INFO 15820 --- [http-nio-9008-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2024-08-15T16:20:34.481+08:00  INFO 15820 --- [http-nio-9008-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-08-15T16:20:34.725+08:00  INFO 15820 --- [http-nio-9008-exec-1] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@65e2faa2
+2024-08-15T16:20:34.727+08:00  INFO 15820 --- [http-nio-9008-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-08-15T16:49:00.522+08:00  INFO 15820 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-08-15T16:49:00.526+08:00  INFO 15820 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-08-15T16:49:08.331+08:00  INFO 19740 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 19740 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
+2024-08-15T16:49:08.333+08:00  INFO 19740 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
+2024-08-15T16:49:08.878+08:00  INFO 19740 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-08-15T16:49:08.880+08:00  INFO 19740 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-08-15T16:49:08.900+08:00  INFO 19740 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 Redis repository interfaces.
+2024-08-15T16:49:09.372+08:00  INFO 19740 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
+2024-08-15T16:49:09.379+08:00  INFO 19740 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-15T16:49:09.380+08:00  INFO 19740 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
+2024-08-15T16:49:09.449+08:00  INFO 19740 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-15T16:49:09.449+08:00  INFO 19740 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1089 ms
+2024-08-15T16:49:10.352+08:00  INFO 19740 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
+2024-08-15T16:49:10.361+08:00  INFO 19740 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 2.254 seconds (process running for 2.633)
+2024-08-15T16:49:13.785+08:00  INFO 19740 --- [http-nio-9008-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-08-15T16:49:13.785+08:00  INFO 19740 --- [http-nio-9008-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-08-15T16:49:13.786+08:00  INFO 19740 --- [http-nio-9008-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2024-08-15T16:49:56.588+08:00  INFO 18592 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 18592 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
+2024-08-15T16:49:56.590+08:00  INFO 18592 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
+2024-08-15T16:49:57.202+08:00  INFO 18592 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-08-15T16:49:57.205+08:00  INFO 18592 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-08-15T16:49:57.232+08:00  INFO 18592 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 14 ms. Found 0 Redis repository interfaces.
+2024-08-15T16:49:57.765+08:00  INFO 18592 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
+2024-08-15T16:49:57.773+08:00  INFO 18592 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-15T16:49:57.773+08:00  INFO 18592 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
+2024-08-15T16:49:57.856+08:00  INFO 18592 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-15T16:49:57.856+08:00  INFO 18592 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1209 ms
+2024-08-15T16:49:58.770+08:00  INFO 18592 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
+2024-08-15T16:49:58.776+08:00  INFO 18592 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 2.537 seconds (process running for 3.049)
+2024-08-15T16:50:00.277+08:00  INFO 18592 --- [http-nio-9008-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-08-15T16:50:00.277+08:00  INFO 18592 --- [http-nio-9008-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-08-15T16:50:00.278+08:00  INFO 18592 --- [http-nio-9008-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-08-15T16:50:00.673+08:00  INFO 18592 --- [http-nio-9008-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-08-15T16:50:00.961+08:00  INFO 18592 --- [http-nio-9008-exec-1] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4ba599de
+2024-08-15T16:50:00.962+08:00  INFO 18592 --- [http-nio-9008-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-08-15T16:50:13.739+08:00  INFO 18592 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-08-15T16:50:13.743+08:00  INFO 18592 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-08-15T16:50:16.011+08:00  INFO 17628 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 17628 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
+2024-08-15T16:50:16.012+08:00  INFO 17628 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
+2024-08-15T16:50:16.512+08:00  INFO 17628 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-08-15T16:50:16.514+08:00  INFO 17628 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-08-15T16:50:16.535+08:00  INFO 17628 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 11 ms. Found 0 Redis repository interfaces.
+2024-08-15T16:50:16.901+08:00  INFO 17628 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
+2024-08-15T16:50:16.906+08:00  INFO 17628 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-15T16:50:16.907+08:00  INFO 17628 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
+2024-08-15T16:50:16.961+08:00  INFO 17628 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-15T16:50:16.961+08:00  INFO 17628 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 915 ms
+2024-08-15T16:50:17.701+08:00  INFO 17628 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
+2024-08-15T16:50:17.706+08:00  INFO 17628 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 1.961 seconds (process running for 2.454)
+2024-08-15T16:50:19.415+08:00  INFO 17628 --- [http-nio-9008-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-08-15T16:50:19.415+08:00  INFO 17628 --- [http-nio-9008-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-08-15T16:50:19.416+08:00  INFO 17628 --- [http-nio-9008-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-08-15T16:50:19.818+08:00  INFO 17628 --- [http-nio-9008-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-08-15T16:50:20.116+08:00  INFO 17628 --- [http-nio-9008-exec-1] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@26c894c7
+2024-08-15T16:50:20.117+08:00  INFO 17628 --- [http-nio-9008-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-08-15T16:56:33.132+08:00  INFO 17628 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-08-15T16:56:33.134+08:00  INFO 17628 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-08-15T16:56:39.139+08:00  INFO 15872 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 15872 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
+2024-08-15T16:56:39.141+08:00  INFO 15872 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
+2024-08-15T16:56:39.577+08:00  INFO 15872 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-08-15T16:56:39.579+08:00  INFO 15872 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-08-15T16:56:39.600+08:00  INFO 15872 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 Redis repository interfaces.
+2024-08-15T16:56:39.949+08:00  INFO 15872 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
+2024-08-15T16:56:39.955+08:00  INFO 15872 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-15T16:56:39.955+08:00  INFO 15872 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
+2024-08-15T16:56:40.017+08:00  INFO 15872 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-15T16:56:40.018+08:00  INFO 15872 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 848 ms
+2024-08-15T16:56:40.794+08:00  INFO 15872 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
+2024-08-15T16:56:40.800+08:00  INFO 15872 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 1.881 seconds (process running for 2.268)
+2024-08-15T16:56:47.120+08:00  INFO 15872 --- [http-nio-9008-exec-3] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-08-15T16:56:47.120+08:00  INFO 15872 --- [http-nio-9008-exec-3] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-08-15T16:56:47.121+08:00  INFO 15872 --- [http-nio-9008-exec-3] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-08-15T16:56:47.476+08:00  INFO 15872 --- [http-nio-9008-exec-3] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-08-15T16:56:47.748+08:00  INFO 15872 --- [http-nio-9008-exec-3] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@784dbece
+2024-08-15T16:56:47.750+08:00  INFO 15872 --- [http-nio-9008-exec-3] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-08-15T17:35:22.704+08:00  INFO 15872 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-08-15T17:35:22.707+08:00  INFO 15872 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-08-15T17:35:28.891+08:00  INFO 12400 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 12400 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
+2024-08-15T17:35:28.893+08:00  INFO 12400 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
+2024-08-15T17:35:29.293+08:00  INFO 12400 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-08-15T17:35:29.295+08:00  INFO 12400 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-08-15T17:35:29.316+08:00  INFO 12400 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 11 ms. Found 0 Redis repository interfaces.
+2024-08-15T17:35:29.665+08:00  INFO 12400 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
+2024-08-15T17:35:29.672+08:00  INFO 12400 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-15T17:35:29.672+08:00  INFO 12400 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
+2024-08-15T17:35:29.724+08:00  INFO 12400 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-15T17:35:29.724+08:00  INFO 12400 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 804 ms
+2024-08-15T17:35:30.512+08:00  INFO 12400 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
+2024-08-15T17:35:30.518+08:00  INFO 12400 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 1.843 seconds (process running for 2.197)
+2024-08-15T17:35:38.303+08:00  INFO 12400 --- [http-nio-9008-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-08-15T17:35:38.304+08:00  INFO 12400 --- [http-nio-9008-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-08-15T17:35:38.305+08:00  INFO 12400 --- [http-nio-9008-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-08-15T17:35:38.756+08:00  INFO 12400 --- [http-nio-9008-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-08-15T17:35:39.049+08:00  INFO 12400 --- [http-nio-9008-exec-1] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5855501b
+2024-08-15T17:35:39.051+08:00  INFO 12400 --- [http-nio-9008-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-08-15T18:01:40.915+08:00  INFO 12400 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-08-15T18:01:40.926+08:00  INFO 12400 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
