@@ -47,4 +47,10 @@
         FROM `zh_jd_jdb_gj_mapping`
         WHERE (plat = '2000071' and plat_id = #{webbedsHotelId}) OR (plat = '2000069' AND plat_id = #{daolvHotelId})
     </select>
+
+    <select id="selectAllDaolvId" resultType="java.lang.String">
+        SELECT `plat_id`
+        FROM `zh_jd_jdb_gj_mapping`
+        WHERE `plat` = '2000069'
+    </select>
 </mapper>

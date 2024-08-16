@@ -153,4 +153,16 @@ public class ExpediaController {
             System.out.println(Throwables.getStackTraceAsString(e));
         }
     }
+
+    /**
+     * 计算expedia可以立即上线酒店数
+     */
+    @PostMapping(value = "expedia-statistics")
+    public void expediaStatistics() {
+        try {
+            expediaService.expediaStatistics();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
 }

@@ -89,6 +89,9 @@ public class ExpediaService {
     private ExpediaDaolvMatchLabDao expediaDaolvMatchLabDao;
 
     @Resource
+    private ZhJdJdbGjMappingDao zhJdJdbGjMappingDao;
+
+    @Resource
     private HttpUtils httpUtils;
 
     private static final Integer CORE_POOL_SIZE = 200;
@@ -786,7 +789,8 @@ public class ExpediaService {
     private ExpediaDaolvMatchLab createOneMatchLab(ExpediaPropertyBasic expediaPropertyBasic, JdJdbDaolv jdJdbDaolv,
                                                    Integer score, boolean multiMatch) {
         Double meter = MappingScoreHelper2.calculateMeter(expediaPropertyBasic, jdJdbDaolv);
-        return ExpediaDaolvMatchLab.builder()
+        return null;
+        /*return ExpediaDaolvMatchLab.builder()
                 .expediaHotelId(expediaPropertyBasic.getPropertyId())
                 .expediaHotelName(expediaPropertyBasic.getNameEn())
                 .expediaCountry(expediaPropertyBasic.getCountryCode())
@@ -807,7 +811,7 @@ public class ExpediaService {
                 .addressMatch(Math.abs(score) == 5 || Math.abs(score) == 6 || Math.abs(score) == 15 || Math.abs(score) == 16 ? 1 : 0)
                 .telMatch(Math.abs(score) == 1 || Math.abs(score) == 6 || Math.abs(score) == 11 || Math.abs(score) == 16 ? 1 : 0)
                 .score(score)
-                .multiMatch(multiMatch ? 1 : 0).build();
+                .multiMatch(multiMatch ? 1 : 0).build();*/
     }
 
     private void saveBatch2(List<ExpediaDaolvMatchLab> insertList) {
@@ -872,5 +876,25 @@ public class ExpediaService {
             }
         }
 
+    }
+
+    public void expediaStatistics() {
+        // 查询出16分的数据
+        List<ExpediaDaolvMatchLab> expediaDaolvMatchLabs = expediaDaolvMatchLabDao.select16List();
+        // 排查掉expediaHotelId和daolvHotelId重复的数据
+        List<ExpediaDaolvMatchLab> onlyOne16List = Lists.newArrayListWithCapacity(expediaDaolvMatchLabs.size());
+        Map<Integer, List<ExpediaDaolvMatchLab>> collect = expediaDaolvMatchLabs.stream().collect(Collectors.groupingBy(ExpediaDaolvMatchLab::getDaolvHotelId));
+        for (List<ExpediaDaolvMatchLab> value : collect.values()) {
+            if (value.size() == 1) {
+                onlyOne16List.add(value.get(0));
+            }
+        }
+        // 判断onlyOne16List中有多少已经映射
+        List<String> mappingDaolvIds = zhJdJdbGjMappingDao.selectAllDaolvId();
+        Map<String, Integer> daolvIdMap = onlyOne16List.stream().collect(Collectors.toMap(e->e.getDaolvHotelId() + "", ExpediaDaolvMatchLab::getDaolvHotelId));
+        long count = mappingDaolvIds.stream().filter(daolvIdMap::containsKey).count();
+        System.out.println("总匹配" + expediaDaolvMatchLabs.size() + "条，双方id唯一切16分的" + onlyOne16List.size() + "条，" +
+                "道旅总匹配数: " + mappingDaolvIds.size() + "条");
+        System.out.println("可立即上线的expedia" + count);
     }
 }

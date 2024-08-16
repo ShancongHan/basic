@@ -22,4 +22,6 @@ public interface ZhJdJdbGjMappingDao {
     List<WebbedsMappingExport> selectWebbeds();
 
     List<ZhJdJdbGjMapping> selectDaolvOrWebbedsMapping(String webbedsHotelId, String daolvHotelId);
+
+    List<String> selectAllDaolvId();
 }

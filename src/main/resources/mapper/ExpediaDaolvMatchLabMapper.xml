@@ -17,7 +17,7 @@
         </foreach>
     </insert>
 
-    <insert id="saveBatch2" parameterType="com.example.basic.entity.WebbedsDaolvMatchLab">
+    <insert id="saveBatch2" parameterType="com.example.basic.entity.ExpediaDaolvMatchLab">
         insert into expedia_daolv_match_lab_2 (daolv_hotel_id, daolv_hotel_name, expedia_hotel_Id, expedia_hotel_name,
         expedia_latitude, expedia_longitude, daolv_latitude, daolv_longitude,
         expedia_address, daolv_address, expedia_tel, daolv_tel, expedia_country,
@@ -32,4 +32,10 @@
             #{item.telMatch},#{item.score},#{item.multiMatch})
         </foreach>
     </insert>
+
+    <select id="select16List" resultType="com.example.basic.entity.ExpediaDaolvMatchLab">
+        select score, expedia_hotel_Id, daolv_hotel_id
+        from expedia_daolv_match_lab
+        where score = 16
+    </select>
 </mapper>

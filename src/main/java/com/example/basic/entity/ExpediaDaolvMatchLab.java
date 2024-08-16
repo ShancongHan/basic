@@ -11,8 +11,6 @@ import java.math.BigDecimal;
  * @date 2024/8/8
  */
 @Data
-@Accessors(chain = true)
-@Builder
 public class ExpediaDaolvMatchLab {
 
     private Long id;	// id
