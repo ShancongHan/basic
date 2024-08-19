@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic.dao.ZhJdJdbDao">
+
+    <select id="selectAllIds" resultType="java.lang.String">
+        select id
+        from zh_jd_jdb_0
+        UNION ALL
+        select id
+        from zh_jd_jdb_1
+        UNION ALL
+        select id
+        from zh_jd_jdb_2
+        UNION ALL
+        select id
+        from zh_jd_jdb_3
+        UNION ALL
+        select id
+        from zh_jd_jdb_4
+        UNION ALL
+        select id
+        from zh_jd_jdb_5
+        UNION ALL
+        select id
+        from zh_jd_jdb_6
+        UNION ALL
+        select id
+        from zh_jd_jdb_7
+        UNION ALL
+        select id
+        from zh_jd_jdb_8
+        UNION ALL
+        select id
+        from zh_jd_jdb_9
+    </select>
+</mapper>
