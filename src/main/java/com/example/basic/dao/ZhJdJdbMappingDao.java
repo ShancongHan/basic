@@ -9,4 +9,6 @@ import java.util.List;
 public interface ZhJdJdbMappingDao {
 
     List<String> selectLocalIds();
+
+    void deleteByLocalId(String localId);
 }

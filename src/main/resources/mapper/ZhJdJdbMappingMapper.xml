@@ -5,4 +5,9 @@
         select distinct local_id
         from `zh_jd_jdb_mapping`
     </select>
+
+    <delete id="deleteByLocalId" parameterType="java.lang.String">
+        DELETE FROM `zh_jd_jdb_mapping`
+        WHERE `local_id` = #{localId}
+    </delete>
 </mapper>

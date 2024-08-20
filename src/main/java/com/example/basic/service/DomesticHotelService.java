@@ -1,5 +1,6 @@
 package com.example.basic.service;
 
+import com.example.basic.dao.JdJdbDao;
 import com.example.basic.dao.ZhJdJdbDao;
 import com.example.basic.dao.ZhJdJdbMappingDao;
 import com.google.common.collect.Lists;
@@ -25,20 +26,26 @@ public class DomesticHotelService {
     @Resource
     private ZhJdJdbMappingDao zhJdJdbMappingDao;
 
+    @Resource
+    private JdJdbDao jdJdbDao;
+
     public void checkOldData() {
-        List<String> localIds = zhJdJdbDao.selectAllIds();
+        List<String> jdIds = jdJdbDao.selectAllIds();
         List<String> mappingLocalIds = zhJdJdbMappingDao.selectLocalIds();
-        Map<String, String> localIdMap = Maps.newHashMapWithExpectedSize(localIds.size());
-        for (String localId : localIds) {
+        Map<String, String> localIdMap = Maps.newHashMapWithExpectedSize(jdIds.size());
+        for (String localId : jdIds) {
             localIdMap.put(localId, localId);
         }
-        List<String> notExistIds = Lists.newArrayListWithCapacity(10000);
+        List<String> notExistIds = Lists.newArrayListWithCapacity(2000000);
         for (String mappingLocalId : mappingLocalIds) {
             if (!localIdMap.containsKey(mappingLocalId)) {
                 notExistIds.add(mappingLocalId);
             }
         }
-        log.info("mapping表中存在表中没有的数据{}条。具体如下：{}",notExistIds.size(), notExistIds);
+        log.info("总表中存在分表中没有的数据{}条.",notExistIds.size());
+        for (String notExistId : notExistIds) {
+            zhJdJdbMappingDao.deleteByLocalId(notExistId);
+        }
         /*System.out.println("mapping表中存在表中没有的数据：" + notExistIds.size() + "条。具体如下：");
         System.out.println(notExistIds);*/
     }
