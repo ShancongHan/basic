@@ -10,4 +10,68 @@
         DELETE FROM `zh_jd_jdb_mapping`
         WHERE `local_id` = #{localId}
     </delete>
+
+    <select id="selectElongIds" resultType="java.lang.String">
+        select plat_id
+        from `zh_jd_jdb_mapping`
+        where interface_plat = '2000004'
+    </select>
+
+    <delete id="deleteElongBatch" parameterType="java.lang.String">
+        DELETE FROM `zh_jd_jdb_mapping`
+        WHERE interface_plat = '2000004' AND `plat_id` IN
+        <foreach collection="deleteList" item="platId" open="(" separator="," close=")">
+            #{platId}
+        </foreach>
+    </delete>
+
+    <select id="selectMeituanIds" resultType="java.lang.String">
+        select plat_id
+        from `zh_jd_jdb_mapping`
+        where interface_plat = '2000023'
+    </select>
+
+    <select id="selectQiantaoIds" resultType="java.lang.String">
+        select plat_id
+        from `zh_jd_jdb_mapping`
+        where interface_plat = '2000010'
+    </select>
+
+    <select id="selectHsjlIds" resultType="java.lang.String">
+        select plat_id
+        from `zh_jd_jdb_mapping`
+        where interface_plat = '2000054'
+    </select>
+
+    <delete id="deleteHsjlBatch" parameterType="java.lang.String">
+        DELETE FROM `zh_jd_jdb_mapping`
+        WHERE interface_plat = '2000054' AND `plat_id` IN
+        <foreach collection="list" item="platId" open="(" separator="," close=")">
+            #{platId}
+        </foreach>
+    </delete>
+
+    <select id="selectDaolvIds" resultType="java.lang.String">
+        select plat_id
+        from `zh_jd_jdb_mapping`
+        where interface_plat = '2000069'
+    </select>
+
+    <select id="selectHuazhuIds" resultType="java.lang.String">
+        select plat_id
+        from `zh_jd_jdb_mapping`
+        where interface_plat = '2000037'
+    </select>
+
+    <select id="selectDongchengIds" resultType="java.lang.String">
+        select plat_id
+        from `zh_jd_jdb_mapping`
+        where interface_plat = '2000050'
+    </select>
+
+    <select id="selectJinjiangIds" resultType="java.lang.String">
+        select plat_id
+        from `zh_jd_jdb_mapping`
+        where interface_plat = '2000044'
+    </select>
 </mapper>

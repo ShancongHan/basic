@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic.dao.JdJdbElongDao">
+
+    <select id="selectIds" resultType="java.lang.String">
+        select id
+        from jd_jdb_elong
+    </select>
+
+    <update id="updateBatch" parameterType="java.lang.String">
+        UPDATE `jd_jdb_elong`
+        SET `ysbs` = 1
+        WHERE `id` IN
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+</mapper>
