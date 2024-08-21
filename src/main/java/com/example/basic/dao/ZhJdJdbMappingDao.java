@@ -1,5 +1,7 @@
 package com.example.basic.dao;
 
+import com.example.basic.entity.ZhJdJdbMapping;
+
 import java.util.List;
 
 /**
@@ -8,7 +10,7 @@ import java.util.List;
  */
 public interface ZhJdJdbMappingDao {
 
-    List<String> selectLocalIds();
+    List<ZhJdJdbMapping> selectLocalIds();
 
     void deleteByLocalId(String localId);
 }

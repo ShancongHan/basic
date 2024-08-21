@@ -31,4 +31,16 @@ public class DomesticHotelController {
             System.out.println(Throwables.getStackTraceAsString(e));
         }
     }
+
+    /**
+     * 检测国内没有映射的基础数据
+     */
+    @PostMapping(value = "check-basic-data")
+    public void checkBasicData() {
+        try {
+            domesticHotelService.checkBasicData();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
 }

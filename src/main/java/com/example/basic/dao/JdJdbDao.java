@@ -9,4 +9,6 @@ import java.util.List;
 public interface JdJdbDao {
 
     List<String> selectAllIds();
+
+    void deleteBatch(List<String> deleteList);
 }
