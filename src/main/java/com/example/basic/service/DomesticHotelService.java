@@ -1,7 +1,6 @@
 package com.example.basic.service;
 
 import com.example.basic.dao.*;
-import com.example.basic.entity.WebbedsDaolvMatchLab;
 import com.example.basic.entity.ZhJdJdbMapping;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -77,7 +76,7 @@ public class DomesticHotelService {
                 notUseList.add(jdId);
             }
         }
-        log.info("总表中存在分表中没有的数据{}条.分别是{}", notUseList.size(), notUseList);
+        //log.info("mapping表中没有但是有基础数据{}条.分别是{}", notUseList.size(), notUseList);
         deleteBatch(notUseList);
     }
 

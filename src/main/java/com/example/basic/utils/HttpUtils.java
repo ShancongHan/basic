@@ -1,6 +1,10 @@
 package com.example.basic.utils;
 
 import com.alibaba.excel.util.StringUtils;
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
+import com.example.basic.domain.DongChengGnResponse;
+import com.example.basic.domain.DongChengHotelRequest;
 import com.example.basic.domain.ExpediaResponse;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -45,6 +49,10 @@ public class HttpUtils {
     private final static String PAGE_HEAD_KEY = "Pagination-Total-Results";
     private final static String LINK_HEAD_KEY = "Link";
     private final static String LODA_HEAD_KEY = "Load";
+
+    private static final String DONGCHENG_APPID = "QHhkzl";
+    private static final String DONGCHENG_KEY = "QHHKduqiueysszlzlzl";
+    private static final String DONGCHENG_URL = "https://ota.dossen.com";
 
     @Resource
     private OkHttpClient okHttpClient;
@@ -150,7 +158,7 @@ public class HttpUtils {
     }
 
     public String pullChain() throws Exception {
-        String url =  ENDPOINT + CHAINS;
+        String url = ENDPOINT + CHAINS;
         Request request = new Request.Builder()
                 .url(url)
                 .header("Accept", "application/json")
@@ -167,7 +175,7 @@ public class HttpUtils {
         for (String propertyId : propertyIds) {
             sb.append("property_id=").append(propertyId).append("&");
         }
-        String url =  ENDPOINT + CONTENT + sb.substring(0, sb.length() -1);
+        String url = ENDPOINT + CONTENT + sb.substring(0, sb.length() - 1);
         Request request = new Request.Builder()
                 .url(url)
                 .header("Accept", "application/json")
@@ -176,5 +184,33 @@ public class HttpUtils {
         Call call = okHttpClient.newCall(request);
         Response response = call.execute();
         return response.body().string();
+    }
+
+    public DongChengGnResponse getDongChengCity() {
+        String url = DONGCHENG_URL + "/Api/GetCitiesList?TokenID=UUhoa3psfFFISEtkdXFpdWV5c3N6bHpsemw";
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+        Call call = okHttpClient.newCall(request);
+        try (Response response = call.execute()) {
+            return JSONObject.parseObject(response.body().string(), DongChengGnResponse.class);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public DongChengGnResponse getDongChengHotel(DongChengHotelRequest requestDto) {
+        String url = DONGCHENG_URL + "/Api/GetHotelInfo?TokenID=UUhoa3psfFFISEtkdXFpdWV5c3N6bHpsemw";
+        RequestBody body = RequestBody.create(JSON.toJSONBytes(requestDto));
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+        Call call = okHttpClient.newCall(request);
+        try (Response response = call.execute()) {
+            return JSONObject.parseObject(response.body().string(), DongChengGnResponse.class);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

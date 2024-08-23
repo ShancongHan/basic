@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic.dao.SupplierDongChengDao">
+    <insert id="saveBatch" parameterType="com.example.basic.entity.SupplierDongCheng">
+        insert into supplier_dongcheng (hotel_id, city_id, city_name, province_name, jdmc, jdmc_en, jddz, jddh, pic_url,
+        lon_wx,lat_wx, lon, lat, breakfast, brand_name, description, create_time)
+        values
+        <foreach collection="insertList" item="item" separator=",">
+            (#{item.hotelId}, #{item.cityId}, #{item.cityName}, #{item.provinceName}, #{item.jdmc},
+            #{item.jdmcEn},#{item.jddz}, #{item.jddh}, #{item.picUrl}, #{item.lonWx},#{item.latWx}, #{item.lon},
+            #{item.lat}, #{item.breakfast}, #{item.brandName}, #{item.description},#{item.createTime})
+        </foreach>
+    </insert>
+</mapper>
