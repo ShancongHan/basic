@@ -44,4 +44,8 @@
         FROM `jd_jdb_daolv`
         WHERE `id` = #{daolvHotelId}
     </select>
+    <select id="selectIds" resultType="java.lang.String">
+        SELECT `id`
+        FROM `jd_jdb_daolv`
+    </select>
 </mapper>

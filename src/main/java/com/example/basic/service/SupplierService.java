@@ -37,10 +37,10 @@ public class SupplierService {
         List<DongChengCity> dongChengCities = JSON.parseArray(data, DongChengCity.class);
         System.out.println(dongChengCities.size());
         //List<DongChengHotel> hotels = Lists.newArrayListWithCapacity(5000);
-        /*for (DongChengCity dongChengCity : dongChengCities) {
+        for (DongChengCity dongChengCity : dongChengCities) {
             Integer cityId = dongChengCity.getCityID();
             getOneCityHotels(cityId);
-        }*/
+        }
         //System.out.println(hotels.size());
         /*List<SupplierDongCheng> supplierDongChengs = parse(hotels);
         int start = 0;
@@ -121,6 +121,6 @@ public class SupplierService {
         } while (totalCount > 0 && dongChengHotels.size() < totalCount);
         log.info("cityId{} 有{}家酒店", cityId, dongChengHotels.size());
         List<SupplierDongCheng> supplierDongChengs = parse(dongChengHotels);
-        supplierDongChengDao.saveBatch(supplierDongChengs);
+       // supplierDongChengDao.saveBatch(supplierDongChengs);
     }
 }

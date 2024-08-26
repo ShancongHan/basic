@@ -116,5 +116,30 @@ public class WebbedsController {
             System.out.println(Throwables.getStackTraceAsString(e));
         }
     }
+
+
+    /**
+     * 0823酒店文件分析
+     */
+    @PostMapping(value = "analyze0823-file")
+    public void analyzeFile() {
+        webbedsService.analyzeFile();
+    }
+
+    /**
+     * 0823酒店文件分析2
+     */
+    @PostMapping(value = "analyze0823-file2")
+    public void analyzeFile2() {
+        webbedsService.analyzeFile2();
+    }
+
+    /**
+     * 0823酒店文件分析3
+     */
+    @PostMapping(value = "analyze0823-file3")
+    public void analyzeFile3() {
+        webbedsService.analyzeFile3();
+    }
 }
 

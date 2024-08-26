@@ -24,4 +24,6 @@ public interface JdJdbDaolvDao {
     List<String> selectEffectIds(List<String> daolvHotelIds);
 
     JdJdbDaolv selectById(Integer daolvHotelId);
+
+    Set<String> selectIds();
 }
