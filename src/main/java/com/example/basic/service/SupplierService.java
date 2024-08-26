@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author han
@@ -35,26 +36,11 @@ public class SupplierService {
         DongChengGnResponse response = httpUtils.getDongChengCity();
         String data = response.getData();
         List<DongChengCity> dongChengCities = JSON.parseArray(data, DongChengCity.class);
-        System.out.println(dongChengCities.size());
-        //List<DongChengHotel> hotels = Lists.newArrayListWithCapacity(5000);
-        for (DongChengCity dongChengCity : dongChengCities) {
-            Integer cityId = dongChengCity.getCityID();
+        List<Integer> cityIds = dongChengCities.stream().map(DongChengCity::getCid).toList();
+        log.info("东呈城市有{}个，分别是{}", dongChengCities.size(), cityIds);
+        for (Integer cityId : cityIds) {
             getOneCityHotels(cityId);
         }
-        //System.out.println(hotels.size());
-        /*List<SupplierDongCheng> supplierDongChengs = parse(hotels);
-        int start = 0;
-        for (int j = 0; j < supplierDongChengs.size(); j++) {
-            if (j != 0 && j % 1000 == 0) {
-                List<SupplierDongCheng> list = supplierDongChengs.subList(start, j);
-                supplierDongChengDao.saveBatch(list);
-                start = j;
-            }
-        }
-        List<SupplierDongCheng> list = supplierDongChengs.subList(start, supplierDongChengs.size());
-        if (CollectionUtils.isNotEmpty(list)) {
-            supplierDongChengDao.saveBatch(list);
-        }*/
     }
 
     private List<SupplierDongCheng> parse(List<DongChengHotel> hotels) {
@@ -104,8 +90,8 @@ public class SupplierService {
             DongChengGnResponse response = httpUtils.getDongChengHotel(request);
             data = response.getData();
             String msg = response.getMsg();
-            log.info("cityId:{}返回错误消息:{}", cityId, msg);
             if (StringUtils.hasLength(msg)) {
+                log.info("cityId:{}返回错误消息:{}", cityId, msg);
                 try {
                     Thread.sleep(2000);
                 } catch (InterruptedException e) {
@@ -121,6 +107,14 @@ public class SupplierService {
         } while (totalCount > 0 && dongChengHotels.size() < totalCount);
         log.info("cityId{} 有{}家酒店", cityId, dongChengHotels.size());
         List<SupplierDongCheng> supplierDongChengs = parse(dongChengHotels);
-       // supplierDongChengDao.saveBatch(supplierDongChengs);
+        supplierDongChengDao.saveBatch(supplierDongChengs);
+    }
+
+    public void dcHotelCheck() {
+        DongChengGnResponse response = httpUtils.getDongChengCity();
+        String data = response.getData();
+        List<DongChengCity> dongChengCities = JSON.parseArray(data, DongChengCity.class);
+
+        //getOneCityHotels(1203);
     }
 }

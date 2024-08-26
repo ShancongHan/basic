@@ -25,4 +25,12 @@ public class SupplierController {
     public void dcHotel() {
         supplierService.dcHotel();
     }
+
+    /**
+     * 校验东城酒店信息
+     */
+    @GetMapping(value = "dc/check")
+    public void dcHotelCheck() {
+        supplierService.dcHotelCheck();
+    }
 }
