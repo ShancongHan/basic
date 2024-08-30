@@ -167,37 +167,27 @@ public class SupplierService {
         List<ZhJdJdbMapping> meituans = allList.stream().filter(e -> e.getInterfacePlat().equals(2000023)).toList();
         List<ZhJdJdbMapping> elongs = allList.stream().filter(e -> e.getInterfacePlat().equals(2000004)).toList();
         Set<String> localIdMap = meituans.stream().map(ZhJdJdbMapping::getLocalId).collect(Collectors.toSet());
+        Set<String> elongLocalIdMap = elongs.stream().map(ZhJdJdbMapping::getLocalId).collect(Collectors.toSet());
         List<String> dongchengPlatIds = dongchengs.stream().filter(e -> localIdMap.contains(e.getLocalId())).map(ZhJdJdbMapping::getPlatId).toList();
         List<String> huazhuPlatIds = huazhus.stream().filter(e -> localIdMap.contains(e.getLocalId())).map(ZhJdJdbMapping::getPlatId).toList();
         List<String> jinjiangPlatIds = jinjiangs.stream().filter(e -> localIdMap.contains(e.getLocalId())).map(ZhJdJdbMapping::getPlatId).toList();
-        List<String> elongPlatIds = elongs.stream().filter(e -> localIdMap.contains(e.getLocalId())).map(ZhJdJdbMapping::getPlatId).toList();
-        String path = "C:\\wst_han\\打杂\\国内数据大整\\酒店数据\\第二期\\";
+        Set<String> meituanPlatIds = meituans.stream().filter(e -> elongLocalIdMap.contains(e.getLocalId())).map(ZhJdJdbMapping::getPlatId).collect(Collectors.toSet());
+        String path = "C:\\wst_han\\打杂\\国内数据大整\\酒店数据\\第三期\\";
         String dongchengFile = path + "东呈.xlsx";
         List<HotelExport> dongchengExport = supplierDongChengDao.selectDongchengList(dongchengPlatIds);
-        EasyExcel.write(dongchengFile, HotelExport.class).sheet("东呈未映射美团酒店列表").doWrite(dongchengExport);
+        EasyExcel.write(dongchengFile, HotelExport.class).sheet("东呈与美团未映射酒店列表").doWrite(dongchengExport);
 
         String huazhuFile = path + "华住.xlsx";
         List<HotelExport> huazhuExport = supplierDongChengDao.selectHuazhuList(huazhuPlatIds);
-        EasyExcel.write(huazhuFile, HotelExport.class).sheet("华住未映射美团酒店列表").doWrite(huazhuExport);
+        EasyExcel.write(huazhuFile, HotelExport.class).sheet("华住与美团未映射酒店列表").doWrite(huazhuExport);
 
         String jinjiangFile = path + "锦江.xlsx";
         List<HotelExport> jinjiangExport = supplierDongChengDao.selectJinjiangList(jinjiangPlatIds);
-        EasyExcel.write(jinjiangFile, HotelExport.class).sheet("锦江未映射美团酒店列表").doWrite(jinjiangExport);
+        EasyExcel.write(jinjiangFile, HotelExport.class).sheet("锦江与美团未映射酒店列表").doWrite(jinjiangExport);
 
-        String elongFile = path + "艺龙.xlsx";
-        List<HotelExport> elongExport = Lists.newArrayListWithCapacity(1000000);
-        int start = 0;
-        for (int j = 0; j < elongPlatIds.size(); j++) {
-            if (j != 0 && j % 10000 == 0) {
-                List<String> list = elongPlatIds.subList(start, j);
-                elongExport.addAll(supplierDongChengDao.selectElongList(list));
-                start = j;
-            }
-        }
-        List<String> list = elongPlatIds.subList(start, elongPlatIds.size());
-        if (CollectionUtils.isNotEmpty(list)) {
-            elongExport.addAll(supplierDongChengDao.selectElongList(list));
-        }
-        EasyExcel.write(elongFile, HotelExport.class).sheet("艺龙未映射美团酒店列表").doWrite(elongExport);
+        String meituanFile = path + "美团-艺龙.xlsx";
+        List<HotelExport> meituanExport = supplierDongChengDao.selectMeituans();
+        List<HotelExport> hotelExports = meituanExport.stream().filter(e -> !meituanPlatIds.contains(e.getHotelId())).toList();
+        EasyExcel.write(meituanFile, HotelExport.class).sheet("美团与艺龙未映射酒店列表").doWrite(hotelExports);
     }
 }

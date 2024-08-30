@@ -3,6 +3,7 @@ package com.example.basic.dao;
 import com.example.basic.domain.WebbedsMappingExport;
 import com.example.basic.entity.ZhJdJdbGjMapping;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -24,4 +25,6 @@ public interface ZhJdJdbGjMappingDao {
     List<ZhJdJdbGjMapping> selectDaolvOrWebbedsMapping(String webbedsHotelId, String daolvHotelId);
 
     List<String> selectAllDaolvId();
+
+    List<ZhJdJdbGjMapping> selectByDaolvIds(Collection<String> daolvHotelIds);
 }

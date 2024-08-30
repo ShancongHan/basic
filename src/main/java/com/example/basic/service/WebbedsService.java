@@ -822,4 +822,72 @@ public class WebbedsService {
         }
         EasyExcel.write(file, Webbeds08232Bean2.class).sheet("解析结果").doWrite(legalDataList);
     }
+
+    public void analyzeFile4() {
+        String file = "C:\\wst_han\\打杂\\webbeds\\0823\\DIDA1-result.xlsx";
+        String file2 = "C:\\wst_han\\打杂\\webbeds\\0823\\DIDA2-result.xlsx";
+        InputStream inputStream = null;
+        try {
+            inputStream = new FileInputStream(file);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        List<Webbeds0830> excelFileList = Lists.newArrayListWithCapacity(10000);
+        EasyExcel.read(inputStream, Webbeds08232Bean.class, new PageReadListener<Webbeds08232Bean>(dataList->{
+            for (Webbeds08232Bean oneLine : dataList) {
+                String status = oneLine.getStatus();
+                if (StringUtils.hasLength(status) && "准备映射".equals(status)) {
+                    excelFileList.add(Webbeds0830.builder().webbedsHotelId(oneLine.getWebbedsHotelId()).daolvHotelId(oneLine.getDaolvHotelId()).build());
+                }
+            }
+        }, 1000)).headRowNumber(1).sheet().doRead();
+
+        InputStream inputStream2 = null;
+        try {
+            inputStream2 = new FileInputStream(file2);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        EasyExcel.read(inputStream2, Webbeds08232Bean2.class, new PageReadListener<Webbeds08232Bean2>(dataList->{
+            for (Webbeds08232Bean2 oneLine : dataList) {
+                String status = oneLine.getStatus();
+                if (StringUtils.hasLength(status) && "准备映射".equals(status)) {
+                    excelFileList.add(Webbeds0830.builder().webbedsHotelId(oneLine.getWebbedsHotelId()).daolvHotelId(oneLine.getDaolvHotelId()).build());
+                }
+            }
+        }, 1000)).headRowNumber(1).sheet().doRead();
+        int totalCount = excelFileList.size();
+        log.info("一共数据{}条", totalCount);
+        // '4702815','2239605','2098155','2093255','2221855'
+        Map<String, List<Webbeds0830>> collect = excelFileList.stream().collect(Collectors.groupingBy(Webbeds0830::getWebbedsHotelId));
+        Map<String, String> webbedsIdAndDaolvIdMap = Maps.newHashMapWithExpectedSize(collect.size());
+        for (Map.Entry<String, List<Webbeds0830>> entry : collect.entrySet()) {
+            String webbedsHotelId = entry.getKey();
+            List<Webbeds0830> webbeds0830List = entry.getValue();
+            if (webbeds0830List.size() > 1) {
+                List<String> list = webbeds0830List.stream().map(Webbeds0830::getDaolvHotelId).distinct().toList();
+                if (list.size() > 1) {
+                    log.info("{} webbeds酒店匹配到了多个dida酒店, 具体是{}", entry.getKey(), entry.getValue().stream().map(Webbeds0830::getDaolvHotelId).toList());
+                } else {
+                    webbedsIdAndDaolvIdMap.put(webbedsHotelId, webbeds0830List.get(0).getDaolvHotelId());
+                }
+            } else {
+                webbedsIdAndDaolvIdMap.put(webbedsHotelId, webbeds0830List.get(0).getDaolvHotelId());
+            }
+        }
+        log.info("待插入数量{}", webbedsIdAndDaolvIdMap.size());
+        Collection<String> daolvHotelIds = webbedsIdAndDaolvIdMap.values();
+        List<ZhJdJdbGjMapping> daolvs = zhJdJdbGjMappingDao.selectByDaolvIds(daolvHotelIds);
+        Map<String, Long> map = daolvs.stream().collect(Collectors.toMap(ZhJdJdbGjMapping::getPlatId, ZhJdJdbGjMapping::getLocalId));
+        List<ZhJdJdbGjMapping> insertBatch = Lists.newArrayListWithCapacity(webbedsIdAndDaolvIdMap.size());
+        for (Map.Entry<String, String> entry : webbedsIdAndDaolvIdMap.entrySet()) {
+            ZhJdJdbGjMapping one = new ZhJdJdbGjMapping();
+            one.setPlat(2000071);
+            one.setPlatId(entry.getKey());
+            one.setLocalId(map.get(entry.getValue()));
+            insertBatch.add(one);
+        }
+        saveBatch4(insertBatch);
+        log.info("over");
+    }
 }

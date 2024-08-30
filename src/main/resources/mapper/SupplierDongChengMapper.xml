@@ -18,38 +18,34 @@
     </select>
 
     <select id="selectDongchengList" parameterType="java.lang.String" resultType="com.example.basic.domain.HotelExport">
-        SELECT `hotel_id`, `city_name`, `province_name`, `jdmc` as hotel_name, `jddz` as address, `jddh` as tel,`lon` as longitude, `lat` as latitude
+        SELECT `hotel_id`, `city_name`, `jdmc` as hotel_name
         FROM `supplier_dongcheng`
-        WHERE `hotel_id` IN 
+        WHERE `hotel_id` NOT IN
         <foreach collection="ids" item="id" open="(" separator="," close=")">
             #{id}
         </foreach>
     </select>
 
     <select id="selectHuazhuList" parameterType="java.lang.String" resultType="com.example.basic.domain.HotelExport">
-        SELECT `jdid` as hotel_id, `jdmc` as hotel_name, `jddz` as address, `jddh` as tel,`lon_wgs` as longitude, `lat_wgs` as latitude
-        FROM `jd_jdb_huazhu`
-        WHERE `jdid` IN
+        SELECT jjh.`jdid` as hotel_id, jjh.`jdmc` as hotel_name, jch.`city_name`
+        FROM `jd_jdb_huazhu` jjh LEFT JOIN `jd_city_huazhu` jch ON jjh.city_id = jch.city_code
+        WHERE jjh.`jdid` NOT IN
         <foreach collection="ids" item="id" open="(" separator="," close=")">
             #{id}
         </foreach>
     </select>
 
     <select id="selectJinjiangList" parameterType="java.lang.String" resultType="com.example.basic.domain.HotelExport">
-        SELECT `jdid` as hotel_id, `jdmc` as hotel_name, `jddz` as address, `jddh` as tel,`lon_wgs` as longitude, `lat_wgs` as latitude
-        FROM `jd_jdb_jinjiang`
-        WHERE `jdid` IN
+        SELECT jjj.`jdid` as hotel_id, jjj.`jdmc` as hotel_name, jcj.city_name
+        FROM `jd_jdb_jinjiang` jjj LEFT JOIN `jd_city_jinjiang` jcj ON jjj.city_id = jcj.city_code
+        WHERE jjj.`jdid` NOT IN
         <foreach collection="ids" item="id" open="(" separator="," close=")">
             #{id}
         </foreach>
     </select>
 
-    <select id="selectElongList" parameterType="java.lang.String" resultType="com.example.basic.domain.HotelExport">
-        SELECT `id` as hotel_id,`city_name`, `jdmc` as hotel_name, `jddz` as address, `jddh` as tel,`lon_baidu` as longitude, `lat_baidu` as latitude
-        FROM `jd_jdb_elong`
-        WHERE `id` IN
-        <foreach collection="ids" item="id" open="(" separator="," close=")">
-            #{id}
-        </foreach>
+    <select id="selectMeituans" resultType="com.example.basic.domain.HotelExport">
+        SELECT `id` as hotel_id,`city_name`, `jdmc` as hotel_name
+        FROM `jd_jdb_meituan`
     </select>
 </mapper>

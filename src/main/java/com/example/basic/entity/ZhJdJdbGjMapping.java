@@ -1,8 +1,6 @@
 package com.example.basic.entity;
 
-import lombok.Builder;
 import lombok.Data;
-import lombok.experimental.Accessors;
 
 /**
  * @author han

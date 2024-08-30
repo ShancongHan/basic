@@ -141,5 +141,13 @@ public class WebbedsController {
     public void analyzeFile3() {
         webbedsService.analyzeFile3();
     }
+
+    /**
+     * 0823酒店文件分析4
+     */
+    @PostMapping(value = "analyze0823-file4")
+    public void analyzeFile4() {
+        webbedsService.analyzeFile4();
+    }
 }
 

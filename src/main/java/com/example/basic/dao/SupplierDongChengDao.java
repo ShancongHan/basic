@@ -22,4 +22,6 @@ public interface SupplierDongChengDao {
     List<HotelExport> selectJinjiangList(List<String> ids);
 
     List<HotelExport> selectElongList(List<String> ids);
+
+    List<HotelExport> selectMeituans();
 }

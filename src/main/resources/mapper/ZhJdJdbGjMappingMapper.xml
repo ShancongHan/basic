@@ -53,4 +53,13 @@
         FROM `zh_jd_jdb_gj_mapping`
         WHERE `plat` = '2000069'
     </select>
+
+    <select id="selectByDaolvIds" resultType="com.example.basic.entity.ZhJdJdbGjMapping">
+        SELECT `plat_id`, `local_id`
+        FROM `zh_jd_jdb_gj_mapping`
+        WHERE `plat` = 2000069 AND `plat_id` IN
+        <foreach collection="daolvHotelIds" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
 </mapper>
