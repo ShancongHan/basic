@@ -1,11 +1,17 @@
 package com.example.basic.service;
 
+import com.alibaba.excel.EasyExcel;
 import com.alibaba.fastjson2.JSON;
+import com.example.basic.dao.JdJdbDongchengDao;
 import com.example.basic.dao.SupplierDongChengDao;
+import com.example.basic.dao.ZhJdJdbMappingDao;
 import com.example.basic.domain.*;
+import com.example.basic.entity.JdJdbDongcheng;
 import com.example.basic.entity.SupplierDongCheng;
+import com.example.basic.entity.ZhJdJdbMapping;
 import com.example.basic.utils.HttpUtils;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
@@ -13,9 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -28,6 +32,12 @@ public class SupplierService {
 
     @Resource
     private SupplierDongChengDao supplierDongChengDao;
+
+    @Resource
+    private JdJdbDongchengDao jdJdbDongchengDao;
+
+    @Resource
+    private ZhJdJdbMappingDao zhJdJdbMappingDao;
 
     @Resource
     private HttpUtils httpUtils;
@@ -80,7 +90,7 @@ public class SupplierService {
         request.setPageSize(30);
         String data;
         int totalCount = 0;
-        List<DongChengHotel> dongChengHotels = Lists.newArrayListWithCapacity(100);
+        List<DongChengHotel> dongChengHotels = Lists.newArrayListWithCapacity(200);
         do {
             try {
                 Thread.sleep(1000);
@@ -104,6 +114,7 @@ public class SupplierService {
                 return;
             }
             dongChengHotels.addAll(JSON.parseArray(data, DongChengHotel.class));
+            request.setPageIndex(++pageIndex);
         } while (totalCount > 0 && dongChengHotels.size() < totalCount);
         log.info("cityId{} 有{}家酒店", cityId, dongChengHotels.size());
         List<SupplierDongCheng> supplierDongChengs = parse(dongChengHotels);
@@ -111,10 +122,82 @@ public class SupplierService {
     }
 
     public void dcHotelCheck() {
-        DongChengGnResponse response = httpUtils.getDongChengCity();
+        /*DongChengGnResponse response = httpUtils.getDongChengCity();
         String data = response.getData();
-        List<DongChengCity> dongChengCities = JSON.parseArray(data, DongChengCity.class);
+        List<DongChengCity> dongChengCities = JSON.parseArray(data, DongChengCity.class);*/
+        getOneCityHotels(22);
+    }
 
-        //getOneCityHotels(1203);
+    public void dcHotelMatch() {
+        List<String> hotelIds = supplierDongChengDao.selectAllHotelIds();
+        Map<String, String> map = Maps.newHashMapWithExpectedSize(2500);
+        for (String hotelId : hotelIds) {
+            map.put(hotelId, "1");
+        }
+        List<JdJdbDongcheng> oldHotels = jdJdbDongchengDao.selectMatchList();
+
+        Map<String, Integer> map2 = Maps.newHashMapWithExpectedSize(2500);
+        for (JdJdbDongcheng oldHotel : oldHotels) {
+            String jdid = oldHotel.getJdid();
+            if (!map.containsKey(jdid)) {
+                map2.put(jdid, oldHotel.getYsbs());
+            }
+        }
+       /* map2.entrySet().stream().filter((k,v)->{}).toList();
+        log.info("找不到记录数：{}，分别是：{}", map2.size(), notFoundList);*/
+        /*Map<String, Integer> oldHotelIdMap = oldHotels.stream().collect(Collectors.toMap(JdJdbDongcheng::getJdid, JdJdbDongcheng::getYsbs));
+        List<String> toBeDeleteList = Lists.newArrayListWithCapacity(128);
+        for (String hotelId : hotelIds) {
+            oldHotelIdMap.remove(hotelId);
+        }*/
+
+        /*for (String hotelId : hotelIds) {
+            if (!map.containsKey(hotelId)) {
+                notFoundList.add(hotelId);
+            }
+        }*/
+        //log.info("找不到记录数：{}，分别是：{}", notFoundList.size(), notFoundList);
+    }
+
+    public void xxx() {
+        List<ZhJdJdbMapping> allList = zhJdJdbMappingDao.selectAll();
+        List<ZhJdJdbMapping> dongchengs = allList.stream().filter(e -> e.getInterfacePlat().equals(2000050)).toList();
+        List<ZhJdJdbMapping> huazhus = allList.stream().filter(e -> e.getInterfacePlat().equals(2000037)).toList();
+        List<ZhJdJdbMapping> jinjiangs = allList.stream().filter(e -> e.getInterfacePlat().equals(2000044)).toList();
+        List<ZhJdJdbMapping> meituans = allList.stream().filter(e -> e.getInterfacePlat().equals(2000023)).toList();
+        List<ZhJdJdbMapping> elongs = allList.stream().filter(e -> e.getInterfacePlat().equals(2000004)).toList();
+        Set<String> localIdMap = meituans.stream().map(ZhJdJdbMapping::getLocalId).collect(Collectors.toSet());
+        List<String> dongchengPlatIds = dongchengs.stream().filter(e -> localIdMap.contains(e.getLocalId())).map(ZhJdJdbMapping::getPlatId).toList();
+        List<String> huazhuPlatIds = huazhus.stream().filter(e -> localIdMap.contains(e.getLocalId())).map(ZhJdJdbMapping::getPlatId).toList();
+        List<String> jinjiangPlatIds = jinjiangs.stream().filter(e -> localIdMap.contains(e.getLocalId())).map(ZhJdJdbMapping::getPlatId).toList();
+        List<String> elongPlatIds = elongs.stream().filter(e -> localIdMap.contains(e.getLocalId())).map(ZhJdJdbMapping::getPlatId).toList();
+        String path = "C:\\wst_han\\打杂\\国内数据大整\\酒店数据\\第二期\\";
+        String dongchengFile = path + "东呈.xlsx";
+        List<HotelExport> dongchengExport = supplierDongChengDao.selectDongchengList(dongchengPlatIds);
+        EasyExcel.write(dongchengFile, HotelExport.class).sheet("东呈未映射美团酒店列表").doWrite(dongchengExport);
+
+        String huazhuFile = path + "华住.xlsx";
+        List<HotelExport> huazhuExport = supplierDongChengDao.selectHuazhuList(huazhuPlatIds);
+        EasyExcel.write(huazhuFile, HotelExport.class).sheet("华住未映射美团酒店列表").doWrite(huazhuExport);
+
+        String jinjiangFile = path + "锦江.xlsx";
+        List<HotelExport> jinjiangExport = supplierDongChengDao.selectJinjiangList(jinjiangPlatIds);
+        EasyExcel.write(jinjiangFile, HotelExport.class).sheet("锦江未映射美团酒店列表").doWrite(jinjiangExport);
+
+        String elongFile = path + "艺龙.xlsx";
+        List<HotelExport> elongExport = Lists.newArrayListWithCapacity(1000000);
+        int start = 0;
+        for (int j = 0; j < elongPlatIds.size(); j++) {
+            if (j != 0 && j % 10000 == 0) {
+                List<String> list = elongPlatIds.subList(start, j);
+                elongExport.addAll(supplierDongChengDao.selectElongList(list));
+                start = j;
+            }
+        }
+        List<String> list = elongPlatIds.subList(start, elongPlatIds.size());
+        if (CollectionUtils.isNotEmpty(list)) {
+            elongExport.addAll(supplierDongChengDao.selectElongList(list));
+        }
+        EasyExcel.write(elongFile, HotelExport.class).sheet("艺龙未映射美团酒店列表").doWrite(elongExport);
     }
 }

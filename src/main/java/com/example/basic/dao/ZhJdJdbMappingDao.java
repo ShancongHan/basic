@@ -31,4 +31,11 @@ public interface ZhJdJdbMappingDao {
     List<String> selectHuazhuIds();
     List<String> selectDongchengIds();
     List<String> selectJinjiangIds();
+
+    List<ZhJdJdbMapping> selectDongchengs();
+    List<ZhJdJdbMapping> selectHuazhus();
+    List<ZhJdJdbMapping> selectJinjiangs();
+    List<ZhJdJdbMapping> selectMeituans();
+
+    List<ZhJdJdbMapping> selectAll();
 }

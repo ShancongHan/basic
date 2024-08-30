@@ -72,6 +72,32 @@
     <select id="selectJinjiangIds" resultType="java.lang.String">
         select plat_id
         from `zh_jd_jdb_mapping`
-        where interface_plat = '2000044'
+        where `interface_plat` = '2000044'
+    </select>
+
+    <select id="selectDongchengs" resultType="com.example.basic.entity.ZhJdJdbMapping">
+        SELECT `plat_id`, `local_id`
+        FROM `zh_jd_jdb_mapping`
+        WHERE `interface_plat` = '2000050'
+    </select>
+    <select id="selectHuazhus" resultType="com.example.basic.entity.ZhJdJdbMapping">
+        SELECT `plat_id`, `local_id`
+        FROM `zh_jd_jdb_mapping`
+        WHERE `interface_plat` = '2000037'
+    </select>
+    <select id="selectJinjiangs" resultType="com.example.basic.entity.ZhJdJdbMapping">
+        SELECT `plat_id`, `local_id`
+        FROM `zh_jd_jdb_mapping`
+        WHERE `interface_plat` = '2000044'
+    </select>
+    <select id="selectMeituans" resultType="com.example.basic.entity.ZhJdJdbMapping">
+        SELECT `plat_id`, `local_id`
+        FROM `zh_jd_jdb_mapping`
+        WHERE `interface_plat` = '2000023'
+    </select>
+
+    <select id="selectAll" resultType="com.example.basic.entity.ZhJdJdbMapping">
+        SELECT `interface_plat`, `local_id`, `plat_id`
+        FROM `zh_jd_jdb_mapping`
     </select>
 </mapper>

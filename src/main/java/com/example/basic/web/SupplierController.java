@@ -33,4 +33,20 @@ public class SupplierController {
     public void dcHotelCheck() {
         supplierService.dcHotelCheck();
     }
+
+    /**
+     * 比对0826东呈数据
+     */
+    @GetMapping(value = "dc/match")
+    public void dcHotelMatch() {
+        supplierService.dcHotelMatch();
+    }
+
+    /**
+     * 导出id
+     */
+    @GetMapping(value = "dc/xxx")
+    public void xxx() {
+        supplierService.xxx();
+    }
 }

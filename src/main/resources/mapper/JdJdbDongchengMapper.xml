@@ -15,4 +15,9 @@
             #{id}
         </foreach>
     </update>
+
+    <select id="selectMatchList" resultType="com.example.basic.entity.JdJdbDongcheng">
+        SELECT `id`, `jdid` ,`ysbs`
+        FROM `jd_jdb_dongcheng`
+    </select>
 </mapper>

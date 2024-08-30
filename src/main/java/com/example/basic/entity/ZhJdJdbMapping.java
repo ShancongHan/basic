@@ -12,7 +12,7 @@ import java.util.Date;
 public class ZhJdJdbMapping {
     private Long id;	// 主键
 
-    private Long interfacePlat;	// 平台标识，对应InterfacePlatEnum
+    private Integer interfacePlat;	// 平台标识，对应InterfacePlatEnum
 
     private String localId;	// 本地酒店ID
 
