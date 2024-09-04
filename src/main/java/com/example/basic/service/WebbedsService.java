@@ -6,6 +6,7 @@ import com.example.basic.dao.*;
 import com.example.basic.domain.*;
 import com.example.basic.entity.*;
 import com.example.basic.helper.MappingScoreHelper;
+import com.example.basic.utils.HttpUtils;
 import com.example.basic.utils.PoiUtils;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -66,11 +67,17 @@ public class WebbedsService {
     @Resource
     private ZhJdJdbGjMappingDao zhJdJdbGjMappingDao;
 
+    @Resource
+    private HttpUtils httpUtils;
+
     private static final Integer CORE_POOL_SIZE = 8;
     private static final Integer MAXIMUM_POOL_SIZE = 16;
 
     private static final Executor executor = new ThreadPoolExecutor(CORE_POOL_SIZE, MAXIMUM_POOL_SIZE,
             0L, TimeUnit.MILLISECONDS, new LinkedBlockingDeque<>(10000));
+
+    private static final Executor executor2 = new ThreadPoolExecutor(30, 50,
+            0L, TimeUnit.MILLISECONDS, new LinkedBlockingDeque<>(200));
 
     @Transactional
     public void importData() throws Exception {
@@ -833,7 +840,7 @@ public class WebbedsService {
             throw new RuntimeException(e);
         }
         List<Webbeds0830> excelFileList = Lists.newArrayListWithCapacity(10000);
-        EasyExcel.read(inputStream, Webbeds08232Bean.class, new PageReadListener<Webbeds08232Bean>(dataList->{
+        EasyExcel.read(inputStream, Webbeds08232Bean.class, new PageReadListener<Webbeds08232Bean>(dataList -> {
             for (Webbeds08232Bean oneLine : dataList) {
                 String status = oneLine.getStatus();
                 if (StringUtils.hasLength(status) && "准备映射".equals(status)) {
@@ -848,7 +855,7 @@ public class WebbedsService {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        EasyExcel.read(inputStream2, Webbeds08232Bean2.class, new PageReadListener<Webbeds08232Bean2>(dataList->{
+        EasyExcel.read(inputStream2, Webbeds08232Bean2.class, new PageReadListener<Webbeds08232Bean2>(dataList -> {
             for (Webbeds08232Bean2 oneLine : dataList) {
                 String status = oneLine.getStatus();
                 if (StringUtils.hasLength(status) && "准备映射".equals(status)) {
@@ -889,5 +896,198 @@ public class WebbedsService {
         }
         saveBatch4(insertBatch);
         log.info("over");
+    }
+
+    public void minPrice() throws Exception {
+        //查询数据库所有webbeds酒店
+        List<WebbedsHotelData> hotelDataList = webbedsHotelDataDao.selectSimpleAll();
+        // 以520做测试
+        //hotelDataList = hotelDataList.subList(0, 520);
+        // 需要更新有价集合定义
+        List<Long> hasPriceIds = Lists.newArrayListWithCapacity(128);
+        // 每次查询100个酒店的有价数据
+        int start = 0;
+        for (int j = 0; j < hotelDataList.size(); j++) {
+            if (j != 0 && j % 100 == 0) {
+                List<WebbedsHotelData> list = hotelDataList.subList(start, j);
+                long startTime = System.currentTimeMillis();
+                findHasPrice(list, hasPriceIds);
+                log.info("本次100家酒店查价耗时: {}", System.currentTimeMillis() - startTime);
+                if (CollectionUtils.isNotEmpty(hasPriceIds)) {
+                    webbedsHotelDataDao.updateSale(hasPriceIds);
+                    hasPriceIds.clear();
+                }
+                webbedsHotelDataDao.updateAlreadyPrice(list.stream().map(WebbedsHotelData::getId).toList());
+                start = j;
+            }
+        }
+        // 查询不足100个酒店的有价数据
+        List<WebbedsHotelData> list = hotelDataList.subList(start, hotelDataList.size());
+        if (CollectionUtils.isNotEmpty(list)) {
+            long startTime = System.currentTimeMillis();
+            findHasPrice(list, hasPriceIds);
+            if (CollectionUtils.isNotEmpty(hasPriceIds)) {
+                webbedsHotelDataDao.updateSale(hasPriceIds);
+                hasPriceIds.clear();
+            }
+            webbedsHotelDataDao.updateAlreadyPrice(list.stream().map(WebbedsHotelData::getId).toList());
+            log.info("最后剩余{}家酒店查价耗时: {}", list.size(), System.currentTimeMillis() - startTime);
+        }
+//        log.info("总共酒店个数：{}, 分别是：{}", hotelDataList.size(), hotelDataList.stream().map(WebbedsHotelData::getId).toList());
+//        log.info("一共有价酒店个数：{}, 分别是：{}", hasPriceIds.size(), hasPriceIds);
+        log.info("一共有价酒店个数：{}", hasPriceIds.size());
+        /*int update = 0;
+        for (int j = 0; j < hasPriceIds.size(); j++) {
+            if (j != 0 && j % 1000 == 0) {
+                List<Long> subList = hasPriceIds.subList(start, j);
+                webbedsHotelDataDao.updateSale(subList);
+                update = j;
+            }
+        }
+        List<Long> subList = hasPriceIds.subList(update, hasPriceIds.size());
+        if (CollectionUtils.isNotEmpty(subList)) {
+            webbedsHotelDataDao.updateSale(subList);
+        }*/
+    }
+
+    private void findHasPrice(List<WebbedsHotelData> list, List<Long> hasPriceIds) throws ExecutionException, InterruptedException {
+        List<CompletableFuture<HasPriceResult>> futures = Lists.newArrayListWithCapacity(100);
+        int size = list.size();
+        if (size < 5) {
+            futures.add(findOnceTask(list));
+        } else {
+            int chunkSize = 4;
+            for (int i = 0; i < list.size(); i += chunkSize) {
+                final int endIndex = Math.min(i + chunkSize, list.size());
+                futures.add(findOnceTask(list.subList(i, endIndex)));
+            }
+        }
+        CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
+        for (CompletableFuture<HasPriceResult> future : futures) {
+            HasPriceResult result = future.get();
+            List<Long> webbedsHotelIds = result.getWebbedsHotelIds();
+            if (CollectionUtils.isEmpty(webbedsHotelIds)) {
+                continue;
+            }
+            hasPriceIds.addAll(webbedsHotelIds);
+        }
+    }
+
+    private CompletableFuture<HasPriceResult> findOnceTask(List<WebbedsHotelData> list) {
+        return CompletableFuture.supplyAsync(() -> {
+            String xml = getXmlString(list);
+            String response = httpUtils.pullMinPrice(xml);
+            HasPriceResult result = new HasPriceResult();
+            List<Long> webbedsHotelIds = Lists.newArrayList();
+            for (WebbedsHotelData webbedsHotelData : list) {
+                String hotelId = webbedsHotelData.getDotwHotelCode().toString();
+                String match = "<hotel hotelid=\"" + hotelId + "\">";
+                if (response.contains(match)) {
+                    webbedsHotelIds.add(webbedsHotelData.getId());
+                }
+            }
+            result.setWebbedsHotelIds(webbedsHotelIds);
+            return result;
+        }, executor2);
+    }
+
+    private String getXmlString(List<WebbedsHotelData> list) {
+        String xml = """
+                <customer>
+                    <username>Famous</username>
+                    <password>2d04b316ea84e4cb7146195a227e41bb</password>
+                    <id>2074105</id>
+                    <source>1</source>
+                    <product>hotel</product>
+                    <request command="searchhotels">
+                        <bookingDetails>
+                            <fromDate>2024-10-15</fromDate>
+                            <toDate>2024-10-16</toDate>
+                            <currency>2524</currency>
+                            <rooms no="1">
+                                <room runno="0">
+                                    <adultsCode>1</adultsCode>
+                                    <children no="0"></children>
+                                    <rateBasis>-1</rateBasis>
+                                    <passengerNationality>168</passengerNationality>
+                                    <passengerCountryOfResidence>168</passengerCountryOfResidence>
+                                </room>
+                            </rooms>
+                        </bookingDetails>
+                        <return>
+                            <filters xmlns:a="http://us.dotwconnect.com/xsd/atomicCondition" xmlns:c="http://us.dotwconnect.com/xsd/complexCondition">
+                                <city>1</city>
+                                <c:condition>
+                                    <a:condition>
+                                        <fieldName>hotelId</fieldName>
+                                        <fieldTest>in</fieldTest>
+                                        <fieldValues>
+                                            ${hotel}
+                                        </fieldValues>
+                                    </a:condition>
+                                </c:condition>
+                            </filters>
+                        </return>
+                    </request>
+                </customer>
+                """;
+        String hotel = "<fieldValue>${0}</fieldValue><fieldValue>${1}</fieldValue><fieldValue>${2}</fieldValue><fieldValue>${3}</fieldValue>";
+        for (int i = 0; i < list.size(); i++) {
+            WebbedsHotelData webbedsHotelData = list.get(i);
+            hotel = hotel.replace("${" + i + "}", webbedsHotelData == null ? "" : webbedsHotelData.getDotwHotelCode().toString());
+        }
+        hotel = hotel.replace("${0}", "").replace("${1}", "").replace("${2}", "").replace("${3}", "");
+        xml = xml.replace("${hotel}", hotel);
+        return xml;
+    }
+
+    public String test() {
+        String xml = """
+                <customer>
+                    <username>Famous</username>
+                    <password>2d04b316ea84e4cb7146195a227e41bb</password>
+                    <id>2074105</id>
+                    <source>1</source>
+                    <product>hotel</product>
+                    <request command="searchhotels">
+                        <bookingDetails>
+                            <fromDate>2024-10-15</fromDate>
+                            <toDate>2024-10-16</toDate>
+                            <currency>2524</currency>
+                            <rooms no="1">
+                                <room runno="0">
+                                    <adultsCode>1</adultsCode>
+                                    <children no="0"></children>
+                                    <rateBasis>-1</rateBasis>
+                                    <passengerNationality>168</passengerNationality>
+                                    <passengerCountryOfResidence>168</passengerCountryOfResidence>
+                                </room>
+                            </rooms>
+                        </bookingDetails>
+                        <return>
+                            <filters xmlns:a="http://us.dotwconnect.com/xsd/atomicCondition" xmlns:c="http://us.dotwconnect.com/xsd/complexCondition">
+                                <city>1</city>
+                                <c:condition>
+                                    <a:condition>
+                                        <fieldName>hotelId</fieldName>
+                                        <fieldTest>in</fieldTest>
+                                        <fieldValues>
+                                            <fieldValue>14</fieldValue><fieldValue>24</fieldValue><fieldValue>34</fieldValue><fieldValue>44</fieldValue>
+                                        </fieldValues>
+                                    </a:condition>
+                                </c:condition>
+                            </filters>
+                        </return>
+                    </request>
+                </customer>
+                """;
+        return httpUtils.pullMinPrice(xml);
+    }
+
+    public String export() {
+        String file = "C:\\wst_han\\打杂\\webbeds\\20240904\\全量映射关系和价格.xlsx";
+        List<WebbedsHotelExport> exports = webbedsHotelDataDao.selectExport2();
+        EasyExcel.write(file, WebbedsHotelExport.class).sheet("webbeds").doWrite(exports);
+        return "finish0";
     }
 }

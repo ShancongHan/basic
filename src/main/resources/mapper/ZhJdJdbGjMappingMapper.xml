@@ -62,4 +62,16 @@
             #{id}
         </foreach>
     </select>
+
+    <select id="selectDaolvIds" resultType="java.lang.Long">
+        SELECT `local_id`
+        FROM `zh_jd_jdb_gj_mapping`
+        WHERE `plat` = 2000069
+    </select>
+
+    <select id="selectWebbedsIds" resultType="java.lang.Long">
+        SELECT `plat_id`
+        FROM `zh_jd_jdb_gj_mapping`
+        WHERE `plat` = 2000071
+    </select>
 </mapper>

@@ -56,7 +56,7 @@ public class HttpUtils {
 
     @Resource
     private OkHttpClient okHttpClient;
-
+    
     public ExpediaResponse pullRegions(String sourceUrl) throws IOException {
         String url = StringUtils.isNotBlank(sourceUrl) ? sourceUrl : ENDPOINT + REGIONS;
         StopWatch watch = new StopWatch();
@@ -209,6 +209,24 @@ public class HttpUtils {
         Call call = okHttpClient.newCall(request);
         try (Response response = call.execute()) {
             return JSONObject.parseObject(response.body().string(), DongChengGnResponse.class);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public String pullMinPrice(String xml) {
+        String url = "https://us.dotwconnect.com/gatewayV4.dotw";
+       // RequestBody body = RequestBody.create(xml.getBytes(StandardCharsets.UTF_8));
+        RequestBody body = RequestBody.create(xml, MediaType.parse("application/xml"));
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .header("Content-Type", "application/xml")
+                .header("Connection", "keep-alive")
+                .build();
+        Call call = okHttpClient.newCall(request);
+        try (Response response = call.execute()) {
+            return response.body().string();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

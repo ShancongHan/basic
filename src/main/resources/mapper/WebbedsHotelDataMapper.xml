@@ -64,4 +64,58 @@
         FROM `webbeds_hotel_data`
         WHERE `dotw_hotel_code` = #{webbedsHotelId}
     </select>
+
+    <update id="updateSaleByIds" parameterType="java.lang.Long">
+        UPDATE `webbeds_hotel_data`
+        SET `sale` = 1
+        WHERE `dotw_hotel_code` IN
+        <foreach collection="list" item="code" open="(" separator="," close=")">
+            #{code}
+        </foreach>
+    </update>
+
+    <select id="selectAllIds" resultType="java.lang.Long">
+        SELECT `dotw_hotel_code`
+        FROM `webbeds_hotel_data`
+    </select>
+
+    <select id="selectSaleIds" resultType="java.lang.Long">
+        SELECT `dotw_hotel_code`
+        FROM `webbeds_hotel_data`
+        WHERE `sale` = 1
+    </select>
+
+    <select id="selectExport" resultType="com.example.basic.domain.HotelExport2">
+        SELECT `dotw_hotel_code` as hotelId, `hotel_name`, `hotel_address` as address, `sale`
+        FROM `webbeds_hotel_data`
+    </select>
+
+    <select id="selectSimpleAll" resultType="com.example.basic.entity.WebbedsHotelData">
+        SELECT `dotw_hotel_code`, `id`
+        FROM `webbeds_hotel_data`
+        WHERE `already_price` = 0
+    </select>
+
+    <update id="updateSale" parameterType="java.lang.Long">
+        UPDATE `webbeds_hotel_data`
+        SET `has_price` = 1
+        WHERE `id` IN
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <update id="updateAlreadyPrice" parameterType="java.lang.Long">
+        UPDATE `webbeds_hotel_data`
+        SET `already_price` = 1
+        WHERE `id` IN
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <select id="selectExport2" resultType="com.example.basic.domain.WebbedsHotelExport">
+        SELECT `dotw_hotel_code` as hotelId, `hotel_name`, `hotel_address` as address, `sale`, `has_price`
+        FROM `webbeds_hotel_data`
+    </select>
 </mapper>

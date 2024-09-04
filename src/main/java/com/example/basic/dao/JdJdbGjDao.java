@@ -16,4 +16,6 @@ public interface JdJdbGjDao {
     List<JdJdbGj> selectInfoByIds(List<Integer> daolvHotelIds);
 
     List<JdJdbGj> selectPartByCountryAndCityId(@Param(value = "countryCode") String countryCode, @Param(value = "cityId") String cityId);
+
+    List<Long> selectAllIds();
 }

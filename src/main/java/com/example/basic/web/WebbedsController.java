@@ -149,5 +149,29 @@ public class WebbedsController {
     public void analyzeFile4() {
         webbedsService.analyzeFile4();
     }
+
+    /**
+     * 酒店最低价
+     */
+    @PostMapping(value = "min-price")
+    public void minPrice() throws Exception {
+        webbedsService.minPrice();
+    }
+
+    /**
+     * ceshi
+     */
+    @PostMapping(value = "v")
+    public String test() throws Exception {
+        return webbedsService.test();
+    }
+
+    /**
+     * 导出酒店映射和价格信息
+     */
+    @PostMapping(value = "export")
+    public String export() throws Exception {
+        return webbedsService.export();
+    }
 }
 

@@ -1,5 +1,7 @@
 package com.example.basic.dao;
 
+import com.example.basic.domain.HotelExport2;
+import com.example.basic.domain.WebbedsHotelExport;
 import com.example.basic.domain.WebbedsImportBean;
 import com.example.basic.entity.WebbedsHotelData;
 
@@ -29,4 +31,20 @@ public interface WebbedsHotelDataDao {
     List<String> selectEffectIds(List<String> webbedsHotelIds);
 
     WebbedsHotelData selectByHotelId(String webbedsHotelId);
+
+    void updateSaleByIds(List<Long> list);
+
+    List<Long> selectAllIds();
+
+    List<Long> selectSaleIds();
+
+    List<HotelExport2> selectExport();
+
+    List<WebbedsHotelData> selectSimpleAll();
+
+    void updateSale(List<Long> list);
+
+    void updateAlreadyPrice(List<Long> list);
+
+    List<WebbedsHotelExport> selectExport2();
 }

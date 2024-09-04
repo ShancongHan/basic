@@ -27,4 +27,8 @@ public interface ZhJdJdbGjMappingDao {
     List<String> selectAllDaolvId();
 
     List<ZhJdJdbGjMapping> selectByDaolvIds(Collection<String> daolvHotelIds);
+
+    List<Long> selectDaolvIds();
+
+    List<Long> selectWebbedsIds();
 }

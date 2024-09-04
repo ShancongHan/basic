@@ -33,4 +33,9 @@
             AND `city_id` = #{cityId}
         </if>
     </select>
+
+    <select id="selectAllIds" resultType="java.lang.Long">
+        SELECT id
+        FROM `jd_jdb_gj`
+    </select>
 </mapper>
