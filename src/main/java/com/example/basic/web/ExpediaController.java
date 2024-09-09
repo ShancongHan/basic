@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * expedia接口
+ *
  * @author han
  * @date 2024/7/30
  */
@@ -83,7 +84,7 @@ public class ExpediaController {
      * 完善区域
      *
      * @param page page
-     * @param url   url
+     * @param url  url
      */
     @PostMapping(value = "finish-regions")
     public void finishRegions(Integer page, String url) {
@@ -164,5 +165,30 @@ public class ExpediaController {
         } catch (Exception e) {
             System.out.println(Throwables.getStackTraceAsString(e));
         }
+    }
+
+
+    /**
+     * 解析expedia英文酒店文件
+     */
+    @PostMapping(value = "analyze-property-static-file3")
+    public void analyzePropertyStaticFile3() throws Exception {
+        expediaService.analyzePropertyStaticFile3();
+    }
+
+    /**
+     * 获取酒店详情
+     */
+    @PostMapping(value = "pull-content-detail")
+    public void pullContentDetail() {
+        expediaService.pullContentDetail();
+    }
+
+    /**
+     * 获取酒店价格
+     */
+    @PostMapping(value = "pull-content-price")
+    public void pullContentPrice() {
+        expediaService.pullContentPrice();
     }
 }

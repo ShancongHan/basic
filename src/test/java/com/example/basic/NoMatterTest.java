@@ -1,5 +1,6 @@
 package com.example.basic;
 
+import com.alibaba.excel.util.DateUtils;
 import com.example.basic.helper.MappingScoreHelper;
 import org.springframework.util.StringUtils;
 
@@ -7,6 +8,7 @@ import java.math.BigDecimal;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,11 +18,18 @@ import java.util.List;
  */
 public class NoMatterTest {
 
-    public static void main(String[] args) {
-        String s = handlerTel("63-22498745");
+    public static void main(String[] args) throws Exception {
+        String dateTime = "2023-11-23T09:05:37.357Z";
+        dateTime = dateTime.replace("T", " ");
+        dateTime = dateTime.substring(0, dateTime.indexOf("."));
+        System.out.println(dateTime);
+        System.out.println(DateUtils.parseDate(dateTime));
+
+
+        /*String s = handlerTel("63-22498745");
         String s2 = handlerTel("+63 2 22498745");
         System.out.println(s);
-        System.out.println(s2);
+        System.out.println(s2);*/
         /*System.out.println(10216%10);
 
         String s= ",,,,";

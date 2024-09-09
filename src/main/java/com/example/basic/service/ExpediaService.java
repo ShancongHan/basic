@@ -2,13 +2,11 @@ package com.example.basic.service;
 
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.read.listener.PageReadListener;
+import com.alibaba.excel.util.DateUtils;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import com.example.basic.dao.*;
-import com.example.basic.domain.CalculateResult;
-import com.example.basic.domain.Content;
-import com.example.basic.domain.ExpediaResponse;
-import com.example.basic.domain.Region;
+import com.example.basic.domain.*;
 import com.example.basic.domain.to.*;
 import com.example.basic.entity.*;
 import com.example.basic.entity.ExpediaContent;
@@ -24,6 +22,7 @@ import com.google.common.io.Files;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StopWatch;
 import org.springframework.util.StringUtils;
@@ -94,11 +93,22 @@ public class ExpediaService {
     @Resource
     private HttpUtils httpUtils;
 
+    @Resource
+    private ExpediaContentBasicDao expediaContentBasicDao;
+
     private static final Integer CORE_POOL_SIZE = 200;
     private static final Integer MAXIMUM_POOL_SIZE = 250;
 
+    private static final Integer PRICE_CHUNK_SIZE = 50;
+
     private static final Executor executor = new ThreadPoolExecutor(CORE_POOL_SIZE, MAXIMUM_POOL_SIZE,
             0L, TimeUnit.MILLISECONDS, new LinkedBlockingDeque<>(3000));
+
+    private static final Executor executor2 = new ThreadPoolExecutor(20, 50,
+            0L, TimeUnit.MILLISECONDS, new LinkedBlockingDeque<>(100));
+
+    private static final Executor executor3 = new ThreadPoolExecutor(PRICE_CHUNK_SIZE, PRICE_CHUNK_SIZE * 2,
+            0L, TimeUnit.MILLISECONDS, new LinkedBlockingDeque<>(PRICE_CHUNK_SIZE * 10));
 
     public void continent() throws Exception {
         String fileName = "C:\\wst_han\\打杂\\expedia\\对接\\expedia大洲划分.xlsx";
@@ -891,10 +901,287 @@ public class ExpediaService {
         }
         // 判断onlyOne16List中有多少已经映射
         List<String> mappingDaolvIds = zhJdJdbGjMappingDao.selectAllDaolvId();
-        Map<String, Integer> daolvIdMap = onlyOne16List.stream().collect(Collectors.toMap(e->e.getDaolvHotelId() + "", ExpediaDaolvMatchLab::getDaolvHotelId));
+        Map<String, Integer> daolvIdMap = onlyOne16List.stream().collect(Collectors.toMap(e -> e.getDaolvHotelId() + "", ExpediaDaolvMatchLab::getDaolvHotelId));
         long count = mappingDaolvIds.stream().filter(daolvIdMap::containsKey).count();
         System.out.println("总匹配" + expediaDaolvMatchLabs.size() + "条，双方id唯一切16分的" + onlyOne16List.size() + "条，" +
                 "道旅总匹配数: " + mappingDaolvIds.size() + "条");
         System.out.println("可立即上线的expedia" + count);
+    }
+
+    public void analyzePropertyStaticFile3() throws Exception {
+        String fileName = "C:\\wst_han\\打杂\\expedia\\0905\\en-US.expediacollect.propertycatalog.jsonl";
+        ImmutableList<String> lines = Files.asCharSource(new File(fileName), Charset.defaultCharset()).readLines();
+        List<ExpediaContentBasic> expediaContentBasicList = Lists.newArrayListWithCapacity(3000);
+        Date now = new Date();
+        for (String line : lines) {
+            ExpediaContentBasic expediaContentBasic = parse(line, now);
+            expediaContentBasicList.add(expediaContentBasic);
+            if (expediaContentBasicList.size() == 1000) {
+                expediaContentBasicDao.saveBatch(expediaContentBasicList);
+                expediaContentBasicList.clear();
+            }
+        }
+        if (expediaContentBasicList.size() > 0) {
+            expediaContentBasicDao.saveBatch(expediaContentBasicList);
+        }
+    }
+
+    private ExpediaContentBasic parse(String line, Date now) throws Exception {
+        JSONObject jsonObject = JSON.parseObject(line);
+        ExpediaContentBasic contentBasic = new ExpediaContentBasic();
+        contentBasic.setHotelId((String) jsonObject.get("property_id"));
+        contentBasic.setName((String) jsonObject.get("name"));
+        JSONObject address = (JSONObject) jsonObject.get("address");
+        if (address != null) {
+            String line1 = (String) address.get("line_1");
+            String line2 = (String) address.get("line_2");
+            contentBasic.setAddress(line1 + (StringUtils.hasLength(line2) ? line2 : ""));
+            contentBasic.setCountryCode((String) address.get("country_code"));
+            contentBasic.setStateProvinceCode((String) address.get("state_province_code"));
+            contentBasic.setStateProvinceName((String) address.get("state_province_name"));
+            contentBasic.setCity((String) address.get("city"));
+            contentBasic.setZipCode((String) address.get("postal_code"));
+        }
+
+        JSONObject ratings = (JSONObject) jsonObject.get("ratings");
+        if (ratings != null) {
+            JSONObject property = (JSONObject) ratings.get("property");
+            if (property != null) {
+                contentBasic.setStarRating(new BigDecimal((String) property.get("rating")));
+            }
+            JSONObject guest = (JSONObject) ratings.get("guest");
+            if (guest != null) {
+                contentBasic.setGuest(new BigDecimal((String) guest.get("overall")));
+            }
+        }
+
+        JSONObject location = (JSONObject) jsonObject.get("location");
+        if (location != null) {
+            Object object = location.get("coordinates");
+            if (StringUtils.hasLength(object.toString())) {
+                Coordinates coordinates1 = JSON.parseObject(object.toString(), Coordinates.class);
+                contentBasic.setLongitude(coordinates1.getLongitude());
+                contentBasic.setLatitude(coordinates1.getLatitude());
+            }
+        }
+
+        contentBasic.setTelephone((String) jsonObject.get("phone"));
+
+        JSONObject category = (JSONObject) jsonObject.get("category");
+        if (category != null) {
+            contentBasic.setCategoryId(Long.valueOf((String) category.get("id")));
+            contentBasic.setCategory((String) category.get("name"));
+        }
+        Integer rank = (Integer) jsonObject.get("rank");
+        contentBasic.setRank(Long.parseLong(String.valueOf(rank)));
+
+        JSONObject businessModel = (JSONObject) jsonObject.get("business_model");
+        if (businessModel != null) {
+            contentBasic.setExpediaCollect((Boolean) businessModel.get("expedia_collect"));
+            contentBasic.setPropertyCollect((Boolean) businessModel.get("property_collect"));
+        }
+
+        JSONObject statistics = (JSONObject) jsonObject.get("statistics");
+        if (statistics != null) {
+            StringBuilder ids = new StringBuilder();
+            StringBuilder values = new StringBuilder();
+            for (Map.Entry<String, Object> entry : statistics.entrySet()) {
+                ids.append(entry.getKey()).append(",");
+                values.append(((JSONObject) entry.getValue()).get("value")).append(",");
+            }
+            contentBasic.setStatisticsId(ids.substring(0, ids.length() - 1));
+            contentBasic.setStatisticsValues(values.substring(0, values.length() - 1));
+        }
+
+        JSONObject chain = (JSONObject) jsonObject.get("chain");
+        if (chain != null) {
+            contentBasic.setChainId((String) chain.get("id"));
+        }
+
+        JSONObject brand = (JSONObject) jsonObject.get("brand");
+        if (brand != null) {
+            contentBasic.setBrandId((String) brand.get("id"));
+        }
+        contentBasic.setSupplySource((String) jsonObject.get("supply_source"));
+
+        JSONObject dates = (JSONObject) jsonObject.get("dates");
+        if (dates != null) {
+            contentBasic.setAddedTime(transferDateTime((String) dates.get("added")));
+            contentBasic.setUpdatedTime(transferDateTime((String) dates.get("updated")));
+        }
+        contentBasic.setCreateTime(now);
+        return contentBasic;
+    }
+
+    // 2023-11-23T09:05:37.357Z
+    private Date transferDateTime(String dateTime) throws Exception {
+        if (!StringUtils.hasLength(dateTime)) return null;
+        dateTime = dateTime.replace("T", " ");
+        dateTime = dateTime.substring(0, dateTime.indexOf("."));
+        return DateUtils.parseDate(dateTime);
+    }
+
+    public void pullContentDetail() {
+        List<ExpediaContentBasic> expediaContentBasics = expediaContentBasicDao.selectNeedUpdateHotelIds();
+        int total = expediaContentBasics.size();
+        int start = 0;
+        List<CompletableFuture<ExpediaContentResult>> futures = Lists.newArrayListWithCapacity(32);
+        int chunkSize = 20;
+        for (int i = 0; i < total; i += chunkSize) {
+            int endIndex = Math.min(i + chunkSize, total);
+            for (ExpediaContentBasic expediaContentBasic : expediaContentBasics.subList(i, endIndex)) {
+                futures.add(CompletableFuture.supplyAsync(() -> {
+                    String hotelId = expediaContentBasic.getHotelId();
+                    String en = httpUtils.pullContentEn(hotelId);
+                    String zh = httpUtils.pullContentZh(hotelId);
+                    boolean hasEn = StringUtils.hasLength(en) && !"{}".equals(en);
+                    boolean hasZh = StringUtils.hasLength(zh) && !"{}".equals(zh);
+                    ExpediaContentResult result = new ExpediaContentResult();
+                    result.setId(expediaContentBasic.getId());
+                    result.setHotelId(hotelId);
+                    // 没英文没中文 返回null
+                    if (!hasEn && !hasZh) {
+                        result.setRealExist(false);
+                        result.setHasZh(false);
+                        return result;
+                    }
+                    // 有英文和中文
+                    if (hasEn && hasZh) {
+                        result.setRealExist(true);
+                        parseEn(en, result);
+                        result.setHasZh(true);
+                        parseZh(zh, result);
+                        return result;
+                    }
+                    // 有英文没中文
+                    if (hasEn) {
+                        result.setRealExist(true);
+                        parseEn(en, result);
+                        result.setHasZh(false);
+                        return result;
+                    }
+                    // 没英文有中文
+                    result.setRealExist(false);
+                    result.setHasZh(true);
+                    parseZh(zh, result);
+                    return result;
+                }, executor2));
+            }
+            CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
+            for (CompletableFuture<ExpediaContentResult> future : futures) {
+                StopWatch watch = new StopWatch();
+                watch.start();
+                start++;
+                String hotelId = null;
+                try {
+                    ExpediaContentResult result = future.get(3, TimeUnit.SECONDS);
+                    hotelId = result.getHotelId();
+                    ExpediaContentBasic update = new ExpediaContentBasic();
+                    update.setId(result.getId());
+                    BeanUtils.copyProperties(result, update);
+                    expediaContentBasicDao.update(update);
+                } catch (TimeoutException e) {
+                    watch.stop();
+                    log.info("酒店查询失败, 超时被跳过, 当前进度:{}/{}", start, total);
+                    continue;
+                } catch (Exception e) {
+                    watch.stop();
+                    log.info("{}酒店查询失败, 耗时:{}, 当前进度:{}/{}", hotelId, watch.getTotalTimeSeconds(), start, total);
+                    log.error("错误信息:{}", Throwables.getStackTraceAsString(e));
+                    continue;
+                }
+                watch.stop();
+                log.info("{}酒店查询成功, 耗时:{}, 当前进度:{}/{}", hotelId, watch.getTotalTimeSeconds(), start, total);
+            }
+            futures.clear();
+        }
+    }
+
+    private void parseZh(String expediaContent, ExpediaContentResult result) {
+        JSONObject jsonObject = JSON.parseObject(expediaContent);
+        Collection<Object> values = jsonObject.values();
+        Content content = JSON.parseObject(values.stream().findFirst().get().toString(), Content.class);
+        result.setName(content.getName());
+        Address address = content.getAddress();
+        result.setAddress(address.getLine_1() + (StringUtils.hasLength(address.getLine_2()) ? address.getLine_2() : ""));
+    }
+
+    private void parseEn(String expediaContent, ExpediaContentResult result) {
+        JSONObject jsonObject = JSON.parseObject(expediaContent);
+        Collection<Object> values = jsonObject.values();
+        Content content = JSON.parseObject(values.stream().findFirst().get().toString(), Content.class);
+        result.setFax(content.getFax());
+        String themes = content.getThemes();
+        if (StringUtils.hasLength(themes)) {
+            result.setThemes(String.join(",", JSON.parseObject(themes).keySet()));
+        }
+        String spokenLanguages = content.getSpoken_languages();
+        if (StringUtils.hasLength(spokenLanguages)) {
+            result.setSpokenLanguages(String.join(",", JSON.parseObject(spokenLanguages).keySet()));
+        }
+        List<Images> images = content.getImages();
+        if (CollectionUtils.isNotEmpty(images)) {
+            Optional<Images> first = images.stream().filter(Images::isHero_image).findFirst();
+            first.ifPresent(e -> {
+                result.setHeroImageMiddle(((JSONObject) JSON.parseObject(e.getLinks()).get("350px")).get("href").toString());
+            });
+        }
+    }
+
+    public void pullContentPrice() {
+        List<ExpediaContentBasic> expediaContentBasics = expediaContentBasicDao.selectNeedPriceHotelIds();
+        int total = expediaContentBasics.size();
+        int start = 0;
+        List<CompletableFuture<ExpediaPriceResult>> futures = Lists.newArrayListWithExpectedSize(PRICE_CHUNK_SIZE);
+        int chunkSize = PRICE_CHUNK_SIZE;
+        for (int i = 0; i < total; i += chunkSize) {
+            int endIndex = Math.min(i + chunkSize, total);
+            for (ExpediaContentBasic expediaContentBasic : expediaContentBasics.subList(i, endIndex)) {
+                futures.add(CompletableFuture.supplyAsync(() -> {
+                    String hotelId = expediaContentBasic.getHotelId();
+                    ExpediaPriceResult result = new ExpediaPriceResult();
+                    result.setId(expediaContentBasic.getId());
+                    result.setHotelId(hotelId);
+                    String checkIn = "2024-10-15";
+                    String checkOut = "2024-10-16";
+                    String price = httpUtils.pullPrice(hotelId, checkIn, checkOut);
+                    boolean hasPrice = StringUtils.hasLength(price) && !"{}".equals(price);
+                    if (hasPrice) {
+                        result.setHasPrice(true);
+                        return result;
+                    }
+                    String packagePrice = httpUtils.pullPricePackage(hotelId, checkIn, checkOut);
+                    boolean hasPackagePrice = StringUtils.hasLength(packagePrice) && !"{}".equals(packagePrice);
+                    if (hasPackagePrice) {
+                        result.setHasPrice(true);
+                        return result;
+                    }
+                    result.setHasPrice(false);
+                    return result;
+                }, executor3));
+            }
+            CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
+            for (CompletableFuture<ExpediaPriceResult> future : futures) {
+                start++;
+                String hotelId = null;
+                try {
+                    ExpediaPriceResult result = future.get(3, TimeUnit.SECONDS);
+                    hotelId = result.getHotelId();
+                    ExpediaContentBasic update = new ExpediaContentBasic();
+                    update.setId(result.getId());
+                    update.setHasPrice(result.getHasPrice());
+                    expediaContentBasicDao.updatePrice(update);
+                } catch (TimeoutException e) {
+                    log.info("酒店查价失败, 超时被跳过, 当前进度:{}/{}", start, total);
+                    continue;
+                } catch (Exception e) {
+                    log.info("{}酒店查价失败, 当前进度:{}/{}", hotelId, start, total);
+                    log.error("错误信息:{}", Throwables.getStackTraceAsString(e));
+                    continue;
+                }
+                log.info("{}酒店查价成功, 当前进度:{}/{}", hotelId, start, total);
+            }
+            futures.clear();
+        }
     }
 }

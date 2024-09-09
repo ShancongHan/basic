@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic.dao.ExpediaContentBasicDao">
+    <insert id="saveBatch" parameterType="com.example.basic.entity.ExpediaContentBasic">
+        insert into `expedia_content_basic` (hotel_id, `name`, name_en, address, address_en, country_code,
+        state_province_code,
+        state_province_name, city, zip_code, star_rating, guest, longitude, latitude,
+        telephone, fax, category_id, category, rank, expedia_collect, property_collect,
+        themes, statistics_id, statistics_values, chain_id, brand_id, supply_source,
+        spoken_languages, hero_image_middle, added_time, updated_time, create_time)
+        values
+        <foreach collection="insertList" separator="," item="item">
+            (#{item.hotelId}, #{item.name}, #{item.nameEn}, #{item.address}, #{item.addressEn}, #{item.countryCode}
+            , #{item.stateProvinceCode}, #{item.stateProvinceName}, #{item.city},
+            #{item.zipCode},#{item.starRating},#{item.guest}
+            , #{item.longitude}, #{item.latitude}, #{item.telephone}, #{item.fax}, #{item.categoryId}, #{item.category}
+            , #{item.rank}, #{item.expediaCollect}, #{item.propertyCollect}, #{item.themes}, #{item.statisticsId}
+            , #{item.statisticsValues}, #{item.chainId},#{item.brandId}
+            , #{item.supplySource}, #{item.spokenLanguages}, #{item.heroImageMiddle}, #{item.addedTime}
+            , #{item.updatedTime}, #{item.createTime})
+        </foreach>
+    </insert>
+
+    <select id="selectNeedUpdateHotelIds" resultType="com.example.basic.entity.ExpediaContentBasic">
+        SELECT `id`, `hotel_id`
+        FROM `expedia_content_basic`
+        WHERE `real_exist` IS NULL
+    </select>
+
+    <update id="update" parameterType="com.example.basic.entity.ExpediaContentBasic">
+        UPDATE `expedia_content_basic`
+        <set>
+            <if test="realExist != null">
+                `real_exist` = #{realExist},
+            </if>
+            <if test="hasZh != null">
+                `has_zh` = #{hasZh},
+            </if>
+            <if test="fax != null and fax != ''">
+                `fax` = #{fax},
+            </if>
+            <if test="themes != null and themes != ''">
+                `themes` = #{themes},
+            </if>
+            <if test="heroImageMiddle != null and heroImageMiddle != ''">
+                `hero_image_middle` = #{heroImageMiddle},
+            </if>
+            <if test="spokenLanguages != null and spokenLanguages != ''">
+                `spoken_languages` = #{spokenLanguages},
+            </if>
+            <if test="name != null and name != ''">
+                `name` = #{name},
+            </if>
+            <if test="address != null and address != ''">
+                `address` = #{address}
+            </if>
+        </set>
+        WHERE `id` = #{id}
+    </update>
+
+    <update id="updatePrice">
+        UPDATE `expedia_content_basic`
+        SET `has_price` = #{hasPrice}
+        WHERE `id` = #{id}
+    </update>
+</mapper>

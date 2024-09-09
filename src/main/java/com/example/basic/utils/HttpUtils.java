@@ -231,4 +231,62 @@ public class HttpUtils {
             throw new RuntimeException(e);
         }
     }
+
+    public String pullContentEn(String hotelId) {
+        return pullContent(hotelId, "en-US");
+    }
+
+    public String pullContentZh(String hotelId) {
+        return pullContent(hotelId, "zh-CN");
+    }
+    public String pullContent(String hotelId, String language) {
+        String url = ENDPOINT + CONTENT + "?language=" + language + "&supply_source=expedia&property_id=" + hotelId;
+        Request request = new Request.Builder()
+                .url(url)
+                .header("Accept", "application/json")
+                .header("Authorization", createSign())
+                .build();
+        Call call = okHttpClient.newCall(request);
+        Response response;
+        try {
+            response = call.execute();
+            //log.info("{}酒店请求了{}", hotelId, language);
+            ResponseBody body = response.body();
+            if (body == null) return null;
+            return body.string();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public String pullPrice(String hotelId, String checkin, String checkout) {
+        return pullPrice(hotelId, "hotel_only", checkin, checkout);
+    }
+
+    public String pullPricePackage(String hotelId, String checkin, String checkout) {
+        return pullPrice(hotelId, "hotel_package", checkin, checkout);
+    }
+
+    public String pullPrice(String hotelId, String salesEnvironment, String checkin, String checkout) {
+        String url = ENDPOINT + CONTENT + "?checkin=" + checkin +
+                "&checkout=" + checkout + "&property_id=" + hotelId + "&sales_environment=" + salesEnvironment +
+                "&occupancy=1&sales_channel=website&language=en-US&rate_option=member&payment_terms=0" +
+                "&rate_plan_count=10&travel_purpose=business&country_code=CN&partner_point_of_sale=VCC_INTERNAL_SA_PKG_MOD" +
+                "&currency=USD&billing_terms=VCC";
+        Request request = new Request.Builder()
+                .url(url)
+                .header("Accept", "application/json")
+                .header("Authorization", createSign())
+                .build();
+        Call call = okHttpClient.newCall(request);
+        Response response;
+        try {
+            response = call.execute();
+            ResponseBody body = response.body();
+            if (body == null) return null;
+            return body.string();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
