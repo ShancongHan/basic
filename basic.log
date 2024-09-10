@@ -3685,3 +3685,122 @@
 2024-09-10T09:05:35.138+08:00  INFO 20212 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 95123845酒店查价成功, 当前进度:520/522
 2024-09-10T09:05:35.158+08:00  INFO 20212 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 8964132酒店查价成功, 当前进度:521/522
 2024-09-10T09:05:35.179+08:00  INFO 20212 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 11264841酒店查价成功, 当前进度:522/522
+2024-09-10T09:06:23.680+08:00  INFO 20212 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-09-10T09:06:23.681+08:00  INFO 20212 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-09-10T09:35:29.849+08:00  INFO 15916 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 15916 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
+2024-09-10T09:35:29.851+08:00  INFO 15916 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
+2024-09-10T09:35:31.011+08:00  INFO 15916 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-09-10T09:35:31.013+08:00  INFO 15916 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-09-10T09:35:31.034+08:00  INFO 15916 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 Redis repository interfaces.
+2024-09-10T09:35:31.482+08:00  INFO 15916 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
+2024-09-10T09:35:31.491+08:00  INFO 15916 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-09-10T09:35:31.491+08:00  INFO 15916 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
+2024-09-10T09:35:31.560+08:00  INFO 15916 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-09-10T09:35:31.560+08:00  INFO 15916 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1678 ms
+2024-09-10T09:35:33.357+08:00  INFO 15916 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
+2024-09-10T09:35:33.372+08:00  INFO 15916 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 3.827 seconds (process running for 4.872)
+2024-09-10T09:35:33.965+08:00  INFO 15916 --- [http-nio-9008-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-09-10T09:35:33.966+08:00  INFO 15916 --- [http-nio-9008-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-09-10T09:35:33.968+08:00  INFO 15916 --- [http-nio-9008-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-09-10T09:35:34.095+08:00  INFO 15916 --- [http-nio-9008-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-09-10T09:35:34.479+08:00  INFO 15916 --- [http-nio-9008-exec-2] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@29c489f2
+2024-09-10T09:35:34.481+08:00  INFO 15916 --- [http-nio-9008-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-09-10T09:36:39.938+08:00  WARN 15916 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m5s338ms559µs500ns).
+2024-09-10T09:36:39.938+08:00  INFO 15916 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 酒店查价失败, 超时被跳过, 当前进度:1/634035
+2024-09-10T09:36:48.477+08:00  INFO 15916 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 100285046酒店查价成功, 当前进度:2/634035
+2024-09-10T09:36:48.537+08:00  INFO 15916 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 100285049酒店查价成功, 当前进度:3/634035
+2024-09-10T09:36:48.553+08:00  INFO 15916 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 100285048酒店查价成功, 当前进度:4/634035
+2024-09-10T09:36:48.569+08:00  INFO 15916 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 100285042酒店查价成功, 当前进度:5/634035
+2024-09-10T09:36:48.586+08:00  INFO 15916 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 100285041酒店查价成功, 当前进度:6/634035
+2024-09-10T09:36:48.606+08:00  INFO 15916 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 100285040酒店查价成功, 当前进度:7/634035
+2024-09-10T09:37:24.829+08:00  INFO 11212 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 11212 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
+2024-09-10T09:37:24.831+08:00  INFO 11212 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
+2024-09-10T09:37:25.236+08:00  INFO 11212 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-09-10T09:37:25.238+08:00  INFO 11212 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-09-10T09:37:25.258+08:00  INFO 11212 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 Redis repository interfaces.
+2024-09-10T09:37:25.610+08:00  INFO 11212 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
+2024-09-10T09:37:25.615+08:00  INFO 11212 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-09-10T09:37:25.615+08:00  INFO 11212 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
+2024-09-10T09:37:25.666+08:00  INFO 11212 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-09-10T09:37:25.666+08:00  INFO 11212 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 809 ms
+2024-09-10T09:37:26.525+08:00  INFO 11212 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
+2024-09-10T09:37:26.531+08:00  INFO 11212 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 1.915 seconds (process running for 2.309)
+2024-09-10T09:37:31.019+08:00  INFO 11212 --- [http-nio-9008-exec-3] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-09-10T09:37:31.020+08:00  INFO 11212 --- [http-nio-9008-exec-3] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-09-10T09:37:31.022+08:00  INFO 11212 --- [http-nio-9008-exec-3] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2024-09-10T09:37:31.052+08:00  INFO 11212 --- [http-nio-9008-exec-3] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-09-10T09:37:31.302+08:00  INFO 11212 --- [http-nio-9008-exec-3] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@57dcedff
+2024-09-10T09:37:31.304+08:00  INFO 11212 --- [http-nio-9008-exec-3] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-09-10T09:37:48.142+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100016142酒店查价成功, 当前进度:1/634029
+2024-09-10T09:37:48.159+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100050058酒店查价成功, 当前进度:2/634029
+2024-09-10T09:37:48.177+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100285036酒店查价成功, 当前进度:3/634029
+2024-09-10T09:37:48.195+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100285038酒店查价成功, 当前进度:4/634029
+2024-09-10T09:37:48.508+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100285037酒店查价成功, 当前进度:5/634029
+2024-09-10T09:37:49.122+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100285034酒店查价成功, 当前进度:6/634029
+2024-09-10T09:37:49.147+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100285033酒店查价成功, 当前进度:7/634029
+2024-09-10T09:37:49.356+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100285029酒店查价成功, 当前进度:8/634029
+2024-09-10T09:37:49.374+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100285025酒店查价成功, 当前进度:9/634029
+2024-09-10T09:37:49.391+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100285027酒店查价成功, 当前进度:10/634029
+2024-09-10T09:37:49.408+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100245925酒店查价成功, 当前进度:11/634029
+2024-09-10T09:37:49.425+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100043367酒店查价成功, 当前进度:12/634029
+2024-09-10T09:37:49.443+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100207202酒店查价成功, 当前进度:13/634029
+2024-09-10T09:37:49.461+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100349809酒店查价成功, 当前进度:14/634029
+2024-09-10T09:37:49.479+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100039386酒店查价成功, 当前进度:15/634029
+2024-09-10T09:37:49.497+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100229110酒店查价成功, 当前进度:16/634029
+2024-09-10T09:37:49.515+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100034494酒店查价成功, 当前进度:17/634029
+2024-09-10T09:37:49.533+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100207325酒店查价成功, 当前进度:18/634029
+2024-09-10T09:37:49.550+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100417263酒店查价成功, 当前进度:19/634029
+2024-09-10T09:37:49.568+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100117400酒店查价成功, 当前进度:20/634029
+2024-09-10T09:37:49.584+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100423827酒店查价成功, 当前进度:21/634029
+2024-09-10T09:37:49.604+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100118058酒店查价成功, 当前进度:22/634029
+2024-09-10T09:37:49.621+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100082699酒店查价成功, 当前进度:23/634029
+2024-09-10T09:37:49.641+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100296757酒店查价成功, 当前进度:24/634029
+2024-09-10T09:37:49.663+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100005257酒店查价成功, 当前进度:25/634029
+2024-09-10T09:37:49.685+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100054427酒店查价成功, 当前进度:26/634029
+2024-09-10T09:37:49.704+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100320263酒店查价成功, 当前进度:27/634029
+2024-09-10T09:37:49.726+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100227735酒店查价成功, 当前进度:28/634029
+2024-09-10T09:37:49.743+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100053573酒店查价成功, 当前进度:29/634029
+2024-09-10T09:37:49.768+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100461662酒店查价成功, 当前进度:30/634029
+2024-09-10T09:37:49.786+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100204187酒店查价成功, 当前进度:31/634029
+2024-09-10T09:37:49.804+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100470264酒店查价成功, 当前进度:32/634029
+2024-09-10T09:37:49.824+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100038181酒店查价成功, 当前进度:33/634029
+2024-09-10T09:37:49.842+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 10049909酒店查价成功, 当前进度:34/634029
+2024-09-10T09:37:49.859+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100118168酒店查价成功, 当前进度:35/634029
+2024-09-10T09:37:49.879+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100325726酒店查价成功, 当前进度:36/634029
+2024-09-10T09:37:49.897+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100416860酒店查价成功, 当前进度:37/634029
+2024-09-10T09:37:49.916+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100461315酒店查价成功, 当前进度:38/634029
+2024-09-10T09:37:49.938+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100117878酒店查价成功, 当前进度:39/634029
+2024-09-10T09:37:49.958+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100183283酒店查价成功, 当前进度:40/634029
+2024-09-10T09:37:49.975+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100032880酒店查价成功, 当前进度:41/634029
+2024-09-10T09:37:49.993+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100462765酒店查价成功, 当前进度:42/634029
+2024-09-10T09:37:50.010+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100168694酒店查价成功, 当前进度:43/634029
+2024-09-10T09:37:50.028+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100129603酒店查价成功, 当前进度:44/634029
+2024-09-10T09:37:50.048+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100125809酒店查价成功, 当前进度:45/634029
+2024-09-10T09:37:50.065+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100450302酒店查价成功, 当前进度:46/634029
+2024-09-10T09:37:50.083+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100482102酒店查价成功, 当前进度:47/634029
+2024-09-10T09:37:50.100+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100298713酒店查价成功, 当前进度:48/634029
+2024-09-10T09:37:50.117+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100266404酒店查价成功, 当前进度:49/634029
+2024-09-10T09:37:50.135+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100297862酒店查价成功, 当前进度:50/634029
+2024-09-10T09:38:52.363+08:00  WARN 11212 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m20s959ms70µs700ns).
+2024-09-10T09:38:52.385+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100056267酒店查价成功, 当前进度:51/634029
+2024-09-10T09:38:52.485+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100096526酒店查价成功, 当前进度:52/634029
+2024-09-10T09:38:52.507+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100164411酒店查价成功, 当前进度:53/634029
+2024-09-10T09:38:52.530+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100169300酒店查价成功, 当前进度:54/634029
+2024-09-10T09:38:53.522+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100055853酒店查价成功, 当前进度:55/634029
+2024-09-10T09:38:53.545+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100316789酒店查价成功, 当前进度:56/634029
+2024-09-10T09:38:53.570+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100096527酒店查价成功, 当前进度:57/634029
+2024-09-10T09:38:53.593+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100372857酒店查价成功, 当前进度:58/634029
+2024-09-10T09:38:53.615+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100316314酒店查价成功, 当前进度:59/634029
+2024-09-10T09:38:53.639+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100008092酒店查价成功, 当前进度:60/634029
+2024-09-10T09:38:53.664+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100447004酒店查价成功, 当前进度:61/634029
+2024-09-10T09:38:53.688+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 10001024酒店查价成功, 当前进度:62/634029
+2024-09-10T09:38:53.712+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100515935酒店查价成功, 当前进度:63/634029
+2024-09-10T09:38:53.733+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100515937酒店查价成功, 当前进度:64/634029
+2024-09-10T09:38:53.755+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100470004酒店查价成功, 当前进度:65/634029
+2024-09-10T09:38:53.778+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100471335酒店查价成功, 当前进度:66/634029
+2024-09-10T09:38:53.800+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100515938酒店查价成功, 当前进度:67/634029
+2024-09-10T09:38:53.822+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100461415酒店查价成功, 当前进度:68/634029
+2024-09-10T09:38:53.844+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100183261酒店查价成功, 当前进度:69/634029
+2024-09-10T09:38:53.868+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100417614酒店查价成功, 当前进度:70/634029
+2024-09-10T09:38:53.901+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100006912酒店查价成功, 当前进度:71/634029
+2024-09-10T09:38:53.924+08:00  INFO 11212 --- [http-nio-9008-exec-3] c.example.basic.service.ExpediaService   : 100005949酒店查价成功, 当前进度:72/634029

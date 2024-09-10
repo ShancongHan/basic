@@ -99,7 +99,7 @@ public class ExpediaService {
     private static final Integer CORE_POOL_SIZE = 200;
     private static final Integer MAXIMUM_POOL_SIZE = 250;
 
-    private static final Integer PRICE_CHUNK_SIZE = 50;
+    private static final Integer PRICE_CHUNK_SIZE = 100;
 
     private static final Executor executor = new ThreadPoolExecutor(CORE_POOL_SIZE, MAXIMUM_POOL_SIZE,
             0L, TimeUnit.MILLISECONDS, new LinkedBlockingDeque<>(3000));
@@ -1142,17 +1142,31 @@ public class ExpediaService {
                     ExpediaPriceResult result = new ExpediaPriceResult();
                     result.setId(expediaContentBasic.getId());
                     result.setHotelId(hotelId);
-                    String checkIn = "2024-10-15";
-                    String checkOut = "2024-10-16";
+                    String checkIn = "2024-09-22";
+                    String checkOut = "2024-09-23";
                     String price = httpUtils.pullPrice(hotelId, checkIn, checkOut);
-                    boolean hasPrice = StringUtils.hasLength(price) && !"{}".equals(price);
+                    boolean hasPrice = StringUtils.hasLength(price) && !"{}".equals(price) && !"[]".equals(price);
                     if (hasPrice) {
                         result.setHasPrice(true);
                         return result;
                     }
                     String packagePrice = httpUtils.pullPricePackage(hotelId, checkIn, checkOut);
-                    boolean hasPackagePrice = StringUtils.hasLength(packagePrice) && !"{}".equals(packagePrice);
+                    boolean hasPackagePrice = StringUtils.hasLength(packagePrice) && !"{}".equals(packagePrice) && !"[]".equals(packagePrice);
                     if (hasPackagePrice) {
+                        result.setHasPrice(true);
+                        return result;
+                    }
+                    String checkIn2 = "2024-10-13";
+                    String checkOut2 = "2024-10-14";
+                    String price2 = httpUtils.pullPrice(hotelId, checkIn2, checkOut2);
+                    boolean hasPrice2 = StringUtils.hasLength(price2) && !"{}".equals(price2) && !"[]".equals(price2);
+                    if (hasPrice2) {
+                        result.setHasPrice(true);
+                        return result;
+                    }
+                    String packagePrice2 = httpUtils.pullPricePackage(hotelId, checkIn2, checkOut2);
+                    boolean hasPackagePrice2 = StringUtils.hasLength(packagePrice2) && !"{}".equals(packagePrice2) && !"[]".equals(packagePrice2);
+                    if (hasPackagePrice2) {
                         result.setHasPrice(true);
                         return result;
                     }
@@ -1165,7 +1179,7 @@ public class ExpediaService {
                 start++;
                 String hotelId = null;
                 try {
-                    ExpediaPriceResult result = future.get(3, TimeUnit.SECONDS);
+                    ExpediaPriceResult result = future.get(50, TimeUnit.SECONDS);
                     hotelId = result.getHotelId();
                     ExpediaContentBasic update = new ExpediaContentBasic();
                     update.setId(result.getId());

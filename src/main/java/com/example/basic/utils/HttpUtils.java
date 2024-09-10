@@ -36,6 +36,7 @@ public class HttpUtils {
     private final static String REGIONS = "regions";
     private final static String CHAINS = "chains";
     private final static String CONTENT = "properties/content";
+    private final static String PRICE = "properties/availability";
 
 
     private final static String LANGUAGE_KEY = "language";
@@ -268,7 +269,7 @@ public class HttpUtils {
     }
 
     public String pullPrice(String hotelId, String salesEnvironment, String checkin, String checkout) {
-        String url = ENDPOINT + CONTENT + "?checkin=" + checkin +
+        String url = ENDPOINT + PRICE + "?checkin=" + checkin +
                 "&checkout=" + checkout + "&property_id=" + hotelId + "&sales_environment=" + salesEnvironment +
                 "&occupancy=1&sales_channel=website&language=en-US&rate_option=member&payment_terms=0" +
                 "&rate_plan_count=10&travel_purpose=business&country_code=CN&partner_point_of_sale=VCC_INTERNAL_SA_PKG_MOD" +
