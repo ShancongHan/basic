@@ -19,4 +19,6 @@ public interface ExpediaContentBasicDao {
     List<ExpediaContentBasic> selectNeedPriceHotelIds();
 
     void updatePrice(ExpediaContentBasic update);
+
+    void updateV1Sale(List<String> list);
 }

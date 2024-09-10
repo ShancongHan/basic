@@ -903,7 +903,7 @@ public class ExpediaService {
         List<String> mappingDaolvIds = zhJdJdbGjMappingDao.selectAllDaolvId();
         Map<String, Integer> daolvIdMap = onlyOne16List.stream().collect(Collectors.toMap(e -> e.getDaolvHotelId() + "", ExpediaDaolvMatchLab::getDaolvHotelId));
         long count = mappingDaolvIds.stream().filter(daolvIdMap::containsKey).count();
-        System.out.println("总匹配" + expediaDaolvMatchLabs.size() + "条，双方id唯一切16分的" + onlyOne16List.size() + "条，" +
+        System.out.println("总匹配" + expediaDaolvMatchLabs.size() + "条，双方id唯一且16分的" + onlyOne16List.size() + "条，" +
                 "道旅总匹配数: " + mappingDaolvIds.size() + "条");
         System.out.println("可立即上线的expedia" + count);
     }
@@ -1182,6 +1182,39 @@ public class ExpediaService {
                 log.info("{}酒店查价成功, 当前进度:{}/{}", hotelId, start, total);
             }
             futures.clear();
+        }
+    }
+
+    public void expediaV1Up() {
+        // 查询出16分的数据
+        List<ExpediaDaolvMatchLab> expediaDaolvMatchLabs = expediaDaolvMatchLabDao.select16List();
+        // 排查掉expediaHotelId和daolvHotelId重复的数据
+        List<ExpediaDaolvMatchLab> onlyOne16List = Lists.newArrayListWithCapacity(expediaDaolvMatchLabs.size());
+        Map<Integer, List<ExpediaDaolvMatchLab>> collect = expediaDaolvMatchLabs.stream().collect(Collectors.groupingBy(ExpediaDaolvMatchLab::getDaolvHotelId));
+        for (List<ExpediaDaolvMatchLab> value : collect.values()) {
+            if (value.size() == 1) {
+                onlyOne16List.add(value.get(0));
+            }
+        }
+        // 判断onlyOne16List中有多少已经映射
+        List<String> mappingDaolvIds = zhJdJdbGjMappingDao.selectAllDaolvId();
+        Map<String, String> daolvMap = mappingDaolvIds.stream().collect(Collectors.toMap(e -> e, e -> e));
+
+        List<String> expediaHotelIdList = onlyOne16List.stream().filter(e -> daolvMap.containsKey(e.getDaolvHotelId() + "")).map(ExpediaDaolvMatchLab::getExpediaHotelId).toList();
+        int size = expediaHotelIdList.size();
+        log.info("总匹配{}条，双方id唯一且16分的{}条,道旅总匹配数:{}", expediaDaolvMatchLabs.size(),onlyOne16List.size(), expediaHotelIdList.size());
+
+        int start = 0;
+        for (int j = 0; j < size; j++) {
+            if (j != 0 && j % 1000 == 0) {
+                List<String> list = expediaHotelIdList.subList(start, j);
+                expediaContentBasicDao.updateV1Sale(list);
+                start = j;
+            }
+        }
+        List<String> list = expediaHotelIdList.subList(start, size);
+        if (CollectionUtils.isNotEmpty(list)) {
+            expediaContentBasicDao.updateV1Sale(list);
         }
     }
 }

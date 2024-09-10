@@ -91,4 +91,9 @@ public class ExpediaContentBasic {
      * 有价
      */
     private Boolean hasPrice;
+
+    /**
+     * 第一版售卖-1
+     */
+    private Boolean v1Sale;
 }

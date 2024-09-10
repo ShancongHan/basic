@@ -191,4 +191,16 @@ public class ExpediaController {
     public void pullContentPrice() {
         expediaService.pullContentPrice();
     }
+
+    /**
+     * 统计第一版上线的酒店
+     */
+    @PostMapping(value = "expedia-v1-up")
+    public void expediaV1Up() {
+        try {
+            expediaService.expediaV1Up();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
 }

@@ -63,4 +63,19 @@
         SET `has_price` = #{hasPrice}
         WHERE `id` = #{id}
     </update>
+
+    <update id="updateV1Sale" parameterType="java.lang.String">
+        UPDATE `expedia_content_basic`
+        SET `v1_sale` = 1
+        WHERE `hotel_id` IN
+        <foreach collection="list" open="(" separator="," close=")" item="hotelId">
+            #{hotelId}
+        </foreach>
+    </update>
+
+    <select id="selectNeedPriceHotelIds" resultType="com.example.basic.entity.ExpediaContentBasic">
+        SELECT `id`, `hotel_id`
+        FROM `expedia_content_basic`
+        WHERE `has_price` IS NULL
+    </select>
 </mapper>

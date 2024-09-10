@@ -272,7 +272,7 @@ public class HttpUtils {
                 "&checkout=" + checkout + "&property_id=" + hotelId + "&sales_environment=" + salesEnvironment +
                 "&occupancy=1&sales_channel=website&language=en-US&rate_option=member&payment_terms=0" +
                 "&rate_plan_count=10&travel_purpose=business&country_code=CN&partner_point_of_sale=VCC_INTERNAL_SA_PKG_MOD" +
-                "&currency=USD&billing_terms=VCC";
+                "&currency=USD&billing_terms=VCC&supply_source=expedia";
         Request request = new Request.Builder()
                 .url(url)
                 .header("Accept", "application/json")
