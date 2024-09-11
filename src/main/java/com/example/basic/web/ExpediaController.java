@@ -203,4 +203,16 @@ public class ExpediaController {
             System.out.println(Throwables.getStackTraceAsString(e));
         }
     }
+
+    /**
+     * 检测不同国家价格是否一致
+     */
+    @PostMapping(value = "check-multi-price")
+    public void checkMultiPrice() {
+        try {
+            expediaService.checkMultiPrice();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
 }

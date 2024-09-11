@@ -1,9 +1,13 @@
 package com.example.basic.service;
 
 import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.read.listener.PageReadListener;
 import com.alibaba.excel.util.DateUtils;
+import com.alibaba.excel.write.builder.ExcelWriterBuilder;
+import com.alibaba.excel.write.metadata.WriteSheet;
 import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 import com.example.basic.dao.*;
 import com.example.basic.domain.*;
@@ -28,6 +32,7 @@ import org.springframework.util.StopWatch;
 import org.springframework.util.StringUtils;
 
 import java.io.*;
+import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.nio.charset.Charset;
 import java.util.*;
@@ -411,9 +416,21 @@ public class ExpediaService {
         try {
             transferBody3(expediaChainBrandsList, response);
         } catch (Exception e) {
-            Throwables.getStackTraceAsString(e);
+            log.error("解析发生异常:{}",Throwables.getStackTraceAsString(e));
         }
-        expediaChainBrandsDao.saveBatch(expediaChainBrandsList);
+       int start = 0;
+        for (int j = 0; j < expediaChainBrandsList.size(); j++) {
+            if (j != 0 && j % 1000 == 0) {
+                List<ExpediaChainBrands> list = expediaChainBrandsList.subList(start, j);
+                expediaChainBrandsDao.saveBatch(list);
+                start = j;
+            }
+        }
+        List<ExpediaChainBrands> list = expediaChainBrandsList.subList(start, expediaChainBrandsList.size());
+        if (CollectionUtils.isNotEmpty(list)) {
+            expediaChainBrandsDao.saveBatch(list);
+        }
+        //expediaChainBrandsDao.saveBatch(expediaChainBrandsList);
     }
 
     private void transferBody3(List<ExpediaChainBrands> expediaChainBrandsList, String body) {
@@ -425,15 +442,17 @@ public class ExpediaService {
             expediaChainBrands.setName((String) value.get("name"));
             JSONObject object = (JSONObject) value.get("brands");
 
-            StringBuilder ids = new StringBuilder();
-            StringBuilder names = new StringBuilder();
-            for (Map.Entry<String, Object> entry1 : object.entrySet()) {
-                JSONObject value1 = (JSONObject) entry1.getValue();
-                ids.append(value1.get("id")).append(",");
-                names.append(value1.get("name")).append(",");
+            if (object != null) {
+                StringBuilder ids = new StringBuilder();
+                StringBuilder names = new StringBuilder();
+                for (Map.Entry<String, Object> entry1 : object.entrySet()) {
+                    JSONObject value1 = (JSONObject) entry1.getValue();
+                    ids.append(value1.get("id")).append(",");
+                    names.append(value1.get("name")).append(",");
+                }
+                expediaChainBrands.setBrandsId(ids.substring(0, ids.length() - 1));
+                expediaChainBrands.setBrandsName(names.substring(0, names.length() - 1));
             }
-            expediaChainBrands.setBrandsId(ids.substring(0, ids.length() - 1));
-            expediaChainBrands.setBrandsName(names.substring(0, names.length() - 1));
             expediaChainBrandsList.add(expediaChainBrands);
         }
     }
@@ -714,7 +733,7 @@ public class ExpediaService {
                 int chunkSize = (size / CORE_POOL_SIZE) + 1;
                 for (int i = 0; i < daolvHotels.size(); i += chunkSize) {
                     final int endIndex = Math.min(i + chunkSize, daolvHotels.size());
-                    futures.add(executeOnceTask(expediaPropertyBasic, daolvHotels.subList(i, endIndex)));
+                    futures.add(executeOnceTask(expediaPropertyBasic, daolvHotels.subList  (i, endIndex)));
                 }
             }
             CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
@@ -1179,7 +1198,7 @@ public class ExpediaService {
                 start++;
                 String hotelId = null;
                 try {
-                    ExpediaPriceResult result = future.get(50, TimeUnit.SECONDS);
+                    ExpediaPriceResult result = future.get(3, TimeUnit.SECONDS);
                     hotelId = result.getHotelId();
                     ExpediaContentBasic update = new ExpediaContentBasic();
                     update.setId(result.getId());
@@ -1230,5 +1249,109 @@ public class ExpediaService {
         if (CollectionUtils.isNotEmpty(list)) {
             expediaContentBasicDao.updateV1Sale(list);
         }
+    }
+
+    public void checkMultiPrice() {
+        String checkIn = "2024-09-22";
+        String checkOut = "2024-09-23";
+        List<String> countryCodes = Lists.newArrayList("CN","SG","JP","GB","FR","US","DE","CH","AU","IL","ES","NL","BR","TH","CA","CN","RU");
+        List<String> hotelIds = Lists.newArrayList("101340267","11723","13375806","13407274","15228437","15239","17405012","19663253","27780006","807460");//,"11723","13375806","13407274","15228437","15239","17405012","19663253","27780006","807460"
+
+        String file = "C:\\wst_han\\打杂\\expedia\\test1.xlsx";
+        ExcelWriter excelWriter = EasyExcel.write(file).build();
+
+        for (String hotelId : hotelIds) {
+            List<MultiPrice> all = Lists.newArrayList();
+            for (String countryCode : countryCodes) {
+                String priceString = httpUtils.pullPrice2(hotelId, checkIn, checkOut, countryCode);
+                boolean hasPrice = StringUtils.hasLength(priceString) && !"{}".equals(priceString) && !"[]".equals(priceString);
+                if (!hasPrice) continue;
+                List<MultiPrice> priceList = analyzePrice(priceString, hotelId, countryCode);
+                all.addAll(priceList);
+            }
+            log.info("{}酒店查询组装完毕", hotelId);
+            List<MultiPriceExport> exports = Lists.newArrayList();
+            List<String> rateIds = all.stream().map(MultiPrice::getRateId).distinct().toList();
+            Map<String, List<MultiPrice>> countryCodeMap = all.stream().collect(Collectors.groupingBy(MultiPrice::getCountryCode));
+
+            MultiPriceExport export1 = new MultiPriceExport();
+            export1.setCountryCode(null);
+            for (int j = 0; j < rateIds.size(); j++) {
+                setValue(export1, j + 1, rateIds.get(j));
+            }
+            exports.add(export1);
+            for (Map.Entry<String, List<MultiPrice>> entry : countryCodeMap.entrySet()) {
+                String key = entry.getKey();
+                List<MultiPrice> priceList = entry.getValue();
+                MultiPriceExport export = new MultiPriceExport();
+                export.setCountryCode(key);
+                for (MultiPrice multiPrice : priceList) {
+                    int i = rateIds.indexOf(multiPrice.getRateId());
+                    setValue(export, i + 1, multiPrice.getPrice());
+                }
+                exports.add(export);
+            }
+            WriteSheet writeSheet = EasyExcel.writerSheet(hotelId).head(MultiPriceExport.class).build();
+            excelWriter.write(exports, writeSheet);
+        }
+        excelWriter.finish();
+    }
+
+    private void setValue(MultiPriceExport export, int i, String value) {
+        if (i > 17) return;
+        try {
+            Field field = export.getClass().getDeclaredField("rateId" + i);
+            field.setAccessible(true);
+            field.set(export, value);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private List<MultiPrice> analyzePrice(String json, String hotelId, String countryCode) {
+        JSONObject jsonObject = (JSONObject) JSON.parseArray(json).get(0);
+        JSONArray rooms = (JSONArray) jsonObject.get("rooms");
+        List<MultiPrice> multiPrices = Lists.newArrayList();
+        for (Object room : rooms) {
+            JSONObject roomJson = (JSONObject) room;
+            String roomId = (String) roomJson.get("id");
+            String roomName = (String) roomJson.get("room_name");
+            JSONArray rates = (JSONArray) roomJson.get("rates");
+            for (Object rate : rates) {
+                JSONObject rateJson = (JSONObject) rate;
+                String rateId = (String) rateJson.get("id");
+                JSONObject occupancyPricing = (JSONObject) rateJson.get("occupancy_pricing");
+                JSONObject occupancyPricing1 = (JSONObject) occupancyPricing.get("1");
+                JSONObject totals = (JSONObject) occupancyPricing1.get("totals");
+                JSONObject inclusive = (JSONObject) totals.get("inclusive");
+                JSONObject requestCurrency = (JSONObject) inclusive.get("request_currency");
+                String price = requestCurrency.get("value").toString();
+                MultiPrice multiPrice = new MultiPrice();
+                multiPrice.setHotelId(hotelId);
+                multiPrice.setCountryCode(countryCode);
+                multiPrice.setRoomId(roomId);
+                multiPrice.setRoomName(roomName);
+                multiPrice.setRateId(rateId);
+                multiPrice.setPrice(price);
+                multiPrices.add(multiPrice);
+            }
+        }
+        return multiPrices;
+    }
+
+    public static void main(String[] args) throws Exception {
+        String fileName = "C:\\wst_han\\打杂\\expedia\\test.json";
+        String json = IOUtils.inputStreamToString(new FileInputStream(fileName));
+        JSONObject jsonObject = (JSONObject) JSON.parseArray(json).get(0);
+        JSONArray array = (JSONArray) jsonObject.get("rooms");
+        JSONObject object = (JSONObject) array.get(0);
+        JSONArray rates = (JSONArray) object.get("rates");
+        JSONObject object1 = (JSONObject) rates.get(0);
+        JSONObject total = (JSONObject) ((JSONObject)((JSONObject)object1.get("occupancy_pricing")).get("1")).get("totals");
+        JSONObject inclusive = (JSONObject) total.get("inclusive");
+        JSONObject requestCurrency = (JSONObject) inclusive.get("request_currency");
+        String price = (String) requestCurrency.get("value");
+        System.out.println(price);
+        System.out.println(object1.get("id"));
     }
 }

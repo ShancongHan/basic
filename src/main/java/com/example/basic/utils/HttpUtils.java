@@ -264,6 +264,29 @@ public class HttpUtils {
         return pullPrice(hotelId, "hotel_only", checkin, checkout);
     }
 
+    public String pullPrice2(String hotelId, String checkin, String checkout, String countryCode) {
+        String url = ENDPOINT + PRICE + "?checkin=" + checkin +
+                "&checkout=" + checkout + "&property_id=" + hotelId + "&sales_environment=hotel_only" +
+                "&occupancy=1&sales_channel=website&language=en-US&rate_option=member&payment_terms=0" +
+                "&rate_plan_count=10&travel_purpose=business&country_code="+countryCode+"&partner_point_of_sale=VCC_INTERNAL_SA_PKG_MOD" +
+                "&currency=USD&billing_terms=VCC&supply_source=expedia";
+        Request request = new Request.Builder()
+                .url(url)
+                .header("Accept", "application/json")
+                .header("Authorization", createSign())
+                .build();
+        Call call = okHttpClient.newCall(request);
+        Response response;
+        try {
+            response = call.execute();
+            ResponseBody body = response.body();
+            if (body == null) return null;
+            return body.string();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public String pullPricePackage(String hotelId, String checkin, String checkout) {
         return pullPrice(hotelId, "hotel_package", checkin, checkout);
     }
