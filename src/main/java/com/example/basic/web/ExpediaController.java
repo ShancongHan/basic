@@ -215,4 +215,52 @@ public class ExpediaController {
             System.out.println(Throwables.getStackTraceAsString(e));
         }
     }
+
+    /**
+     * 校验国家
+     */
+    @PostMapping(value = "pull-check-country")
+    public void pullCheckCountry() {
+        try {
+            expediaService.pullCheckCountry();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
+
+    /**
+     * 获取区域v2
+     */
+    @PostMapping(value = "pull-regions-v2")
+    public void pullRegionsV2() {
+        try {
+            expediaService.pullRegionsV2();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
+
+    /**
+     * 补充国家信息
+     */
+    @PostMapping(value = "finish-country")
+    public void finishCountry() {
+        try {
+            expediaService.finishCountry();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
+
+    /**
+     * 补充区域信息
+     */
+    @PostMapping(value = "finish-regions-v2")
+    public void finishRegionsV2() {
+        try {
+            expediaService.finishRegionsV2();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
 }

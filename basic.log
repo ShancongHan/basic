@@ -1,305 +1,518 @@
-2024-09-11T10:47:52.068+08:00  INFO 7888 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 7888 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
-2024-09-11T10:47:52.079+08:00  INFO 7888 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
-2024-09-11T10:47:53.342+08:00  INFO 7888 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-09-11T10:47:53.344+08:00  INFO 7888 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-09-11T10:47:53.365+08:00  INFO 7888 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 9 ms. Found 0 Redis repository interfaces.
-2024-09-11T10:47:53.738+08:00  INFO 7888 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
-2024-09-11T10:47:53.744+08:00  INFO 7888 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2024-09-11T10:47:53.744+08:00  INFO 7888 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
-2024-09-11T10:47:53.799+08:00  INFO 7888 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2024-09-11T10:47:53.799+08:00  INFO 7888 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1689 ms
-2024-09-11T10:47:54.948+08:00  INFO 7888 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
-2024-09-11T10:47:54.954+08:00  INFO 7888 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 3.143 seconds (process running for 3.553)
-2024-09-11T10:50:41.887+08:00  INFO 7888 --- [http-nio-9008-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-09-11T10:50:41.887+08:00  INFO 7888 --- [http-nio-9008-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2024-09-11T10:50:41.888+08:00  INFO 7888 --- [http-nio-9008-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
-2024-09-11T10:52:00.500+08:00  INFO 6704 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 6704 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
-2024-09-11T10:52:00.502+08:00  INFO 6704 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
-2024-09-11T10:52:00.913+08:00  INFO 6704 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-09-11T10:52:00.914+08:00  INFO 6704 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-09-11T10:52:00.935+08:00  INFO 6704 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 Redis repository interfaces.
-2024-09-11T10:52:01.292+08:00  INFO 6704 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
-2024-09-11T10:52:01.297+08:00  INFO 6704 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2024-09-11T10:52:01.297+08:00  INFO 6704 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
-2024-09-11T10:52:01.354+08:00  INFO 6704 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2024-09-11T10:52:01.354+08:00  INFO 6704 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 824 ms
-2024-09-11T10:52:02.206+08:00  INFO 6704 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
-2024-09-11T10:52:02.212+08:00  INFO 6704 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 1.936 seconds (process running for 2.297)
-2024-09-11T10:52:28.278+08:00  INFO 6704 --- [http-nio-9008-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-09-11T10:52:28.279+08:00  INFO 6704 --- [http-nio-9008-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2024-09-11T10:52:28.280+08:00  INFO 6704 --- [http-nio-9008-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
-2024-09-11T10:54:06.223+08:00  INFO 2432 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 2432 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
-2024-09-11T10:54:06.225+08:00  INFO 2432 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
-2024-09-11T10:54:06.662+08:00  INFO 2432 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-09-11T10:54:06.664+08:00  INFO 2432 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-09-11T10:54:06.683+08:00  INFO 2432 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 9 ms. Found 0 Redis repository interfaces.
-2024-09-11T10:54:07.067+08:00  INFO 2432 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
-2024-09-11T10:54:07.074+08:00  INFO 2432 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2024-09-11T10:54:07.074+08:00  INFO 2432 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
-2024-09-11T10:54:07.139+08:00  INFO 2432 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2024-09-11T10:54:07.139+08:00  INFO 2432 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 880 ms
-2024-09-11T10:54:08.194+08:00  INFO 2432 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
-2024-09-11T10:54:08.202+08:00  INFO 2432 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 2.235 seconds (process running for 2.673)
-2024-09-11T10:54:11.865+08:00  INFO 2432 --- [http-nio-9008-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-09-11T10:54:11.865+08:00  INFO 2432 --- [http-nio-9008-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2024-09-11T10:54:11.866+08:00  INFO 2432 --- [http-nio-9008-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
-2024-09-11T10:54:19.038+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 酒店101340267查询多国家返回价格如下：
-2024-09-11T10:54:19.043+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家DE查询价格为[393358993]；补充房型[136.34]
-2024-09-11T10:54:19.043+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家IL查询价格为[393358993]；补充房型[136.34]
-2024-09-11T10:54:19.043+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家CH查询价格为[393358993]；补充房型[136.34]
-2024-09-11T10:54:19.043+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家JP查询价格为[393358993]；补充房型[136.34]
-2024-09-11T10:54:19.043+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家CN查询价格为[393358993]；补充房型[136.34]
-2024-09-11T10:54:19.044+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家FR查询价格为[393358993]；补充房型[136.34]
-2024-09-11T10:54:19.044+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家ES查询价格为[393358993]；补充房型[136.34]
-2024-09-11T10:54:19.044+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家BR查询价格为[393358993]；补充房型[145.50]
-2024-09-11T10:54:19.044+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家SG查询价格为[393358993]；补充房型[136.34]
-2024-09-11T10:54:19.044+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家AU查询价格为[393358993]；补充房型[136.34]
-2024-09-11T10:54:19.044+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家TH查询价格为[393358993]；补充房型[136.34]
-2024-09-11T10:54:19.044+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家GB查询价格为[393358993]；补充房型[136.34]
-2024-09-11T10:54:19.045+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家US查询价格为[393358993]；补充房型[136.34]
-2024-09-11T10:54:19.045+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家NL查询价格为[393358993]；补充房型[136.34]
-2024-09-11T10:54:19.045+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家CA查询价格为[393358993]；补充房型[136.34]
-2024-09-11T10:54:26.054+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 酒店11723查询多国家返回价格如下：
-2024-09-11T10:54:26.055+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家DE查询价格为[232197895]；补充房型[328.61]
-2024-09-11T10:54:26.055+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家IL查询价格为[232167896]；补充房型[183.54]
-2024-09-11T10:54:26.056+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家CH查询价格为[232167896]；补充房型[183.54]
-2024-09-11T10:54:26.056+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家JP查询价格为[232167896]；补充房型[183.54]
-2024-09-11T10:54:26.057+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家CN查询价格为[397264101]；补充房型[244.71]
-2024-09-11T10:54:26.057+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家FR查询价格为[232167896]；补充房型[183.54]
-2024-09-11T10:54:26.058+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家ES查询价格为[232197895]；补充房型[328.61]
-2024-09-11T10:54:26.058+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家BR查询价格为[232167896]；补充房型[195.87]
-2024-09-11T10:54:26.058+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家SG查询价格为[232197895]；补充房型[328.61]
-2024-09-11T10:54:26.058+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家AU查询价格为[232197893]；补充房型[314.63]
-2024-09-11T10:54:26.058+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家TH查询价格为[232167896]；补充房型[183.54]
-2024-09-11T10:54:26.058+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家GB查询价格为[232197893]；补充房型[314.63]
-2024-09-11T10:54:26.059+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家US查询价格为[232167896]；补充房型[183.54]
-2024-09-11T10:54:26.059+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家NL查询价格为[232167896]；补充房型[183.54]
-2024-09-11T10:54:26.059+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家CA查询价格为[232167896]；补充房型[183.54]
-2024-09-11T10:54:33.056+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 酒店13375806查询多国家返回价格如下：
-2024-09-11T10:54:33.057+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家DE查询价格为[391272081]；补充房型[132.81]
-2024-09-11T10:54:33.058+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家IL查询价格为[394879524]；补充房型[143.29]
-2024-09-11T10:54:33.059+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家CH查询价格为[394879524]；补充房型[143.29]
-2024-09-11T10:54:33.059+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家JP查询价格为[394879524]；补充房型[143.29]
-2024-09-11T10:54:33.059+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家CN查询价格为[391272075]；补充房型[132.81]
-2024-09-11T10:54:33.060+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家FR查询价格为[394879524]；补充房型[143.29]
-2024-09-11T10:54:33.060+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家ES查询价格为[391272075]；补充房型[132.81]
-2024-09-11T10:54:33.060+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家BR查询价格为[394879524]；补充房型[152.92]
-2024-09-11T10:54:33.060+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家SG查询价格为[391272075]；补充房型[132.81]
-2024-09-11T10:54:33.061+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家AU查询价格为[391272075]；补充房型[132.81]
-2024-09-11T10:54:33.061+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家TH查询价格为[394879524]；补充房型[143.29]
-2024-09-11T10:54:33.061+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家GB查询价格为[391272075]；补充房型[132.81]
-2024-09-11T10:54:33.062+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家US查询价格为[394879524]；补充房型[143.29]
-2024-09-11T10:54:33.062+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家NL查询价格为[394879524]；补充房型[143.29]
-2024-09-11T10:54:33.062+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家CA查询价格为[394879524]；补充房型[143.29]
-2024-09-11T10:54:40.372+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 酒店13407274查询多国家返回价格如下：
-2024-09-11T10:54:40.373+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家DE查询价格为[397171236]；补充房型[403.74]
-2024-09-11T10:54:40.374+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家IL查询价格为[290226957]；补充房型[266.82]
-2024-09-11T10:54:40.374+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家CH查询价格为[290226957]；补充房型[266.82]
-2024-09-11T10:54:40.374+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家JP查询价格为[290226957]；补充房型[266.82]
-2024-09-11T10:54:40.374+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家CN查询价格为[397171236]；补充房型[403.74]
-2024-09-11T10:54:40.375+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家FR查询价格为[290226957]；补充房型[266.82]
-2024-09-11T10:54:40.375+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家ES查询价格为[397171247]；补充房型[491.51]
-2024-09-11T10:54:40.375+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家BR查询价格为[290226957]；补充房型[284.75]
-2024-09-11T10:54:40.375+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家SG查询价格为[397171247]；补充房型[491.51]
-2024-09-11T10:54:40.375+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家AU查询价格为[397171247]；补充房型[491.51]
-2024-09-11T10:54:40.375+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家TH查询价格为[290226957]；补充房型[266.82]
-2024-09-11T10:54:40.375+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家GB查询价格为[397171247]；补充房型[491.51]
-2024-09-11T10:54:40.375+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家US查询价格为[290226957]；补充房型[266.82]
-2024-09-11T10:54:40.375+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家NL查询价格为[290226957]；补充房型[266.82]
-2024-09-11T10:54:40.376+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家CA查询价格为[290226957]；补充房型[266.82]
-2024-09-11T10:54:47.441+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 酒店15228437查询多国家返回价格如下：
-2024-09-11T10:54:47.443+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家DE查询价格为[396955128]；补充房型[615.22]
-2024-09-11T10:54:47.443+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家IL查询价格为[209231185]；补充房型[255.60]
-2024-09-11T10:54:47.443+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家CH查询价格为[209231185]；补充房型[255.60]
-2024-09-11T10:54:47.443+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家JP查询价格为[209231185]；补充房型[255.60]
-2024-09-11T10:54:47.444+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家CN查询价格为[396955128]；补充房型[615.22]
-2024-09-11T10:54:47.444+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家FR查询价格为[209231185]；补充房型[255.60]
-2024-09-11T10:54:47.444+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家ES查询价格为[396955128]；补充房型[615.22]
-2024-09-11T10:54:47.444+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家BR查询价格为[209231185]；补充房型[272.78]
-2024-09-11T10:54:47.445+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家SG查询价格为[396955128]；补充房型[615.22]
-2024-09-11T10:54:47.445+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家AU查询价格为[396955128]；补充房型[615.22]
-2024-09-11T10:54:47.445+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家TH查询价格为[209231185]；补充房型[255.60]
-2024-09-11T10:54:47.445+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家GB查询价格为[396955128]；补充房型[615.22]
-2024-09-11T10:54:47.445+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家US查询价格为[209231185]；补充房型[255.60]
-2024-09-11T10:54:47.445+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家NL查询价格为[209231185]；补充房型[255.60]
-2024-09-11T10:54:47.445+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家CA查询价格为[209231185]；补充房型[255.60]
-2024-09-11T10:54:53.985+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 酒店15239查询多国家返回价格如下：
-2024-09-11T10:54:53.985+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家DE查询价格为[397273867]；补充房型[267.44]
-2024-09-11T10:54:53.985+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家IL查询价格为[397273867]；补充房型[267.44]
-2024-09-11T10:54:53.986+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家CH查询价格为[397273867]；补充房型[267.44]
-2024-09-11T10:54:53.986+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家JP查询价格为[397273867]；补充房型[267.44]
-2024-09-11T10:54:53.986+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家CN查询价格为[397273867]；补充房型[267.44]
-2024-09-11T10:54:53.986+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家FR查询价格为[397273867]；补充房型[267.44]
-2024-09-11T10:54:53.986+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家ES查询价格为[397273867]；补充房型[267.44]
-2024-09-11T10:54:53.986+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家BR查询价格为[397273867]；补充房型[285.41]
-2024-09-11T10:54:53.986+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家SG查询价格为[397273867]；补充房型[267.44]
-2024-09-11T10:54:53.986+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家AU查询价格为[397273867]；补充房型[267.44]
-2024-09-11T10:54:53.986+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家TH查询价格为[397273867]；补充房型[267.44]
-2024-09-11T10:54:53.986+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家GB查询价格为[397273867]；补充房型[267.44]
-2024-09-11T10:54:53.986+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家US查询价格为[397273867]；补充房型[267.44]
-2024-09-11T10:54:53.986+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家NL查询价格为[397273867]；补充房型[267.44]
-2024-09-11T10:54:53.986+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家CA查询价格为[397273867]；补充房型[267.44]
-2024-09-11T10:55:01.277+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 酒店17405012查询多国家返回价格如下：
-2024-09-11T10:55:01.278+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家DE查询价格为[397429046]；补充房型[788.69]
-2024-09-11T10:55:01.279+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家IL查询价格为[397429051]；补充房型[820.15]
-2024-09-11T10:55:01.279+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家CH查询价格为[397429051]；补充房型[820.15]
-2024-09-11T10:55:01.280+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家JP查询价格为[397429051]；补充房型[820.15]
-2024-09-11T10:55:01.280+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家CN查询价格为[397429046]；补充房型[788.69]
-2024-09-11T10:55:01.280+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家FR查询价格为[397429051]；补充房型[820.15]
-2024-09-11T10:55:01.280+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家ES查询价格为[397429046]；补充房型[788.69]
-2024-09-11T10:55:01.280+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家BR查询价格为[397429051]；补充房型[875.26]
-2024-09-11T10:55:01.281+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家SG查询价格为[397429046]；补充房型[788.69]
-2024-09-11T10:55:01.281+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家AU查询价格为[397429046]；补充房型[788.69]
-2024-09-11T10:55:01.281+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家TH查询价格为[397429051]；补充房型[820.15]
-2024-09-11T10:55:01.281+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家GB查询价格为[397429046]；补充房型[788.69]
-2024-09-11T10:55:01.281+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家US查询价格为[397429051]；补充房型[820.15]
-2024-09-11T10:55:01.281+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家NL查询价格为[397429051]；补充房型[820.15]
-2024-09-11T10:55:01.281+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家CA查询价格为[397429051]；补充房型[820.15]
-2024-09-11T10:55:08.319+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 酒店19663253查询多国家返回价格如下：
-2024-09-11T10:55:08.319+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家DE查询价格为[397484146]；补充房型[115.38]
-2024-09-11T10:55:08.319+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家IL查询价格为[397483954]；补充房型[128.19]
-2024-09-11T10:55:08.319+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家CH查询价格为[397483954]；补充房型[128.19]
-2024-09-11T10:55:08.320+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家JP查询价格为[397483954]；补充房型[128.19]
-2024-09-11T10:55:08.320+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家CN查询价格为[397483954]；补充房型[128.19]
-2024-09-11T10:55:08.320+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家FR查询价格为[397483954]；补充房型[128.19]
-2024-09-11T10:55:08.320+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家ES查询价格为[397484146]；补充房型[115.38]
-2024-09-11T10:55:08.320+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家BR查询价格为[397483954]；补充房型[136.80]
-2024-09-11T10:55:08.320+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家SG查询价格为[397483954]；补充房型[128.19]
-2024-09-11T10:55:08.320+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家AU查询价格为[397483954]；补充房型[128.19]
-2024-09-11T10:55:08.320+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家TH查询价格为[397483954]；补充房型[128.19]
-2024-09-11T10:55:08.320+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家GB查询价格为[397484146]；补充房型[115.38]
-2024-09-11T10:55:08.320+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家US查询价格为[397483954]；补充房型[128.19]
-2024-09-11T10:55:08.320+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家NL查询价格为[397483954]；补充房型[128.19]
-2024-09-11T10:55:08.320+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家CA查询价格为[397483954]；补充房型[128.19]
-2024-09-11T10:55:14.580+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 酒店27780006查询多国家返回价格如下：
-2024-09-11T10:55:14.580+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家DE查询价格为[397434868]；补充房型[227.23]
-2024-09-11T10:55:14.580+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家IL查询价格为[397434868]；补充房型[227.23]
-2024-09-11T10:55:14.581+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家CH查询价格为[397434868]；补充房型[227.23]
-2024-09-11T10:55:14.581+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家JP查询价格为[397434868]；补充房型[227.23]
-2024-09-11T10:55:14.581+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家CN查询价格为[397434868]；补充房型[227.23]
-2024-09-11T10:55:14.581+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家FR查询价格为[397434868]；补充房型[227.23]
-2024-09-11T10:55:14.581+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家ES查询价格为[397434868]；补充房型[227.23]
-2024-09-11T10:55:14.581+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家BR查询价格为[397434868]；补充房型[242.50]
-2024-09-11T10:55:14.581+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家SG查询价格为[397434868]；补充房型[227.23]
-2024-09-11T10:55:14.581+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家AU查询价格为[397434868]；补充房型[227.23]
-2024-09-11T10:55:14.581+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家TH查询价格为[397434868]；补充房型[227.23]
-2024-09-11T10:55:14.581+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家GB查询价格为[397434868]；补充房型[227.23]
-2024-09-11T10:55:14.581+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家US查询价格为[397434868]；补充房型[227.23]
-2024-09-11T10:55:14.581+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家NL查询价格为[397434868]；补充房型[227.23]
-2024-09-11T10:55:14.581+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家CA查询价格为[397434868]；补充房型[227.23]
-2024-09-11T10:55:21.099+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 酒店807460查询多国家返回价格如下：
-2024-09-11T10:55:21.099+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家DE查询价格为[397368992]；补充房型[130.59]
-2024-09-11T10:55:21.100+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家IL查询价格为[397368995]；补充房型[184.32]
-2024-09-11T10:55:21.100+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家CH查询价格为[397368995]；补充房型[184.32]
-2024-09-11T10:55:21.100+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家JP查询价格为[397368995]；补充房型[184.32]
-2024-09-11T10:55:21.100+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家CN查询价格为[397368992]；补充房型[130.59]
-2024-09-11T10:55:21.100+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家FR查询价格为[397368995]；补充房型[184.32]
-2024-09-11T10:55:21.100+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家ES查询价格为[397368992]；补充房型[130.59]
-2024-09-11T10:55:21.100+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家BR查询价格为[397368995]；补充房型[196.71]
-2024-09-11T10:55:21.100+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家SG查询价格为[397368992]；补充房型[130.59]
-2024-09-11T10:55:21.100+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家AU查询价格为[397368992]；补充房型[130.59]
-2024-09-11T10:55:21.100+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家TH查询价格为[397368995]；补充房型[184.32]
-2024-09-11T10:55:21.100+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家GB查询价格为[397368992]；补充房型[130.59]
-2024-09-11T10:55:21.100+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家US查询价格为[397368995]；补充房型[184.32]
-2024-09-11T10:55:21.100+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家NL查询价格为[397368995]；补充房型[184.32]
-2024-09-11T10:55:21.100+08:00  INFO 2432 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 国家CA查询价格为[397368995]；补充房型[184.32]
-2024-09-11T11:03:41.203+08:00  INFO 11636 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 11636 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
-2024-09-11T11:03:41.205+08:00  INFO 11636 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
-2024-09-11T11:03:42.113+08:00  INFO 11636 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-09-11T11:03:42.115+08:00  INFO 11636 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-09-11T11:03:42.137+08:00  INFO 11636 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 11 ms. Found 0 Redis repository interfaces.
-2024-09-11T11:03:42.488+08:00  INFO 11636 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
-2024-09-11T11:03:42.494+08:00  INFO 11636 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2024-09-11T11:03:42.494+08:00  INFO 11636 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
-2024-09-11T11:03:42.546+08:00  INFO 11636 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2024-09-11T11:03:42.546+08:00  INFO 11636 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1312 ms
-2024-09-11T11:03:43.498+08:00  INFO 11636 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
-2024-09-11T11:03:43.503+08:00  INFO 11636 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 2.535 seconds (process running for 2.958)
-2024-09-11T11:03:49.561+08:00  INFO 11636 --- [http-nio-9008-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-09-11T11:03:49.561+08:00  INFO 11636 --- [http-nio-9008-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2024-09-11T11:03:49.562+08:00  INFO 11636 --- [http-nio-9008-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
-2024-09-11T11:05:01.063+08:00  INFO 11636 --- [http-nio-9008-exec-1] c.example.basic.service.ExpediaService   : 101340267酒店{}查询多国家返回价格如下：/n国家DE查询价格[136.34]([393358993])/n国家IL查询价格[136.34]([393358993])/n国家CH查询价格[136.34]([393358993])/n国家JP查询价格[136.34]([393358993])/n国家CN查询价格[136.34]([393358993])/n国家FR查询价格[136.34]([393358993])/n国家ES查询价格[136.34]([393358993])/n国家BR查询价格[145.50]([393358993])/n国家SG查询价格[136.34]([393358993])/n国家AU查询价格[136.34]([393358993])/n国家TH查询价格[136.34]([393358993])/n国家GB查询价格[136.34]([393358993])/n国家US查询价格[136.34]([393358993])/n国家NL查询价格[136.34]([393358993])/n国家CA查询价格[136.34]([393358993])/n11723酒店{}查询多国家返回价格如下：/n国家DE查询价格[328.61]([232197895])/n国家IL查询价格[183.54]([232167896])/n国家CH查询价格[183.54]([232167896])/n国家JP查询价格[183.54]([232167896])/n国家CN查询价格[328.61]([232197895])/n国家FR查询价格[183.54]([232167896])/n国家ES查询价格[328.61]([232197895])/n国家BR查询价格[195.87]([232167896])/n国家SG查询价格[328.61]([232197895])/n国家AU查询价格[314.63]([232197893])/n国家TH查询价格[183.54]([232167896])/n国家GB查询价格[314.63]([232197893])/n国家US查询价格[183.54]([232167896])/n国家NL查询价格[183.54]([232167896])/n国家CA查询价格[183.54]([232167896])/n13375806酒店{}查询多国家返回价格如下：/n国家DE查询价格[132.81]([391272075])/n国家IL查询价格[143.29]([394879524])/n国家CH查询价格[143.29]([394879524])/n国家JP查询价格[143.29]([394879524])/n国家CN查询价格[132.81]([391272075])/n国家FR查询价格[143.29]([394879524])/n国家ES查询价格[132.81]([391272075])/n国家BR查询价格[152.92]([394879524])/n国家SG查询价格[132.81]([391272075])/n国家AU查询价格[132.81]([391272075])/n国家TH查询价格[143.29]([394879524])/n国家GB查询价格[132.81]([391272075])/n国家US查询价格[143.29]([394879524])/n国家NL查询价格[143.29]([394879524])/n国家CA查询价格[143.29]([394879524])/n13407274酒店{}查询多国家返回价格如下：/n国家DE查询价格[403.74]([397171236])/n国家IL查询价格[266.82]([290226957])/n国家CH查询价格[266.82]([290226957])/n国家JP查询价格[266.82]([290226957])/n国家CN查询价格[403.74]([397171236])/n国家FR查询价格[266.82]([290226957])/n国家ES查询价格[491.51]([397171247])/n国家BR查询价格[284.75]([290226957])/n国家SG查询价格[491.51]([397171247])/n国家AU查询价格[491.51]([397171247])/n国家TH查询价格[266.82]([290226957])/n国家GB查询价格[491.51]([397171247])/n国家US查询价格[266.82]([290226957])/n国家NL查询价格[266.82]([290226957])/n国家CA查询价格[266.82]([290226957])/n15228437酒店{}查询多国家返回价格如下：/n国家DE查询价格[615.22]([396955128])/n国家IL查询价格[255.60]([209231185])/n国家CH查询价格[255.60]([209231185])/n国家JP查询价格[255.60]([209231185])/n国家CN查询价格[615.22]([396955128])/n国家FR查询价格[255.60]([209231185])/n国家ES查询价格[615.22]([396955128])/n国家BR查询价格[272.78]([209231185])/n国家SG查询价格[615.22]([396955128])/n国家AU查询价格[615.22]([396955128])/n国家TH查询价格[255.60]([209231185])/n国家GB查询价格[615.22]([396955128])/n国家US查询价格[255.60]([209231185])/n国家NL查询价格[255.60]([209231185])/n国家CA查询价格[255.60]([209231185])/n15239酒店{}查询多国家返回价格如下：/n国家DE查询价格[267.44]([397273867])/n国家IL查询价格[267.44]([397273867])/n国家CH查询价格[267.44]([397273867])/n国家JP查询价格[267.44]([397273867])/n国家CN查询价格[267.44]([397273867])/n国家FR查询价格[267.44]([397273867])/n国家ES查询价格[267.44]([397273867])/n国家BR查询价格[285.41]([397273867])/n国家SG查询价格[267.44]([397273867])/n国家AU查询价格[267.44]([397273867])/n国家TH查询价格[267.44]([397273867])/n国家GB查询价格[267.44]([397273867])/n国家US查询价格[267.44]([397273867])/n国家NL查询价格[267.44]([397273867])/n国家CA查询价格[267.44]([397273867])/n17405012酒店{}查询多国家返回价格如下：/n国家DE查询价格[788.69]([397429046])/n国家IL查询价格[820.15]([397429051])/n国家CH查询价格[820.15]([397429051])/n国家JP查询价格[820.15]([397429051])/n国家CN查询价格[788.69]([397429046])/n国家FR查询价格[820.15]([397429051])/n国家ES查询价格[788.69]([397429046])/n国家BR查询价格[875.26]([397429051])/n国家SG查询价格[788.69]([397429046])/n国家AU查询价格[788.69]([397429046])/n国家TH查询价格[820.15]([397429051])/n国家GB查询价格[788.69]([397429046])/n国家US查询价格[820.15]([397429051])/n国家NL查询价格[820.15]([397429051])/n国家CA查询价格[820.15]([397429051])/n19663253酒店{}查询多国家返回价格如下：/n国家DE查询价格[115.38]([397484146])/n国家IL查询价格[128.19]([397483954])/n国家CH查询价格[128.19]([397483954])/n国家JP查询价格[128.19]([397483954])/n国家CN查询价格[128.19]([397483954])/n国家FR查询价格[128.19]([397483954])/n国家ES查询价格[115.38]([397484146])/n国家BR查询价格[136.80]([397483954])/n国家SG查询价格[128.19]([397483954])/n国家AU查询价格[128.19]([397483954])/n国家TH查询价格[128.19]([397483954])/n国家GB查询价格[115.38]([397484146])/n国家US查询价格[128.19]([397483954])/n国家NL查询价格[128.19]([397483954])/n国家CA查询价格[128.19]([397483954])/n27780006酒店{}查询多国家返回价格如下：/n国家DE查询价格[227.23]([397434868])/n国家IL查询价格[227.23]([397434868])/n国家CH查询价格[227.23]([397434868])/n国家JP查询价格[227.23]([397434868])/n国家CN查询价格[227.23]([397434868])/n国家FR查询价格[227.23]([397434868])/n国家ES查询价格[227.23]([397434868])/n国家BR查询价格[242.50]([397434868])/n国家SG查询价格[227.23]([397434868])/n国家AU查询价格[227.23]([397434868])/n国家TH查询价格[227.23]([397434868])/n国家GB查询价格[227.23]([397434868])/n国家US查询价格[227.23]([397434868])/n国家NL查询价格[227.23]([397434868])/n国家CA查询价格[227.23]([397434868])/n807460酒店{}查询多国家返回价格如下：/n国家DE查询价格[130.59]([397368992])/n国家IL查询价格[184.32]([397368995])/n国家CH查询价格[184.32]([397368995])/n国家JP查询价格[184.32]([397368995])/n国家CN查询价格[130.59]([397368992])/n国家FR查询价格[184.32]([397368995])/n国家ES查询价格[130.59]([397368992])/n国家BR查询价格[196.71]([397368995])/n国家SG查询价格[130.59]([397368992])/n国家AU查询价格[130.59]([397368992])/n国家TH查询价格[184.32]([397368995])/n国家GB查询价格[130.59]([397368992])/n国家US查询价格[184.32]([397368995])/n国家NL查询价格[184.32]([397368995])/n国家CA查询价格[184.32]([397368995])/n
-2024-09-11T14:45:34.277+08:00  INFO 16652 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 16652 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
-2024-09-11T14:45:34.279+08:00  INFO 16652 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
-2024-09-11T14:45:34.726+08:00  INFO 16652 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-09-11T14:45:34.727+08:00  INFO 16652 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-09-11T14:45:34.752+08:00  INFO 16652 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 12 ms. Found 0 Redis repository interfaces.
-2024-09-11T14:45:35.169+08:00  INFO 16652 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
-2024-09-11T14:45:35.176+08:00  INFO 16652 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2024-09-11T14:45:35.176+08:00  INFO 16652 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
-2024-09-11T14:45:35.252+08:00  INFO 16652 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2024-09-11T14:45:35.253+08:00  INFO 16652 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 946 ms
-2024-09-11T14:45:36.526+08:00  INFO 16652 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
-2024-09-11T14:45:36.531+08:00  INFO 16652 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 2.472 seconds (process running for 2.838)
-2024-09-11T14:45:45.406+08:00  INFO 11396 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 11396 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
-2024-09-11T14:45:45.408+08:00  INFO 11396 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
-2024-09-11T14:45:45.817+08:00  INFO 11396 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-09-11T14:45:45.819+08:00  INFO 11396 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-09-11T14:45:45.839+08:00  INFO 11396 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 Redis repository interfaces.
-2024-09-11T14:45:46.183+08:00  INFO 11396 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
-2024-09-11T14:45:46.189+08:00  INFO 11396 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2024-09-11T14:45:46.189+08:00  INFO 11396 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
-2024-09-11T14:45:46.281+08:00  INFO 11396 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2024-09-11T14:45:46.281+08:00  INFO 11396 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 846 ms
-2024-09-11T14:45:47.083+08:00  INFO 11396 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
-2024-09-11T14:45:47.089+08:00  INFO 11396 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 1.902 seconds (process running for 2.272)
-2024-09-11T14:46:04.373+08:00  INFO 11396 --- [http-nio-9008-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-09-11T14:46:04.374+08:00  INFO 11396 --- [http-nio-9008-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2024-09-11T14:46:04.375+08:00  INFO 11396 --- [http-nio-9008-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
-2024-09-11T14:51:01.181+08:00  INFO 1328 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 1328 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
-2024-09-11T14:51:01.183+08:00  INFO 1328 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
-2024-09-11T14:51:01.689+08:00  INFO 1328 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-09-11T14:51:01.692+08:00  INFO 1328 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-09-11T14:51:01.717+08:00  INFO 1328 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 13 ms. Found 0 Redis repository interfaces.
-2024-09-11T14:51:02.114+08:00  INFO 1328 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
-2024-09-11T14:51:02.120+08:00  INFO 1328 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2024-09-11T14:51:02.120+08:00  INFO 1328 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
-2024-09-11T14:51:02.183+08:00  INFO 1328 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2024-09-11T14:51:02.183+08:00  INFO 1328 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 970 ms
-2024-09-11T14:51:03.010+08:00  INFO 1328 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
-2024-09-11T14:51:03.016+08:00  INFO 1328 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 2.053 seconds (process running for 2.419)
-2024-09-11T14:51:08.545+08:00  INFO 1328 --- [http-nio-9008-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-09-11T14:51:08.546+08:00  INFO 1328 --- [http-nio-9008-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2024-09-11T14:51:08.546+08:00  INFO 1328 --- [http-nio-9008-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
-2024-09-11T14:58:21.654+08:00  INFO 20396 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 20396 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
-2024-09-11T14:58:21.656+08:00  INFO 20396 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
-2024-09-11T14:58:22.077+08:00  INFO 20396 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-09-11T14:58:22.079+08:00  INFO 20396 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-09-11T14:58:22.101+08:00  INFO 20396 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 12 ms. Found 0 Redis repository interfaces.
-2024-09-11T14:58:22.453+08:00  INFO 20396 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
-2024-09-11T14:58:22.459+08:00  INFO 20396 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2024-09-11T14:58:22.459+08:00  INFO 20396 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
-2024-09-11T14:58:22.521+08:00  INFO 20396 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2024-09-11T14:58:22.522+08:00  INFO 20396 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 839 ms
-2024-09-11T14:58:23.330+08:00  INFO 20396 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
-2024-09-11T14:58:23.337+08:00  INFO 20396 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 1.904 seconds (process running for 2.263)
-2024-09-11T14:58:27.683+08:00  INFO 20396 --- [http-nio-9008-exec-6] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-09-11T14:58:27.684+08:00  INFO 20396 --- [http-nio-9008-exec-6] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2024-09-11T14:58:27.684+08:00  INFO 20396 --- [http-nio-9008-exec-6] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
-2024-09-11T14:58:37.392+08:00  INFO 20396 --- [http-nio-9008-exec-6] c.example.basic.service.ExpediaService   : 101340267酒店查询组装完毕
-2024-09-11T14:58:46.736+08:00  INFO 20396 --- [http-nio-9008-exec-6] c.example.basic.service.ExpediaService   : 11723酒店查询组装完毕
-2024-09-11T14:59:44.310+08:00  INFO 4724 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 4724 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
-2024-09-11T14:59:44.313+08:00  INFO 4724 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
-2024-09-11T14:59:45.082+08:00  INFO 4724 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-09-11T14:59:45.083+08:00  INFO 4724 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-09-11T14:59:45.103+08:00  INFO 4724 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 9 ms. Found 0 Redis repository interfaces.
-2024-09-11T14:59:45.433+08:00  INFO 4724 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
-2024-09-11T14:59:45.438+08:00  INFO 4724 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2024-09-11T14:59:45.439+08:00  INFO 4724 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
-2024-09-11T14:59:45.489+08:00  INFO 4724 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2024-09-11T14:59:45.489+08:00  INFO 4724 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1120 ms
-2024-09-11T14:59:46.303+08:00  INFO 4724 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
-2024-09-11T14:59:46.309+08:00  INFO 4724 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 2.417 seconds (process running for 3.068)
-2024-09-11T14:59:51.157+08:00  INFO 4724 --- [http-nio-9008-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-09-11T14:59:51.157+08:00  INFO 4724 --- [http-nio-9008-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2024-09-11T14:59:51.158+08:00  INFO 4724 --- [http-nio-9008-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
-2024-09-11T15:00:10.464+08:00  INFO 4724 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 101340267酒店查询组装完毕
-2024-09-11T15:00:21.774+08:00  INFO 4724 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 11723酒店查询组装完毕
-2024-09-11T15:00:39.379+08:00  INFO 4724 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 13375806酒店查询组装完毕
-2024-09-11T15:00:52.550+08:00  INFO 4724 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 13407274酒店查询组装完毕
-2024-09-11T15:01:13.352+08:00  INFO 4724 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 15228437酒店查询组装完毕
-2024-09-11T15:01:33.618+08:00  INFO 4724 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 15239酒店查询组装完毕
-2024-09-11T15:01:47.828+08:00  INFO 4724 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 17405012酒店查询组装完毕
-2024-09-11T15:02:01.418+08:00  INFO 4724 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 19663253酒店查询组装完毕
-2024-09-11T15:02:16.232+08:00  INFO 4724 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 27780006酒店查询组装完毕
-2024-09-11T15:02:46.985+08:00  INFO 4724 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 807460酒店查询组装完毕
+2024-09-24T00:00:02.852+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:668754/809496
+2024-09-24T00:00:05.874+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:668756/809496
+2024-09-24T00:00:25.103+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:668931/809496
+2024-09-24T00:00:28.105+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:668953/809496
+2024-09-24T00:00:44.562+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:669131/809496
+2024-09-24T00:00:51.613+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:669221/809496
+2024-09-24T00:01:24.746+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:669708/809496
+2024-09-24T00:02:05.074+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:670409/809496
+2024-09-24T00:02:08.076+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:670415/809496
+2024-09-24T00:02:22.114+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:670624/809496
+2024-09-24T00:02:29.457+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:670723/809496
+2024-09-24T00:02:36.669+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:670807/809496
+2024-09-24T00:02:53.756+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:671121/809496
+2024-09-24T00:03:00.427+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:671218/809496
+2024-09-24T00:03:12.472+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:671406/809496
+2024-09-24T00:03:18.498+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:671502/809496
+2024-09-24T00:03:43.301+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:672015/809496
+2024-09-24T00:04:41.929+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:673217/809496
+2024-09-24T00:04:51.892+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:673317/809496
+2024-09-24T00:05:21.007+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:673801/809496
+2024-09-24T00:05:55.120+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:674422/809496
+2024-09-24T00:06:40.336+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:675201/809496
+2024-09-24T00:06:54.464+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:675425/809496
+2024-09-24T00:07:14.519+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:675718/809496
+2024-09-24T00:07:23.131+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:675818/809496
+2024-09-24T00:08:49.970+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:677414/809496
+2024-09-24T00:08:57.250+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:677516/809496
+2024-09-24T00:09:00.253+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:677525/809496
+2024-09-24T00:09:16.071+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:677801/809496
+2024-09-24T00:09:19.317+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:677826/809496
+2024-09-24T00:09:24.237+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:677901/809496
+2024-09-24T00:09:40.565+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:678121/809496
+2024-09-24T00:09:54.328+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:678314/809496
+2024-09-24T00:10:17.786+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:678817/809496
+2024-09-24T00:11:11.683+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:679625/809496
+2024-09-24T00:11:18.869+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:679717/809496
+2024-09-24T00:11:32.732+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:679913/809496
+2024-09-24T00:11:47.332+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:680113/809496
+2024-09-24T00:12:12.149+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:680515/809496
+2024-09-24T00:12:23.000+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:680706/809496
+2024-09-24T00:12:54.730+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:681305/809496
+2024-09-24T00:13:12.037+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:681601/809496
+2024-09-24T00:13:25.835+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:681907/809496
+2024-09-24T00:13:57.529+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:682519/809496
+2024-09-24T00:14:15.517+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:682818/809496
+2024-09-24T00:14:33.097+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:683119/809496
+2024-09-24T00:14:41.607+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:683218/809496
+2024-09-24T00:14:49.452+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:683319/809496
+2024-09-24T00:15:20.177+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:683919/809496
+2024-09-24T00:15:33.195+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:684116/809496
+2024-09-24T00:16:02.502+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:684606/809496
+2024-09-24T00:17:21.594+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:685925/809496
+2024-09-24T00:17:51.514+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:686493/809496
+2024-09-24T00:18:03.420+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:686604/809496
+2024-09-24T00:18:50.314+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:687313/809496
+2024-09-24T00:18:53.315+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:687317/809496
+2024-09-24T00:19:09.847+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:687623/809496
+2024-09-24T00:19:31.101+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:688004/809496
+2024-09-24T00:20:10.081+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:688623/809496
+2024-09-24T00:20:31.803+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:689013/809496
+2024-09-24T00:20:45.288+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:689206/809496
+2024-09-24T00:20:55.340+08:00  INFO 6828 --- [pool-5-thread-73] com.example.basic.utils.HttpUtils        : 转换异常java.net.SocketTimeoutException: timeout
+	at okio.SocketAsyncTimeout.newTimeoutException(JvmOkio.kt:146)
+	at okio.AsyncTimeout.access$newTimeoutException(AsyncTimeout.kt:186)
+	at okio.AsyncTimeout$source$1.read(AsyncTimeout.kt:390)
+	at okio.RealBufferedSource.read(RealBufferedSource.kt:193)
+	at okhttp3.internal.http1.Http1ExchangeCodec$AbstractSource.read(Http1ExchangeCodec.kt:339)
+	at okhttp3.internal.http1.Http1ExchangeCodec$FixedLengthSource.read(Http1ExchangeCodec.kt:376)
+	at okhttp3.internal.connection.Exchange$ResponseBodySource.read(Exchange.kt:281)
+	at okio.RealBufferedSource.read(RealBufferedSource.kt:193)
+	at okio.RealBufferedSource.exhausted(RealBufferedSource.kt:201)
+	at okio.InflaterSource.refill(InflaterSource.kt:105)
+	at okio.InflaterSource.readOrInflate(InflaterSource.kt:69)
+	at okio.InflaterSource.read(InflaterSource.kt:42)
+	at okio.GzipSource.read(GzipSource.kt:67)
+	at okio.Buffer.writeAll(Buffer.kt:1308)
+	at okio.RealBufferedSource.readString(RealBufferedSource.kt:97)
+	at okhttp3.ResponseBody.string(ResponseBody.kt:187)
+	at com.example.basic.utils.HttpUtils.pullRegion(HttpUtils.java:378)
+	at com.example.basic.service.ExpediaService.lambda$finishRegionsV2$18(ExpediaService.java:1473)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run$$$capture(CompletableFuture.java:1768)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: java.net.SocketTimeoutException: Read timed out
+	at java.base/sun.nio.ch.NioSocketImpl.timedRead(NioSocketImpl.java:283)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:309)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:350)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:803)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:966)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.read(SSLSocketInputRecord.java:478)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.readFully(SSLSocketInputRecord.java:461)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.decodeInputRecord(SSLSocketInputRecord.java:243)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.decode(SSLSocketInputRecord.java:181)
+	at java.base/sun.security.ssl.SSLTransport.decode(SSLTransport.java:111)
+	at java.base/sun.security.ssl.SSLSocketImpl.decode(SSLSocketImpl.java:1509)
+	at java.base/sun.security.ssl.SSLSocketImpl.readApplicationRecord(SSLSocketImpl.java:1480)
+	at java.base/sun.security.ssl.SSLSocketImpl$AppInputStream.read(SSLSocketImpl.java:1065)
+	at okio.InputStreamSource.read(JvmOkio.kt:93)
+	at okio.AsyncTimeout$source$1.read(AsyncTimeout.kt:153)
+	... 20 more
+
+2024-09-24T00:21:13.166+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:689606/809496
+2024-09-24T00:21:39.220+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:690118/809496
+2024-09-24T00:22:43.771+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:691223/809496
+2024-09-24T00:22:57.229+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:691413/809496
+2024-09-24T00:23:11.452+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:691616/809496
+2024-09-24T00:23:19.227+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:691715/809496
+2024-09-24T00:23:28.435+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:691822/809496
+2024-09-24T00:23:36.140+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:691913/809496
+2024-09-24T00:24:13.274+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:692511/809496
+2024-09-24T00:25:05.080+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:693617/809496
+2024-09-24T00:25:31.792+08:00  INFO 6828 --- [pool-5-thread-72] com.example.basic.utils.HttpUtils        : 转换异常java.net.SocketTimeoutException: timeout
+	at okio.SocketAsyncTimeout.newTimeoutException(JvmOkio.kt:146)
+	at okio.AsyncTimeout.access$newTimeoutException(AsyncTimeout.kt:186)
+	at okio.AsyncTimeout$source$1.read(AsyncTimeout.kt:390)
+	at okio.RealBufferedSource.read(RealBufferedSource.kt:193)
+	at okhttp3.internal.http1.Http1ExchangeCodec$AbstractSource.read(Http1ExchangeCodec.kt:339)
+	at okhttp3.internal.http1.Http1ExchangeCodec$FixedLengthSource.read(Http1ExchangeCodec.kt:376)
+	at okhttp3.internal.connection.Exchange$ResponseBodySource.read(Exchange.kt:281)
+	at okio.RealBufferedSource.read(RealBufferedSource.kt:193)
+	at okio.RealBufferedSource.exhausted(RealBufferedSource.kt:201)
+	at okio.InflaterSource.refill(InflaterSource.kt:105)
+	at okio.InflaterSource.readOrInflate(InflaterSource.kt:69)
+	at okio.InflaterSource.read(InflaterSource.kt:42)
+	at okio.GzipSource.read(GzipSource.kt:67)
+	at okio.Buffer.writeAll(Buffer.kt:1308)
+	at okio.RealBufferedSource.readString(RealBufferedSource.kt:97)
+	at okhttp3.ResponseBody.string(ResponseBody.kt:187)
+	at com.example.basic.utils.HttpUtils.pullRegion(HttpUtils.java:378)
+	at com.example.basic.service.ExpediaService.lambda$finishRegionsV2$18(ExpediaService.java:1473)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run$$$capture(CompletableFuture.java:1768)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: java.net.SocketException: Socket closed
+	at java.base/sun.nio.ch.NioSocketImpl.endRead(NioSocketImpl.java:248)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:327)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:350)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:803)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:966)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.read(SSLSocketInputRecord.java:478)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.readFully(SSLSocketInputRecord.java:461)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.decodeInputRecord(SSLSocketInputRecord.java:243)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.decode(SSLSocketInputRecord.java:181)
+	at java.base/sun.security.ssl.SSLTransport.decode(SSLTransport.java:111)
+	at java.base/sun.security.ssl.SSLSocketImpl.decode(SSLSocketImpl.java:1509)
+	at java.base/sun.security.ssl.SSLSocketImpl.readApplicationRecord(SSLSocketImpl.java:1480)
+	at java.base/sun.security.ssl.SSLSocketImpl$AppInputStream.read(SSLSocketImpl.java:1065)
+	at okio.InputStreamSource.read(JvmOkio.kt:93)
+	at okio.AsyncTimeout$source$1.read(AsyncTimeout.kt:153)
+	... 20 more
+
+2024-09-24T00:25:53.628+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:694406/809496
+2024-09-24T00:26:06.206+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:694614/809496
+2024-09-24T00:26:13.817+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:694715/809496
+2024-09-24T00:26:40.626+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:695219/809496
+2024-09-24T00:26:47.268+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:695305/809496
+2024-09-24T00:27:07.328+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:695616/809496
+2024-09-24T00:27:21.093+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:695821/809496
+2024-09-24T00:27:34.477+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:696006/809496
+2024-09-24T00:27:42.692+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:696113/809496
+2024-09-24T00:27:54.048+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:696314/809496
+2024-09-24T00:28:18.502+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:696812/809496
+2024-09-24T00:29:18.055+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:697906/809496
+2024-09-24T00:29:24.228+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:698005/809496
+2024-09-24T00:29:27.229+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:698011/809496
+2024-09-24T00:29:30.231+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:698022/809496
+2024-09-24T00:29:36.747+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:698105/809496
+2024-09-24T00:29:43.561+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:698205/809496
+2024-09-24T00:30:06.395+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:698700/809496
+2024-09-24T00:30:17.500+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:698806/809496
+2024-09-24T00:30:23.962+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:698904/809496
+2024-09-24T00:31:19.493+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:699815/809496
+2024-09-24T00:31:33.111+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:700015/809496
+2024-09-24T00:32:15.459+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:700807/809496
+2024-09-24T00:32:30.367+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:701112/809496
+2024-09-24T00:32:47.124+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:701417/809496
+2024-09-24T00:33:33.606+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:702320/809496
+2024-09-24T00:34:53.919+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:704318/809496
+2024-09-24T00:35:07.068+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:704505/809496
+2024-09-24T00:37:29.644+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:707305/809496
+2024-09-24T00:37:58.769+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:707917/809496
+2024-09-24T00:38:14.769+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:708205/809496
+2024-09-24T00:38:56.005+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:709008/809496
+2024-09-24T00:39:59.524+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:710116/809496
+2024-09-24T00:40:24.154+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:710514/809496
+2024-09-24T00:40:31.322+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:710614/809496
+2024-09-24T00:40:38.273+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:710705/809496
+2024-09-24T00:41:57.634+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:712204/809496
+2024-09-24T00:42:10.950+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:712420/809496
+2024-09-24T00:42:35.577+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:712822/809496
+2024-09-24T00:42:43.646+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:712911/809496
+2024-09-24T00:42:56.386+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:713121/809496
+2024-09-24T00:43:09.670+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:713304/809496
+2024-09-24T00:43:37.155+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:713710/809496
+2024-09-24T00:44:04.721+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:714120/809496
+2024-09-24T00:44:19.513+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:714318/809496
+2024-09-24T00:44:39.380+08:00  INFO 6828 --- [pool-5-thread-82] com.example.basic.utils.HttpUtils        : 转换异常java.net.SocketTimeoutException: timeout
+	at okio.SocketAsyncTimeout.newTimeoutException(JvmOkio.kt:146)
+	at okio.AsyncTimeout.access$newTimeoutException(AsyncTimeout.kt:186)
+	at okio.AsyncTimeout$source$1.read(AsyncTimeout.kt:390)
+	at okio.RealBufferedSource.indexOf(RealBufferedSource.kt:434)
+	at okio.RealBufferedSource.readUtf8LineStrict(RealBufferedSource.kt:327)
+	at okhttp3.internal.http1.HeadersReader.readLine(HeadersReader.kt:29)
+	at okhttp3.internal.http1.Http1ExchangeCodec.readResponseHeaders(Http1ExchangeCodec.kt:180)
+	at okhttp3.internal.connection.Exchange.readResponseHeaders(Exchange.kt:110)
+	at okhttp3.internal.http.CallServerInterceptor.intercept(CallServerInterceptor.kt:93)
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+	at okhttp3.internal.connection.ConnectInterceptor.intercept(ConnectInterceptor.kt:34)
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+	at okhttp3.internal.cache.CacheInterceptor.intercept(CacheInterceptor.kt:95)
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+	at okhttp3.internal.http.BridgeInterceptor.intercept(BridgeInterceptor.kt:83)
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+	at okhttp3.internal.http.RetryAndFollowUpInterceptor.intercept(RetryAndFollowUpInterceptor.kt:76)
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+	at okhttp3.internal.connection.RealCall.getResponseWithInterceptorChain$okhttp(RealCall.kt:201)
+	at okhttp3.internal.connection.RealCall.execute(RealCall.kt:154)
+	at com.example.basic.utils.HttpUtils.pullRegion(HttpUtils.java:377)
+	at com.example.basic.service.ExpediaService.lambda$finishRegionsV2$18(ExpediaService.java:1473)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run$$$capture(CompletableFuture.java:1768)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: java.net.SocketException: Socket closed
+	at java.base/sun.nio.ch.NioSocketImpl.endRead(NioSocketImpl.java:248)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:327)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:350)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:803)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:966)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.read(SSLSocketInputRecord.java:478)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.readFully(SSLSocketInputRecord.java:461)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.decodeInputRecord(SSLSocketInputRecord.java:243)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.decode(SSLSocketInputRecord.java:181)
+	at java.base/sun.security.ssl.SSLTransport.decode(SSLTransport.java:111)
+	at java.base/sun.security.ssl.SSLSocketImpl.decode(SSLSocketImpl.java:1509)
+	at java.base/sun.security.ssl.SSLSocketImpl.readApplicationRecord(SSLSocketImpl.java:1480)
+	at java.base/sun.security.ssl.SSLSocketImpl$AppInputStream.read(SSLSocketImpl.java:1065)
+	at okio.InputStreamSource.read(JvmOkio.kt:93)
+	at okio.AsyncTimeout$source$1.read(AsyncTimeout.kt:153)
+	... 24 more
+
+2024-09-24T00:44:47.296+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:714915/809496
+2024-09-24T00:44:58.927+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:715119/809496
+2024-09-24T00:45:13.077+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:715306/809496
+2024-09-24T00:45:16.079+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:715316/809496
+2024-09-24T00:45:42.956+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:715805/809496
+2024-09-24T00:46:20.628+08:00  INFO 6828 --- [pool-5-thread-74] com.example.basic.utils.HttpUtils        : 转换异常java.net.SocketTimeoutException: timeout
+	at okio.SocketAsyncTimeout.newTimeoutException(JvmOkio.kt:146)
+	at okio.AsyncTimeout.access$newTimeoutException(AsyncTimeout.kt:186)
+	at okio.AsyncTimeout$source$1.read(AsyncTimeout.kt:390)
+	at okio.RealBufferedSource.read(RealBufferedSource.kt:193)
+	at okhttp3.internal.http1.Http1ExchangeCodec$AbstractSource.read(Http1ExchangeCodec.kt:339)
+	at okhttp3.internal.http1.Http1ExchangeCodec$FixedLengthSource.read(Http1ExchangeCodec.kt:376)
+	at okhttp3.internal.connection.Exchange$ResponseBodySource.read(Exchange.kt:281)
+	at okio.RealBufferedSource.read(RealBufferedSource.kt:193)
+	at okio.RealBufferedSource.exhausted(RealBufferedSource.kt:201)
+	at okio.InflaterSource.refill(InflaterSource.kt:105)
+	at okio.InflaterSource.readOrInflate(InflaterSource.kt:69)
+	at okio.InflaterSource.read(InflaterSource.kt:42)
+	at okio.GzipSource.read(GzipSource.kt:67)
+	at okio.Buffer.writeAll(Buffer.kt:1308)
+	at okio.RealBufferedSource.readString(RealBufferedSource.kt:97)
+	at okhttp3.ResponseBody.string(ResponseBody.kt:187)
+	at com.example.basic.utils.HttpUtils.pullRegion(HttpUtils.java:378)
+	at com.example.basic.service.ExpediaService.lambda$finishRegionsV2$18(ExpediaService.java:1473)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run$$$capture(CompletableFuture.java:1768)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: java.net.SocketException: Socket closed
+	at java.base/sun.nio.ch.NioSocketImpl.endRead(NioSocketImpl.java:248)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:327)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:350)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:803)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:966)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.read(SSLSocketInputRecord.java:478)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.readFully(SSLSocketInputRecord.java:461)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.decodeInputRecord(SSLSocketInputRecord.java:243)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.decode(SSLSocketInputRecord.java:181)
+	at java.base/sun.security.ssl.SSLTransport.decode(SSLTransport.java:111)
+	at java.base/sun.security.ssl.SSLSocketImpl.decode(SSLSocketImpl.java:1509)
+	at java.base/sun.security.ssl.SSLSocketImpl.readApplicationRecord(SSLSocketImpl.java:1480)
+	at java.base/sun.security.ssl.SSLSocketImpl$AppInputStream.read(SSLSocketImpl.java:1065)
+	at okio.InputStreamSource.read(JvmOkio.kt:93)
+	at okio.AsyncTimeout$source$1.read(AsyncTimeout.kt:153)
+	... 20 more
+
+2024-09-24T00:46:25.394+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:716603/809496
+2024-09-24T00:47:01.397+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:717309/809496
+2024-09-24T00:47:14.402+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:717504/809496
+2024-09-24T00:47:23.003+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:717617/809496
+2024-09-24T00:47:56.118+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:718204/809496
+2024-09-24T00:47:59.119+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:718219/809496
+2024-09-24T00:48:11.215+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:718407/809496
+2024-09-24T00:49:12.177+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:719604/809496
+2024-09-24T00:49:15.180+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:719605/809496
+2024-09-24T00:49:21.575+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:719704/809496
+2024-09-24T00:49:28.101+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:719805/809496
+2024-09-24T00:49:58.017+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:720410/809496
+2024-09-24T00:50:36.474+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:721209/809496
+2024-09-24T00:50:59.480+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:721614/809496
+2024-09-24T00:51:15.319+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:721913/809496
+2024-09-24T00:51:57.581+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:722724/809496
+2024-09-24T00:52:19.358+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:723105/809496
+2024-09-24T00:52:25.923+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:723206/809496
+2024-09-24T00:52:39.473+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:723405/809496
+2024-09-24T00:53:01.925+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:723812/809496
+2024-09-24T00:53:09.317+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:723904/809496
+2024-09-24T00:53:16.711+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:724001/809496
+2024-09-24T00:54:00.640+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:724804/809496
+2024-09-24T00:54:07.926+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:724910/809496
+2024-09-24T00:54:27.834+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:725312/809496
+2024-09-24T00:55:03.799+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:726011/809496
+2024-09-24T00:55:11.585+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:726111/809496
+2024-09-24T00:55:41.633+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:726701/809496
+2024-09-24T00:55:52.075+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:726904/809496
+2024-09-24T00:55:54.233+08:00  INFO 6828 --- [pool-5-thread-12] com.example.basic.utils.HttpUtils        : 转换异常java.net.SocketTimeoutException: timeout
+	at okio.SocketAsyncTimeout.newTimeoutException(JvmOkio.kt:146)
+	at okio.AsyncTimeout.access$newTimeoutException(AsyncTimeout.kt:186)
+	at okio.AsyncTimeout$source$1.read(AsyncTimeout.kt:390)
+	at okio.RealBufferedSource.indexOf(RealBufferedSource.kt:434)
+	at okio.RealBufferedSource.readUtf8LineStrict(RealBufferedSource.kt:327)
+	at okhttp3.internal.http1.HeadersReader.readLine(HeadersReader.kt:29)
+	at okhttp3.internal.http1.Http1ExchangeCodec.readResponseHeaders(Http1ExchangeCodec.kt:180)
+	at okhttp3.internal.connection.Exchange.readResponseHeaders(Exchange.kt:110)
+	at okhttp3.internal.http.CallServerInterceptor.intercept(CallServerInterceptor.kt:93)
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+	at okhttp3.internal.connection.ConnectInterceptor.intercept(ConnectInterceptor.kt:34)
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+	at okhttp3.internal.cache.CacheInterceptor.intercept(CacheInterceptor.kt:95)
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+	at okhttp3.internal.http.BridgeInterceptor.intercept(BridgeInterceptor.kt:83)
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+	at okhttp3.internal.http.RetryAndFollowUpInterceptor.intercept(RetryAndFollowUpInterceptor.kt:76)
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+	at okhttp3.internal.connection.RealCall.getResponseWithInterceptorChain$okhttp(RealCall.kt:201)
+	at okhttp3.internal.connection.RealCall.execute(RealCall.kt:154)
+	at com.example.basic.utils.HttpUtils.pullRegion(HttpUtils.java:377)
+	at com.example.basic.service.ExpediaService.lambda$finishRegionsV2$18(ExpediaService.java:1473)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run$$$capture(CompletableFuture.java:1768)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: java.net.SocketTimeoutException: Read timed out
+	at java.base/sun.nio.ch.NioSocketImpl.timedRead(NioSocketImpl.java:283)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:309)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:350)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:803)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:966)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.read(SSLSocketInputRecord.java:478)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.readHeader(SSLSocketInputRecord.java:472)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.bytesInCompletePacket(SSLSocketInputRecord.java:70)
+	at java.base/sun.security.ssl.SSLSocketImpl.readApplicationRecord(SSLSocketImpl.java:1461)
+	at java.base/sun.security.ssl.SSLSocketImpl$AppInputStream.read(SSLSocketImpl.java:1065)
+	at okio.InputStreamSource.read(JvmOkio.kt:93)
+	at okio.AsyncTimeout$source$1.read(AsyncTimeout.kt:153)
+	... 24 more
+
+2024-09-24T00:56:08.400+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:727201/809496
+2024-09-24T00:56:20.422+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:727401/809496
+2024-09-24T00:56:23.205+08:00  INFO 6828 --- [pool-5-thread-67] com.example.basic.utils.HttpUtils        : 转换异常java.net.SocketTimeoutException: timeout
+	at okio.SocketAsyncTimeout.newTimeoutException(JvmOkio.kt:146)
+	at okio.AsyncTimeout.access$newTimeoutException(AsyncTimeout.kt:186)
+	at okio.AsyncTimeout$source$1.read(AsyncTimeout.kt:390)
+	at okio.RealBufferedSource.indexOf(RealBufferedSource.kt:434)
+	at okio.RealBufferedSource.readUtf8LineStrict(RealBufferedSource.kt:327)
+	at okhttp3.internal.http1.HeadersReader.readLine(HeadersReader.kt:29)
+	at okhttp3.internal.http1.Http1ExchangeCodec.readResponseHeaders(Http1ExchangeCodec.kt:180)
+	at okhttp3.internal.connection.Exchange.readResponseHeaders(Exchange.kt:110)
+	at okhttp3.internal.http.CallServerInterceptor.intercept(CallServerInterceptor.kt:93)
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+	at okhttp3.internal.connection.ConnectInterceptor.intercept(ConnectInterceptor.kt:34)
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+	at okhttp3.internal.cache.CacheInterceptor.intercept(CacheInterceptor.kt:95)
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+	at okhttp3.internal.http.BridgeInterceptor.intercept(BridgeInterceptor.kt:83)
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+	at okhttp3.internal.http.RetryAndFollowUpInterceptor.intercept(RetryAndFollowUpInterceptor.kt:76)
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+	at okhttp3.internal.connection.RealCall.getResponseWithInterceptorChain$okhttp(RealCall.kt:201)
+	at okhttp3.internal.connection.RealCall.execute(RealCall.kt:154)
+	at com.example.basic.utils.HttpUtils.pullRegion(HttpUtils.java:377)
+	at com.example.basic.service.ExpediaService.lambda$finishRegionsV2$18(ExpediaService.java:1473)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run$$$capture(CompletableFuture.java:1768)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: java.net.SocketException: Socket closed
+	at java.base/sun.nio.ch.NioSocketImpl.endRead(NioSocketImpl.java:248)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:327)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:350)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:803)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:966)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.read(SSLSocketInputRecord.java:478)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.readFully(SSLSocketInputRecord.java:461)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.decodeInputRecord(SSLSocketInputRecord.java:243)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.decode(SSLSocketInputRecord.java:181)
+	at java.base/sun.security.ssl.SSLTransport.decode(SSLTransport.java:111)
+	at java.base/sun.security.ssl.SSLSocketImpl.decode(SSLSocketImpl.java:1509)
+	at java.base/sun.security.ssl.SSLSocketImpl.readApplicationRecord(SSLSocketImpl.java:1480)
+	at java.base/sun.security.ssl.SSLSocketImpl$AppInputStream.read(SSLSocketImpl.java:1065)
+	at okio.InputStreamSource.read(JvmOkio.kt:93)
+	at okio.AsyncTimeout$source$1.read(AsyncTimeout.kt:153)
+	... 24 more
+
+2024-09-24T00:56:27.881+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:727508/809496
+2024-09-24T00:58:15.577+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:729601/809496
+2024-09-24T00:59:13.963+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:731002/809496
+2024-09-24T01:00:15.635+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:732403/809496
+2024-09-24T01:00:21.851+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:732501/809496
+2024-09-24T01:00:24.853+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:732524/809496
+2024-09-24T01:00:27.856+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:732532/809496
+2024-09-24T01:00:39.840+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:732703/809496
+2024-09-24T01:00:48.316+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:732801/809496
+2024-09-24T01:01:04.507+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:733101/809496
+2024-09-24T01:01:21.248+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:733409/809496
+2024-09-24T01:01:38.157+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:733708/809496
+2024-09-24T01:01:44.002+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:733801/809496
+2024-09-24T01:05:15.679+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:738301/809496
+2024-09-24T01:05:21.271+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:738401/809496
+2024-09-24T01:05:42.995+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:738806/809496
+2024-09-24T01:06:26.653+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:739701/809496
+2024-09-24T01:07:12.212+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:740705/809496
+2024-09-24T01:07:37.110+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:741202/809496
+2024-09-24T01:08:07.776+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:742001/809496
+2024-09-24T01:08:33.866+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:742611/809496
+2024-09-24T01:08:36.868+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:742632/809496
+2024-09-24T01:08:39.871+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:742633/809496
+2024-09-24T01:08:43.766+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:742639/809496
+2024-09-24T01:10:49.004+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:745301/809496
+2024-09-24T01:11:00.178+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:745505/809496
+2024-09-24T01:13:34.885+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:749002/809496
+2024-09-24T01:15:06.907+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:751103/809496
+2024-09-24T01:15:17.232+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:751303/809496
+2024-09-24T01:18:23.588+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:755606/809496
+2024-09-24T01:19:50.772+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:757501/809496
+2024-09-24T01:21:34.190+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:760205/809496
+2024-09-24T01:23:31.089+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:763003/809496
+2024-09-24T01:24:11.070+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:764025/809496
+2024-09-24T01:24:14.072+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:764066/809496
+2024-09-24T01:25:10.941+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:765301/809496
+2024-09-24T01:25:26.415+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:765601/809496
+2024-09-24T01:30:06.133+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:772701/809496
+2024-09-24T01:40:15.026+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:788201/809496
+2024-09-24T01:43:58.087+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:794114/809496
+2024-09-24T01:48:52.701+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:801863/809496
+2024-09-24T01:50:31.225+08:00  INFO 6828 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:804255/809496
+2024-09-24T09:05:19.119+08:00  INFO 6828 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-09-24T09:05:19.121+08:00  INFO 6828 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-09-24T09:30:36.366+08:00  INFO 3272 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 3272 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
+2024-09-24T09:30:36.369+08:00  INFO 3272 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
+2024-09-24T09:30:37.517+08:00  INFO 3272 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-09-24T09:30:37.519+08:00  INFO 3272 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-09-24T09:30:37.544+08:00  INFO 3272 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 12 ms. Found 0 Redis repository interfaces.
+2024-09-24T09:30:37.935+08:00  INFO 3272 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
+2024-09-24T09:30:37.942+08:00  INFO 3272 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-09-24T09:30:37.942+08:00  INFO 3272 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
+2024-09-24T09:30:38.006+08:00  INFO 3272 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-09-24T09:30:38.006+08:00  INFO 3272 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1607 ms
+2024-09-24T09:30:39.276+08:00  INFO 3272 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
+2024-09-24T09:30:39.282+08:00  INFO 3272 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 3.191 seconds (process running for 4.076)
+2024-09-24T09:30:44.396+08:00  INFO 3272 --- [http-nio-9008-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-09-24T09:30:44.397+08:00  INFO 3272 --- [http-nio-9008-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-09-24T09:30:44.397+08:00  INFO 3272 --- [http-nio-9008-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2024-09-24T09:30:44.421+08:00  INFO 3272 --- [http-nio-9008-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-09-24T09:30:44.670+08:00  INFO 3272 --- [http-nio-9008-exec-2] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2697fcf5
+2024-09-24T09:30:44.672+08:00  INFO 3272 --- [http-nio-9008-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-09-24T09:42:04.618+08:00  INFO 3272 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:18656/656861
+2024-09-24T09:45:28.586+08:00  INFO 8748 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 8748 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
+2024-09-24T09:45:28.588+08:00  INFO 8748 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
+2024-09-24T09:45:29.028+08:00  INFO 8748 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-09-24T09:45:29.030+08:00  INFO 8748 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-09-24T09:45:29.052+08:00  INFO 8748 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 11 ms. Found 0 Redis repository interfaces.
+2024-09-24T09:45:29.408+08:00  INFO 8748 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
+2024-09-24T09:45:29.414+08:00  INFO 8748 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-09-24T09:45:29.414+08:00  INFO 8748 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
+2024-09-24T09:45:29.473+08:00  INFO 8748 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-09-24T09:45:29.473+08:00  INFO 8748 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 857 ms
+2024-09-24T09:45:30.313+08:00  INFO 8748 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
+2024-09-24T09:45:30.318+08:00  INFO 8748 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 1.964 seconds (process running for 2.358)
+2024-09-24T09:48:14.209+08:00  INFO 2140 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 2140 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
+2024-09-24T09:48:14.211+08:00  INFO 2140 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
+2024-09-24T09:48:14.646+08:00  INFO 2140 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-09-24T09:48:14.648+08:00  INFO 2140 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-09-24T09:48:14.669+08:00  INFO 2140 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 Redis repository interfaces.
+2024-09-24T09:48:15.267+08:00  INFO 2140 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
+2024-09-24T09:48:15.274+08:00  INFO 2140 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-09-24T09:48:15.274+08:00  INFO 2140 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
+2024-09-24T09:48:15.348+08:00  INFO 2140 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-09-24T09:48:15.348+08:00  INFO 2140 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1109 ms
+2024-09-24T09:48:16.491+08:00  INFO 2140 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
+2024-09-24T09:48:16.497+08:00  INFO 2140 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 2.562 seconds (process running for 3.084)
+2024-09-24T09:48:35.655+08:00  INFO 2140 --- [http-nio-9008-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-09-24T09:48:35.656+08:00  INFO 2140 --- [http-nio-9008-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-09-24T09:48:35.657+08:00  INFO 2140 --- [http-nio-9008-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-09-24T09:48:35.679+08:00  INFO 2140 --- [http-nio-9008-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-09-24T09:48:35.893+08:00  INFO 2140 --- [http-nio-9008-exec-2] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@563a7280
+2024-09-24T09:48:35.894+08:00  INFO 2140 --- [http-nio-9008-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-09-24T09:48:44.422+08:00  INFO 2140 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:2/1772
+2024-09-24T09:48:49.289+08:00  INFO 2140 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:14/1772
+2024-09-24T09:49:08.197+08:00  INFO 2140 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:216/1772
+2024-09-24T09:49:12.745+08:00  INFO 2140 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:279/1772
+2024-09-24T09:49:34.365+08:00  INFO 2140 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:605/1772
+2024-09-24T09:49:37.664+08:00  INFO 2140 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:616/1772
+2024-09-24T09:50:07.992+08:00  INFO 2140 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:1024/1772
+2024-09-24T09:50:13.002+08:00  INFO 2140 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:1089/1772
+2024-09-24T09:50:32.593+08:00  INFO 2140 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:1372/1772
+2024-09-24T09:50:49.341+08:00  INFO 2140 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:1601/1772
+2024-09-24T09:50:52.569+08:00  INFO 2140 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:1612/1772
+2024-09-24T09:51:02.017+08:00  INFO 2140 --- [http-nio-9008-exec-2] c.example.basic.service.ExpediaService   : 查详情失败, 超时被跳过, 当前进度:1770/1772

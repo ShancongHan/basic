@@ -9,4 +9,21 @@
             (#{item.expediaId}, #{item.name}, #{item.nameEn})
         </foreach>
     </insert>
+
+    <select id="selectAll" resultType="com.example.basic.entity.ExpediaCountry">
+        SELECT *
+        FROM `expedia_country`
+    </select>
+
+    <update id="update" parameterType="com.example.basic.entity.ExpediaCountry">
+        UPDATE `expedia_country`
+        SET `name` = #{name}
+        WHERE `expedia_id` = #{expediaId}
+    </update>
+
+    <update id="updateCountryCode">
+        UPDATE `expedia_country`
+        SET `code` = #{countryCode}
+        WHERE `expedia_id` = #{expediaId}
+    </update>
 </mapper>

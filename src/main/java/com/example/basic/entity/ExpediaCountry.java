@@ -12,11 +12,13 @@ public class ExpediaCountry {
     private Long id;	// id
 
     @ExcelProperty(value = "ID")
-    private Integer expediaId;	// 国家id
+    private String expediaId;	// 国家id
 
     @ExcelProperty(value = "名称")
     private String name;	// 国家名称
 
     @ExcelProperty(value = "Name")
     private String nameEn;	// 国家英文名称
+
+    private String code;
 }

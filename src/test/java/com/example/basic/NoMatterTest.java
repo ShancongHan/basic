@@ -2,6 +2,8 @@ package com.example.basic;
 
 import com.alibaba.excel.util.DateUtils;
 import com.example.basic.helper.MappingScoreHelper;
+import com.google.common.collect.Lists;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
@@ -19,11 +21,24 @@ import java.util.List;
 public class NoMatterTest {
 
     public static void main(String[] args) throws Exception {
-        String dateTime = "2023-11-23T09:05:37.357Z";
+
+        List<String> compNos = Lists.newArrayList("1");
+        addCompNos(compNos,"111");
+        System.out.println(compNos);
+//        String x = "[[\"汉庭\",\"张家港\",\"高铁站\",\"塘桥\",\"酒店\"]]";
+
+        /*String x = """
+                {"data":"\\n\\n\\n分词结果：(以 “/” 号为分割)\\n\\n\\n\\n全季 / 酒店 / ( / 霍尔果斯 / 国 / 门店 / ) \\n\\n\\n分词次数统计：\\n\\n\\n\\n \\n全季 = 1 次；\\n酒店 = 1 次；\\n( = 1 次；\\n霍尔果斯 = 1 次；\\n国 = 1 次；\\n门店 = 1 次；\\n) = 1 次；\\n \\n\\n\\n\\n","code":100,"msg":"获取数据成功！"}
+                """;
+        String xx = x.substring(x.indexOf("\\n\\n\\n分词结果：(以 “/” 号为分割)\\n\\n\\n\\n全季"), x.indexOf("\\n\\n\\n分词次数统计：\\n\\n\\n\\n"));
+        xx = xx.replace("\\n\\n\\n分词结果：(以 “/” 号为分割)\\n\\n\\n\\n", "");
+        String s = xx.replaceAll("<em class=\"\\\\&quot;text-color-999\\\\&quot;\"> / </em>", ",");
+        System.out.println(s);*/
+        /*String dateTime = "2023-11-23T09:05:37.357Z";
         dateTime = dateTime.replace("T", " ");
         dateTime = dateTime.substring(0, dateTime.indexOf("."));
         System.out.println(dateTime);
-        System.out.println(DateUtils.parseDate(dateTime));
+        System.out.println(DateUtils.parseDate(dateTime));*/
 
 
         /*String s = handlerTel("63-22498745");
@@ -44,6 +59,15 @@ public class NoMatterTest {
                 ,"4.765295","01, Rue Frantz Fanon Bordj Bou Arreridj Algérie","00213-770521828"
                 ,"Bodrum Park Resort",new BigDecimal("36.982981")
                 ,new BigDecimal("7.561266"),"塞赖迪Yalıciftlik Mevkii 48410 Bodrum Turkey, 阿尔及利亚","0");*/
+    }
+
+    private static void addCompNos(List<String> compNos, String s) {
+        if (CollectionUtils.isEmpty(compNos)){
+            compNos = new ArrayList<>();
+        }
+        if (StringUtils.hasLength(s)){
+            compNos.add("看吧");
+        }
     }
 
     public static String handlerTel(String telephone){

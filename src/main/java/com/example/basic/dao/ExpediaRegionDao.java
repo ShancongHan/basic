@@ -13,4 +13,6 @@ public interface ExpediaRegionDao {
     void saveBatch(List<ExpediaRegion> insertList);
 
     int update(ExpediaRegion expediaRegion);
+
+    List<ExpediaRegion> selectAll();
 }

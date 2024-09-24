@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic.dao.ExpediaRegionsPropertyDao">
+
+    <insert id="saveBatch" parameterType="com.example.basic.entity.ExpediaRegionsProperty">
+        insert into `expedia_regions_property` (`region_id`, `property_id`)
+        values
+        <foreach collection="insertList" separator="," item="item">
+            (#{item.regionId}, #{item.propertyId})
+        </foreach>
+    </insert>
+</mapper>

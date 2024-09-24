@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic.dao.ExpediaRegionsDao">
+
+    <insert id="saveBatch" parameterType="com.example.basic.entity.ExpediaRegions">
+        insert into expedia_regions (region_id, type, name_en, name_full_en, country_code, real_exist)
+        values
+        <foreach collection="insertList" separator="," item="item">
+            (#{item.regionId}, #{item.type}, #{item.nameEn}, #{item.nameFullEn}, #{item.countryCode}, #{item.realExist})
+        </foreach>
+    </insert>
+    
+    <select id="selectRegions" resultType="com.example.basic.entity.ExpediaRegions">
+        SELECT `id`, `region_id`
+        FROM `expedia_regions`
+        WHERE `has_zh` IS NULL AND center_longitude is NULL
+    </select>
+
+    <update id="update" parameterType="com.example.basic.entity.ExpediaRegions">
+        UPDATE `expedia_regions`
+        <set>
+            <if test="name != null"> name = #{name,jdbcType=VARCHAR},</if>
+            <if test="nameFull != null"> name_full = #{nameFull,jdbcType=VARCHAR},</if>
+            <if test="countrySubdivisionCode != null"> country_subdivision_code = #{countrySubdivisionCode,jdbcType=VARCHAR},</if>
+            <if test="parentId != null"> parent_id = #{parentId,jdbcType=VARCHAR},</if>
+            <if test="parentPath != null"> parent_path = #{parentPath,jdbcType=VARCHAR},</if>
+            <if test="centerLongitude != null"> center_longitude = #{centerLongitude,jdbcType=DECIMAL},</if>
+            <if test="centerLatitude != null"> center_latitude = #{centerLatitude,jdbcType=DECIMAL},</if>
+            <if test="categories != null"> categories = #{categories,jdbcType=VARCHAR},</if>
+            <if test="tags != null"> tags = #{tags,jdbcType=VARCHAR},</if>
+            <if test="ancestors != null"> ancestors = #{ancestors,jdbcType=VARCHAR},</if>
+            <if test="descendants != null"> descendants = #{descendants,jdbcType=VARCHAR},</if>
+            <if test="hasZh != null"> has_zh = #{hasZh,jdbcType=TINYINT},</if>
+            <if test="hasProperty != null"> has_property = #{hasProperty,jdbcType=TINYINT},</if>
+        </set>
+        WHERE `id` = #{id}
+    </update>
+</mapper>

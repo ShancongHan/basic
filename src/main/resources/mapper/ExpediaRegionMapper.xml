@@ -21,4 +21,9 @@
         SET `name_en` = #{nameEn}, `name_full_en` = #{nameFullEn}
         WHERE `region_id` = #{regionId};
     </update>
+
+    <select id="selectAll" resultType="com.example.basic.entity.ExpediaRegion">
+        SELECT *
+        FROM `expedia_region`
+    </select>
 </mapper>

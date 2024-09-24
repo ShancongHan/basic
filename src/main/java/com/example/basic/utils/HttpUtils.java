@@ -6,13 +6,20 @@ import com.alibaba.fastjson2.JSONObject;
 import com.example.basic.domain.DongChengGnResponse;
 import com.example.basic.domain.DongChengHotelRequest;
 import com.example.basic.domain.ExpediaResponse;
+import com.example.basic.domain.Region;
+import com.example.basic.domain.to.Ancestors;
+import com.example.basic.entity.ExpediaCountry;
+import com.example.basic.entity.ExpediaRegions;
+import com.google.common.base.Throwables;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -59,14 +66,14 @@ public class HttpUtils {
     private OkHttpClient okHttpClient;
     
     public ExpediaResponse pullRegions(String sourceUrl) throws IOException {
-        String url = StringUtils.isNotBlank(sourceUrl) ? sourceUrl : ENDPOINT + REGIONS;
+        String url = StringUtils.isNotBlank(sourceUrl) ? sourceUrl : ENDPOINT + REGIONS + "?include=standard&language=zh-CN&type=country";
         StopWatch watch = new StopWatch();
         watch.start("http发送请求");
         HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
         urlBuilder.addQueryParameter(INCLUDE_KEY, INCLUDE_VALUE2);
         urlBuilder.addQueryParameter(LANGUAGE_KEY, CHINESE_LANGUAGE);
         Request request = new Request.Builder()
-                .url(urlBuilder.build().url())
+                .url(url)
                 .header("Accept", "application/json")
                 .header("Authorization", createSign())
                 .build();
@@ -311,6 +318,125 @@ public class HttpUtils {
             return body.string();
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public ExpediaResponse pullRegionsV2(String sourceUrl, String countryCode) throws Exception {
+        String url = StringUtils.isNotBlank(sourceUrl) ? sourceUrl : ENDPOINT + REGIONS + "?include=standard&language=en-US&include=property_ids&country_code=" + countryCode;
+        /*StopWatch watch = new StopWatch();
+        watch.start("http发送请求");*/
+        Request request = new Request.Builder()
+                .url(url)
+                .header("Accept", "application/json")
+                .header("Authorization", createSign())
+                .build();
+        Call call = okHttpClient.newCall(request);
+        Response response = call.execute();
+        String link = response.header(LINK_HEAD_KEY);
+        String nextPageUrl = StringUtils.isBlank(link) ? "" : link.substring(link.indexOf('<') + 1, link.indexOf('>'));
+        String total = response.header(PAGE_HEAD_KEY);
+        String load = response.header(LODA_HEAD_KEY);
+        String body = response.body().string();
+        //watch.stop();
+        ExpediaResponse real = ExpediaResponse.builder().build().setBody(body).setTotal(total == null ? 0 : Integer.parseInt(total)).setNextPageUrl(nextPageUrl).setLoad(load == null ? 0 : Integer.parseInt(load));
+        //log.info("http耗时:{}", watch.getTotalTimeSeconds());
+        return real;
+    }
+
+    public ExpediaCountry pullCountryCode(String expediaId) {
+        String url = "https://test.ean.com/v3/regions/" + expediaId + "?language=en-US&include=details";
+        Request request = new Request.Builder()
+                .url(url)
+                .header("Accept", "application/json")
+                .header("Authorization", createSign())
+                .build();
+        Call call = okHttpClient.newCall(request);
+        try {
+            Response response = call.execute();
+            String body = response.body().string();
+            Region region = JSON.parseObject(body, Region.class);
+            String countryCode = region.getCountry_code();
+            ExpediaCountry country = new ExpediaCountry();
+            country.setExpediaId(expediaId);
+            country.setCode(countryCode);
+            return country;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public ExpediaRegions pullRegion(String regionId, Long id) {
+        String url = "https://test.ean.com/v3/regions/" + regionId + "?language=zh-CN&include=details";
+        Request request = new Request.Builder()
+                .url(url)
+                .header("Accept", "application/json")
+                .header("Authorization", createSign())
+                .build();
+        Call call = okHttpClient.newCall(request);
+        try {
+            Response response = call.execute();
+            String body = response.body().string();
+            ExpediaRegions expediaRegions = new ExpediaRegions();
+            expediaRegions.setId(id);
+            if (StringUtils.isBlank(body) || "{}".equals(body)) {
+                expediaRegions.setHasZh(false);
+                expediaRegions.setRegionId(regionId);
+                return expediaRegions;
+            }
+            Region region = JSON.parseObject(body, Region.class);
+            String type = region.getType();
+            String name = region.getName();
+            expediaRegions.setName(name);
+            if (StringUtils.isNotBlank(name)) {
+                expediaRegions.setHasZh(true);
+            }
+            expediaRegions.setNameFull(region.getName_full());
+            expediaRegions.setCountrySubdivisionCode(region.getCountry_subdivision_code());
+            List<Ancestors> ancestors = region.getAncestors();
+            if (CollectionUtils.isEmpty(ancestors)) {
+                expediaRegions.setParentId("0");
+                expediaRegions.setParentPath(null);
+            } else {
+                // type == country
+                if (ancestors.size() == 1) {
+                    expediaRegions.setParentId(ancestors.get(0).getId());
+                    expediaRegions.setParentPath("/0/" + ancestors.get(0).getId() + "/");
+                }
+                // type == province_state
+                if ("province_state".equals(type)) {
+                    List<Ancestors> list = ancestors.stream().filter(e -> "country".equals(e.getType())).toList();
+                    if (CollectionUtils.isNotEmpty(list) && list.size() == 1) {
+                        expediaRegions.setParentId(list.get(0).getId());
+                    }
+                }
+                if ("multi_city_vicinity".equals(type)) {
+                    List<Ancestors> list = ancestors.stream().filter(e -> "province_state".equals(e.getType())).toList();
+                    if (CollectionUtils.isNotEmpty(list) && list.size() == 1) {
+                        expediaRegions.setParentId(list.get(0).getId());
+                    }
+                }
+                if ("neighborhood".equals(type)) {
+                    List<Ancestors> list = ancestors.stream().filter(e -> "city".equals(e.getType())).toList();
+                    if (CollectionUtils.isNotEmpty(list) && list.size() == 1) {
+                        expediaRegions.setParentId(list.get(0).getId());
+                    }
+                }
+
+            }
+            expediaRegions.setCenterLatitude(BigDecimal.valueOf(region.getCoordinates().getCenter_latitude()));
+            expediaRegions.setCenterLongitude(BigDecimal.valueOf(region.getCoordinates().getCenter_longitude()));
+            if (CollectionUtils.isNotEmpty(region.getCategories())) {
+                expediaRegions.setCategories(region.getCategories().toString());
+            }
+            if (CollectionUtils.isNotEmpty(region.getTags())) {
+                expediaRegions.setTags(region.getTags().toString());
+            }
+            expediaRegions.setAncestors(JSON.toJSONString(region.getAncestors()));
+            expediaRegions.setDescendants(JSON.toJSONString(region.getDescendants()));
+            return expediaRegions;
+        } catch (IOException e) {
+            log.info("转换异常{}", Throwables.getStackTraceAsString(e));
+            return null;
         }
     }
 }
