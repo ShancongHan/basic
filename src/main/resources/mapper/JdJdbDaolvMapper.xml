@@ -48,4 +48,21 @@
         SELECT `id`
         FROM `jd_jdb_daolv`
     </select>
+
+    <select id="selectListByIdsV2" parameterType="java.lang.Integer" resultType="com.example.basic.entity.JdJdbDaolv">
+        SELECT id, `name`, address, country_code, city_name, longitude, latitude
+        FROM `jd_jdb_daolv`
+        where `id` IN
+        <foreach collection="didaIds" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="selectInfoByExpediaId" parameterType="java.lang.String" resultType="com.example.basic.entity.JdJdbDaolv">
+        SELECT id, `name`, address, country_code, city_name, longitude, latitude
+        FROM `jd_jdb_daolv`
+        where `id` = (SELECT daolv_hotel_id
+                      from expedia_daolv_match_lab
+                      WHERE expedia_hotel_Id = #{propertyId})
+    </select>
 </mapper>

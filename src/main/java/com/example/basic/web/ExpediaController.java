@@ -311,4 +311,52 @@ public class ExpediaController {
             System.out.println(Throwables.getStackTraceAsString(e));
         }
     }
+
+    /**
+     * 增加新酒店
+     */
+    @PostMapping(value = "add-hotel")
+    public void addHotel() {
+        try {
+            expediaService.addHotel();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
+
+    /**
+     * 比较酒店列表
+     */
+    @PostMapping(value = "compare-hotel")
+    public void compareHotel() {
+        try {
+            expediaService.compareHotel();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
+
+    /**
+     * 导出第一版主推酒店
+     */
+    @PostMapping(value = "export-v1-hotel")
+    public void exportHotel() {
+        try {
+            expediaService.exportHotel();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
+
+    /**
+     * 导出第一版主推酒店2
+     */
+    @PostMapping(value = "export-v1-hotel2")
+    public void exportHotel2() {
+        try {
+            expediaService.exportHotel2();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
 }

@@ -46,4 +46,9 @@
         FROM `expedia_property_basic`
         WHERE `address_en` is null
     </select>
+
+    <select id="selectAllHotelIds" resultType="java.lang.String">
+        SELECT `property_id`
+        FROM `expedia_property_basic`
+    </select>
 </mapper>

@@ -101,4 +101,53 @@
         SELECT `hotel_id`
         FROM `expedia_content_basic`
     </select>
+
+    <update id="updateByHotelId" parameterType="com.example.basic.entity.ExpediaContentBasic">
+        UPDATE `expedia_content_basic`
+        <set>
+            <if test="realExist != null">
+                `real_exist` = #{realExist},
+            </if>
+            <if test="hasZh != null">
+                `has_zh` = #{hasZh},
+            </if>
+            <if test="fax != null and fax != ''">
+                `fax` = #{fax},
+            </if>
+            <if test="themes != null and themes != ''">
+                `themes` = #{themes},
+            </if>
+            <if test="heroImageMiddle != null and heroImageMiddle != ''">
+                `hero_image_middle` = #{heroImageMiddle},
+            </if>
+            <if test="spokenLanguages != null and spokenLanguages != ''">
+                `spoken_languages` = #{spokenLanguages},
+            </if>
+            <if test="name != null and name != ''">
+                `name` = #{name},
+            </if>
+            <if test="address != null and address != ''">
+                `address` = #{address}
+            </if>
+        </set>
+        WHERE `hotel_id` = #{hotelId}
+    </update>
+
+    <update id="updatePriceByHotelId">
+        UPDATE `expedia_content_basic`
+        SET `has_price` = #{hasPrice}
+        WHERE `hotel_id` = #{hotelId}
+    </update>
+
+    <select id="selectMatchList" resultType="com.example.basic.entity.ExpediaContentBasic">
+        select hotel_id, name_en, address_en, country_code, state_province_code,state_province_name,city, longitude, latitude
+        from expedia_content_basic
+        where main_hotel = 1 and `match` = 1 and v1_sale = 0
+    </select>
+
+    <select id="selectNotMatchList" resultType="com.example.basic.entity.ExpediaContentBasic">
+        select hotel_id, name_en, address_en, country_code, state_province_code,state_province_name,city, longitude, latitude
+        from expedia_content_basic
+        where main_hotel = 1 and `match` = 0
+    </select>
 </mapper>

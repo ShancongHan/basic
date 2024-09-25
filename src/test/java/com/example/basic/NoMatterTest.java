@@ -1,6 +1,8 @@
 package com.example.basic;
 
 import com.alibaba.excel.util.DateUtils;
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
 import com.example.basic.helper.MappingScoreHelper;
 import com.google.common.collect.Lists;
 import org.apache.commons.collections4.CollectionUtils;
@@ -22,7 +24,9 @@ import java.util.List;
 public class NoMatterTest {
 
     public static void main(String[] args) throws Exception {
-        int i = 585;
+
+        test();
+        /*int i = 585;
         int j = 93254;
         double x = (float) i / (double) j * 100;
         NumberFormat format = NumberFormat.getInstance();
@@ -34,7 +38,7 @@ public class NoMatterTest {
 
         List<String> compNos = Lists.newArrayList("1");
         addCompNos(compNos,"111");
-        System.out.println(compNos);
+        System.out.println(compNos);*/
 //        String x = "[[\"汉庭\",\"张家港\",\"高铁站\",\"塘桥\",\"酒店\"]]";
 
         /*String x = """
@@ -69,6 +73,254 @@ public class NoMatterTest {
                 ,"4.765295","01, Rue Frantz Fanon Bordj Bou Arreridj Algérie","00213-770521828"
                 ,"Bodrum Park Resort",new BigDecimal("36.982981")
                 ,new BigDecimal("7.561266"),"塞赖迪Yalıciftlik Mevkii 48410 Bodrum Turkey, 阿尔及利亚","0");*/
+    }
+
+    private static void test() {
+        String json = """
+                {
+                    "8098707":
+                    {
+                        "property_id": "8098707",
+                        "name": "Apartments Mare",
+                        "phone": "385-95-951313142",
+                        "fax": "385-20-418450",
+                        "category":
+                        {
+                            "id": "6",
+                            "name": "Guesthouse"
+                        },
+                        "business_model":
+                        {
+                            "expedia_collect": true,
+                            "property_collect": false
+                        },
+                        "rank": 104467,
+                        "checkin":
+                        {
+                            "begin_time": "1:00 PM",
+                            "end_time": "11:00 PM",
+                            "instructions": "<ul>  <li>Extra-person charges may apply and vary depending on property policy</li><li>Government-issued photo identification and a cash deposit may be required at check-in for incidental charges</li><li>Special requests are subject to availability upon check-in and may incur additional charges; special requests cannot be guaranteed</li><li>This property is professionally cleaned</li><li>Please note that cultural norms and guest policies may differ by country and by property; the policies listed are provided by the property</li>  </ul>",
+                            "special_instructions": "This property offers transfers from the airport (surcharges may apply). To arrange pick-up, guests must contact the property 24 hours prior to arrival, using the contact information on the booking confirmation. There is no front desk at this property. To make arrangements for check-in please contact the property at least 72 hours before arrival using the information on the booking confirmation. If you are planning to arrive after 10:00 PM please contact the property in advance using the information on the booking confirmation. Guests must contact the property in advance for check-in instructions. The host will greet guests on arrival. For more details, please contact the property using the information on the booking confirmation.  Guests should notify this property in advance of their arrival time.",
+                            "min_age": 18
+                        },
+                        "checkout":
+                        {
+                            "time": "10:00 AM"
+                        },
+                        "fees":
+                        {
+                            "mandatory": "<p>You'll be asked to pay the following charges at the property. Fees may include applicable taxes:</p> <ul><li>A tax is imposed by the city and collected at the property. This tax is adjusted seasonally and might not apply year round. Other exemptions or reductions might apply. For more details, please contact the property using the information on the reservation confirmation received after booking. </li><li>A tax is imposed by the city: From 1 October - 31 March, EUR 1.85 per person, per night for adults; EUR 0.93 per night for guests aged 12-17 years old. This tax does not apply to children under 12 years of age. </li> <li> A tax is imposed by the city: From 1 April - 30 September, EUR 2.65 per person, per night for adults; EUR 1.33 per night for guests aged 12-17 years old. This tax does not apply to children under 12 years of age. </li></ul> <p>We have included all charges provided to us by the property. </p>",
+                            "optional": "<ul> <li>Airport shuttle fee: EUR 45 per vehicle (one way)</li><li>Late check-out is available for a fee (subject to availability)</li></ul> <p>The above list may not be comprehensive. Fees and deposits may not include tax and are subject to change. </p>"
+                        },
+                        "policies":
+                        {
+                            "know_before_you_go": "<ul>  <li>The property is professionally cleaned.</li><li>Contactless check-in and contactless check-out are available.</li> </ul>"
+                        },
+                        "attributes":
+                        {
+                            "pets":
+                            {
+                                "2050":
+                                {
+                                    "id": "2050",
+                                    "name": "Pets not allowed"
+                                }
+                            },
+                            "general":
+                            {
+                                "1073745142":
+                                {
+                                    "id": "1073745142",
+                                    "name": "Professional property host/manager"
+                                },
+                                "1073745055":
+                                {
+                                    "id": "1073745055",
+                                    "name": "Contactless check-out is available"
+                                },
+                                "2557":
+                                {
+                                    "id": "2557",
+                                    "name": "Cash deposit required"
+                                },
+                                "1073745053":
+                                {
+                                    "id": "1073745053",
+                                    "name": "Property confirms they are implementing guest safety measures"
+                                },
+                                "2545":
+                                {
+                                    "id": "2545",
+                                    "name": "No cribs (infant beds) available"
+                                },
+                                "2544":
+                                {
+                                    "id": "2544",
+                                    "name": "No rollaway/extra beds available"
+                                },
+                                "1073744990":
+                                {
+                                    "id": "1073744990",
+                                    "name": "Property uses a professional cleaning service"
+                                },
+                                "1073745013":
+                                {
+                                    "id": "1073745013",
+                                    "name": "Property confirms they are implementing enhanced cleaning measures"
+                                },
+                                "1073744992":
+                                {
+                                    "id": "1073744992",
+                                    "name": "Property is cleaned with disinfectant"
+                                },
+                                "1073745049":
+                                {
+                                    "id": "1073745049",
+                                    "name": "Bed sheets and towels are washed at a temperature of at least 60°C/140°F"
+                                },
+                                "1073745006":
+                                {
+                                    "id": "1073745006",
+                                    "name": "Contactless check-in is available"
+                                },
+                                "1073745051":
+                                {
+                                    "id": "1073745051",
+                                    "name": "Commonly-touched surfaces are cleaned with disinfectant"
+                                },
+                                "2549":
+                                {
+                                    "id": "2549",
+                                    "name": "No elevators"
+                                }
+                            }
+                        },
+                        "amenities":
+                        {
+                            "56":
+                            {
+                                "id": "56",
+                                "name": "Airport transportation (surcharge)",
+                                "categories":
+                                [
+                                    "airport_transfer"
+                                ]
+                            },
+                            "2137":
+                            {
+                                "id": "2137",
+                                "name": "Smoke-free property"
+                            },
+                            "103":
+                            {
+                                "id": "103",
+                                "name": "Snorkeling nearby"
+                            },
+                            "1073744740":
+                            {
+                                "id": "1073744740",
+                                "name": "Wheelchair accessible – no"
+                            },
+                            "347":
+                            {
+                                "id": "347",
+                                "name": "Hiking/biking trails nearby"
+                            },
+                            "1073745332":
+                            {
+                                "id": "1073745332",
+                                "name": "No accessible shuttle"
+                            },
+                            "4454":
+                            {
+                                "id": "4454",
+                                "name": "Free parking nearby",
+                                "categories":
+                                [
+                                    "parking"
+                                ]
+                            },
+                            "4003":
+                            {
+                                "id": "4003",
+                                "name": "Luggage storage"
+                            },
+                            "4514":
+                            {
+                                "id": "4514",
+                                "name": "Terrace"
+                            },
+                            "2390":
+                            {
+                                "id": "2390",
+                                "name": "Free WiFi",
+                                "categories":
+                                [
+                                    "wifi"
+                                ]
+                            }
+                        },
+                   \s
+                        "onsite_payments":
+                        {
+                            "currency": "EUR"
+                        },
+                   \s
+                        "dates":
+                        {
+                            "added": "1995-01-01T05:00:00.000Z",
+                            "updated": "2024-09-18T19:39:51.137Z"
+                        },
+                        "descriptions":
+                        {
+                            "amenities": "Take in the views from a terrace and make use of amenities such as complimentary wireless internet access.",
+                            "business_amenities": "A roundtrip airport shuttle is provided for a surcharge (available 24 hours).",
+                            "rooms": "Make yourself at home in one of the 6 individually decorated guestrooms, featuring refrigerators and LCD televisions. Complimentary wireless internet access keeps you connected, and satellite programming is available for your entertainment. Conveniences include desks, housekeeping is provided weekly, and irons/ironing boards can be requested.",
+                            "attractions": "Distances are displayed to the nearest 0.1 mile and kilometer. <br /> <p>Bellevue Beach - 0.5 km / 0.3 mi <br /> Boninovo Cemetery - 1 km / 0.6 mi <br /> Mercante - 1.2 km / 0.8 mi <br /> Luka Gruz - 1.4 km / 0.9 mi <br /> Dubrovnik Shopping Minčeta - 1.5 km / 0.9 mi <br /> Rochester Institute of Technology Croatia - 1.8 km / 1.1 mi <br /> Gruz Open Market - 1.8 km / 1.1 mi <br /> Šulić Beach - 1.9 km / 1.2 mi <br /> Gradac Park - 1.9 km / 1.2 mi <br /> Lovrijenac Fort - 2 km / 1.2 mi <br /> Pile Gate - 2 km / 1.2 mi <br /> Danče Beach - 2.1 km / 1.3 mi <br /> Visia Dubrovnik 5D Multimedia Museum - 2.1 km / 1.3 mi <br /> St. Saviour Church - 2.1 km / 1.3 mi <br /> Gruz Harbor - 2.1 km / 1.3 mi <br /> </p><p>The preferred airport for Apartments Mare is Dubrovnik Airport (DBV) - 21.1 km / 13.1 mi </p>",
+                            "location": "With a stay at Apartments Mare in Dubrovnik (Gorica), you'll be within a 5-minute drive of Pile Gate and Dubrovnik Ferry Port.  This guesthouse is 1.6 mi (2.6 km) from Lapad Beach and 1.8 mi (2.9 km) from Gruz Harbor.",
+                            "headline": "In Dubrovnik (Gorica)"
+                        },
+                        "statistics":
+                        {
+                            "52":
+                            {
+                                "id": "52",
+                                "name": "Total number of rooms - 6",
+                                "value": "6"
+                            }
+                        },
+                        "chain":
+                        {
+                            "id": "0",
+                            "name": "Independent"
+                        },
+                        "brand":
+                        {
+                            "id": "0",
+                            "name": "Independent"
+                        },
+                        "spoken_languages":
+                        {
+                            "en":
+                            {
+                                "id": "en",
+                                "name": "English"
+                            },
+                            "hr":
+                            {
+                                "id": "hr",
+                                "name": "Croatian"
+                            }
+                        },
+                        "multi_unit": true,
+                        "payment_registration_recommended": false,
+                        "supply_source": "expedia"
+                    }
+                }
+                """;
+        JSONObject jsonObject = JSON.parseObject(json);
+        JSONObject jsonObject2 = (JSONObject) jsonObject.get("8098707");
+        System.out.println(jsonObject2);
     }
 
     private static void addCompNos(List<String> compNos, String s) {

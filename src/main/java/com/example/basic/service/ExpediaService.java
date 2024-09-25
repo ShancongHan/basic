@@ -36,6 +36,7 @@ import java.math.BigDecimal;
 import java.nio.charset.Charset;
 import java.util.*;
 import java.util.concurrent.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -1044,22 +1045,21 @@ public class ExpediaService {
     }
 
     public void pullContentDetail() {
-        List<ExpediaContentBasic> expediaContentBasics = expediaContentBasicDao.selectNeedUpdateHotelIds();
-        int total = expediaContentBasics.size();
+        // List<ExpediaContentBasic> expediaContentBasics = expediaContentBasicDao.selectNeedUpdateHotelIds();
+        List<String> hotelIds = Lists.newArrayList("18254528", "526195", "193334", "10106413", "76881646", "16054819", "6347171", "8098707", "996323", "2776931", "12031020", "95802215", "17254211", "87827003", "4658434", "2443993", "89848983", "70868099", "2878", "4698614", "19002255", "259", "899349", "11710171", "1803401", "76521087", "129176", "33387167", "93691196", "18182101", "49301400", "49301416", "22297811", "21937310", "49301405", "22794", "92897619", "49301388", "49301421", "91219195", "49301371", "99049846", "27205068", "105963667", "95360484", "100643741", "9623767", "104475403", "92961563", "96657957");
+        int total = hotelIds.size();
         int start = 0;
         List<CompletableFuture<ExpediaContentResult>> futures = Lists.newArrayListWithCapacity(32);
         int chunkSize = 20;
         for (int i = 0; i < total; i += chunkSize) {
             int endIndex = Math.min(i + chunkSize, total);
-            for (ExpediaContentBasic expediaContentBasic : expediaContentBasics.subList(i, endIndex)) {
+            for (String hotelId : hotelIds.subList(i, endIndex)) {
                 futures.add(CompletableFuture.supplyAsync(() -> {
-                    String hotelId = expediaContentBasic.getHotelId();
                     String en = httpUtils.pullContentEn(hotelId);
                     String zh = httpUtils.pullContentZh(hotelId);
                     boolean hasEn = StringUtils.hasLength(en) && !"{}".equals(en);
                     boolean hasZh = StringUtils.hasLength(zh) && !"{}".equals(zh);
                     ExpediaContentResult result = new ExpediaContentResult();
-                    result.setId(expediaContentBasic.getId());
                     result.setHotelId(hotelId);
                     // 没英文没中文 返回null
                     if (!hasEn && !hasZh) {
@@ -1101,7 +1101,7 @@ public class ExpediaService {
                     ExpediaContentBasic update = new ExpediaContentBasic();
                     update.setId(result.getId());
                     BeanUtils.copyProperties(result, update);
-                    expediaContentBasicDao.update(update);
+                    expediaContentBasicDao.updateByHotelId(update);
                 } catch (TimeoutException e) {
                     watch.stop();
                     log.info("酒店查询失败, 超时被跳过, 当前进度:{}/{}", start, total);
@@ -1151,18 +1151,19 @@ public class ExpediaService {
     }
 
     public void pullContentPrice() {
-        List<ExpediaContentBasic> expediaContentBasics = expediaContentBasicDao.selectNeedPriceHotelIds();
-        int total = expediaContentBasics.size();
+        //List<ExpediaContentBasic> expediaContentBasics = expediaContentBasicDao.selectNeedPriceHotelIds();
+        List<String> hotelIds = Lists.newArrayList("18254528", "526195", "193334", "10106413", "76881646", "16054819", "6347171", "8098707", "996323", "2776931", "12031020", "95802215", "17254211", "87827003", "4658434", "2443993", "89848983", "70868099", "2878", "4698614", "19002255", "259", "899349", "11710171", "1803401", "76521087", "129176", "33387167", "93691196", "18182101", "49301400", "49301416", "22297811", "21937310", "49301405", "22794", "92897619", "49301388", "49301421", "91219195", "49301371", "99049846", "27205068", "105963667", "95360484", "100643741", "9623767", "104475403", "92961563", "96657957");
+        int total = hotelIds.size();
         int start = 0;
         List<CompletableFuture<ExpediaPriceResult>> futures = Lists.newArrayListWithExpectedSize(PRICE_CHUNK_SIZE);
         int chunkSize = PRICE_CHUNK_SIZE;
         for (int i = 0; i < total; i += chunkSize) {
             int endIndex = Math.min(i + chunkSize, total);
-            for (ExpediaContentBasic expediaContentBasic : expediaContentBasics.subList(i, endIndex)) {
+            for (String hotelId : hotelIds.subList(i, endIndex)) {
                 futures.add(CompletableFuture.supplyAsync(() -> {
-                    String hotelId = expediaContentBasic.getHotelId();
+                    //String hotelId = expediaContentBasic.getHotelId();
                     ExpediaPriceResult result = new ExpediaPriceResult();
-                    result.setId(expediaContentBasic.getId());
+                    //result.setId(expediaContentBasic.getId());
                     result.setHotelId(hotelId);
                     String checkIn = "2024-09-22";
                     String checkOut = "2024-09-23";
@@ -1204,9 +1205,9 @@ public class ExpediaService {
                     ExpediaPriceResult result = future.get(3, TimeUnit.SECONDS);
                     hotelId = result.getHotelId();
                     ExpediaContentBasic update = new ExpediaContentBasic();
-                    update.setId(result.getId());
+                    update.setHotelId(hotelId);
                     update.setHasPrice(result.getHasPrice());
-                    expediaContentBasicDao.updatePrice(update);
+                    expediaContentBasicDao.updatePriceByHotelId(update);
                 } catch (TimeoutException e) {
                     log.info("酒店查价失败, 超时被跳过, 当前进度:{}/{}", start, total);
                     continue;
@@ -1508,7 +1509,7 @@ public class ExpediaService {
 
     public void pullProperty() {
         List<ExpediaCountry> expediaCountries = expediaCountryDao.selectAllCode();
-        List<String> skip = Lists.newArrayList("AF","AU","LR","LY","LT","LU","MO","MK","MG","MW","MY","MV","AT","ML","MT","GL","MP","MQ","AM","AS","MR","BT","BY","ER","GE","KG","LI","MD","MH","MN","NU","TJ","TM","UZ","SI","BA","MU","YT","MX","BV","IO","CX","CC","FK","TF","HM","FO","IM","KP","PN","PM","SM","SH","SJ","TK","VA","WF","PS","FM","AZ","MC","MS","MA","MZ","MM","NA","NR","NP","NL","GG","BS","KN","NC","PG","NZ","NI","NE","NG","NF","NO","OM","BH","PK","PW","PA","PY","PE","PH","PL","PT","PR","QA","BD","RE","RO","RU","RW","WS","ST","SA","SN","SC","BB","SL","SG","SK","SB","SO","ZA","ES","LK","LC","VC","BE","SD","SR","SZ","SE","CH","SY","TW","TZ","TH","TG","BZ","TO","TT","TN","TR","TC","TV","VI","UG","UA","AE","BJ","GB","UY","VU","VE","VN","YE","RS","CD","ZM","AL","BM","ZW");
+        List<String> skip = Lists.newArrayList("AF", "AU", "LR", "LY", "LT", "LU", "MO", "MK", "MG", "MW", "MY", "MV", "AT", "ML", "MT", "GL", "MP", "MQ", "AM", "AS", "MR", "BT", "BY", "ER", "GE", "KG", "LI", "MD", "MH", "MN", "NU", "TJ", "TM", "UZ", "SI", "BA", "MU", "YT", "MX", "BV", "IO", "CX", "CC", "FK", "TF", "HM", "FO", "IM", "KP", "PN", "PM", "SM", "SH", "SJ", "TK", "VA", "WF", "PS", "FM", "AZ", "MC", "MS", "MA", "MZ", "MM", "NA", "NR", "NP", "NL", "GG", "BS", "KN", "NC", "PG", "NZ", "NI", "NE", "NG", "NF", "NO", "OM", "BH", "PK", "PW", "PA", "PY", "PE", "PH", "PL", "PT", "PR", "QA", "BD", "RE", "RO", "RU", "RW", "WS", "ST", "SA", "SN", "SC", "BB", "SL", "SG", "SK", "SB", "SO", "ZA", "ES", "LK", "LC", "VC", "BE", "SD", "SR", "SZ", "SE", "CH", "SY", "TW", "TZ", "TH", "TG", "BZ", "TO", "TT", "TN", "TR", "TC", "TV", "VI", "UG", "UA", "AE", "BJ", "GB", "UY", "VU", "VE", "VN", "YE", "RS", "CD", "ZM", "AL", "BM", "ZW");
         boolean stop = false;
         for (ExpediaCountry expediaCountry : expediaCountries) {
             if (stop) break;
@@ -1589,7 +1590,7 @@ public class ExpediaService {
         Map<String, String> map = hotelIds.stream().collect(Collectors.toMap(e -> e, e -> e));
         List<MainHotelImport> imports1 = imports.stream().filter(e -> !map.containsKey(e.getPropertyId() + "")).toList();
         System.out.println(imports1.size());
-        log.info("{}, 找不到的hotelIds: {}",imports1.size(), imports1.stream().map(MainHotelImport::getPropertyId).collect(Collectors.toList()));
+        log.info("{}, 找不到的hotelIds: {}", imports1.size(), imports1.stream().map(MainHotelImport::getPropertyId).collect(Collectors.toList()));
 
     }
 
@@ -1606,7 +1607,224 @@ public class ExpediaService {
             }
             insertList.add(hotelId);
         }
-        log.info("{}, 找不到的hotelIds: {}",cantFoundList.size(), new ArrayList<>(cantFoundList));
-        log.info("{}, 需要插入的hotelIds: {}",insertList.size(), new ArrayList<>(insertList));
+        log.info("{}, 找不到的hotelIds: {}", cantFoundList.size(), new ArrayList<>(cantFoundList));
+        log.info("{}, 需要插入的hotelIds: {}", insertList.size(), new ArrayList<>(insertList));
+    }
+
+    public void addHotel() throws Exception {
+        List<String> list = Lists.newArrayList("18254528", "526195", "193334", "10106413", "76881646", "16054819", "6347171", "8098707", "996323", "2776931", "12031020", "95802215", "17254211", "87827003", "4658434", "2443993", "89848983", "70868099", "2878", "4698614", "19002255", "259", "899349", "11710171", "1803401", "76521087", "129176", "33387167", "93691196", "18182101", "49301400", "49301416", "22297811", "21937310", "49301405", "22794", "92897619", "49301388", "49301421", "91219195", "49301371", "99049846", "27205068", "105963667", "95360484", "100643741", "9623767", "104475403", "92961563", "96657957");
+        String language = "en-US";
+        List<ExpediaContentBasic> expediaContentBasicList = Lists.newArrayListWithCapacity(2 << 5);
+        Date now = new Date();
+        for (String hotelId : list) {
+            String body = httpUtils.pullContent(hotelId, language);
+            ExpediaContentBasic expediaContentBasic = parse(body, now, hotelId);
+            expediaContentBasicList.add(expediaContentBasic);
+        }
+        expediaContentBasicDao.saveBatch(expediaContentBasicList);
+    }
+
+    private ExpediaContentBasic parse(String line, Date now, String hotelId) throws Exception {
+        JSONObject jsonObject1 = JSON.parseObject(line);
+        JSONObject jsonObject = (JSONObject) jsonObject1.get(hotelId);
+        ExpediaContentBasic contentBasic = new ExpediaContentBasic();
+        contentBasic.setHotelId((String) jsonObject.get("property_id"));
+        contentBasic.setName((String) jsonObject.get("name"));
+        JSONObject address = (JSONObject) jsonObject.get("address");
+        if (address != null) {
+            String line1 = (String) address.get("line_1");
+            String line2 = (String) address.get("line_2");
+            contentBasic.setAddress(line1 + (StringUtils.hasLength(line2) ? line2 : ""));
+            contentBasic.setCountryCode((String) address.get("country_code"));
+            contentBasic.setStateProvinceCode((String) address.get("state_province_code"));
+            contentBasic.setStateProvinceName((String) address.get("state_province_name"));
+            contentBasic.setCity((String) address.get("city"));
+            contentBasic.setZipCode((String) address.get("postal_code"));
+        }
+
+        JSONObject ratings = (JSONObject) jsonObject.get("ratings");
+        if (ratings != null) {
+            JSONObject property = (JSONObject) ratings.get("property");
+            if (property != null) {
+                contentBasic.setStarRating(new BigDecimal((String) property.get("rating")));
+            }
+            JSONObject guest = (JSONObject) ratings.get("guest");
+            if (guest != null) {
+                contentBasic.setGuest(new BigDecimal((String) guest.get("overall")));
+            }
+        }
+
+        JSONObject location = (JSONObject) jsonObject.get("location");
+        if (location != null) {
+            Object object = location.get("coordinates");
+            if (StringUtils.hasLength(object.toString())) {
+                Coordinates coordinates1 = JSON.parseObject(object.toString(), Coordinates.class);
+                contentBasic.setLongitude(coordinates1.getLongitude());
+                contentBasic.setLatitude(coordinates1.getLatitude());
+            }
+        }
+
+        contentBasic.setTelephone((String) jsonObject.get("phone"));
+
+        JSONObject category = (JSONObject) jsonObject.get("category");
+        if (category != null) {
+            contentBasic.setCategoryId(Long.valueOf((String) category.get("id")));
+            contentBasic.setCategory((String) category.get("name"));
+        }
+        Integer rank = (Integer) jsonObject.get("rank");
+        contentBasic.setRank(Long.parseLong(String.valueOf(rank)));
+
+        JSONObject businessModel = (JSONObject) jsonObject.get("business_model");
+        if (businessModel != null) {
+            contentBasic.setExpediaCollect((Boolean) businessModel.get("expedia_collect"));
+            contentBasic.setPropertyCollect((Boolean) businessModel.get("property_collect"));
+        }
+
+        JSONObject statistics = (JSONObject) jsonObject.get("statistics");
+        if (statistics != null) {
+            StringBuilder ids = new StringBuilder();
+            StringBuilder values = new StringBuilder();
+            for (Map.Entry<String, Object> entry : statistics.entrySet()) {
+                ids.append(entry.getKey()).append(",");
+                values.append(((JSONObject) entry.getValue()).get("value")).append(",");
+            }
+            contentBasic.setStatisticsId(ids.substring(0, ids.length() - 1));
+            contentBasic.setStatisticsValues(values.substring(0, values.length() - 1));
+        }
+
+        JSONObject chain = (JSONObject) jsonObject.get("chain");
+        if (chain != null) {
+            contentBasic.setChainId((String) chain.get("id"));
+        }
+
+        JSONObject brand = (JSONObject) jsonObject.get("brand");
+        if (brand != null) {
+            contentBasic.setBrandId((String) brand.get("id"));
+        }
+        contentBasic.setSupplySource((String) jsonObject.get("supply_source"));
+
+        JSONObject dates = (JSONObject) jsonObject.get("dates");
+        if (dates != null) {
+            contentBasic.setAddedTime(transferDateTime((String) dates.get("added")));
+            contentBasic.setUpdatedTime(transferDateTime((String) dates.get("updated")));
+        }
+        contentBasic.setCreateTime(now);
+        return contentBasic;
+    }
+
+    public void compareHotel() {
+        List<String> hotelIds = expediaContentBasicDao.selectAllHotelIds();
+        Map<String, String> contentMap = hotelIds.stream().collect(Collectors.toMap(e -> e, e -> e));
+
+        List<String> propertyList = expediaPropertyBasicDao.selectAllHotelIds();
+        Map<String, String> propertyMap = propertyList.stream().collect(Collectors.toMap(e -> e, e -> e));
+
+        List<String> found1 = Lists.newArrayList();
+        for (String propertyId : propertyList) {
+            if (!contentMap.containsKey(propertyId)) {
+                found1.add(propertyId);
+            }
+        }
+
+        List<String> found2 = Lists.newArrayList();
+        for (String hotelId : hotelIds) {
+            if (!propertyMap.containsKey(hotelId)) {
+                found2.add(hotelId);
+            }
+        }
+        log.info("Content没有， Property有数量：{}, 具体：{}", found1.size(), new ArrayList<>(found1));
+        log.info("Property没有，Content有数量：{}, 具体：{}", found2.size(), new ArrayList<>(found2));
+    }
+
+    public void exportHotel() throws Exception {
+        String fileName = "C:\\wst_han\\打杂\\expedia\\mainHotel\\2024 YTD_Top Selling CL 0901 reduced.csv";
+        InputStream inputStream = new FileInputStream(fileName);
+        List<ExpediaMainHotelResult> imports = Lists.newArrayListWithCapacity(2 << 17);
+        EasyExcel.read(inputStream, ExpediaMainHotelResult.class, new PageReadListener<ExpediaMainHotelResult>(imports::addAll, 1000)).headRowNumber(1).sheet().doRead();
+
+        Set<String> notFoundSet = Sets.newHashSet("1135667", "8240", "4776374", "6164018", "19410007", "6815", "65266977", "42001469", "35155200", "22166150", "984887", "18354353", "2270671", "2806148", "973324", "102802105", "99222045", "86118312", "35813636", "92971845", "19429959", "22161302", "1826208", "29857237", "3968932", "1337897", "30490876", "39194629", "15676037", "48208166", "10982557", "7762407", "42267764", "1828475", "1039730", "1887719", "5316431", "10619", "59667356", "71657643", "12727505", "57417336", "103913498", "15369628", "16377866", "11609317", "99613855", "103797382", "6607252", "195", "4485419", "1784067", "12930", "151228", "15415167", "36305867", "4724225", "107841789", "18406720", "61418210", "73458817", "89465124", "528580", "71422368", "12611785", "100150272", "16138021", "99767698", "13064933", "39970792", "19312474", "28809409", "9438646", "4482139", "3853825", "104361357", "92613997", "38719388", "39151617", "100885865", "565288", "1058928", "21495841", "6816656", "82675287", "98473666", "33331173", "23401402", "59567213", "8157004", "5224587", "4125655", "11667650", "10582871", "39153676", "9106876", "36299109", "15566366", "36373261", "96490811", "86750807", "3905428", "6126979", "29846029", "73754105", "22954973", "36249728", "18588278", "95752289", "5770035", "87226090", "89358675", "102187360", "30333063", "89380929", "16716451", "104731286", "91286881", "96455727", "18034064", "24151571", "71667128", "42133115", "107602817", "1580314", "92010548", "29092961", "48446569", "96582987", "37039608", "3720752", "44563127", "104198492", "90675127", "20186531", "32773829", "105251791", "82697178", "71579123", "102425254", "93679500", "35853008", "32021282", "35216392", "89521187", "76226797", "100581985", "89295414", "93075809", "47069413", "26811561", "23206502", "93831843", "95525912", "92770578", "22681830", "107128426", "21809531", "37213220", "32460298", "101938735", "6471592", "101887165", "70845066", "34075295", "100604119", "82945495", "39516102", "96749523", "495", "34309516", "31152261", "25150650", "32614314", "48811209", "76239462", "98472660", "94930760", "90250216", "92471277", "25143165", "72398772", "104284511", "89025770", "101542139", "106220673", "31976354", "100392075", "5771806", "76852954", "107508058", "106426534", "30089736", "9798416", "100477082", "71970339", "91423741", "83216024", "76886469", "103431575", "105591375", "106874563", "91934083", "101306278", "102613985", "101166841", "46310764");
+        List<ExpediaContentBasic> matchList = expediaContentBasicDao.selectMatchList();
+        Map<String, ExpediaContentBasic> matchMap = matchList.stream().collect(Collectors.toMap(ExpediaContentBasic::getHotelId, Function.identity()));
+        List<ExpediaContentBasic> notMatchList = expediaContentBasicDao.selectNotMatchList();
+        Map<String, ExpediaContentBasic> notMatchMap = notMatchList.stream().collect(Collectors.toMap(ExpediaContentBasic::getHotelId, Function.identity()));
+
+        /*List<String> expediaHotelIds = notMatchList.stream().map(ExpediaContentBasic::getHotelId).toList();
+        List<ExpediaDaolvMatchLab> labs = expediaDaolvMatchLabDao.selectMatchDidaId(expediaHotelIds);
+        Map<String, Integer> mmmap = labs.stream().collect(Collectors.toMap(ExpediaDaolvMatchLab::getExpediaHotelId, ExpediaDaolvMatchLab::getDaolvHotelId));
+        List<Integer> integers = labs.stream().map(ExpediaDaolvMatchLab::getDaolvHotelId).distinct().toList();
+        List<JdJdbDaolv> jdJdbDaolvs = jdJdbDaolvDao.selectListByIdsV2(integers.subList(0, 5000));
+        jdJdbDaolvs.addAll(jdJdbDaolvDao.selectListByIdsV2(integers.subList(5000, 10000)));
+        jdJdbDaolvs.addAll(jdJdbDaolvDao.selectListByIdsV2(integers.subList(10000, 15000)));
+        jdJdbDaolvs.addAll(jdJdbDaolvDao.selectListByIdsV2(integers.subList(15000, integers.size())));
+        Map<Integer, JdJdbDaolv> didaMap = jdJdbDaolvs.stream().collect(Collectors.toMap(JdJdbDaolv::getId, Function.identity()));*/
+
+        System.out.println("start");
+        for (ExpediaMainHotelResult result : imports) {
+            String hotelId = result.getPropertyId();
+            if (notFoundSet.contains(hotelId)) {
+                result.setStatus("illegal hotel id");
+                continue;
+            }
+            if (matchMap.containsKey(hotelId)) {
+                result.setStatus("dida not sale");
+                ExpediaContentBasic expediaContentBasic = matchMap.get(hotelId);
+                result.setName(expediaContentBasic.getNameEn());
+                result.setAddress(expediaContentBasic.getAddressEn());
+                result.setCountryCode(expediaContentBasic.getCountryCode());
+                result.setCity(expediaContentBasic.getCity());
+                result.setState_province_code(expediaContentBasic.getStateProvinceCode());
+                result.setState_province_name(expediaContentBasic.getStateProvinceName());
+                result.setLatitude(expediaContentBasic.getLatitude());
+                result.setLongitude(expediaContentBasic.getLongitude());
+                continue;
+            }
+            if (notMatchMap.containsKey(hotelId)) {
+                result.setStatus("not match");
+                ExpediaContentBasic expediaContentBasic = notMatchMap.get(hotelId);
+                result.setName(expediaContentBasic.getNameEn());
+                result.setAddress(expediaContentBasic.getAddressEn());
+                result.setCountryCode(expediaContentBasic.getCountryCode());
+                result.setCity(expediaContentBasic.getCity());
+                result.setState_province_code(expediaContentBasic.getStateProvinceCode());
+                result.setState_province_name(expediaContentBasic.getStateProvinceName());
+                result.setLatitude(expediaContentBasic.getLatitude());
+                result.setLongitude(expediaContentBasic.getLongitude());
+                continue;
+                /*Integer didaId = mmmap.get(hotelId);
+                JdJdbDaolv jdJdbDaolv = didaMap.get(didaId);
+                result.setHotelName(jdJdbDaolv.getName());
+                result.setHotelAddress(jdJdbDaolv.getAddress());
+                result.setHotelCountryCode(jdJdbDaolv.getCountryCode());
+                result.setHotelCity(jdJdbDaolv.getCityName());
+                result.setHotelLatitude(jdJdbDaolv.getLatitude());
+                result.setHotelLongitude(jdJdbDaolv.getLongitude());*/
+            }
+            result.setStatus("sale");
+        }
+        String file = "C:\\wst_han\\打杂\\expedia\\mainHotel\\expedia_v1_sale.xlsx";
+        EasyExcel.write(file, ExpediaMainHotelResult.class).sheet("expedia-v1-sale-status").doWrite(imports);
+        System.out.println("finish");
+    }
+
+    public void exportHotel2() throws Exception {
+        String fileName = "C:\\wst_han\\打杂\\expedia\\mainHotel\\expedia_v1_sale.xlsx";
+        InputStream inputStream = new FileInputStream(fileName);
+        List<ExpediaMainHotelResult> imports = Lists.newArrayListWithCapacity(2 << 17);
+        EasyExcel.read(inputStream, ExpediaMainHotelResult.class, new PageReadListener<ExpediaMainHotelResult>(imports::addAll, 1000)).headRowNumber(1).sheet().doRead();
+        for (ExpediaMainHotelResult result : imports) {
+            String status = result.getStatus();
+            if ("dida not sale".equals(status)) {
+                JdJdbDaolv jdJdbDaolv = jdJdbDaolvDao.selectInfoByExpediaId(result.getPropertyId());
+                result.setHotelId(jdJdbDaolv.getId());
+                result.setHotelName(jdJdbDaolv.getName());
+                result.setHotelAddress(jdJdbDaolv.getAddress());
+                result.setHotelCountryCode(jdJdbDaolv.getCountryCode());
+                result.setHotelCity(jdJdbDaolv.getCityName());
+                result.setHotelLatitude(jdJdbDaolv.getLatitude());
+                result.setHotelLongitude(jdJdbDaolv.getLongitude());
+            }
+        }
+        String file = "C:\\wst_han\\打杂\\expedia\\mainHotel\\expedia_v1_sale2.xlsx";
+        EasyExcel.write(file, ExpediaMainHotelResult.class).sheet("expedia-v1-sale-status").doWrite(imports);
     }
 }

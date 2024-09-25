@@ -15,4 +15,6 @@ public interface ExpediaDaolvMatchLabDao {
     void saveBatch2(List<ExpediaDaolvMatchLab> insertList);
 
     List<ExpediaDaolvMatchLab> select16List();
+
+    List<ExpediaDaolvMatchLab> selectMatchDidaId(List<String> expediaHotelIds);
 }

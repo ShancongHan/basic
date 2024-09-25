@@ -17,4 +17,6 @@ public interface ExpediaPropertyBasicDao {
     List<ExpediaPropertyBasic> selectListByCountry(String countryCode);
 
     List<String> selectNeedUpdate();
+
+    List<String> selectAllHotelIds();
 }

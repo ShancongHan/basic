@@ -26,4 +26,8 @@ public interface JdJdbDaolvDao {
     JdJdbDaolv selectById(Integer daolvHotelId);
 
     Set<String> selectIds();
+
+    List<JdJdbDaolv> selectListByIdsV2(List<Integer> didaIds);
+
+    JdJdbDaolv selectInfoByExpediaId(String propertyId);
 }

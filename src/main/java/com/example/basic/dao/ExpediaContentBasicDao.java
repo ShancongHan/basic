@@ -28,4 +28,12 @@ public interface ExpediaContentBasicDao {
     void updateMatch(List<String> list);
 
     List<String> selectAllHotelIds();
+
+    void updateByHotelId(ExpediaContentBasic update);
+
+    void updatePriceByHotelId(ExpediaContentBasic update);
+
+    List<ExpediaContentBasic> selectMatchList();
+    List<ExpediaContentBasic> selectNotMatchList();
+
 }

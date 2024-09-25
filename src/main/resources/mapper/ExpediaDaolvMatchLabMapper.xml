@@ -38,4 +38,13 @@
         from expedia_daolv_match_lab
         where score = 16
     </select>
+
+    <select id="selectMatchDidaId" parameterType="java.lang.String" resultType="com.example.basic.entity.ExpediaDaolvMatchLab">
+        select expedia_hotel_Id, daolv_hotel_id
+        from expedia_daolv_match_lab
+        where expedia_hotel_Id IN
+        <foreach collection="expediaHotelIds" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
 </mapper>

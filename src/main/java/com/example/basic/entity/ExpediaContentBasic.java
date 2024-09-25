@@ -96,4 +96,5 @@ public class ExpediaContentBasic {
      * 第一版售卖-1
      */
     private Boolean v1Sale;
+    private Boolean match;
 }
