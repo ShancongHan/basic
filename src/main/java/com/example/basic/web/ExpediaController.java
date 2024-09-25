@@ -263,4 +263,52 @@ public class ExpediaController {
             System.out.println(Throwables.getStackTraceAsString(e));
         }
     }
+
+    /**
+     * 查询区域下酒店
+     */
+    @PostMapping(value = "pull-property")
+    public void pullProperty() {
+        try {
+            expediaService.pullProperty();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
+
+    /**
+     * 解析重要推荐酒店
+     */
+    @PostMapping(value = "analyze-property")
+    public void analyzeProperty() {
+        try {
+            expediaService.analyzeProperty();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
+
+    /**
+     * 更新已匹配16分酒店
+     */
+    @PostMapping(value = "match")
+    public void match() {
+        try {
+            expediaService.match();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
+
+    /**
+     * 新酒店id
+     */
+    @PostMapping(value = "new-hotel")
+    public void newHotel() {
+        try {
+            expediaService.newHotel();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
 }

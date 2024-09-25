@@ -78,4 +78,27 @@
         FROM `expedia_content_basic`
         WHERE `has_price` IS NULL
     </select>
+
+    <update id="updateMainPrice" parameterType="com.example.basic.domain.MainHotelImport">
+        UPDATE `expedia_content_basic`
+        SET `main_hotel` = 1
+        WHERE `hotel_id` IN
+        <foreach collection="list" open="(" separator="," close=")" item="item">
+            #{item.propertyId}
+        </foreach>
+    </update>
+
+    <update id="updateMatch" parameterType="java.lang.String">
+        UPDATE `expedia_content_basic`
+        SET `match` = 1
+        WHERE `hotel_id` IN
+        <foreach collection="list" open="(" separator="," close=")" item="hotelId">
+            #{hotelId}
+        </foreach>
+    </update>
+
+    <select id="selectAllHotelIds" resultType="java.lang.String">
+        SELECT `hotel_id`
+        FROM `expedia_content_basic`
+    </select>
 </mapper>

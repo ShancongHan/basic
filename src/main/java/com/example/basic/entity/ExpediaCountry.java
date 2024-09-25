@@ -3,6 +3,8 @@ package com.example.basic.entity;
 import com.alibaba.excel.annotation.ExcelProperty;
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * @author han
  * @date 2024/7/30
@@ -21,4 +23,6 @@ public class ExpediaCountry {
     private String nameEn;	// 国家英文名称
 
     private String code;
+
+    private List<String> propertyIds;
 }

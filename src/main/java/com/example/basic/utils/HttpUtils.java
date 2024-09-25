@@ -439,4 +439,28 @@ public class HttpUtils {
             return null;
         }
     }
+
+    public ExpediaResponse pullProperty(String sourceUrl, String countryCode) {
+        String url = StringUtils.isNotBlank(sourceUrl) ? sourceUrl : "https://test.ean.com/v3/regions?include=property_ids&language=en-US&country_code=" + countryCode;
+        Request request = new Request.Builder()
+                .url(url)
+                .header("Accept", "application/json")
+                .header("Authorization", createSign())
+                .build();
+        Call call = okHttpClient.newCall(request);
+        try {
+            Response response = call.execute();
+            String link = response.header(LINK_HEAD_KEY);
+            String nextPageUrl = StringUtils.isBlank(link) ? "" : link.substring(link.indexOf('<') + 1, link.indexOf('>'));
+            String total = response.header(PAGE_HEAD_KEY);
+            String load = response.header(LODA_HEAD_KEY);
+            String body = response.body().string();
+            //watch.stop();
+            ExpediaResponse real = ExpediaResponse.builder().build().setBody(body).setTotal(total == null ? 0 : Integer.parseInt(total)).setNextPageUrl(nextPageUrl).setLoad(load == null ? 0 : Integer.parseInt(load));
+            //log.info("http耗时:{}", watch.getTotalTimeSeconds());
+            return real;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

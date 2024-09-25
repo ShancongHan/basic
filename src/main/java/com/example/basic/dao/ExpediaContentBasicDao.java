@@ -1,5 +1,6 @@
 package com.example.basic.dao;
 
+import com.example.basic.domain.MainHotelImport;
 import com.example.basic.entity.ExpediaContentBasic;
 
 import java.util.List;
@@ -21,4 +22,10 @@ public interface ExpediaContentBasicDao {
     void updatePrice(ExpediaContentBasic update);
 
     void updateV1Sale(List<String> list);
+
+    void updateMainPrice(List<MainHotelImport> list);
+
+    void updateMatch(List<String> list);
+
+    List<String> selectAllHotelIds();
 }

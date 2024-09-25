@@ -26,4 +26,9 @@
         SET `code` = #{countryCode}
         WHERE `expedia_id` = #{expediaId}
     </update>
+
+    <select id="selectAllCode" resultType="com.example.basic.entity.ExpediaCountry">
+        SELECT code
+        FROM `expedia_country`
+    </select>
 </mapper>

@@ -19,4 +19,6 @@ public interface ExpediaCountryDao {
 
 
     void updateCountryCode(@Param(value = "expediaId") String expediaId, @Param(value = "countryCode") String countryCode);
+
+    List<ExpediaCountry> selectAllCode();
 }

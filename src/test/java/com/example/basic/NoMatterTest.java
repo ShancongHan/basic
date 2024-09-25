@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,15 @@ import java.util.List;
 public class NoMatterTest {
 
     public static void main(String[] args) throws Exception {
+        int i = 585;
+        int j = 93254;
+        double x = (float) i / (double) j * 100;
+        NumberFormat format = NumberFormat.getInstance();
+        String format1 = format.format(x);
+        System.out.println(x);
+        System.out.println(format1);
+
+        System.out.println(2<<6);
 
         List<String> compNos = Lists.newArrayList("1");
         addCompNos(compNos,"111");

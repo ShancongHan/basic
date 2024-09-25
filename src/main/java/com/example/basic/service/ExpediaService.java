@@ -1505,4 +1505,108 @@ public class ExpediaService {
 //            updateList.clear();
         }
     }
+
+    public void pullProperty() {
+        List<ExpediaCountry> expediaCountries = expediaCountryDao.selectAllCode();
+        List<String> skip = Lists.newArrayList("AF","AU","LR","LY","LT","LU","MO","MK","MG","MW","MY","MV","AT","ML","MT","GL","MP","MQ","AM","AS","MR","BT","BY","ER","GE","KG","LI","MD","MH","MN","NU","TJ","TM","UZ","SI","BA","MU","YT","MX","BV","IO","CX","CC","FK","TF","HM","FO","IM","KP","PN","PM","SM","SH","SJ","TK","VA","WF","PS","FM","AZ","MC","MS","MA","MZ","MM","NA","NR","NP","NL","GG","BS","KN","NC","PG","NZ","NI","NE","NG","NF","NO","OM","BH","PK","PW","PA","PY","PE","PH","PL","PT","PR","QA","BD","RE","RO","RU","RW","WS","ST","SA","SN","SC","BB","SL","SG","SK","SB","SO","ZA","ES","LK","LC","VC","BE","SD","SR","SZ","SE","CH","SY","TW","TZ","TH","TG","BZ","TO","TT","TN","TR","TC","TV","VI","UG","UA","AE","BJ","GB","UY","VU","VE","VN","YE","RS","CD","ZM","AL","BM","ZW");
+        boolean stop = false;
+        for (ExpediaCountry expediaCountry : expediaCountries) {
+            if (stop) break;
+            String countryCode = expediaCountry.getCode();
+            if (skip.contains(countryCode)) continue;
+            List<ExpediaRegionsProperty> expediaRegionsProperties = Lists.newArrayList();
+            int page = 0;
+            Integer load;
+            String nextPageUrl = countryCode.equals("US") ? "https://test.ean.com/v3/regions?token=Q11RF1Vda1JREAQQCQMFVgpRDVQCCFcKVFAPAQIMVh4DSRZaR1wXXgZUC1AZVgobC1BhVFcQUCACDEcHc1cGHAUCAgAGBwUAATgSBltBD0JKSGpWWwAAQQRABXQQClRtY0EEARJUd0VRWgcNQVxXEgRDACcUBQsVQQxDU0YSSjtQUkMWAgcWUXMeCgNaBkVSXgQEVAwVNGtHdglXVw0QR1gIB11RBFYGAVgB" : null;
+            do {
+                StopWatch watch = new StopWatch();
+                watch.start();
+                if ("".equals(nextPageUrl)) break;
+                ExpediaResponse response = httpUtils.pullProperty(nextPageUrl, countryCode);
+                watch.stop();
+                log.info("国家{}，获取第{}页内容, cost[s]: {},请求路径:{}", countryCode, page, watch.getTotalTimeSeconds(), nextPageUrl);
+                String body = response.getBody();
+                try {
+                    List<Region> regionList = JSON.parseArray(body, Region.class);
+                    if (CollectionUtils.isNotEmpty(regionList)) {
+                        for (Region region : regionList) {
+                            List<String> propertyIds = region.getProperty_ids();
+                            if (CollectionUtils.isNotEmpty(propertyIds)) {
+                                for (String propertyId : propertyIds) {
+                                    ExpediaRegionsProperty expediaRegionsProperty = new ExpediaRegionsProperty();
+                                    expediaRegionsProperty.setRegionId(region.getId());
+                                    expediaRegionsProperty.setPropertyId(propertyId);
+                                    expediaRegionsProperties.add(expediaRegionsProperty);
+                                }
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+                    log.info("转换异常{}", Throwables.getStackTraceAsString(e));
+                    log.info("当前地址{}", nextPageUrl);
+                    stop = true;
+                    break;
+                }
+                load = response.getLoad();
+                nextPageUrl = response.getNextPageUrl();
+                if (CollectionUtils.isNotEmpty(expediaRegionsProperties)) {
+                    expediaRegionsPropertyDao.saveBatch(expediaRegionsProperties);
+                    expediaRegionsProperties.clear();
+                }
+                page++;
+            } while (load > 0);
+            log.info("国家{} finish ", countryCode);
+        }
+    }
+
+    public void analyzeProperty() throws Exception {
+        String fileName = "C:\\wst_han\\打杂\\expedia\\mainHotel\\2024 YTD_Top Selling CL 0901 reduced.csv";
+        InputStream inputStream = new FileInputStream(fileName);
+        List<MainHotelImport> imports = Lists.newArrayListWithCapacity(2 << 17);
+        EasyExcel.read(inputStream, MainHotelImport.class, new PageReadListener<MainHotelImport>(imports::addAll, 1000)).headRowNumber(1).sheet().doRead();
+
+        int start = 0;
+        for (int j = 0; j < imports.size(); j++) {
+            if (j != 0 && j % 1000 == 0) {
+                List<MainHotelImport> list = imports.subList(start, j);
+                expediaContentBasicDao.updateMainPrice(list);
+                start = j;
+            }
+        }
+        List<MainHotelImport> list = imports.subList(start, imports.size());
+        if (CollectionUtils.isNotEmpty(list)) {
+            expediaContentBasicDao.updateMainPrice(list);
+        }
+    }
+
+    public void match() throws Exception {
+        String fileName = "C:\\wst_han\\打杂\\expedia\\mainHotel\\2024 YTD_Top Selling CL 0901 reduced.csv";
+        InputStream inputStream = new FileInputStream(fileName);
+        List<MainHotelImport> imports = Lists.newArrayListWithCapacity(2 << 17);
+        EasyExcel.read(inputStream, MainHotelImport.class, new PageReadListener<MainHotelImport>(imports::addAll, 1000)).headRowNumber(1).sheet().doRead();
+
+        List<String> hotelIds = expediaContentBasicDao.selectAllHotelIds();
+        Map<String, String> map = hotelIds.stream().collect(Collectors.toMap(e -> e, e -> e));
+        List<MainHotelImport> imports1 = imports.stream().filter(e -> !map.containsKey(e.getPropertyId() + "")).toList();
+        System.out.println(imports1.size());
+        log.info("{}, 找不到的hotelIds: {}",imports1.size(), imports1.stream().map(MainHotelImport::getPropertyId).collect(Collectors.toList()));
+
+    }
+
+    public void newHotel() {
+        List<String> newList = Lists.newArrayList("1135667", "8240", "18254528", "4776374", "526195", "6164018", "193334", "10106413", "19410007", "6815", "65266977", "42001469", "35155200", "76881646", "16054819", "22166150", "984887", "6347171", "18354353", "2270671", "2806148", "973324", "102802105", "99222045", "86118312", "35813636", "92971845", "19429959", "8098707", "996323", "22161302", "1826208", "2776931", "29857237", "3968932", "1337897", "30490876", "12031020", "39194629", "95802215", "15676037", "48208166", "17254211", "10982557", "7762407", "87827003", "42267764", "1828475", "1039730", "4658434", "2443993", "1887719", "5316431", "10619", "59667356", "71657643", "12727505", "89848983", "70868099", "57417336", "103913498", "15369628", "2878", "16377866", "11609317", "99613855", "103797382", "6607252", "195", "4485419", "1784067", "12930", "151228", "15415167", "36305867", "4724225", "4698614", "107841789", "19002255", "18406720", "61418210", "73458817", "259", "89465124", "899349", "528580", "11710171", "71422368", "12611785", "100150272", "16138021", "99767698", "13064933", "39970792", "1803401", "76521087", "19312474", "28809409", "9438646", "129176", "4482139", "3853825", "33387167", "104361357", "92613997", "38719388", "39151617", "100885865", "565288", "1058928", "21495841", "6816656", "93691196", "82675287", "98473666", "33331173", "18182101", "49301400", "23401402", "59567213", "8157004", "5224587", "4125655", "11667650", "49301416", "10582871", "39153676", "9106876", "22297811", "36299109", "15566366", "36373261", "96490811", "86750807", "3905428", "21937310", "6126979", "49301405", "29846029", "73754105", "22794", "22954973", "36249728", "18588278", "92897619", "95752289", "49301388", "5770035", "87226090", "89358675", "102187360", "30333063", "89380929", "16716451", "104731286", "91286881", "49301421", "96455727", "91219195", "18034064", "24151571", "71667128", "42133115", "49301371", "107602817", "1580314", "92010548", "29092961", "48446569", "96582987", "37039608", "3720752", "44563127", "99049846", "27205068", "104198492", "105963667", "90675127", "95360484", "20186531", "32773829", "105251791", "82697178", "71579123", "102425254", "93679500", "35853008", "32021282", "35216392", "89521187", "76226797", "100581985", "100643741", "89295414", "93075809", "47069413", "26811561", "23206502", "93831843", "9623767", "95525912", "92770578", "22681830", "107128426", "21809531", "37213220", "32460298", "101938735", "6471592", "101887165", "70845066", "104475403", "34075295", "100604119", "82945495", "39516102", "96749523", "495", "34309516", "31152261", "92961563", "25150650", "32614314", "48811209", "76239462", "98472660", "94930760", "90250216", "92471277", "25143165", "72398772", "104284511", "89025770", "101542139", "106220673", "96657957", "31976354", "100392075", "5771806", "76852954", "107508058", "106426534", "30089736", "9798416", "100477082", "71970339", "91423741", "83216024", "76886469", "103431575", "105591375", "106874563", "91934083", "101306278", "102613985", "101166841", "46310764");
+        String language = "en-US";
+        List<String> cantFoundList = Lists.newArrayListWithCapacity(newList.size());
+        List<String> insertList = Lists.newArrayListWithCapacity(newList.size());
+        for (String hotelId : newList) {
+            String body = httpUtils.pullContent(hotelId, language);
+            if (body == null || "{}".equals(body)) {
+                cantFoundList.add(hotelId);
+                continue;
+            }
+            insertList.add(hotelId);
+        }
+        log.info("{}, 找不到的hotelIds: {}",cantFoundList.size(), new ArrayList<>(cantFoundList));
+        log.info("{}, 需要插入的hotelIds: {}",insertList.size(), new ArrayList<>(insertList));
+    }
 }
