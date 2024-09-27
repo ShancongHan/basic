@@ -35,4 +35,16 @@
         </set>
         WHERE `id` = #{id}
     </update>
+
+    <select id="selectAllAncestors" resultType="com.example.basic.entity.ExpediaRegions">
+        select `id`, `ancestors`
+        from expedia_regions
+        where continent is NULL
+    </select>
+
+    <update id="updateContinent">
+        UPDATE `expedia_regions`
+        SET `continent` = #{continentId}
+        WHERE `id` = #{id}
+    </update>
 </mapper>

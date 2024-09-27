@@ -359,4 +359,28 @@ public class ExpediaController {
             System.out.println(Throwables.getStackTraceAsString(e));
         }
     }
+
+    /**
+     * 完善区域数据
+     */
+    @PostMapping(value = "complete-region")
+    public void completeRegion() {
+        try {
+            expediaService.completeRegion();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
+
+    /**
+     * 上线expedia酒店
+     */
+    @PostMapping(value = "push-hotel")
+    public void pushHotel() {
+        try {
+            expediaService.pushHotel();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
 }

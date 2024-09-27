@@ -1827,4 +1827,20 @@ public class ExpediaService {
         String file = "C:\\wst_han\\打杂\\expedia\\mainHotel\\expedia_v1_sale2.xlsx";
         EasyExcel.write(file, ExpediaMainHotelResult.class).sheet("expedia-v1-sale-status").doWrite(imports);
     }
+
+    public void completeRegion() {
+        List<ExpediaRegions> expediaRegions = expediaRegionsDao.selectAllAncestors();
+        for (ExpediaRegions expediaRegion : expediaRegions) {
+            String ancestors = expediaRegion.getAncestors();
+            List<Ancestors> ancestorsList = JSON.parseArray(ancestors, Ancestors.class);
+            if (CollectionUtils.isEmpty(ancestorsList)) continue;
+            List<Ancestors> continents = ancestorsList.stream().filter(e -> "continent".equals(e.getType())).toList();
+            if (CollectionUtils.isNotEmpty(continents) && continents.size() == 1)
+                expediaRegionsDao.updateContinent(expediaRegion.getId(), continents.get(0).getId());
+        }
+    }
+
+    public void pushHotel() {
+        List<ExpediaContentBasic> expediaContentBasics = expediaContentBasicDao.selectSalingList();
+    }
 }

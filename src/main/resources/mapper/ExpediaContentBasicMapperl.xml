@@ -150,4 +150,11 @@
         from expedia_content_basic
         where main_hotel = 1 and `match` = 0
     </select>
+
+    <select id="selectSalingList" resultType="java.lang.String">
+        select hotel_id
+        from expedia_content_basic
+        where saling = 1
+    </select>
+
 </mapper>

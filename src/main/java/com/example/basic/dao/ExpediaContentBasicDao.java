@@ -36,4 +36,5 @@ public interface ExpediaContentBasicDao {
     List<ExpediaContentBasic> selectMatchList();
     List<ExpediaContentBasic> selectNotMatchList();
 
+    List<ExpediaContentBasic> selectSalingList();
 }
