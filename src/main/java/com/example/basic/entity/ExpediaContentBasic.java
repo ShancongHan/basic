@@ -16,6 +16,8 @@ public class ExpediaContentBasic {
 
     private String hotelId;	// 酒店id
 
+    private String didaHotelId;	// dida酒店id
+
     private String name;	// 名称
 
     private String nameEn;	// 英文名称

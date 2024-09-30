@@ -31,4 +31,6 @@ public interface ZhJdJdbGjMappingDao {
     List<Long> selectDaolvIds();
 
     List<Long> selectWebbedsIds();
+
+    List<ZhJdJdbGjMapping> selectDidaList();
 }

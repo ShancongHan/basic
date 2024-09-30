@@ -37,4 +37,6 @@ public interface ExpediaContentBasicDao {
     List<ExpediaContentBasic> selectNotMatchList();
 
     List<ExpediaContentBasic> selectSalingList();
+
+    void updateDiDaHotelId(ExpediaContentBasic expediaContentBasic);
 }

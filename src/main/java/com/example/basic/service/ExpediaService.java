@@ -1842,5 +1842,31 @@ public class ExpediaService {
 
     public void pushHotel() {
         List<ExpediaContentBasic> expediaContentBasics = expediaContentBasicDao.selectSalingList();
+        List<ZhJdJdbGjMapping> mappingList = zhJdJdbGjMappingDao.selectDidaList();
+        Map<String, Long> didaIdLocalIdMap = mappingList.stream().collect(Collectors.toMap(ZhJdJdbGjMapping::getPlatId, ZhJdJdbGjMapping::getLocalId));
+        List<ZhJdJdbGjMapping> insertBatch = Lists.newArrayListWithCapacity(expediaContentBasics.size());
+        for (ExpediaContentBasic expediaContentBasic : expediaContentBasics) {
+            String hotelId = expediaContentBasic.getHotelId();
+            String didaHotelId = expediaContentBasic.getDidaHotelId();
+            Long localId = didaIdLocalIdMap.get(didaHotelId);
+            ZhJdJdbGjMapping zhJdJdbGjMapping = new ZhJdJdbGjMapping();
+            zhJdJdbGjMapping.setLocalId(localId);
+            zhJdJdbGjMapping.setPlatId(hotelId);
+            zhJdJdbGjMapping.setPlat(2000073);
+            insertBatch.add(zhJdJdbGjMapping);
+        }
+
+        int start = 0;
+        for (int j = 0; j < insertBatch.size(); j++) {
+            if (j != 0 && j % 1000 == 0) {
+                List<ZhJdJdbGjMapping> list = insertBatch.subList(start, j);
+                zhJdJdbGjMappingDao.insertBatch(list);
+                start = j;
+            }
+        }
+        List<ZhJdJdbGjMapping> list = insertBatch.subList(start, insertBatch.size());
+        if (CollectionUtils.isNotEmpty(list)) {
+            zhJdJdbGjMappingDao.insertBatch(list);
+        }
     }
 }

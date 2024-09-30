@@ -151,10 +151,15 @@
         where main_hotel = 1 and `match` = 0
     </select>
 
-    <select id="selectSalingList" resultType="java.lang.String">
-        select hotel_id
-        from expedia_content_basic
-        where saling = 1
+    <select id="selectSalingList" resultType="com.example.basic.entity.ExpediaContentBasic">
+        select `id`, `hotel_id`, `dida_hotel_Id`
+        from `expedia_content_basic`
+        where `saling` = 1
     </select>
 
+    <update id="updateDiDaHotelId" parameterType="com.example.basic.entity.ExpediaContentBasic">
+        UPDATE `expedia_content_basic`
+        SET `dida_hotel_id` = #{didaHotelId}
+        WHERE `id` = #{id}
+    </update>
 </mapper>
