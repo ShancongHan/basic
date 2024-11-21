@@ -174,4 +174,16 @@ public class MeiTuanController {
             System.out.println(Throwables.getStackTraceAsString(e));
         }
     }
+
+    /**
+     * 导出集团酒店信息
+     */
+    @PostMapping(value = "export")
+    public void export() {
+        try {
+            meiTuanService.export();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
 }

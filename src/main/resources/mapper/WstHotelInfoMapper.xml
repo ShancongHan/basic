@@ -52,4 +52,10 @@
         FROM `wst_hotel_info`
         WHERE `area_code` = #{code}
     </select>
+
+    <select id="selectGroupList" resultType="com.example.basic.entity.WstHotelInfo">
+        select mt_id, name, city_name
+        from wst_hotel_info
+        where group_code IN (197,194,200,41,196)
+    </select>
 </mapper>

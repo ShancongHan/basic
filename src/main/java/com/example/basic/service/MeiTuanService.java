@@ -5,6 +5,7 @@ import com.alibaba.excel.read.listener.PageReadListener;
 import com.alibaba.fastjson2.JSON;
 import com.example.basic.dao.*;
 import com.example.basic.domain.*;
+import com.example.basic.domain.meituan.ExportList;
 import com.example.basic.entity.*;
 import com.example.basic.helper.GnMappingScoreHelper;
 import com.github.pagehelper.Page;
@@ -999,5 +1000,17 @@ public class MeiTuanService {
                 info.getLatitude(), info.getLongitude());
         lab.setDiffMeter(BigDecimal.valueOf(meter));
         return lab;
+    }
+
+    public void export() {
+        String fileName = "C:\\wst_han\\打杂\\酒店统筹\\国内匹配酒店\\美团关系输出.xlsx";
+        List<WstHotelInfo> infos = wstHotelInfoDao.selectGroupList();
+        List<ExportList> exports = Lists.newArrayListWithCapacity(infos.size());
+        for (WstHotelInfo info : infos) {
+            ExportList export = new ExportList();
+            BeanUtils.copyProperties(info, export);
+            exports.add(export);
+        }
+        EasyExcel.write(fileName, ExportList.class).sheet("待匹配列表").doWrite(exports);
     }
 }
