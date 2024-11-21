@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic.dao.HuazhuInfoDao">
+
+    <select id="selectAll" resultType="com.example.basic.entity.HuazhuInfo">
+        SELECT hotel_id, hotel_name, hotel_telephone, province_name, longitude as latitude, latitude as longitude, hotel_address
+        FROM `huazhu_info`
+    </select>
+</mapper>

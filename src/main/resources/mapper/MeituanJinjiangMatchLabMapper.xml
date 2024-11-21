@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic.dao.MeituanJinjiangMatchLabDao">
+
+    <insert id="saveBatch" parameterType="com.example.basic.entity.MeituanJinjiangMatchLab">
+        insert into meituan_jinjiang_match_lab (mt_id, mt_name, jinjiang_id, jinjiang_name, mt_latitude, mt_longitude,
+        jinjiang_latitude, jinjiang_longitude, mt_address, jinjiang_address, mt_tel,
+        jinjiang_tel, diff_meter, diff_level, score, multi_match)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.mtId},#{item.mtName},#{item.jinjiangId},#{item.jinjiangName},#{item.mtLatitude},#{item.mtLongitude}
+            ,#{item.jinjiangLatitude},#{item.jinjiangLongitude},#{item.mtAddress},#{item.jinjiangAddress},#{item.mtTel},
+            #{item.jinjiangTel},#{item.diffMeter},#{item.diffLevel},#{item.score},#{item.multiMatch})
+        </foreach>
+    </insert>
+
+    <select id="selectMap" resultType="com.example.basic.entity.MeituanJinjiangMatchLab">
+        SELECT mt_id, jinjiang_id
+        FROM `meituan_jinjiang_match_lab`
+    </select>
+
+</mapper>

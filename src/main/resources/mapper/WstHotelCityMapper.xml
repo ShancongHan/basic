@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic.dao.WstHotelCityDao">
+
+    <insert id="saveBatch" parameterType="com.example.basic.entity.WstHotelCity">
+        insert into wst_hotel_city (code, name, parent, type)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.code},#{item.name},#{item.parent},#{item.type})
+        </foreach>
+    </insert>
+
+    <select id="selectProvinceList" resultType="com.example.basic.entity.WstHotelCity">
+        SELECT *
+        FROM `wst_hotel_city`
+    </select>
+
+    <select id="selectCityList" resultType="com.example.basic.entity.WstHotelCity">
+        SELECT *
+        FROM `wst_hotel_city`
+        WHERE type = 2
+    </select>
+
+    <select id="selectAreaList" resultType="com.example.basic.entity.WstHotelCity">
+        SELECT *
+        FROM `wst_hotel_city`
+        WHERE type = 3
+    </select>
+</mapper>

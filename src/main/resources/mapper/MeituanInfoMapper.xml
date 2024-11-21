@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic.dao.MeituanInfoDao">
+
+    <select id="selectDongchengList" resultType="com.example.basic.entity.MeituanInfo">
+        SELECT id, name, address, lat_baidu, lon_baidu, phone, province_name
+        FROM meituan_info
+        WHERE group_code = '200'
+    </select>
+
+    <select id="selectHuazhuList" resultType="com.example.basic.entity.MeituanInfo">
+        SELECT id, name, address, lat_gaode, lon_gaode, phone, province_name
+        FROM meituan_info
+        WHERE group_code = '194'
+    </select>
+
+    <select id="selectJinjiangList" resultType="com.example.basic.entity.MeituanInfo">
+        SELECT id, name, address, lat_baidu, lon_baidu, phone, province_name, city_name
+        FROM meituan_info
+        WHERE group_code = '197'
+    </select>
+
+    <select id="selectDongchengExport" resultType="com.example.basic.entity.MeituanInfo">
+        SELECT id, name, city_name
+        FROM meituan_info
+        WHERE group_code = '200'
+    </select>
+
+    <select id="selectHsjlList" resultType="com.example.basic.entity.MeituanInfo">
+        SELECT id, name, address, lat_baidu, lon_baidu, phone, province_name, city_name
+        FROM meituan_info
+        WHERE group_code IN ('41','196')
+    </select>
+
+    <select id="selectPageList"  resultType="com.example.basic.entity.MeituanInfo">
+        SELECT *
+        FROM meituan_info
+    </select>
+</mapper>

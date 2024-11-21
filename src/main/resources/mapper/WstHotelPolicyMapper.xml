@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic.dao.WstHotelPolicyDao">
+
+    <insert id="saveBatch" parameterType="java.util.List">
+        insert into wst_hotel_policy (hotel_id, checkin_start, checkin_end, checkout_start, checkout_end, checkout_hours,
+                                      guest_policy, break_policy, pet_policy, parking_policies, charge_point_policies,
+                                      child_policy, create_name, create_date)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.hotelId},#{item.checkinStart},#{item.checkinEnd},#{item.checkoutStart},#{item.checkoutEnd},#{item.checkoutHours}
+            ,#{item.guestPolicy},#{item.breakPolicy},#{item.petPolicy},#{item.parkingPolicies},#{item.chargePointPolicies}
+            ,#{item.childPolicy},#{item.createName},#{item.createDate})
+        </foreach>
+    </insert>
+</mapper>

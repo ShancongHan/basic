@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic.dao.MeituanHsjlMatchLabDao">
+    <insert id="saveBatch" parameterType="com.example.basic.entity.MeituanHsjlMatchLab">
+        insert into meituan_hsjl_match_lab (mt_id, mt_name, hsjl_id, hsjl_name, mt_latitude, mt_longitude, hsjl_latitude,
+        hsjl_longitude, mt_address, hsjl_address, mt_tel, hsjl_tel, diff_meter, diff_level,
+        score, multi_match)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.mtId},#{item.mtName},#{item.hsjlId},#{item.hsjlName},#{item.mtLatitude},#{item.mtLongitude}
+            ,#{item.hsjlLatitude},#{item.hsjlLongitude},#{item.mtAddress},#{item.hsjlAddress},#{item.mtTel},
+            #{item.hsjlTel},#{item.diffMeter},#{item.diffLevel},#{item.score},#{item.multiMatch})
+        </foreach>
+    </insert>
+
+    <select id="selectMap" resultType="com.example.basic.entity.MeituanHsjlMatchLab">
+        SELECT mt_id, hsjl_id
+        FROM `meituan_hsjl_match_lab`
+    </select>
+</mapper>

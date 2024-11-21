@@ -4,10 +4,15 @@ import com.alibaba.excel.util.DateUtils;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import com.example.basic.helper.MappingScoreHelper;
+import com.example.basic.utils.IOUtils;
 import com.google.common.collect.Lists;
+import com.google.common.io.CharStreams;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.text.similarity.JaroWinklerDistance;
 import org.springframework.util.StringUtils;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -15,7 +20,9 @@ import java.nio.charset.StandardCharsets;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author han
@@ -25,7 +32,7 @@ public class NoMatterTest {
 
     public static void main(String[] args) throws Exception {
 
-        test();
+        test5();
         /*int i = 585;
         int j = 93254;
         double x = (float) i / (double) j * 100;
@@ -73,6 +80,36 @@ public class NoMatterTest {
                 ,"4.765295","01, Rue Frantz Fanon Bordj Bou Arreridj Algérie","00213-770521828"
                 ,"Bodrum Park Resort",new BigDecimal("36.982981")
                 ,new BigDecimal("7.561266"),"塞赖迪Yalıciftlik Mevkii 48410 Bodrum Turkey, 阿尔及利亚","0");*/
+    }
+
+    private static void test5() {
+        String str1 = "汉庭优佳（上海金运路地铁站店）";
+        String str2 = "汉庭优佳上海七莘路地铁站酒店";
+        JaroWinklerDistance jaroWinklerDistance = new JaroWinklerDistance();
+        Double apply = jaroWinklerDistance.apply(str1, str2);
+        System.out.println(apply);
+    }
+
+    private static void test4() throws Exception {
+        String path = "C:\\wst_han\\打杂\\酒店统筹\\支付方式.json";
+        String s = IOUtils.inputStreamToString(new FileInputStream(path));
+        List<Pay> pay = JSON.parseArray(s, Pay.class);
+        List<Pay> collect = pay.stream().sorted(Comparator.comparing(Pay::getCode)).collect(Collectors.toList());
+        for (Pay pay1 : collect) {
+            System.out.println(pay1.getCode()+","+pay1.getName());
+        }
+    }
+
+    private static void test3() {
+        List<String> test = Lists.newArrayList("1","2","3","4");
+        test.remove(0);
+        test.add("1");
+        System.out.println(test);
+    }
+
+    private static void test2() {
+        String x = "限时退订:2024-10-10 18:00:00前免费退订";
+        System.out.println(x.substring(x.indexOf(":") + 1, 24));
     }
 
     private static void test() {

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic.dao.WstHotelInfoDao">
+
+    <insert id="saveBatch" parameterType="com.example.basic.entity.WstHotelInfo">
+        insert into wst_hotel_info (`name`, name_en, phone, address, address_en, country_code, country_name,
+        province_code, province_name, city_code, city_name, area_code, area_name,
+        business_districts_code, business_districts_name, gaode_longitude, gaode_latitude,
+        baidu_longitude, baidu_latitude, google_longitude, google_latitude, open_date,
+        decoration_date, open_hours, score, star_code, star_name, brand_code, brand_name,
+        group_code, group_name, themes, types, payment_method, tags, description, bookable, mt_id,
+        hsjl_id, qiantao_id, elong_id, dida_id, huazhu_id, jinjiang_id, dongcheng_id, status,
+        create_name)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.name},#{item.nameEn},#{item.phone},#{item.address},#{item.addressEn},#{item.countryCode},#{item.countryName}
+            ,#{item.provinceCode},#{item.provinceName},#{item.cityCode},#{item.cityName},#{item.areaCode},#{item.areaName}
+            ,#{item.businessDistrictsCode},#{item.businessDistrictsName},#{item.gaodeLongitude},#{item.gaodeLatitude},
+            #{item.baiduLongitude},#{item.baiduLatitude},#{item.googleLongitude},#{item.googleLatitude},#{item.openDate}
+            ,#{item.decorationDate},#{item.openHours},#{item.score},#{item.starCode},#{item.starName},#{item.brandCode},#{item.brandName},
+            #{item.groupCode},#{item.groupName},#{item.themes},#{item.types},#{item.paymentMethod}
+            ,#{item.tags},#{item.description},#{item.bookable},#{item.mtId},#{item.hsjlId},#{item.qiantaoId},#{item.elongId},
+            #{item.didaId},#{item.huazhuId}
+            ,#{item.jinjiangId},#{item.dongchengId},#{item.status},#{item.createName})
+        </foreach>
+    </insert>
+
+    <select id="selectProvince" resultType="com.example.basic.entity.WstHotelInfo">
+        SELECT distinct province_code, province_name
+        FROM `wst_hotel_info`
+    </select>
+
+    <select id="selectAllIdMatch" resultType="com.example.basic.entity.WstHotelInfo">
+        SELECT hotel_id, mt_id
+        FROM `wst_hotel_info`
+    </select>
+
+    <select id="selectCityByProvince" parameterType="java.lang.Integer" resultType="com.example.basic.entity.WstHotelInfo">
+        SELECT distinct city_code, city_name
+        FROM `wst_hotel_info`
+        WHERE `province_code` = #{code}
+    </select>
+
+    <select id="selectAreaByCity"  parameterType="java.lang.Integer" resultType="com.example.basic.entity.WstHotelInfo">
+        SELECT distinct area_code, area_name
+        FROM `wst_hotel_info`
+        WHERE `city_code` = #{code}
+    </select>
+
+    <select id="selectBusinessAreaByArea"  parameterType="java.lang.Integer" resultType="com.example.basic.entity.WstHotelInfo">
+        SELECT distinct business_districts_code, business_districts_name
+        FROM `wst_hotel_info`
+        WHERE `area_code` = #{code}
+    </select>
+</mapper>

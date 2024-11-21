@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic.dao.MeituanDongchengMatchLabDao">
+
+    <insert id="saveBatch" parameterType="com.example.basic.entity.MeituanDongchengMatchLab">
+        insert into meituan_dongcheng_match_lab (mt_id, mt_name, dongcheng_id, dongcheng_name, mt_latitude, mt_longitude,
+                                                 dongcheng_latitude, dongcheng_longitude, mt_address, dongcheng_address, mt_tel,
+                                                 dongcheng_tel, diff_meter, diff_level, name_match, address_match, tel_match,
+                                                 score, multi_match)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.mtId},#{item.mtName},#{item.dongchengId},#{item.dongchengName},#{item.mtLatitude},#{item.mtLongitude}
+            ,#{item.dongchengLatitude},#{item.dongchengLongitude},#{item.mtAddress},#{item.dongchengAddress},#{item.mtTel},
+            #{item.dongchengTel},#{item.diffMeter},#{item.diffLevel},#{item.nameMatch},#{item.addressMatch},#{item.telMatch}
+            ,#{item.score},#{item.multiMatch})
+        </foreach>
+    </insert>
+
+    <select id="selectExport" resultType="com.example.basic.entity.MeituanDongchengMatchLab">
+        SELECT id, mt_id, mt_name, dongcheng_name, mt_address, dongcheng_address, diff_meter, mt_tel, dongcheng_tel, score, multi_match, dongcheng_id
+        FROM `meituan_dongcheng_match_lab`
+    </select>
+
+    <select id="selectNotMatchId" resultType="java.lang.String">
+        SELECT mt_id
+        FROM `meituan_dongcheng_match_lab`
+        WHERE match IS NULL
+    </select>
+
+    <select id="selectMap" resultType="com.example.basic.entity.MeituanDongchengMatchLab">
+        SELECT mt_id, dongcheng_id
+        FROM `meituan_dongcheng_match_lab`
+    </select>
+</mapper>

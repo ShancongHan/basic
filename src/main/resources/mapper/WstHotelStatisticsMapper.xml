@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic.dao.WstHotelStatisticsDao">
+
+    <insert id="saveBatch" parameterType="com.example.basic.entity.WstHotelStatistics">
+        insert into wst_hotel_statistics (hotel_id, `type`, `value`, create_name, create_date)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.hotelId},#{item.type},#{item.value},#{item.createName},#{item.createDate})
+        </foreach>
+    </insert>
+</mapper>

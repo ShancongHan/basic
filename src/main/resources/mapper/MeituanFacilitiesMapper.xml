@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic.dao.MeituanFacilitiesDao">
+    
+    <select id="selectIdMap" resultType="com.example.basic.entity.MeituanFacilities">
+        SELECT mt_id, facility_id,facility_name
+        FROM `meituan_facilities`
+        WHERE `mt_id` IN
+        <foreach collection="mtIds" item="mtId" open="(" separator="," close=")">
+            #{mtId}
+        </foreach>
+    </select>
+
+    <select id="selectAll" resultType="com.example.basic.entity.MeituanFacilities">
+        SELECT *
+        FROM `meituan_facilities`
+    </select>
+
+    <select id="selectLiatByIds" parameterType="java.util.Set" resultType="com.example.basic.entity.MeituanFacilities">
+        SELECT *
+        FROM `meituan_facilities`
+        WHERE mt_id IN
+        <foreach collection="mtIds" item="mtId" open="(" separator="," close=")">
+            #{mtId}
+        </foreach>
+    </select>
+</mapper>
