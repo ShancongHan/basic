@@ -25,6 +25,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author han
@@ -460,6 +461,22 @@ public class HttpUtils {
             //log.info("http耗时:{}", watch.getTotalTimeSeconds());
             return real;
         } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public String queryEs(String url, Map<String, String> map, String jsonBody) throws Exception {
+        RequestBody body = RequestBody.create(jsonBody, MediaType.parse("application/json"));
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .header("Content-Type", "application/json")
+                .header("Connection", "keep-alive")
+                .build();
+        Call call = okHttpClient.newCall(request);
+        try (Response response = call.execute()) {
+            return response.body().string();
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }

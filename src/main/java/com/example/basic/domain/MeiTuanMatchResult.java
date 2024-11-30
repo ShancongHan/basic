@@ -25,6 +25,8 @@ public class MeiTuanMatchResult {
 
     private Map<Integer, List<HotelHsjl>> hsjlScoreMap;
 
+    private Map<Long, Long> mtIdAndHsjlIdMap;
+
     /**
      * 0分
      */

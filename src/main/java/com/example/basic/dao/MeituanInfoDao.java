@@ -4,6 +4,7 @@ import com.example.basic.entity.MeituanInfo;
 import com.github.pagehelper.Page;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author han
@@ -22,4 +23,6 @@ public interface MeituanInfoDao {
     Page<MeituanInfo> selectPageList();
 
     List<MeituanInfo> selectHsjlList();
+
+    List<MeituanInfo> selectListByMtIds(Set<Long> mtIds);
 }

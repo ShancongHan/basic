@@ -88,11 +88,14 @@ public class MeiTuanService {
     @Resource
     private MeituanPolicyDao meituanPolicyDao;
 
+    @Resource
+    private EsSupport esSupport;
+
     private static final Integer CORE_POOL_SIZE = 200;
     private static final Integer MAXIMUM_POOL_SIZE = 250;
 
     private static final Executor executor = new ThreadPoolExecutor(CORE_POOL_SIZE, MAXIMUM_POOL_SIZE,
-            0L, TimeUnit.MILLISECONDS, new LinkedBlockingDeque<>(3000));
+            0L, TimeUnit.MILLISECONDS, new LinkedBlockingDeque<>(8000));
 
     public void matchDongcheng() throws ExecutionException, InterruptedException {
         List<DongchengInfo> dongchengInfos = dongchengInfoDao.selectAll();
@@ -1012,5 +1015,81 @@ public class MeiTuanService {
             exports.add(export);
         }
         EasyExcel.write(fileName, ExportList.class).sheet("待匹配列表").doWrite(exports);
+    }
+
+    public void matchHsjl2() throws ExecutionException, InterruptedException {
+        List<HotelHsjl> hotelHsjls = hotelHsjlDao.selectAll();
+        List<Long> notFoundId = Lists.newArrayListWithCapacity(2000);
+        List<CompletableFuture<MeiTuanMatchResult>> futures = Lists.newArrayListWithCapacity(7200);
+        for (HotelHsjl hsjl : hotelHsjls) {
+            EsHotelSearchReq req = new EsHotelSearchReq();
+            req.setHotelName(hsjl.getHotelName());
+            req.setLon(hsjl.getLatitude() == null ? null : hsjl.getLatitude().doubleValue());
+            req.setLat(hsjl.getLongitude() == null ? null : hsjl.getLongitude().doubleValue());
+            req.setHotelAddress(hsjl.getAddress());
+            req.setCityName(hsjl.getCityName());
+            req.setAreaName(hsjl.getDistinctName());
+            futures.add(CompletableFuture.supplyAsync(() -> {
+                String bodyJson = esSupport.findCity(JSON.toJSONString(req));
+                EsHotelSearchRes res = JSON.parseObject(bodyJson, EsHotelSearchRes.class);
+                if (res == null) {
+                    notFoundId.add(hsjl.getHotelId());
+                    return null;
+                }
+                MeiTuanMatchResult result = new MeiTuanMatchResult();
+                Map<Long, Long> map = Maps.newConcurrentMap();
+                map.put(res.getMtId(), hsjl.getHotelId());
+                result.setMtIdAndHsjlIdMap(map);
+                return result;
+            }, executor));
+        }
+        Map<Long, Long> finalMap = Maps.newHashMapWithExpectedSize(7200);
+        for (CompletableFuture<MeiTuanMatchResult> future : futures) {
+            MeiTuanMatchResult matchResult = future.get();
+            if (matchResult == null) continue;
+            finalMap.putAll(matchResult.getMtIdAndHsjlIdMap());
+        }
+        Set<Long> mtIds = finalMap.keySet();
+        List<MeituanInfo> meituanInfos = meituanInfoDao.selectListByMtIds(mtIds);
+        List<MeituanHsjlMatchLab> list = Lists.newArrayListWithCapacity(7200);
+        createMatchResult8(meituanInfos, list, finalMap, hotelHsjls);
+        if (CollectionUtils.isNotEmpty(list)) {
+            meituanHsjlMatchLabDao.saveBatch(list);
+        }
+        System.out.println("找不到的酒店" + notFoundId.stream().map(Objects::toString).collect(Collectors.joining(",")));
+    }
+
+    private void createMatchResult8(List<MeituanInfo> meituanInfos, List<MeituanHsjlMatchLab> list,
+                                    Map<Long, Long> finalMap, List<HotelHsjl> hotelHsjls) {
+        Map<Long, MeituanInfo> mtIdMap = meituanInfos.stream().collect(Collectors.toMap(MeituanInfo::getId, e -> e));
+        Map<Long, HotelHsjl> hsjlIdMap = hotelHsjls.stream().collect(Collectors.toMap(HotelHsjl::getHotelId, e -> e));
+        for (Map.Entry<Long, Long> entry : finalMap.entrySet()) {
+            Long mtId = entry.getKey();
+            Long hsjlId = entry.getValue();
+            MeituanInfo meituanInfo = mtIdMap.get(mtId);
+            HotelHsjl hsjl = hsjlIdMap.get(hsjlId);
+            Integer score = GnMappingScoreHelper.calculateScore(meituanInfo.getName(), meituanInfo.getLatBaidu(),
+                    meituanInfo.getLonBaidu(), meituanInfo.getPhone(),
+                    hsjl.getHotelName(), hsjl.getLatitude(),
+                    hsjl.getLongitude(), hsjl.getTelephone());
+            MeituanHsjlMatchLab lab = new MeituanHsjlMatchLab();
+            lab.setMtId(meituanInfo.getId());
+            lab.setMtName(meituanInfo.getName());
+            lab.setMtLatitude(meituanInfo.getLatBaidu());
+            lab.setMtLongitude(meituanInfo.getLonBaidu());
+            lab.setMtAddress(meituanInfo.getAddress());
+            lab.setMtTel(meituanInfo.getPhone());
+            lab.setHsjlId(hsjl.getHotelId().toString());
+            lab.setHsjlName(hsjl.getHotelName());
+            lab.setHsjlAddress(hsjl.getAddress());
+            lab.setHsjlLatitude(hsjl.getLatitude());
+            lab.setHsjlLongitude(hsjl.getLongitude());
+            lab.setHsjlTel(hsjl.getTelephone());
+            lab.setScore(score);
+            double meter = GnMappingScoreHelper.calculateMeter(meituanInfo.getLatBaidu(), meituanInfo.getLonBaidu(),
+                    hsjl.getLatitude(), hsjl.getLongitude());
+            lab.setDiffMeter(BigDecimal.valueOf(meter));
+            list.add(lab);
+        }
     }
 }

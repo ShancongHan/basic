@@ -3,7 +3,7 @@
 <mapper namespace="com.example.basic.dao.HotelHsjlDao">
 
     <select id="selectAll" resultType="com.example.basic.entity.HotelHsjl">
-        SELECT hotel_id, hotel_name, telephone, city_name, longitude as latitude, latitude as longitude, address
+        SELECT hotel_id, hotel_name, telephone, city_name, longitude as latitude, latitude as longitude, address,  distinct_name
         FROM `hotel_hsjl`
     </select>
 </mapper>

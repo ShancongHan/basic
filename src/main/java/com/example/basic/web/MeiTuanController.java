@@ -92,6 +92,18 @@ public class MeiTuanController {
     }
 
     /**
+     * 比较红色加力酒店2
+     */
+    @PostMapping(value = "match/hsjl2")
+    public void matchHsjl2() {
+        try {
+            meiTuanService.matchHsjl2();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
+
+    /**
      * 导入国内城市和区数据
      */
     @PostMapping(value = "import/city")

@@ -36,4 +36,13 @@
         SELECT *
         FROM meituan_info
     </select>
+
+    <select id="selectListByMtIds" parameterType="java.lang.Long" resultType="com.example.basic.entity.MeituanInfo">
+        SELECT id, name, address, lat_baidu, lon_baidu, phone, province_name, city_name
+        FROM meituan_info
+        WHERE id IN
+        <foreach collection="mtIds" item="mtId" open="(" separator="," close=")">
+            #{mtId}
+        </foreach>
+    </select>
 </mapper>

@@ -94,6 +94,7 @@ public class GnMappingScoreHelper {
                 .replaceAll("（","")
                 .replaceAll("）","")
                 .replaceAll("—","")
+                .replaceAll("\\+86", "")
                 .replaceAll("\\+", "")
                 .replaceAll("、", "")
                 .replaceAll("/", "")
