@@ -6,6 +6,8 @@ import com.alibaba.fastjson2.JSON;
 import com.example.basic.dao.*;
 import com.example.basic.domain.*;
 import com.example.basic.domain.meituan.ExportList;
+import com.example.basic.domain.meituan.HotelRoomServiceImport;
+import com.example.basic.domain.meituan.HotelServiceImport;
 import com.example.basic.entity.*;
 import com.example.basic.helper.GnMappingScoreHelper;
 import com.github.pagehelper.Page;
@@ -15,6 +17,7 @@ import com.google.common.collect.Maps;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.MapUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -87,6 +90,17 @@ public class MeiTuanService {
     private MeituanImagesDao meituanImagesDao;
     @Resource
     private MeituanPolicyDao meituanPolicyDao;
+
+    @Resource
+    private WstHotelParkingPolicyDictionaryDao wstHotelParkingPolicyDictionaryDao;
+
+    @Resource
+    private WstHotelChargePointPolicyDictionaryDao wstHotelChargePointPolicyDictionaryDao;
+
+    @Resource
+    private WstHotelServiceFacilitiesDictionaryDao wstHotelServiceFacilitiesDictionaryDao;
+    @Resource
+    private WstHotelRoomFacilitiesDictionaryDao wstHotelRoomFacilitiesDictionaryDao;
 
     @Resource
     private EsSupport esSupport;
@@ -1091,5 +1105,326 @@ public class MeiTuanService {
             lab.setDiffMeter(BigDecimal.valueOf(meter));
             list.add(lab);
         }
+    }
+
+    public void analyzeHotelParkingPolicy() throws FileNotFoundException {
+        String fileName = "C:\\wst_han\\打杂\\酒店统筹\\美团静态资源\\20241130下载\\parkingPolicies_dictionary入库.xlsx";
+        InputStream inputStream = new FileInputStream(fileName);
+        List<ParkingPolicyDictionaryImport> importList = Lists.newArrayListWithCapacity(10);
+        EasyExcel.read(inputStream, ParkingPolicyDictionaryImport.class,
+                new PageReadListener<ParkingPolicyDictionaryImport>(importList::addAll, 1000)).headRowNumber(1).sheet().doRead();
+        List<WstHotelParkingPolicyDictionary> policyDictionaries = Lists.newArrayListWithCapacity(importList.size());
+        String oldType = "";
+        String oldTypeName = "";
+        for (ParkingPolicyDictionaryImport one : importList) {
+            WstHotelParkingPolicyDictionary policyDictionary = new WstHotelParkingPolicyDictionary();
+            String type = one.getType();
+            if (StringUtils.hasLength(type)) {
+                policyDictionary.setType(type);
+                oldType = type;
+            } else {
+                policyDictionary.setType(oldType);
+            }
+            String name = one.getName();
+            if (StringUtils.hasLength(name)) {
+                policyDictionary.setName(name);
+                oldTypeName = name;
+            } else {
+                policyDictionary.setName(oldTypeName);
+            }
+            String value = one.getValue();
+            if (StringUtils.hasLength(value) && value.contains(":")) {
+                String[] split = value.split(":");
+                policyDictionary.setValue(split[0].trim());
+                policyDictionary.setValueExplain(split[1].replaceAll("；", "").trim());
+            }
+            policyDictionaries.add(policyDictionary);
+        }
+        List<WstHotelParkingPolicyDictionary> saveList = Lists.newArrayListWithCapacity(importList.size());
+        Map<String, List<WstHotelParkingPolicyDictionary>> collect = policyDictionaries.stream().collect(Collectors.groupingBy(WstHotelParkingPolicyDictionary::getType));
+        collect.forEach((k, v) -> {
+            WstHotelParkingPolicyDictionary one = new WstHotelParkingPolicyDictionary();
+            one.setType(k);
+            one.setName(v.get(0).getName());
+            Map<String, String> map = v.stream().filter(e -> StringUtils.hasLength(e.getValue())).collect(Collectors.toMap(WstHotelParkingPolicyDictionary::getValue, WstHotelParkingPolicyDictionary::getValueExplain));
+            if (MapUtils.isNotEmpty(map)) {
+                one.setDescriptions(JSON.toJSONString(map));
+            }
+            saveList.add(one);
+        });
+        wstHotelParkingPolicyDictionaryDao.saveBatch(saveList);
+    }
+
+    public void analyzeHotelChargePolicy() throws FileNotFoundException {
+        String fileName = "C:\\wst_han\\打杂\\酒店统筹\\美团静态资源\\20241130下载\\chargePointPolicies_dictionary入库.xlsx";
+        InputStream inputStream = new FileInputStream(fileName);
+        List<ParkingPolicyDictionaryImport> importList = Lists.newArrayListWithCapacity(10);
+        EasyExcel.read(inputStream, ParkingPolicyDictionaryImport.class,
+                new PageReadListener<ParkingPolicyDictionaryImport>(importList::addAll, 1000)).headRowNumber(1).sheet().doRead();
+        List<WstHotelChargePointPolicyDictionary> policyDictionaries = Lists.newArrayListWithCapacity(importList.size());
+        String oldType = "";
+        String oldTypeName = "";
+        for (ParkingPolicyDictionaryImport one : importList) {
+            WstHotelChargePointPolicyDictionary policyDictionary = new WstHotelChargePointPolicyDictionary();
+            String type = one.getType();
+            if (StringUtils.hasLength(type)) {
+                policyDictionary.setType(type);
+                oldType = type;
+            } else {
+                policyDictionary.setType(oldType);
+            }
+            String name = one.getName();
+            if (StringUtils.hasLength(name)) {
+                policyDictionary.setName(name);
+                oldTypeName = name;
+            } else {
+                policyDictionary.setName(oldTypeName);
+            }
+            String value = one.getValue();
+            if (StringUtils.hasLength(value) && value.contains(":")) {
+                String[] split = value.split(":");
+                policyDictionary.setValue(split[0].trim());
+                policyDictionary.setValueExplain(split[1].replaceAll("；", "").trim());
+            }
+            policyDictionaries.add(policyDictionary);
+        }
+        List<WstHotelChargePointPolicyDictionary> saveList = Lists.newArrayListWithCapacity(importList.size());
+        Map<String, List<WstHotelChargePointPolicyDictionary>> collect = policyDictionaries.stream().collect(Collectors.groupingBy(WstHotelChargePointPolicyDictionary::getType));
+        collect.forEach((k, v) -> {
+            WstHotelChargePointPolicyDictionary one = new WstHotelChargePointPolicyDictionary();
+            one.setType(k);
+            one.setName(v.get(0).getName());
+            Map<String, String> map = v.stream().filter(e -> StringUtils.hasLength(e.getValue())).collect(Collectors.toMap(WstHotelChargePointPolicyDictionary::getValue, WstHotelChargePointPolicyDictionary::getValueExplain));
+            if (MapUtils.isNotEmpty(map)) {
+                one.setDescriptions(JSON.toJSONString(map));
+            }
+            saveList.add(one);
+        });
+        wstHotelChargePointPolicyDictionaryDao.saveBatch(saveList);
+    }
+
+    public void analyzeHotelSomething() throws FileNotFoundException {
+        String fileName = "C:\\wst_han\\打杂\\酒店统筹\\美团静态资源\\20241130下载\\hotel-service-and-facilities入库.xlsx";
+        InputStream inputStream = new FileInputStream(fileName);
+        List<HotelServiceImport> importList = Lists.newArrayListWithCapacity(10);
+        EasyExcel.read(inputStream, HotelServiceImport.class,
+                new PageReadListener<HotelServiceImport>(importList::addAll, 1000)).headRowNumber(1).sheet().doRead();
+        List<HotelServiceImport> list = Lists.newArrayListWithCapacity(importList.size());
+        String oldId = "";
+        String oldName = "";
+        String oldType = "";
+        for (HotelServiceImport hotelServiceImport : importList) {
+            HotelServiceImport newOne = new HotelServiceImport();
+            BeanUtils.copyProperties(hotelServiceImport, newOne);
+            String id = hotelServiceImport.getId();
+            if (StringUtils.hasLength(id)) {
+                newOne.setId(id);
+                oldId = id;
+            } else {
+                newOne.setId(oldId);
+            }
+            String name = hotelServiceImport.getName();
+            if (StringUtils.hasLength(name)) {
+                newOne.setName(name);
+                oldName = name;
+            } else {
+                newOne.setName(oldName);
+            }
+            String type = hotelServiceImport.getType();
+            if (StringUtils.hasLength(type)) {
+                newOne.setType(type);
+                oldType = type;
+            } else {
+                newOne.setType(oldType);
+            }
+            list.add(newOne);
+        }
+        System.out.println(list);
+        List<WstHotelServiceFacilitiesDictionary> saveList = Lists.newArrayListWithCapacity(importList.size());
+        Map<String, List<HotelServiceImport>> collect = list.stream().collect(Collectors.groupingBy(HotelServiceImport::getId));
+        collect.forEach((k, v) -> {
+            WstHotelServiceFacilitiesDictionary one = new WstHotelServiceFacilitiesDictionary();
+            one.setId(k);
+            one.setName(v.get(0).getName());
+            String type = v.get(0).getType();
+            if ("json".equalsIgnoreCase(type) || "string".equalsIgnoreCase(type)) {
+                saveList.add(one);
+            } else {
+                Map<String, String> map = Maps.newHashMap();
+                for (HotelServiceImport hotelServiceImport : v) {
+                    String value = hotelServiceImport.getValue();
+                    if (value.contains(";")) {
+                        String[] splits = value.split(";");
+                        for (String split : splits) {
+                            split = split.trim();
+                            oneValue(split, map);
+                        }
+                    }
+                }
+                one.setDescriptions(JSON.toJSONString(map));
+                saveList.add(one);
+            }
+        });
+        wstHotelServiceFacilitiesDictionaryDao.saveBatch(saveList);
+    }
+
+    private void oneValue(String split, Map<String, String> map) {
+        String[] splits = split.split(" ");
+        if (splits.length > 2) {
+            int i = split.trim().indexOf(" ");
+            map.put(split.substring(0, i), split.substring(i + 1));
+        } else {
+            map.put(splits[0].trim(), splits[1].trim());
+        }
+    }
+
+
+    public void analyzeHotelSomething2() throws FileNotFoundException {
+        String fileName = "C:\\wst_han\\打杂\\酒店统筹\\美团静态资源\\20241130下载\\hotel-service-and-facilities入库.xlsx";
+        InputStream inputStream = new FileInputStream(fileName);
+        List<HotelServiceImport> importList = Lists.newArrayListWithCapacity(10);
+        EasyExcel.read(inputStream, HotelServiceImport.class,
+                new PageReadListener<HotelServiceImport>(importList::addAll, 1000)).headRowNumber(1).sheet(2).doRead();
+        List<HotelServiceImport> list = Lists.newArrayListWithCapacity(importList.size());
+        String oldId = "";
+        String oldName = "";
+        String oldType = "";
+        for (HotelServiceImport hotelServiceImport : importList) {
+            HotelServiceImport newOne = new HotelServiceImport();
+            BeanUtils.copyProperties(hotelServiceImport, newOne);
+            String id = hotelServiceImport.getId();
+            if (StringUtils.hasLength(id)) {
+                newOne.setId(id);
+                oldId = id;
+            } else {
+                newOne.setId(oldId);
+            }
+            String name = hotelServiceImport.getName();
+            if (StringUtils.hasLength(name)) {
+                newOne.setName(name);
+                oldName = name;
+            } else {
+                newOne.setName(oldName);
+            }
+            String type = hotelServiceImport.getType();
+            if (StringUtils.hasLength(type)) {
+                newOne.setType(type);
+                oldType = type;
+            } else {
+                newOne.setType(oldType);
+            }
+            list.add(newOne);
+        }
+        System.out.println(list);
+        List<WstHotelServiceFacilitiesDictionary> saveList = Lists.newArrayListWithCapacity(importList.size());
+        Map<String, List<HotelServiceImport>> collect = list.stream().collect(Collectors.groupingBy(HotelServiceImport::getId));
+        collect.forEach((k, v) -> {
+            WstHotelServiceFacilitiesDictionary one = new WstHotelServiceFacilitiesDictionary();
+            one.setType("HOTEL_SERVICE");
+            one.setId(k);
+            one.setName(v.get(0).getName());
+            String type = v.get(0).getType();
+            if ("json".equalsIgnoreCase(type) || "string".equalsIgnoreCase(type)) {
+                saveList.add(one);
+            } else {
+                Map<String, String> map = Maps.newHashMap();
+                for (HotelServiceImport hotelServiceImport : v) {
+                    String value = hotelServiceImport.getValue();
+                    if (value == null) continue;
+                    if (value.contains(";")) {
+                        String[] splits = value.split(";");
+                        for (String split : splits) {
+                            split = split.trim();
+                            oneValue(split, map);
+                        }
+                    } else if (value.contains(" ")) {
+                        value = value.trim();
+                        String[] splits = value.split(" ");
+                        map.put(splits[0].trim(), splits[1].trim());
+                    }
+                }
+                one.setDescriptions(JSON.toJSONString(map));
+                saveList.add(one);
+            }
+        });
+        Set<String> ids = wstHotelServiceFacilitiesDictionaryDao.selectAllId();
+        List<WstHotelServiceFacilitiesDictionary> toList = saveList.stream().filter(e -> !ids.contains(e.getId())).toList();
+        wstHotelServiceFacilitiesDictionaryDao.saveBatch(toList);
+    }
+
+    public void analyzeHotelRoomFacilities() throws FileNotFoundException {
+        String fileName = "C:\\wst_han\\打杂\\酒店统筹\\美团静态资源\\20241130下载\\room-facilities-ws入库.xlsx";
+        InputStream inputStream = new FileInputStream(fileName);
+        List<HotelRoomServiceImport> importList = Lists.newArrayListWithCapacity(10);
+        EasyExcel.read(inputStream, HotelRoomServiceImport.class,
+                new PageReadListener<HotelRoomServiceImport>(importList::addAll, 1000)).headRowNumber(1).sheet(0).doRead();
+        List<HotelRoomServiceImport> list = Lists.newArrayListWithCapacity(importList.size());
+        String oldId = "";
+        String oldName = "";
+        String oldType = "";
+        for (HotelRoomServiceImport hotelServiceImport : importList) {
+            HotelRoomServiceImport newOne = new HotelRoomServiceImport();
+            BeanUtils.copyProperties(hotelServiceImport, newOne);
+            String id = hotelServiceImport.getId();
+            if (StringUtils.hasLength(id)) {
+                newOne.setId(id);
+                oldId = id;
+            } else {
+                newOne.setId(oldId);
+            }
+            String name = hotelServiceImport.getName();
+            if (StringUtils.hasLength(name)) {
+                newOne.setName(name);
+                oldName = name;
+            } else {
+                newOne.setName(oldName);
+            }
+            String type = hotelServiceImport.getType();
+            if (StringUtils.hasLength(type)) {
+                newOne.setType(type);
+                oldType = type;
+            } else {
+                newOne.setType(oldType);
+            }
+            list.add(newOne);
+        }
+        System.out.println(list);
+        List<WstHotelRoomFacilitiesDictionary> saveList = Lists.newArrayListWithCapacity(importList.size());
+        Map<String, List<HotelRoomServiceImport>> collect = list.stream().collect(Collectors.groupingBy(HotelRoomServiceImport::getId));
+        collect.forEach((k, v) -> {
+            WstHotelRoomFacilitiesDictionary one = new WstHotelRoomFacilitiesDictionary();
+            one.setType(v.get(0).getCategroy());
+            one.setId(k);
+            one.setName(v.get(0).getName());
+            String type = v.get(0).getType();
+            if ("json".equalsIgnoreCase(type) || "string".equalsIgnoreCase(type)) {
+                saveList.add(one);
+            } else {
+                Map<String, String> map = Maps.newHashMap();
+                for (HotelRoomServiceImport hotelServiceImport : v) {
+                    String value = hotelServiceImport.getValue();
+                    if (value == null) continue;
+                    if (value.contains(";")) {
+                        String[] splits = value.split(";");
+                        for (String split : splits) {
+                            split = split.trim();
+                            oneValue(split, map);
+                        }
+                    } else if (value.contains(" ")) {
+                        value = value.trim();
+                        String[] splits = value.split(" ");
+                        if (splits.length > 2) {
+                            int i = value.indexOf(" ");
+                            map.put(value.substring(0, i), value.substring(i + 1));
+                        } else {
+                            map.put(splits[0].trim(), splits[1].trim());
+                        }
+                    }
+                }
+                one.setDescriptions(JSON.toJSONString(map));
+                saveList.add(one);
+            }
+        });
+        wstHotelRoomFacilitiesDictionaryDao.saveBatch(saveList);
     }
 }

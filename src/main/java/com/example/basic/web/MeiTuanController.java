@@ -198,4 +198,64 @@ public class MeiTuanController {
             System.out.println(Throwables.getStackTraceAsString(e));
         }
     }
+
+    /**
+     * 解析酒店停车场数据
+     */
+    @PostMapping(value = "analyze/hotel-parking-policy")
+    public void analyzeHotelParkingPolicy() {
+        try {
+            meiTuanService.analyzeHotelParkingPolicy();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
+
+    /**
+     * 解析酒店充电桩数据
+     */
+    @PostMapping(value = "analyze/hotel-charge-point-policy")
+    public void analyzeHotelChargePolicy() {
+        try {
+            meiTuanService.analyzeHotelChargePolicy();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
+
+    /**
+     * 解析酒店设施服务入库
+     */
+    @PostMapping(value = "analyze/hotel-service-and-facilities")
+    public void analyzeHotelSomething() {
+        try {
+            meiTuanService.analyzeHotelSomething();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
+
+    /**
+     * 解析酒店设施服务入库2
+     */
+    @PostMapping(value = "analyze/hotel-service-and-facilities2")
+    public void analyzeHotelSomething2() {
+        try {
+            meiTuanService.analyzeHotelSomething2();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
+
+    /**
+     * 解析酒店房间设施
+     */
+    @PostMapping(value = "analyze/hotel-room-facilities")
+    public void analyzeHotelRoomFacilities() {
+        try {
+            meiTuanService.analyzeHotelRoomFacilities();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
 }

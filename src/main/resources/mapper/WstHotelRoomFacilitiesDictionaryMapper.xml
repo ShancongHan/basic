@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic.dao.WstHotelRoomFacilitiesDictionaryDao">
+
+    <insert id="saveBatch" parameterType="com.example.basic.entity.WstHotelRoomFacilitiesDictionary">
+        insert into wst_hotel_room_facilities_dictionary (id, name, type, descriptions, remark)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id},#{item.name},#{item.type},#{item.descriptions},#{item.remark})
+        </foreach>
+    </insert>
+</mapper>
