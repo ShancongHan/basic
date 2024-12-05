@@ -101,6 +101,8 @@ public class MeiTuanService {
     private WstHotelServiceFacilitiesDictionaryDao wstHotelServiceFacilitiesDictionaryDao;
     @Resource
     private WstHotelRoomFacilitiesDictionaryDao wstHotelRoomFacilitiesDictionaryDao;
+    @Resource
+    private SysZoneDao sysZoneDao;
 
     @Resource
     private EsSupport esSupport;
@@ -1426,5 +1428,36 @@ public class MeiTuanService {
             }
         });
         wstHotelRoomFacilitiesDictionaryDao.saveBatch(saveList);
+    }
+
+    public void findBusinessZone() {
+        List<WstHotelInfo> cityList = wstHotelInfoDao.selectAllCity();
+        List<SysZone> sysZones = Lists.newArrayListWithCapacity(80000);
+        for (WstHotelInfo wstHotelInfo : cityList) {
+            String cityName = wstHotelInfo.getCityName();
+            Integer cityCode = wstHotelInfo.getCityCode();
+            List<WstHotelInfo> infos = wstHotelInfoDao.selectBusinessAreaByCity(cityCode);
+            for (WstHotelInfo info : infos) {
+                SysZone sysZone = new SysZone();
+                sysZone.setSysCityId(String.valueOf(cityCode));
+                sysZone.setSysCityName(cityName);
+                sysZone.setSysZoneId(String.valueOf(info.getBusinessDistrictsCode()));
+                sysZone.setSysZoneName(info.getBusinessDistrictsName());
+                sysZones.add(sysZone);
+            }
+        }
+        int start = 0;
+        for (int j = 0; j < sysZones.size(); j++) {
+            if (j != 0 && j % 5000 == 0) {
+                List<SysZone> list = sysZones.subList(start, j);
+                sysZoneDao.saveBatch(list);
+                start = j;
+            }
+        }
+        List<SysZone> list = sysZones.subList(start, sysZones.size());
+        if (CollectionUtils.isNotEmpty(list)) {
+            sysZoneDao.saveBatch(list);
+        }
+
     }
 }

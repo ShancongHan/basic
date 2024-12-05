@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic.dao.SysZoneDao">
+
+    <select id="selectAll" resultType="com.example.basic.entity.SysZone">
+        SELECT *
+        FROM `sys_zone`
+    </select>
+
+    <insert id="saveBatch" parameterType="com.example.basic.entity.SysZone">
+        insert into test_at_hotel2.sys_zone (sys_city_id, sys_city_name, sys_zone_id, sys_zone_name)
+        values
+        <foreach collection="insertList" separator="," item="item">
+            (#{item.sysCityId},#{item.sysCityName},#{item.sysZoneId},#{item.sysZoneName})
+        </foreach>
+    </insert>
+</mapper>

@@ -58,4 +58,17 @@
         from wst_hotel_info
         where group_code IN (197,194,200,41,196)
     </select>
+
+    <select id="selectAllCity" resultType="com.example.basic.entity.WstHotelInfo">
+        select city_code, city_name
+        from wst_hotel_info
+        group by city_code, city_name
+    </select>
+
+    <select id="selectBusinessAreaByCity" parameterType="java.lang.Integer" resultType="com.example.basic.entity.WstHotelInfo">
+        select business_districts_code, business_districts_name
+        from wst_hotel_info
+        where city_code = #{cityCode}
+        group by business_districts_code
+    </select>
 </mapper>

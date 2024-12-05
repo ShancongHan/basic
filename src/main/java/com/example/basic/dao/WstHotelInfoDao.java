@@ -23,4 +23,8 @@ public interface WstHotelInfoDao {
     List<WstHotelInfo> selectBusinessAreaByArea(Integer code);
 
     List<WstHotelInfo> selectGroupList();
+
+    List<WstHotelInfo> selectAllCity();
+
+    List<WstHotelInfo> selectBusinessAreaByCity(Integer cityCode);
 }

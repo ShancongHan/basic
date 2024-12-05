@@ -258,4 +258,16 @@ public class MeiTuanController {
             System.out.println(Throwables.getStackTraceAsString(e));
         }
     }
+
+    /**
+     * 提取地标
+     */
+    @PostMapping(value = "find-business-zone")
+    public void findBusinessZone() {
+        try {
+            meiTuanService.findBusinessZone();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
 }
