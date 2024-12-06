@@ -8,22 +8,22 @@ import lombok.Data;
  * @date 2024/11/13
  */
 @Data
-public class City {
+public class CityImport {
 
     @ExcelProperty(value = "province_id")
-    private String provinceId;
+    private Integer provinceId;
 
     @ExcelProperty(value = "province_name")
     private String provinceName;
 
     @ExcelProperty(value = "city_id")
-    private String cityId;
+    private Integer cityId;
 
     @ExcelProperty(value = "city_name")
     private String cityName;
 
     @ExcelProperty(value = "location_id")
-    private String locationId;
+    private Integer locationId;
 
     @ExcelProperty(value = "location_name")
     private String locationName;

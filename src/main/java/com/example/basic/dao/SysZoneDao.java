@@ -12,4 +12,6 @@ public interface SysZoneDao {
     void saveBatch(List<SysZone> insertList);
 
     List<SysZone> selectAll();
+
+    void deleteMulti(List<Integer> list);
 }

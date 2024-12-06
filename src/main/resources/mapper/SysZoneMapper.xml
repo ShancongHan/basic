@@ -14,4 +14,12 @@
             (#{item.sysCityId},#{item.sysCityName},#{item.sysZoneId},#{item.sysZoneName})
         </foreach>
     </insert>
+
+    <delete id="deleteMulti" parameterType="java.lang.Integer">
+        DELETE FROM sys_zone
+        WHERE `id` IN
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>

@@ -30,6 +30,8 @@ public class XcServiceImpl {
 
     @Resource
     private SysBrandDao sysBrandDao;
+    @Resource
+    private SysAreaDao sysAreaDao;
 
     @Resource
     private OaChengxiHotelBrandDao oaChengxiHotelBrandDao;
@@ -38,6 +40,11 @@ public class XcServiceImpl {
 
     @Resource
     private SysZoneDao sysZoneDao;
+
+    @Resource
+    private WstHotelCityDao wstHotelCityDao;
+    @Resource
+    private OaChengxiHotelCityDao oaChengxiHotelCityDao;
 
     private static final Executor executor = new ThreadPoolExecutor(30, 50,
             0L, TimeUnit.MILLISECONDS, new LinkedBlockingDeque<>(5000));
@@ -144,10 +151,13 @@ public class XcServiceImpl {
         Map<String, List<SysZone>> cityIdMap = sysZones.stream().collect(Collectors.groupingBy(SysZone::getSysCityId));
         List<String> foundMultiList = Lists.newArrayListWithCapacity(10000);
         List<OaChengxiHotelZone> oaChengxiHotelZoneList = oaChengxiHotelZoneDao.selectAll();
-        Map<String, List<OaChengxiHotelZone>> cityIdMap2 = oaChengxiHotelZoneList.stream().collect(Collectors.groupingBy(OaChengxiHotelZone::getSysCityId));
+        Map<String, List<OaChengxiHotelZone>> cityIdMap2 = oaChengxiHotelZoneList.stream().filter(e->e.getSysCityId() != null).collect(Collectors.groupingBy(OaChengxiHotelZone::getSysCityId));
         for (Map.Entry<String, List<OaChengxiHotelZone>> entry : cityIdMap2.entrySet()) {
             String cityId = entry.getKey();
             List<SysZone> sysZonesList = cityIdMap.get(cityId);
+            if (CollectionUtils.isEmpty(sysZonesList)) {
+                continue;
+            }
             Map<String, SysZone> nameZoneMap = sysZonesList.stream().collect(Collectors.toMap(SysZone::getSysZoneName, e -> e));
             Set<String> nameSet = nameZoneMap.keySet();
             List<OaChengxiHotelZone> oaChengxiHotelZones = entry.getValue();
@@ -198,5 +208,34 @@ public class XcServiceImpl {
             }
         }
         System.out.println("这些商圈遭到多个" + String.join(",", foundMultiList));
+    }
+
+    public void matchZone111() {
+        List<SysZone> sysZones = sysZoneDao.selectAll();
+        Map<String, List<SysZone>> cityIdMap = sysZones.stream().collect(Collectors.groupingBy(SysZone::getSysCityId));
+        List<Integer> deleteList = Lists.newArrayListWithExpectedSize(2000);
+        for (Map.Entry<String, List<SysZone>> entry : cityIdMap.entrySet()) {
+            List<SysZone> value = entry.getValue();
+            Map<String, List<SysZone>> collect = value.stream().collect(Collectors.groupingBy(SysZone::getSysZoneName));
+            for (Map.Entry<String, List<SysZone>> stringListEntry : collect.entrySet()) {
+                if (stringListEntry.getValue().size() > 1) {
+                    deleteList.addAll(stringListEntry.getValue().stream().map(SysZone::getId).toList());
+                }
+            }
+        }
+        //System.out.println(deleteList.size());
+        sysZoneDao.deleteMulti(deleteList);
+    }
+
+    public void xxxx() {
+        //List<OaChengxiHotelCity> oaChengxiHotelCities = oaChengxiHotelCityDao.selectCityId();
+        List<WstHotelCity> cities = wstHotelCityDao.selectAll();
+        Map<Integer, String> collect = cities.stream().collect(Collectors.toMap(WstHotelCity::getCode, WstHotelCity::getName));
+        List<SysArea> sysAreas = sysAreaDao.selectAll();
+        for (SysArea sysArea : sysAreas) {
+            String cityId = sysArea.getCityId();
+            sysArea.setCityName(collect.get(Integer.valueOf(cityId)));
+            sysAreaDao.updateName(sysArea);
+        }
     }
 }

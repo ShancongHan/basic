@@ -10,10 +10,13 @@ import java.util.List;
  */
 public interface WstHotelCityDao {
     void saveBatch(List<WstHotelCity> list);
+    void saveBatch2(List<WstHotelCity> list);
 
     List<WstHotelCity> selectProvinceList();
 
     List<WstHotelCity> selectCityList();
 
     List<WstHotelCity> selectAreaList();
+
+    List<WstHotelCity> selectAll();
 }

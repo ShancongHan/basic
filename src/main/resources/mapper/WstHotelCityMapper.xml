@@ -10,6 +10,14 @@
         </foreach>
     </insert>
 
+    <insert id="saveBatch2" parameterType="com.example.basic.entity.WstHotelCity">
+        insert into wst_hotel_city_new (code, name, parent, type)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.code},#{item.name},#{item.parent},#{item.type})
+        </foreach>
+    </insert>
+
     <select id="selectProvinceList" resultType="com.example.basic.entity.WstHotelCity">
         SELECT *
         FROM `wst_hotel_city`
@@ -25,5 +33,11 @@
         SELECT *
         FROM `wst_hotel_city`
         WHERE type = 3
+    </select>
+
+    <select id="selectAll" resultType="com.example.basic.entity.WstHotelCity">
+        SELECT *
+        FROM `wst_hotel_city`
+        where type IN (2, 3)
     </select>
 </mapper>

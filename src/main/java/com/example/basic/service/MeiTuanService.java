@@ -5,6 +5,7 @@ import com.alibaba.excel.read.listener.PageReadListener;
 import com.alibaba.fastjson2.JSON;
 import com.example.basic.dao.*;
 import com.example.basic.domain.*;
+import com.example.basic.domain.meituan.CityImport;
 import com.example.basic.domain.meituan.ExportList;
 import com.example.basic.domain.meituan.HotelRoomServiceImport;
 import com.example.basic.domain.meituan.HotelServiceImport;
@@ -29,6 +30,7 @@ import java.math.BigDecimal;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author han
@@ -531,11 +533,65 @@ public class MeiTuanService {
     }
 
     public void importCity() throws FileNotFoundException {
-        String fileName = "C:\\wst_han\\打杂\\酒店统筹\\美团静态资源\\province-city-location.xlsx";
+        String fileName = "C:\\wst_han\\打杂\\酒店统筹\\美团静态资源\\20241130下载\\province-city-location.xlsx";
         InputStream inputStream = new FileInputStream(fileName);
-        List<City> list = Lists.newArrayListWithCapacity(310000);
-        EasyExcel.read(inputStream, WebbedsImportBean.class, new PageReadListener<City>(list::addAll, 1000)).headRowNumber(1).sheet().doRead();
-
+        List<CityImport> list = Lists.newArrayListWithCapacity(50000);
+        EasyExcel.read(inputStream, CityImport.class, new PageReadListener<CityImport>(list::addAll, 1000)).headRowNumber(1).sheet().doRead();
+        Map<Integer, List<CityImport>> provinceIdMap = list.stream().collect(Collectors.groupingBy(CityImport::getProvinceId));
+        List<WstHotelCity> cities = Lists.newArrayListWithCapacity(50000);
+        List<WstHotelCity> typeList = Lists.newArrayListWithCapacity(50000);
+        Set<Integer> provinceIdSet = provinceIdMap.keySet();
+        List<Integer> provinceIdList = Lists.newArrayListWithCapacity(35);
+        for (CityImport cityImport : list) {
+            Integer provinceId = cityImport.getProvinceId();
+            if (!provinceIdList.contains(provinceId)) {
+                provinceIdList.add(provinceId);
+            }
+        }
+        // type =1
+        for (Integer provinceId : provinceIdList) {
+            WstHotelCity wstHotelCity = new WstHotelCity();
+            wstHotelCity.setCode(provinceId);
+            List<CityImport> cityImports = provinceIdMap.get(provinceId);
+            wstHotelCity.setName(cityImports.get(0).getProvinceName());
+            wstHotelCity.setType(1);
+            cities.add(wstHotelCity);
+        }
+        // type = 2
+        for (Integer provinceId : provinceIdList) {
+            List<CityImport> value = provinceIdMap.get(provinceId);
+            Map<Integer, List<CityImport>> cityMap = value.stream().collect(Collectors.groupingBy(CityImport::getCityId));
+            Set<Integer> citySet = cityMap.keySet();
+            List<Integer> cityIdIdList = Lists.newArrayListWithCapacity(citySet.size());
+            for (CityImport cityImport : value) {
+                Integer cityId = cityImport.getCityId();
+                if (!cityIdIdList.contains(cityId)) {
+                    cityIdIdList.add(cityId);
+                }
+            }
+            for (Integer cityId : cityIdIdList) {
+                WstHotelCity wstHotelCity = new WstHotelCity();
+                wstHotelCity.setCode(cityId);
+                List<CityImport> cityImports = cityMap.get(cityId);
+                wstHotelCity.setName(cityImports.get(0).getCityName());
+                wstHotelCity.setType(2);
+                wstHotelCity.setParent(provinceId);
+                cities.add(wstHotelCity);
+                List<CityImport> locationList = cityMap.get(cityId);
+                for (CityImport cityImport : locationList) {
+                    WstHotelCity wstHotelCity1 = new WstHotelCity();
+                    wstHotelCity1.setCode(cityImport.getLocationId());
+                    wstHotelCity1.setName(cityImport.getLocationName());
+                    wstHotelCity1.setType(3);
+                    wstHotelCity1.setParent(cityId);
+                    typeList.add(wstHotelCity1);
+                }
+            }
+        }
+        System.out.println(cities.size());
+        System.out.println(typeList.size());
+        wstHotelCityDao.saveBatch2(cities);
+        wstHotelCityDao.saveBatch2(typeList);
     }
 
     public void initHotel() {

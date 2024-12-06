@@ -55,4 +55,16 @@ public class XcController {
             System.out.println(Throwables.getStackTraceAsString(e));
         }
     }
+
+    /**
+     * xxxxx
+     */
+    @PostMapping(value = "xxx")
+    public void xxxx() {
+        try {
+            xcService.xxxx();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
 }
