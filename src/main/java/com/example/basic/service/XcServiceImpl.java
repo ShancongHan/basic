@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.*;
 import java.util.stream.Collectors;
@@ -37,6 +38,8 @@ public class XcServiceImpl {
     private OaChengxiHotelBrandDao oaChengxiHotelBrandDao;
     @Resource
     private OaChengxiHotelZoneDao oaChengxiHotelZoneDao;
+    @Resource
+    private OaChengxiHotelCountyDao oaChengxiHotelCountyDao;
 
     @Resource
     private SysZoneDao sysZoneDao;
@@ -227,15 +230,67 @@ public class XcServiceImpl {
         sysZoneDao.deleteMulti(deleteList);
     }
 
-    public void xxxx() {
-        //List<OaChengxiHotelCity> oaChengxiHotelCities = oaChengxiHotelCityDao.selectCityId();
-        List<WstHotelCity> cities = wstHotelCityDao.selectAll();
-        Map<Integer, String> collect = cities.stream().collect(Collectors.toMap(WstHotelCity::getCode, WstHotelCity::getName));
+    public void matchArea() throws ExecutionException, InterruptedException {
         List<SysArea> sysAreas = sysAreaDao.selectAll();
-        for (SysArea sysArea : sysAreas) {
-            String cityId = sysArea.getCityId();
-            sysArea.setCityName(collect.get(Integer.valueOf(cityId)));
-            sysAreaDao.updateName(sysArea);
+        Map<String, List<SysArea>> cityIdMap = sysAreas.stream().collect(Collectors.groupingBy(SysArea::getCityId));
+        List<Integer> foundMultiList = Lists.newArrayListWithCapacity(10000);
+        List<OaChengxiHotelCounty> oaChengxiHotelCounties = oaChengxiHotelCountyDao.selectChina();
+        Map<String, List<OaChengxiHotelCounty>> cityIdMap2 = oaChengxiHotelCounties.stream().filter(e->e.getSysCityId() != null).collect(Collectors.groupingBy(OaChengxiHotelCounty::getSysCityId));
+        for (Map.Entry<String, List<OaChengxiHotelCounty>> entry : cityIdMap2.entrySet()) {
+            String cityId = entry.getKey();
+            List<SysArea> sysAreaList = cityIdMap.get(cityId);
+            if (CollectionUtils.isEmpty(sysAreaList)) {
+                continue;
+            }
+            Map<String, SysArea> nameAreaMap = sysAreaList.stream().collect(Collectors.toMap(SysArea::getAreaName, e -> e));
+            Set<String> nameSet = nameAreaMap.keySet();
+            List<OaChengxiHotelCounty> oaChengxiHotelCountyList = entry.getValue();
+            for (OaChengxiHotelCounty oaChengxiHotelCounty : oaChengxiHotelCountyList) {
+                String name = oaChengxiHotelCounty.getCountyName();
+                if (nameAreaMap.containsKey(name)) {
+                    SysArea sysArea = nameAreaMap.get(name);
+                    oaChengxiHotelCounty.setSysCountyId(sysArea.getAreaCode());
+                    oaChengxiHotelCounty.setSysCountyName(sysArea.getAreaName());
+                    oaChengxiHotelCountyDao.update(oaChengxiHotelCounty);
+                    continue;
+                }
+                List<CompletableFuture<GroupResult>> futures = Lists.newArrayListWithCapacity(nameSet.size());
+                for (String sysName : nameSet) {
+                    futures.add(CompletableFuture.supplyAsync(() -> {
+                        boolean compare = MappingGroupHelper.compare3(name, sysName);
+                        if (compare) {
+                            GroupResult groupResult = new GroupResult();
+                            groupResult.setGroupName(name);
+                            groupResult.setSysGroupName(sysName);
+                            return groupResult;
+                        }
+                        return null;
+                    }, executor));
+                }
+                List<GroupResult> results = Lists.newArrayListWithCapacity(nameSet.size());
+                CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
+                for (CompletableFuture<GroupResult> future : futures) {
+                    GroupResult groupResult = future.get();
+                    if (groupResult == null) {
+                        continue;
+                    }
+                    results.add(groupResult);
+                }
+
+                if (CollectionUtils.isEmpty(results)) {
+                    System.out.println("找不到" + name);
+                } else {
+                    if (results.size() == 1) {
+                        SysArea sysArea = nameAreaMap.get(results.get(0).getSysGroupName());
+                        oaChengxiHotelCounty.setSysCountyId(sysArea.getAreaCode());
+                        oaChengxiHotelCounty.setSysCountyName(sysArea.getAreaName());
+                        oaChengxiHotelCountyDao.update(oaChengxiHotelCounty);
+                        continue;
+                    }
+                    foundMultiList.add(oaChengxiHotelCounty.getCountyId());
+                }
+            }
         }
+        System.out.println("这些地区到多个" + foundMultiList.stream().map(Objects::toString).collect(Collectors.joining(",")));
     }
 }

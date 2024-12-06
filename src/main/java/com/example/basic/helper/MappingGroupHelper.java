@@ -37,4 +37,16 @@ public class MappingGroupHelper {
         }
         return name.equals(sysName) || sysName.contains(name) || name.startsWith(sysName) || sysName.startsWith(name);
     }
+
+    public static boolean compare3(String name, String sysName) {
+        name = handler2(name);
+        sysName = handler2(sysName);
+        return name.equals(sysName) || name.startsWith(sysName) || sysName.startsWith(name);
+    }
+
+    public static String handler2(String name){
+        return StringUtils.hasLength(name) ? name.replaceAll("区", "")
+                .replaceAll("县", "")
+                : "***";
+    }
 }

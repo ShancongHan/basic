@@ -57,12 +57,12 @@ public class XcController {
     }
 
     /**
-     * xxxxx
+     * 匹配区域
      */
-    @PostMapping(value = "xxx")
-    public void xxxx() {
+    @PostMapping(value = "match-area")
+    public void matchArea() {
         try {
-            xcService.xxxx();
+            xcService.matchArea();
         } catch (Exception e) {
             System.out.println(Throwables.getStackTraceAsString(e));
         }

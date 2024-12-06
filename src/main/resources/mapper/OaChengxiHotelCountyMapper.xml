@@ -2,8 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.basic.dao.OaChengxiHotelCountyDao">
 
-    <select id="selectAll" resultType="com.example.basic.entity.OaChengxiHotelCounty">
+    <select id="selectChina" resultType="com.example.basic.entity.OaChengxiHotelCounty">
         SELECT *
         FROM `oa_chengxi_hotel_county`
+        where country_id = 1
     </select>
+    <update id="update" parameterType="com.example.basic.entity.OaChengxiHotelCounty">
+        UPDATE `oa_chengxi_hotel_county`
+        SET `sys_county_id` = #{sysCountyId},`sys_county_name` = #{sysCountyName}
+        WHERE `id` = #{id}
+    </update>
 </mapper>
