@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic.dao.ElongCityDao">
+    <select id="selectCityList" resultType="com.example.basic.entity.ElongCity">
+        select *
+        from wst_elong_city
+    </select>
+
+    <insert id="saveBatch" parameterType="com.example.basic.entity.ElongCity">
+        insert into wst_elong_city (city_id, city_name, city_name_en, province_id, province_name, province_name_en)
+        values
+        <foreach collection="list" separator="," item="item">
+            (#{item.cityId}, #{item.cityName}, #{item.cityNameEn}, #{item.provinceId}, #{item.provinceName}, #{item.provinceNameEn})
+        </foreach>
+    </insert>
+</mapper>
