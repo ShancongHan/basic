@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic.dao.HsjlHotelDao">
+    <select id="selectHotelIds" resultType="com.example.basic.entity.HsjlHotel">
+        select *
+        from wst_hsjl_hotel_id where id > #{startId} limit 2000
+    </select>
+
+    <insert id="saveBatch" parameterType="com.example.basic.entity.HsjlHotel">
+        insert into wst_hsjl_hotel_id (hotel_id, city_code, city_name)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.hotelId}, #{item.cityCode}, #{item.cityName})
+        </foreach>
+    </insert>
+</mapper>
