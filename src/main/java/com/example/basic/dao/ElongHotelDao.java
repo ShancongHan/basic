@@ -12,7 +12,7 @@ public interface ElongHotelDao {
 
   List<ElongHotel> selectHotelList();
 
-  List<ElongHotel> selectHotelIds();
+  List<ElongHotel> selectHotelIds(Long startId);
 
   void saveBatch(List<ElongHotel> list);
 }

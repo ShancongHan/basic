@@ -54,9 +54,14 @@ class ElongTests {
   @Test
   void testHotelInfo() {
     HotelInfoReq req = new HotelInfoReq();
-    req.setHotelId("94405767");
+    req.setHotelId("00101037");
     req.setOptions("1");
     HotelInfoResp hotelInfo = elongHotelService.getHotelInfo(req);
     System.out.println(JSON.toJSONString(hotelInfo));
+  }
+
+  @Test
+  void testSyncAllHotelInfo() {
+    elongHotelService.syncAllHotelInfo();
   }
 }

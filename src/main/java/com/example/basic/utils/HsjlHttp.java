@@ -1,12 +1,5 @@
 package com.example.basic.utils;
 
-import com.example.basic.config.ElongApiConfig;
-import org.springframework.http.*;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
-
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,9 +7,16 @@ import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.zip.GZIPInputStream;
 
-public class ElongHttp {
+import com.example.basic.config.HsjlApiConfig;
+import org.springframework.http.*;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
-  public static String httpRequest(String method, String data) {
+public class HsjlHttp {
+
+  public static String httpRequest(String requestType, String businessRequest) {
     RestTemplate restTemplate = new RestTemplate();
 
     // 设置请求头
@@ -24,25 +24,24 @@ public class ElongHttp {
     headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
     headers.add("Accept-Encoding", "gzip");
     headers.add("Connection", "keep-alive");
-
-    // 构建公共请求参数
     String timestamp = String.valueOf(System.currentTimeMillis() / 1000L);
-    String signature =
-        SignatureUtils.calculateSignature(
-            timestamp, data, ElongApiConfig.appKey, ElongApiConfig.secretKey);
+    headers.add("timestamp", timestamp);
+    headers.add("partnerCode", HsjlApiConfig.partnerCode);
+    headers.add("requestType", requestType);
+    headers.add("version", HsjlApiConfig.VERSION);
+    headers.add("gzip", "1");
+    headers.add(
+        "signature",
+        SignatureUtils.hsjlSignature(
+            timestamp, HsjlApiConfig.secureKey, HsjlApiConfig.partnerCode, requestType));
 
     // 构建请求参数
     MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-    params.add("user", ElongApiConfig.userName);
-    params.add("method", method);
-    params.add("timestamp", timestamp);
-    params.add("format", "json");
-    params.add("data", data);
-    params.add("signature", signature);
+    params.add("businessRequest", businessRequest);
 
     // 构建请求URL
     URI uri =
-        UriComponentsBuilder.fromUriString(ElongApiConfig.apiUrl)
+        UriComponentsBuilder.fromUriString(HsjlApiConfig.apiUrl)
             .queryParams(params)
             .build()
             .encode(StandardCharsets.UTF_8)
@@ -50,7 +49,7 @@ public class ElongHttp {
 
     // 发送请求并获取响应
     ResponseEntity<byte[]> response =
-        restTemplate.exchange(uri, HttpMethod.GET, new HttpEntity<>(headers), byte[].class);
+        restTemplate.exchange(uri, HttpMethod.POST, new HttpEntity<>(headers), byte[].class);
 
     // 检查响应内容类型
     if (response.getStatusCode().is2xxSuccessful()) {

@@ -37,13 +37,13 @@ public class HotelInfoResp extends ElongResponse {
     private int hotelStatus;
 
     @JsonProperty("Address")
-    private String Address;
+    private String address;
 
     @JsonProperty("AddressEn")
-    private String AddressEn;
+    private String addressEn;
 
     @JsonProperty("Phone")
-    private String Phone;
+    private String phone;
 
     @JsonProperty("GoogleLat")
     private BigDecimal googleLat;

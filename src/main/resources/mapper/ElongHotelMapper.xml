@@ -7,15 +7,15 @@
     </select>
 
     <select id="selectHotelIds" resultType="com.example.basic.entity.ElongHotel">
-        select id
+        select id, hotel_id
         from wst_elong_hotel where id > #{startId} limit 2000
     </select>
 
     <insert id="saveBatch" parameterType="com.example.basic.entity.ElongHotel">
-        insert into wst_elong_hotel (hotel_id, hotel_name, hotel_name_en, city_id, modification, update_time)
+        insert into wst_elong_hotel (hotel_id, hotel_name, hotel_name_en, city_id, hotel_status, modification, update_time)
         values
         <foreach collection="list" separator="," item="item">
-            (#{item.hotelId}, #{item.hotelName}, #{item.hotelNameEn}, #{item.cityId}, #{item.modification}, #{item.updateTime})
+            (#{item.hotelId}, #{item.hotelName}, #{item.hotelNameEn}, #{item.cityId}, #{item.hotelStatus}, #{item.modification}, #{item.updateTime})
         </foreach>
     </insert>
 </mapper>

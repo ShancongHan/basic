@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic.dao.ElongHotelInfoDao">
+
+    <select id="selectHotelIds" parameterType="java.util.List" resultType="com.example.basic.entity.ElongHotelInfo">
+        SELECT hotel_id FROM wst_elong_hotel_info WHERE hotel_id IN (
+        <foreach collection="hotelIds" item="one" separator=",">
+            #{one}
+        </foreach> )
+    </select>
+
+    <insert id="saveBatch" parameterType="com.example.basic.entity.ElongHotelInfo">
+        insert into wst_elong_hotel_info (
+        hotel_id,
+        hotel_name,
+        hotel_name_en,
+        hotel_status,
+        address,
+        address_en,
+        phone,
+        google_lat,
+        google_lon,
+        baidu_lat,
+        baidu_lon,
+        city_id,
+        city_name
+        )
+        values
+        <foreach collection="list" separator="," item="item">
+            (
+            #{item.hotelId},
+            #{item.hotelName},
+            #{item.hotelNameEn},
+            #{item.hotelStatus},
+            #{item.address},
+            #{item.addressEn},
+            #{item.phone},
+            #{item.googleLat},
+            #{item.googleLon},
+            #{item.baiduLat},
+            #{item.baiduLon},
+            #{item.cityId},
+            #{item.cityName}
+            )
+        </foreach>
+    </insert>
+</mapper>

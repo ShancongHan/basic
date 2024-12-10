@@ -15,6 +15,8 @@ public class ElongHotel {
 
   private String hotelNameEn;
 
+  private Integer hotelStatus;
+
   private String cityId;
 
   /**
