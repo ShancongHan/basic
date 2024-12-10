@@ -2,66 +2,73 @@ package com.example.basic.service;
 
 import com.alibaba.fastjson2.JSON;
 import com.example.basic.config.ElongApiConfig;
-import com.example.basic.domain.elong.req.CityReq;
+import com.example.basic.dao.ElongHotelDao;
 import com.example.basic.domain.elong.req.HotelInfoReq;
 import com.example.basic.domain.elong.req.HotelReq;
-import com.example.basic.domain.elong.resp.CityResp;
 import com.example.basic.domain.elong.resp.HotelInfoResp;
 import com.example.basic.domain.elong.resp.HotelResp;
+import com.example.basic.entity.ElongCity;
+import com.example.basic.entity.ElongHotel;
 import com.example.basic.utils.ElongHttp;
+import com.google.common.collect.Lists;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Objects;
 
 @Service
 public class ElongHotelService {
 
   @Autowired private ElongCityService elongCityService;
 
+  @Autowired private ElongHotelDao elongHotelDao;
+
   public void syncAllHotel() {
-    int countryType = 1;
-    int cityIdType = 1;
-    int pageIndex = 1;
-    int pageSize = 200;
-    int hotelPageSize = 2000;
-    while (true) {
-      try {
-        CityReq req = new CityReq();
-        req.setCountryType(countryType);
-        req.setCityIdType(cityIdType);
-        req.setPageIndex(pageIndex);
-        req.setPageSize(pageSize);
-        CityResp cityResp = elongCityService.getCityList(req);
-        if (cityResp == null
-            || cityResp.getResult() == null
-            || CollectionUtils.isEmpty(cityResp.getResult().getCitys())) {
-          break;
-        }
-
-        int hotelPageIndex = 1;
-        for (CityResp.City city : cityResp
-                        .getResult()
-                        .getCitys()) {
-          try {
-          String cityId = city.getCityId();
-          HotelReq hotelReq = new HotelReq();
-          hotelReq.setCityId(cityId);
-          hotelReq.setPageIndex(hotelPageIndex);
-          hotelReq.setPageSize(hotelPageSize);
-          HotelResp hotelList = this.getHotelList(hotelReq);
-
-          } catch (Exception e) {
-            System.err.println("请求hotelList异常：" + e);
-          } finally {
-            hotelPageIndex++;
+    List<ElongCity> cityList = elongCityService.selectCityList();
+    for (ElongCity elongCity : cityList) {
+      int pageIndex = 1;
+      int pageSize = 2000;
+      int saveTotalCount = 0;
+      while (true) {
+        try {
+          HotelReq req = new HotelReq();
+          req.setCityId(elongCity.getCityId());
+          req.setPageIndex(pageIndex);
+          req.setPageSize(pageSize);
+          HotelResp hotelResp = this.getHotelList(req);
+          if (hotelResp == null
+              || hotelResp.getResult() == null
+              || CollectionUtils.isEmpty(hotelResp.getResult().getHotels())) {
+            break;
           }
+
+          List<ElongHotel> elongHotels = Lists.newArrayList();
+          for (HotelResp.Hotel hotel : hotelResp.getResult().getHotels()) {
+            if (Objects.nonNull(hotel.getHotelStatus()) && hotel.getHotelStatus() == 1) {
+              ElongHotel elongHotel = new ElongHotel();
+              BeanUtils.copyProperties(hotel, elongHotel);
+              elongHotels.add(elongHotel);
+            }
+          }
+
+          if (CollectionUtils.isNotEmpty(elongHotels)) {
+            elongHotelDao.saveBatch(elongHotels);
+            saveTotalCount += elongHotels.size();
+            System.out.println("艺龙酒店同步-已保存hotel数量->" + saveTotalCount);
+          }
+        } catch (Exception e) {
+          System.err.println(
+              "艺龙酒店同步-请求hotelList->elongCityId=" + elongCity.getCityId() + "，异常：" + e);
+        } finally {
+          pageIndex++;
         }
-      } catch (Exception e) {
-        System.err.println("请求cityList异常：" + e);
-      } finally {
-        pageIndex++;
       }
+
+      System.out.println("艺龙酒店同步结束-已保存hotel数量->" + saveTotalCount);
     }
   }
 

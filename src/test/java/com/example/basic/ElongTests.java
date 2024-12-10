@@ -47,6 +47,11 @@ class ElongTests {
   }
 
   @Test
+  void testSyncAllHotels() {
+    elongHotelService.syncAllHotel();
+  }
+
+  @Test
   void testHotelInfo() {
     HotelInfoReq req = new HotelInfoReq();
     req.setHotelId("94405767");

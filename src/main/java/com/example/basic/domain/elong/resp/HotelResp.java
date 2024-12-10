@@ -37,7 +37,7 @@ public class HotelResp extends ElongResponse {
     private String hotelNameEn;
 
     @JsonProperty("HotelStatus")
-    private int hotelStatus;
+    private Integer hotelStatus;
 
     @JsonProperty("CityId")
     private String cityId;

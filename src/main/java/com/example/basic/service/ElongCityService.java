@@ -21,6 +21,10 @@ public class ElongCityService {
 
   @Resource private ElongCityDao elongCityDao;
 
+  public List<ElongCity> selectCityList() {
+    return elongCityDao.selectCityList();
+  }
+
   public void syncAllCities() {
     int countryType = 1;
     int cityIdType = 1;
