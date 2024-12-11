@@ -3,11 +3,11 @@
 <mapper namespace="com.example.basic.dao.HsjlHotelInfoDao">
     <select id="selectHotelInfoIds" resultType="com.example.basic.entity.HsjlHotelInfo">
         select id, hotel_id
-        from wst_hsjl_hotel_info where id > #{startId} limit 10000
+        from hsjl_hotel_info where id > #{startId} limit 10000
     </select>
 
     <insert id="saveBatch" parameterType="com.example.basic.entity.HsjlHotelInfo">
-        insert into wst_hsjl_hotel_info (
+        insert into hsjl_hotel_info (
         hotel_id,
         hotel_name,
         hotel_eng_name,

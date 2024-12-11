@@ -3,14 +3,14 @@
 <mapper namespace="com.example.basic.dao.ElongHotelInfoDao">
 
     <select id="selectHotelIds" parameterType="java.util.List" resultType="com.example.basic.entity.ElongHotelInfo">
-        SELECT hotel_id FROM wst_elong_hotel_info WHERE hotel_id IN (
+        SELECT hotel_id FROM elong_hotel_info WHERE hotel_id IN (
         <foreach collection="hotelIds" item="one" separator=",">
             #{one}
         </foreach> )
     </select>
 
     <insert id="saveBatch" parameterType="com.example.basic.entity.ElongHotelInfo">
-        insert into wst_elong_hotel_info (
+        insert into elong_hotel_info (
         hotel_id,
         hotel_name,
         hotel_name_en,

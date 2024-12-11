@@ -3,11 +3,11 @@
 <mapper namespace="com.example.basic.dao.HsjlCityDao">
     <select id="selectCityList" resultType="com.example.basic.entity.HsjlCity">
         select *
-        from wst_hsjl_city
+        from hsjl_city
     </select>
 
     <insert id="saveBatch" parameterType="com.example.basic.entity.HsjlCity">
-        insert into wst_hsjl_city (city_code, city_name, city_name_en, province_code, province_name, province_name_en)
+        insert into hsjl_city (city_code, city_name, city_name_en, province_code, province_name, province_name_en)
         values
         <foreach collection="list" item="item" separator=",">
             (#{item.cityCode}, #{item.cityName}, #{item.cityNameEn}, #{item.provinceCode}, #{item.provinceName}, #{item.provinceNameEn})

@@ -3,16 +3,16 @@
 <mapper namespace="com.example.basic.dao.ElongHotelDao">
     <select id="selectHotelList" resultType="com.example.basic.entity.ElongHotel">
         select *
-        from wst_elong_hotel where id > #{startId} limit 2000
+        from elong_hotel where id > #{startId} limit 2000
     </select>
 
     <select id="selectHotelIds" resultType="com.example.basic.entity.ElongHotel">
         select id, hotel_id
-        from wst_elong_hotel where id > #{startId} limit 2000
+        from elong_hotel where id > #{startId} limit 2000
     </select>
 
     <insert id="saveBatch" parameterType="com.example.basic.entity.ElongHotel">
-        insert into wst_elong_hotel (hotel_id, hotel_name, hotel_name_en, city_id, hotel_status, modification, update_time)
+        insert into elong_hotel (hotel_id, hotel_name, hotel_name_en, city_id, hotel_status, modification, update_time)
         values
         <foreach collection="list" separator="," item="item">
             (#{item.hotelId}, #{item.hotelName}, #{item.hotelNameEn}, #{item.cityId}, #{item.hotelStatus}, #{item.modification}, #{item.updateTime})
