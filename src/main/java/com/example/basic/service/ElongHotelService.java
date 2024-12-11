@@ -137,8 +137,16 @@ public class ElongHotelService {
         if (hotelInfoResp == null
             || hotelInfoResp.getResult() == null
             || hotelInfoResp.getResult().getHotelDetail() == null) {
-          System.err.println(
-              "艺龙酒店info同步-请求hotelInfo->hotelInfoId=" + hotelInfoId + "，hotelInfoResp为空");
+          if (hotelInfoResp != null && StringUtils.isNotEmpty(hotelInfoResp.getCode())) {
+            System.err.println(
+                "艺龙酒店info同步-请求hotelInfo->hotelInfoId="
+                    + hotelInfoId
+                    + "，code="
+                    + hotelInfoResp.getCode());
+          } else {
+            System.err.println(
+                "艺龙酒店info同步-请求hotelInfo->hotelInfoId=" + hotelInfoId + "，hotelInfoResp为空");
+          }
           continue;
         }
 
