@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic.dao.WstHotelGlobalProvinceDao">
+    <select id="selectAll" resultType="com.example.basic.entity.WstHotelGlobalProvince">
+        SELECT *
+        FROM `wst_hotel_global_province`
+    </select>
+
+    <update id="update" parameterType="com.example.basic.entity.WstHotelGlobalProvince">
+        UPDATE `wst_hotel_global_province`
+        SET `eps_country_code` = #{epsCountryCode}, `eps_name` =  #{epsName}, `eps_name_en` = #{epsNameEn}
+        WHERE `id` = #{id}
+    </update>
+</mapper>

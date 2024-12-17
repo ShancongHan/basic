@@ -1,56 +1,803 @@
-2024-12-06T09:37:24.816+08:00  INFO 2928 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 2928 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
-2024-12-06T09:37:24.826+08:00  INFO 2928 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
-2024-12-06T09:37:25.277+08:00  INFO 2928 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-12-06T09:37:25.278+08:00  INFO 2928 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-12-06T09:37:25.301+08:00  INFO 2928 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 Redis repository interfaces.
-2024-12-06T09:37:25.671+08:00  INFO 2928 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
-2024-12-06T09:37:25.676+08:00  INFO 2928 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2024-12-06T09:37:25.676+08:00  INFO 2928 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
-2024-12-06T09:37:25.746+08:00  INFO 2928 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2024-12-06T09:37:25.747+08:00  INFO 2928 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 892 ms
-2024-12-06T09:37:26.706+08:00  INFO 2928 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
-2024-12-06T09:37:26.713+08:00  INFO 2928 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 2.118 seconds (process running for 2.527)
-2024-12-06T09:37:55.361+08:00  INFO 2928 --- [http-nio-9008-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-12-06T09:37:55.361+08:00  INFO 2928 --- [http-nio-9008-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2024-12-06T09:37:55.362+08:00  INFO 2928 --- [http-nio-9008-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
-2024-12-06T09:37:56.816+08:00  INFO 2928 --- [http-nio-9008-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-12-06T09:37:57.884+08:00  INFO 2928 --- [http-nio-9008-exec-2] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@241faa27
-2024-12-06T09:37:57.887+08:00  INFO 2928 --- [http-nio-9008-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-12-06T09:41:03.916+08:00  INFO 2928 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-12-06T09:41:03.918+08:00  INFO 2928 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2024-12-06T09:41:09.224+08:00  INFO 26280 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 26280 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
-2024-12-06T09:41:09.225+08:00  INFO 26280 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
-2024-12-06T09:41:09.650+08:00  INFO 26280 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-12-06T09:41:09.652+08:00  INFO 26280 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-12-06T09:41:09.672+08:00  INFO 26280 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 Redis repository interfaces.
-2024-12-06T09:41:10.046+08:00  INFO 26280 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
-2024-12-06T09:41:10.051+08:00  INFO 26280 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2024-12-06T09:41:10.052+08:00  INFO 26280 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
-2024-12-06T09:41:10.120+08:00  INFO 26280 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2024-12-06T09:41:10.120+08:00  INFO 26280 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 868 ms
-2024-12-06T09:41:11.071+08:00  INFO 26280 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
-2024-12-06T09:41:11.076+08:00  INFO 26280 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 2.067 seconds (process running for 2.422)
-2024-12-06T09:41:12.196+08:00  INFO 26280 --- [http-nio-9008-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-12-06T09:41:12.196+08:00  INFO 26280 --- [http-nio-9008-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2024-12-06T09:41:12.197+08:00  INFO 26280 --- [http-nio-9008-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
-2024-12-06T09:41:13.654+08:00  INFO 26280 --- [http-nio-9008-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-12-06T09:41:14.685+08:00  INFO 26280 --- [http-nio-9008-exec-2] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7bd1f27d
-2024-12-06T09:41:14.688+08:00  INFO 26280 --- [http-nio-9008-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-12-06T09:42:37.444+08:00  INFO 5176 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 5176 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
-2024-12-06T09:42:37.446+08:00  INFO 5176 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
-2024-12-06T09:42:37.907+08:00  INFO 5176 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-12-06T09:42:37.909+08:00  INFO 5176 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-12-06T09:42:37.930+08:00  INFO 5176 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 Redis repository interfaces.
-2024-12-06T09:42:38.317+08:00  INFO 5176 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
-2024-12-06T09:42:38.323+08:00  INFO 5176 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2024-12-06T09:42:38.323+08:00  INFO 5176 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
-2024-12-06T09:42:38.384+08:00  INFO 5176 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2024-12-06T09:42:38.385+08:00  INFO 5176 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 912 ms
-2024-12-06T09:42:39.331+08:00  INFO 5176 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
-2024-12-06T09:42:39.336+08:00  INFO 5176 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 2.151 seconds (process running for 2.509)
-2024-12-06T09:42:40.993+08:00  INFO 5176 --- [http-nio-9008-exec-4] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-12-06T09:42:40.994+08:00  INFO 5176 --- [http-nio-9008-exec-4] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2024-12-06T09:42:40.995+08:00  INFO 5176 --- [http-nio-9008-exec-4] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
-2024-12-06T09:42:41.018+08:00  INFO 5176 --- [http-nio-9008-exec-4] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-12-06T09:42:41.288+08:00  INFO 5176 --- [http-nio-9008-exec-4] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1f4bf3f9
-2024-12-06T09:42:41.289+08:00  INFO 5176 --- [http-nio-9008-exec-4] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-12-16T13:40:52.525+08:00  INFO 18344 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 18344 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
+2024-12-16T13:40:52.535+08:00  INFO 18344 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
+2024-12-16T13:40:54.551+08:00  INFO 18344 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-12-16T13:40:54.553+08:00  INFO 18344 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-12-16T13:40:54.570+08:00  INFO 18344 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 9 ms. Found 0 Redis repository interfaces.
+2024-12-16T13:40:54.918+08:00  INFO 18344 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
+2024-12-16T13:40:54.924+08:00  INFO 18344 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-12-16T13:40:54.924+08:00  INFO 18344 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
+2024-12-16T13:40:54.990+08:00  INFO 18344 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-12-16T13:40:54.991+08:00  INFO 18344 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2424 ms
+2024-12-16T13:40:56.438+08:00  INFO 18344 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
+2024-12-16T13:40:56.445+08:00  INFO 18344 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 4.168 seconds (process running for 4.991)
+2024-12-16T13:41:24.575+08:00  INFO 18344 --- [http-nio-9008-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-12-16T13:41:24.575+08:00  INFO 18344 --- [http-nio-9008-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-12-16T13:41:24.576+08:00  INFO 18344 --- [http-nio-9008-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-12-16T13:41:24.600+08:00  INFO 18344 --- [http-nio-9008-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-12-16T13:41:24.748+08:00  INFO 18344 --- [http-nio-9008-exec-1] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1c94a73d
+2024-12-16T13:41:24.750+08:00  INFO 18344 --- [http-nio-9008-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-12-16T13:42:15.676+08:00  INFO 18344 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家PS，有省份3条，expedia有省份2条, 相同的0条，找不到省份3条，分别是[伯利恒省, 希布伦省, 杰里科省]
+2024-12-16T13:42:15.711+08:00  INFO 18344 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家PT，有省份20条，expedia有省份19条, 相同的14条，找不到省份6条，分别是[里斯本大区, 马德拉群岛, 圣塔伦区, 塞图巴尔区, 埃武拉区, 布拉干萨区]
+2024-12-16T13:42:15.714+08:00  INFO 18344 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家PY，有省份18条，expedia有省份18条, 相同的1条，找不到省份17条，分别是[大亚松森, 上巴拉圭省, 上巴拉那省, 阿曼拜省, 博克龙省, 卡瓜苏省, 卡萨帕省, 卡宁德尤省, 中央省, 康塞普西翁省, 瓜伊拉省, 伊塔普阿省, 米西奥内斯省, 涅恩布库省, 巴拉瓜里省, 阿耶斯总统省, 圣佩德罗省]
+2024-12-16T13:42:15.714+08:00  INFO 18344 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家AD，有省份7条，expedia有省份7条, 相同的6条，找不到省份1条，分别是[圣胡利娅-德洛里亚]
+2024-12-16T13:42:15.715+08:00  INFO 18344 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家AE，有省份7条，expedia有省份7条, 相同的0条，找不到省份7条，分别是[阿布扎比酋长国, 迪拜酋长国, 沙迦酋长国, 富查伊拉酋长国, 拉斯海马酋长国, 阿治曼酋长国, 乌姆盖万酋长国]
+2024-12-16T13:42:15.723+08:00  INFO 18344 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家AF，有省份34条，expedia有省份36条, 相同的34条，找不到省份0条，分别是[]
+2024-12-16T13:42:15.724+08:00  INFO 18344 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家AG，有省份7条，expedia有省份7条, 相同的7条，找不到省份0条，分别是[]
+2024-12-16T13:42:15.730+08:00  INFO 18344 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家AL，有省份12条，expedia有省份73条, 相同的3条，找不到省份9条，分别是[都拉斯, 迪勃拉州, 吉诺卡斯特州, 科尔察州, 库克斯州, 莱什州, 斯库台州, 地拉那州, 发罗拉州]
+2024-12-16T13:42:15.731+08:00  INFO 18344 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家AM，有省份11条，expedia有省份10条, 相同的5条，找不到省份6条，分别是[埃里温, 科泰克州, 洛里州, 休尼克州, 塔武什州, 瓦约茨佐尔州]
+2024-12-16T13:42:15.733+08:00  INFO 18344 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家AO，有省份18条，expedia有省份18条, 相同的11条，找不到省份7条，分别是[比耶省, 威拉省, 库安多古班哥省, 北广萨省, 南广萨省, 纳米贝省, 威热省]
+2024-12-16T13:42:15.807+08:00  INFO 18344 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家AR，有省份23条，expedia有省份536条, 相同的2条，找不到省份21条，分别是[恩特雷里奥斯省, 科尔多瓦省, 内乌肯省, 萨尔塔省, 圣路易斯省, 图库曼省, 胡胡伊省, 门多萨省, 圣胡安省, 圣地亚哥-德尔埃斯特罗省, 火地岛省, 米西奥内斯省, 圣克鲁斯省, 卡塔马卡省, 查科省, 丘布特省, 科连特斯省, 福莫萨, 拉潘帕省, 里奥哈省, 圣菲省]
+2024-12-16T13:42:15.807+08:00  INFO 18344 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家AS，有省份3条，expedia有省份3条, 相同的2条，找不到省份1条，分别是[马努阿区]
+2024-12-16T13:42:15.812+08:00  INFO 18344 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家AT，有省份8条，expedia有省份88条, 相同的8条，找不到省份0条，分别是[]
+2024-12-16T13:42:15.839+08:00  INFO 18344 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家AU，有省份8条，expedia有省份565条, 相同的8条，找不到省份0条，分别是[]
+2024-12-16T13:42:15.849+08:00  INFO 18344 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家RO，有省份41条，expedia有省份41条, 相同的4条，找不到省份37条，分别是[阿尔杰什县, 布拉索夫县, 克鲁日县, 普拉霍瓦县, 比霍尔县, 梅赫丁茨县, 加拉茨县, 穆列什县, 苏恰瓦县, 阿尔巴县, 阿拉德县, 巴克乌县, 比斯特里察-讷瑟乌德县, 博托沙尼县, 布勒伊拉县, 布泽乌县, 卡拉什-塞维林县, 克勒拉希县, 康斯坦察县, 科瓦斯纳县, 登博维察县, 多尔日县, 久尔久县, 戈尔日县, 胡内多阿拉县, 雅洛米察县, 雅西县, 马拉穆列什县, 尼亚姆茨县, 奥尔特县, 萨图马雷县, 瑟拉日县, 蒂米什县, 图尔恰县, 瓦斯卢伊县, 沃尔恰县, 弗朗恰县]
+2024-12-16T13:42:15.850+08:00  INFO 18344 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BA，有省份3条，expedia有省份13条, 相同的3条，找不到省份0条，分别是[]
+2024-12-16T13:42:15.851+08:00  INFO 18344 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BB，有省份11条，expedia有省份11条, 相同的1条，找不到省份10条，分别是[圣安德鲁区, 圣乔治区, 圣詹姆斯区, 圣约翰区, 圣约瑟夫区, 圣卢西区, 圣迈克尔区, 圣彼得区, 圣菲利普区, 圣托马斯区]
+2024-12-16T13:42:15.855+08:00  INFO 18344 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家RS，有省份25条，expedia有省份28条, 相同的20条，找不到省份5条，分别是[拉什卡州, 舒马迪亚州, 兹拉提波尔州, 尼沙瓦州, 南巴奇卡州]
+2024-12-16T13:42:15.859+08:00  INFO 18344 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BD，有省份7条，expedia有省份72条, 相同的1条，找不到省份6条，分别是[巴里萨尔专区, 吉大港专区, 库尔纳专区, 拉杰沙希专区, 朗布尔专区, 锡尔赫特专区]
+2024-12-16T13:42:16.831+08:00  INFO 18344 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家RU，有省份81条，expedia有省份1997条, 相同的66条，找不到省份15条，分别是[莫斯科州, 克拉斯诺达尔边疆区, 加里宁格勒州, 鞑靼斯坦共和国, 萨马拉州, 罗斯托夫州, 弗拉基米尔州, 车里雅宾斯克州, 斯塔夫罗波尔边疆区, 伊尔库茨克州, 萨拉托夫州, 卡拉恰伊-切尔克斯共和国, 卡巴尔达-巴尔卡尔共和国, 印古什共和国, 图瓦共和国]
+2024-12-16T13:42:16.832+08:00  INFO 18344 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BE，有省份11条，expedia有省份13条, 相同的2条，找不到省份9条，分别是[东弗兰德省, 列日省, 西弗兰德省, 弗拉芒-布拉班特省, 埃诺省, 林堡省, 那慕尔省, 瓦隆-布拉班特省, 安特卫普省]
+2024-12-16T13:42:16.836+08:00  INFO 18344 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BF，有省份13条，expedia有省份58条, 相同的1条，找不到省份12条，分别是[布克莱迪穆翁大区, 瀑布大区, 中东大区, 中北大区, 中西大区, 中南大区, 东部大区, 上盆地大区, 北部大区, 高原-中部大区, 萨赫勒大区, 西南大区]
+2024-12-16T13:42:16.838+08:00  INFO 18344 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家RW，有省份5条，expedia有省份34条, 相同的0条，找不到省份5条，分别是[基加利市, 东部省, 北部省, 西部省, 南部省]
+2024-12-16T13:42:16.842+08:00  INFO 18344 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BG，有省份27条，expedia有省份29条, 相同的19条，找不到省份8条，分别是[蒙塔纳州, 布拉戈耶夫格勒州, 布尔加斯州, 帕扎尔吉克州, 洛维奇州, 拉兹格勒州, 弗拉察州, 扬博尔州]
+2024-12-16T13:42:16.843+08:00  INFO 18344 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BH，有省份5条，expedia有省份4条, 相同的4条，找不到省份1条，分别是[中央省]
+2024-12-16T13:42:16.845+08:00  INFO 18344 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BI，有省份17条，expedia有省份18条, 相同的0条，找不到省份17条，分别是[布班扎省, 布琼布拉城市省, 布琼布拉乡村省, 布鲁里省, 坎库佐省, 锡比托凯省, 基特加省, 卡鲁济省, 卡扬扎省, 基龙多省, 马坎巴省, 穆拉姆维亚省, 穆因加省, 穆瓦洛省, 恩戈齐省, 鲁塔纳省, 鲁伊吉省]
+2024-12-16T13:42:16.846+08:00  INFO 18344 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BJ，有省份12条，expedia有省份13条, 相同的10条，找不到省份2条，分别是[阿塔科拉省, 库福省]
+2024-12-16T13:42:16.846+08:00  INFO 18344 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BM，在expedia数据中找不到
+2024-12-16T13:43:34.490+08:00  INFO 18344 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-12-16T13:43:34.491+08:00  INFO 18344 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-12-16T13:43:39.920+08:00  INFO 23260 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 23260 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
+2024-12-16T13:43:39.922+08:00  INFO 23260 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
+2024-12-16T13:43:40.359+08:00  INFO 23260 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-12-16T13:43:40.361+08:00  INFO 23260 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-12-16T13:43:40.382+08:00  INFO 23260 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 11 ms. Found 0 Redis repository interfaces.
+2024-12-16T13:43:40.767+08:00  INFO 23260 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
+2024-12-16T13:43:40.773+08:00  INFO 23260 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-12-16T13:43:40.773+08:00  INFO 23260 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
+2024-12-16T13:43:40.840+08:00  INFO 23260 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-12-16T13:43:40.840+08:00  INFO 23260 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 889 ms
+2024-12-16T13:43:41.855+08:00  INFO 23260 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
+2024-12-16T13:43:41.862+08:00  INFO 23260 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 2.17 seconds (process running for 2.66)
+2024-12-16T13:44:13.220+08:00  INFO 23260 --- [http-nio-9008-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-12-16T13:44:13.221+08:00  INFO 23260 --- [http-nio-9008-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-12-16T13:44:13.222+08:00  INFO 23260 --- [http-nio-9008-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-12-16T13:44:13.246+08:00  INFO 23260 --- [http-nio-9008-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-12-16T13:44:13.389+08:00  INFO 23260 --- [http-nio-9008-exec-1] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@251ed6aa
+2024-12-16T13:44:13.391+08:00  INFO 23260 --- [http-nio-9008-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-12-16T13:44:15.409+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家PS，有省份3条，expedia有省份2条, 相同的0条，找不到省份3条，分别是[伯利恒省, 希布伦省, 杰里科省]
+2024-12-16T13:44:15.431+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家PT，有省份20条，expedia有省份19条, 相同的14条，找不到省份6条，分别是[里斯本大区, 马德拉群岛, 圣塔伦区, 塞图巴尔区, 埃武拉区, 布拉干萨区]
+2024-12-16T13:44:15.435+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家PY，有省份18条，expedia有省份18条, 相同的1条，找不到省份17条，分别是[大亚松森, 上巴拉圭省, 上巴拉那省, 阿曼拜省, 博克龙省, 卡瓜苏省, 卡萨帕省, 卡宁德尤省, 中央省, 康塞普西翁省, 瓜伊拉省, 伊塔普阿省, 米西奥内斯省, 涅恩布库省, 巴拉瓜里省, 阿耶斯总统省, 圣佩德罗省]
+2024-12-16T13:44:15.435+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家AD，有省份7条，expedia有省份7条, 相同的6条，找不到省份1条，分别是[圣胡利娅-德洛里亚]
+2024-12-16T13:44:15.436+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家AE，有省份7条，expedia有省份7条, 相同的0条，找不到省份7条，分别是[阿布扎比酋长国, 迪拜酋长国, 沙迦酋长国, 富查伊拉酋长国, 拉斯海马酋长国, 阿治曼酋长国, 乌姆盖万酋长国]
+2024-12-16T13:44:15.443+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家AF，有省份34条，expedia有省份36条, 相同的34条，找不到省份0条，分别是[]
+2024-12-16T13:44:15.444+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家AG，有省份7条，expedia有省份7条, 相同的7条，找不到省份0条，分别是[]
+2024-12-16T13:44:15.449+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家AL，有省份12条，expedia有省份73条, 相同的3条，找不到省份9条，分别是[都拉斯, 迪勃拉州, 吉诺卡斯特州, 科尔察州, 库克斯州, 莱什州, 斯库台州, 地拉那州, 发罗拉州]
+2024-12-16T13:44:15.450+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家AM，有省份11条，expedia有省份10条, 相同的5条，找不到省份6条，分别是[埃里温, 科泰克州, 洛里州, 休尼克州, 塔武什州, 瓦约茨佐尔州]
+2024-12-16T13:44:15.452+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家AO，有省份18条，expedia有省份18条, 相同的11条，找不到省份7条，分别是[比耶省, 威拉省, 库安多古班哥省, 北广萨省, 南广萨省, 纳米贝省, 威热省]
+2024-12-16T13:44:15.527+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家AR，有省份23条，expedia有省份536条, 相同的2条，找不到省份21条，分别是[恩特雷里奥斯省, 科尔多瓦省, 内乌肯省, 萨尔塔省, 圣路易斯省, 图库曼省, 胡胡伊省, 门多萨省, 圣胡安省, 圣地亚哥-德尔埃斯特罗省, 火地岛省, 米西奥内斯省, 圣克鲁斯省, 卡塔马卡省, 查科省, 丘布特省, 科连特斯省, 福莫萨, 拉潘帕省, 里奥哈省, 圣菲省]
+2024-12-16T13:44:15.527+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家AS，有省份3条，expedia有省份3条, 相同的2条，找不到省份1条，分别是[马努阿区]
+2024-12-16T13:44:15.531+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家AT，有省份8条，expedia有省份88条, 相同的8条，找不到省份0条，分别是[]
+2024-12-16T13:44:15.558+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家AU，有省份8条，expedia有省份565条, 相同的8条，找不到省份0条，分别是[]
+2024-12-16T13:44:15.568+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家RO，有省份41条，expedia有省份41条, 相同的4条，找不到省份37条，分别是[阿尔杰什县, 布拉索夫县, 克鲁日县, 普拉霍瓦县, 比霍尔县, 梅赫丁茨县, 加拉茨县, 穆列什县, 苏恰瓦县, 阿尔巴县, 阿拉德县, 巴克乌县, 比斯特里察-讷瑟乌德县, 博托沙尼县, 布勒伊拉县, 布泽乌县, 卡拉什-塞维林县, 克勒拉希县, 康斯坦察县, 科瓦斯纳县, 登博维察县, 多尔日县, 久尔久县, 戈尔日县, 胡内多阿拉县, 雅洛米察县, 雅西县, 马拉穆列什县, 尼亚姆茨县, 奥尔特县, 萨图马雷县, 瑟拉日县, 蒂米什县, 图尔恰县, 瓦斯卢伊县, 沃尔恰县, 弗朗恰县]
+2024-12-16T13:44:15.569+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BA，有省份3条，expedia有省份13条, 相同的3条，找不到省份0条，分别是[]
+2024-12-16T13:44:15.569+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BB，有省份11条，expedia有省份11条, 相同的1条，找不到省份10条，分别是[圣安德鲁区, 圣乔治区, 圣詹姆斯区, 圣约翰区, 圣约瑟夫区, 圣卢西区, 圣迈克尔区, 圣彼得区, 圣菲利普区, 圣托马斯区]
+2024-12-16T13:44:15.574+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家RS，有省份25条，expedia有省份28条, 相同的20条，找不到省份5条，分别是[拉什卡州, 舒马迪亚州, 兹拉提波尔州, 尼沙瓦州, 南巴奇卡州]
+2024-12-16T13:44:15.577+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BD，有省份7条，expedia有省份72条, 相同的1条，找不到省份6条，分别是[巴里萨尔专区, 吉大港专区, 库尔纳专区, 拉杰沙希专区, 朗布尔专区, 锡尔赫特专区]
+2024-12-16T13:44:16.573+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家RU，有省份81条，expedia有省份1997条, 相同的66条，找不到省份15条，分别是[莫斯科州, 克拉斯诺达尔边疆区, 加里宁格勒州, 鞑靼斯坦共和国, 萨马拉州, 罗斯托夫州, 弗拉基米尔州, 车里雅宾斯克州, 斯塔夫罗波尔边疆区, 伊尔库茨克州, 萨拉托夫州, 卡拉恰伊-切尔克斯共和国, 卡巴尔达-巴尔卡尔共和国, 印古什共和国, 图瓦共和国]
+2024-12-16T13:44:16.574+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BE，有省份11条，expedia有省份13条, 相同的2条，找不到省份9条，分别是[东弗兰德省, 列日省, 西弗兰德省, 弗拉芒-布拉班特省, 埃诺省, 林堡省, 那慕尔省, 瓦隆-布拉班特省, 安特卫普省]
+2024-12-16T13:44:16.579+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BF，有省份13条，expedia有省份58条, 相同的1条，找不到省份12条，分别是[布克莱迪穆翁大区, 瀑布大区, 中东大区, 中北大区, 中西大区, 中南大区, 东部大区, 上盆地大区, 北部大区, 高原-中部大区, 萨赫勒大区, 西南大区]
+2024-12-16T13:44:16.580+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家RW，有省份5条，expedia有省份34条, 相同的0条，找不到省份5条，分别是[基加利市, 东部省, 北部省, 西部省, 南部省]
+2024-12-16T13:44:16.585+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BG，有省份27条，expedia有省份29条, 相同的19条，找不到省份8条，分别是[蒙塔纳州, 布拉戈耶夫格勒州, 布尔加斯州, 帕扎尔吉克州, 洛维奇州, 拉兹格勒州, 弗拉察州, 扬博尔州]
+2024-12-16T13:44:16.585+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BH，有省份5条，expedia有省份4条, 相同的4条，找不到省份1条，分别是[中央省]
+2024-12-16T13:44:16.587+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BI，有省份17条，expedia有省份18条, 相同的0条，找不到省份17条，分别是[布班扎省, 布琼布拉城市省, 布琼布拉乡村省, 布鲁里省, 坎库佐省, 锡比托凯省, 基特加省, 卡鲁济省, 卡扬扎省, 基龙多省, 马坎巴省, 穆拉姆维亚省, 穆因加省, 穆瓦洛省, 恩戈齐省, 鲁塔纳省, 鲁伊吉省]
+2024-12-16T13:44:16.588+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BJ，有省份12条，expedia有省份13条, 相同的10条，找不到省份2条，分别是[阿塔科拉省, 库福省]
+2024-12-16T13:44:16.589+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BM，在expedia数据中找不到
+2024-12-16T13:44:16.589+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BN，有省份4条，expedia有省份4条, 相同的4条，找不到省份0条，分别是[]
+2024-12-16T13:44:16.595+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BO，有省份9条，expedia有省份121条, 相同的9条，找不到省份0条，分别是[]
+2024-12-16T13:44:16.596+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家SA，有省份13条，expedia有省份13条, 相同的3条，找不到省份10条，分别是[麦地那省, 阿西尔省, 盖西姆省, 巴哈省, 北部边疆省, 焦夫省, 哈伊勒省, 吉赞省, 奈季兰省, 塔布克省]
+2024-12-16T13:44:16.596+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BQ，有省份3条，expedia有省份3条, 相同的3条，找不到省份0条，分别是[]
+2024-12-16T13:44:16.597+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家SB，有省份9条，expedia有省份10条, 相同的1条，找不到省份8条，分别是[中部群岛省, 舒瓦瑟尔省, 瓜达尔卡纳尔省, 伊莎贝尔省, 马莱塔省, 拉纳尔和贝罗纳省, 泰莫图省, 西部省]
+2024-12-16T13:44:16.601+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BR，有省份27条，expedia有省份27条, 相同的15条，找不到省份12条，分别是[巴拉那州, 戈亚斯州, 帕拉伊巴州, 皮奥伊, 塞阿拉州, 圣埃斯皮里图州, 圣保罗州, 联邦区, 马拉尼昂州, 朗多尼亚州, 帕拉州, 阿马帕州]
+2024-12-16T13:44:16.606+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BS，有省份29条，expedia有省份27条, 相同的20条，找不到省份9条，分别是[阿克林岛, 比米尼群岛, 哈勃岛, 伊纳瓜群岛, 曼格罗夫岛, 马亚瓜纳岛, 拉吉德岛, 圣萨尔瓦多岛, 新普罗维登斯岛]
+2024-12-16T13:44:16.608+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家SD，有省份15条，expedia有省份20条, 相同的14条，找不到省份1条，分别是[加达里夫州]
+2024-12-16T13:44:16.610+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BT，有省份19条，expedia有省份20条, 相同的11条，找不到省份8条，分别是[楚卡宗, 廷布宗, 旺杜波德朗宗, 通萨宗, 谢姆冈宗, 塔希冈宗, 伦奇宗, 塔希央奇宗]
+2024-12-16T13:44:16.667+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家SE，有省份21条，expedia有省份311条, 相同的4条，找不到省份17条，分别是[西约塔兰省, 耶夫勒堡省, 达拉纳省, 哈兰省, 东约特兰省, 斯科讷省, 南曼兰省, 韦姆兰省, 西曼兰省, 延雪平省, 克鲁努贝里省, 哥得兰省, 布莱金厄省, 西诺尔兰省, 耶姆特兰省, 西博滕省, 北博滕省]
+2024-12-16T13:44:16.668+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BW，有省份9条，expedia有省份10条, 相同的4条，找不到省份5条，分别是[杭济区, 卡拉哈迪区, 卡特伦区, 奎嫩区, 东南区]
+2024-12-16T13:44:16.668+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BY，有省份6条，expedia有省份15条, 相同的5条，找不到省份1条，分别是[戈梅利州]
+2024-12-16T13:44:16.669+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BZ，有省份6条，expedia有省份6条, 相同的2条，找不到省份4条，分别是[卡约区, 科罗萨尔区, 奥兰治沃克区, 斯坦克里克区]
+2024-12-16T13:44:16.673+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家SK，有省份8条，expedia有省份78条, 相同的0条，找不到省份8条，分别是[尼特拉州, 日利纳州, 科希策州, 布拉迪斯拉发州, 特尔纳瓦州, 班斯卡·比斯特理察州, 特伦钦州, 普雷绍夫州]
+2024-12-16T13:44:16.673+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家SL，有省份4条，expedia有省份7条, 相同的1条，找不到省份3条，分别是[东方省, 北方省, 南方省]
+2024-12-16T13:44:16.673+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家SM，在expedia数据中找不到
+2024-12-16T13:44:16.674+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家SN，有省份12条，expedia有省份14条, 相同的0条，找不到省份12条，分别是[达喀尔区, 久尔贝勒区, 法蒂克区, 考拉克区, 凯杜古区, 科尔达区, 卢加区, 马塔姆区, 圣路易区, 坦巴昆达区, 捷斯区, 济金绍尔区]
+2024-12-16T13:44:16.676+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家SO，有省份18条，expedia有省份20条, 相同的14条，找不到省份4条，分别是[下谢贝利州, 希兰州, 努加尔州, 沃戈伊加勒贝德州]
+2024-12-16T13:44:16.913+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CA，有省份13条，expedia有省份772条, 相同的13条，找不到省份0条，分别是[]
+2024-12-16T13:44:16.916+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家SR，有省份10条，expedia有省份60条, 相同的6条，找不到省份4条，分别是[帕拉马里博, 科默韦讷区, 尼克里区, 锡帕利维尼区]
+2024-12-16T13:44:16.917+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家SS，有省份10条，expedia有省份11条, 相同的10条，找不到省份0条，分别是[]
+2024-12-16T13:44:16.921+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CD，有省份26条，expedia有省份26条, 相同的22条，找不到省份4条，分别是[中刚果省, 南基伍省, 北基伍省, 赤道省]
+2024-12-16T13:44:16.921+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家ST，有省份2条，expedia有省份1条, 相同的0条，找不到省份2条，分别是[普林西比, 圣多美]
+2024-12-16T13:44:16.922+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CF，有省份16条，expedia有省份17条, 相同的15条，找不到省份1条，分别是[翁贝拉-姆波科省]
+2024-12-16T13:44:16.924+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家SV，有省份14条，expedia有省份14条, 相同的0条，找不到省份14条，分别是[阿瓦查潘省, 卡瓦尼亚斯省, 库斯卡特兰省, 查拉特南戈省, 拉利伯塔德省, 拉巴斯省, 拉乌尼翁省, 莫拉桑省, 圣米格尔省, 圣萨尔瓦多省, 圣安娜省, 圣维森特省, 松索纳特省, 乌苏卢坦省]
+2024-12-16T13:44:16.924+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CG，有省份11条，expedia有省份12条, 相同的10条，找不到省份1条，分别是[莱库穆省]
+2024-12-16T13:44:16.946+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CH，有省份26条，expedia有省份153条, 相同的17条，找不到省份9条，分别是[伯尔尼州, 格劳宾登州, 苏黎世州, 瓦莱州, 巴塞尔乡村州, 外阿彭策尔州, 巴塞尔城市州, 乌里州, 内阿彭策尔州]
+2024-12-16T13:44:16.951+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CI，有省份18条，expedia有省份47条, 相同的7条，找不到省份11条，分别是[恩济-科莫埃区, 登盖莱区, 南科莫埃区, 马拉韦区, 邦达马河谷区, 沃罗杜古区, 巴芬区, 弗罗马格尔区, 中卡瓦利区, 中科莫埃区, 南邦达马区]
+2024-12-16T13:44:16.952+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家SY，有省份11条，expedia有省份15条, 相同的0条，找不到省份11条，分别是[哈塞克省, 拉塔基亚省, 库奈特拉省, 德拉省, 代尔祖尔省, 大马士革省, 阿勒颇省, 哈马省, 霍姆斯省, 大马士革农村省, 塔尔图斯省]
+2024-12-16T13:44:16.952+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家SZ，有省份4条，expedia有省份4条, 相同的4条，找不到省份0条，分别是[]
+2024-12-16T13:44:16.953+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CK，在expedia数据中找不到
+2024-12-16T13:44:16.959+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CL，有省份15条，expedia有省份71条, 相同的0条，找不到省份15条，分别是[安托法加斯塔大区, 塔拉帕卡大区, 比奥比奥大区, 阿塔卡马大区, 科金博大区, 湖大区, 麦哲伦-智利南极大区, 阿劳卡尼亚大区, 瓦尔帕莱索大区, 阿里卡和帕里纳科塔大区, 奥伊金斯将军解放者大区, 马乌莱大区, 河大区, 伊瓦涅斯将军艾森大区, 圣地亚哥首都大区]
+2024-12-16T13:44:16.963+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CM，有省份10条，expedia有省份68条, 相同的5条，找不到省份5条，分别是[阿达马瓦区, 中部区, 极北区, 西北区, 西南区]
+2024-12-16T13:44:16.963+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CN，有省份3条，expedia有省份39条, 相同的0条，找不到省份3条，分别是[香港, 澳门, 台湾]
+2024-12-16T13:44:16.970+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CO，有省份33条，expedia有省份33条, 相同的22条，找不到省份11条，分别是[阿劳卡省, 纳里尼奥省, 金迪奥省, 科尔多巴省, 圣安德列斯省, 玻利瓦尔省, 瓜希拉省, 乔科省, 大西洋省, 博亚卡省, 波哥大]
+2024-12-16T13:44:16.973+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CR，有省份7条，expedia有省份91条, 相同的1条，找不到省份6条，分别是[蓬塔雷纳斯省, 阿拉胡埃垃省, 利蒙省, 圣何塞省, 卡塔戈省, 埃雷迪亚省]
+2024-12-16T13:44:16.976+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家TD，有省份22条，expedia有省份22条, 相同的18条，找不到省份4条，分别是[加扎勒河区, 哈杰尔-拉密区, 恩内迪区, 恩贾梅纳]
+2024-12-16T13:44:16.977+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CU，有省份15条，expedia有省份16条, 相同的6条，找不到省份9条，分别是[卡马圭省, 谢戈德阿维拉省, 西恩富戈斯省, 格拉玛省, 关塔那摩省, 奥尔金省, 玛雅贝克省, 比那尔德里奥省, 青年岛特区]
+2024-12-16T13:44:16.977+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CV，在expedia数据中找不到
+2024-12-16T13:44:16.978+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家TG，有省份5条，expedia有省份5条, 相同的0条，找不到省份5条，分别是[中部区, 卡拉区, 滨海区, 高原区, 草原区]
+2024-12-16T13:44:17.011+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家TH，有省份76条，expedia有省份79条, 相同的76条，找不到省份0条，分别是[]
+2024-12-16T13:44:17.012+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家TJ，有省份4条，expedia有省份62条, 相同的1条，找不到省份3条，分别是[戈尔诺-巴达赫尚自治州, 哈特隆州, 粟特州]
+2024-12-16T13:44:17.013+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CY，有省份6条，expedia有省份13条, 相同的5条，找不到省份1条，分别是[凯里尼亚区]
+2024-12-16T13:44:17.019+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CZ，有省份13条，expedia有省份89条, 相同的4条，找不到省份9条，分别是[乌斯季州, 奥洛穆茨, 摩拉维亚-西里西亚州, 南摩拉维亚州, 中波希米亚, 卡罗维发利州, 南波希米亚州, 比尔森州, 维索基纳州]
+2024-12-16T13:44:17.020+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家TL，有省份8条，expedia有省份13条, 相同的7条，找不到省份1条，分别是[欧库西区]
+2024-12-16T13:44:17.020+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家TM，有省份5条，expedia有省份5条, 相同的3条，找不到省份2条，分别是[巴尔坎州, 达沙古兹州]
+2024-12-16T13:44:17.028+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家TN，有省份24条，expedia有省份59条, 相同的2条，找不到省份22条，分别是[托泽尔省, 比塞大省, 泰塔温省, 马努巴省, 突尼斯省, 本阿鲁斯省, 梅德宁省, 加贝斯省, 吉比利省, 卡塞林省, 马赫迪耶省, 西迪布济德省, 莫纳斯提尔省, 坚杜拜省, 巴杰省, 锡勒亚奈省, 卡夫省, 凯鲁万省, 斯法克斯省, 加夫萨省, 苏塞省, 宰格万省]
+2024-12-16T13:44:17.028+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家TO，有省份5条，expedia有省份5条, 相同的3条，找不到省份2条，分别是[埃瓦, 纽阿斯]
+2024-12-16T13:44:17.064+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家TR，有省份81条，expedia有省份81条, 相同的49条，找不到省份32条，分别是[泰基尔达省, 埃迪尔内省, 克尔克拉雷利省, 巴勒克埃西尔省, 恰纳卡莱省, 伊兹密尔省, 艾登省, 穆拉省, 马尼萨省, 布尔萨省, 埃斯基谢希尔省, 比莱吉克省, 科贾埃利省, 萨卡里亚省, 安卡拉省, 科尼亚省, 安塔利亚省, 哈塔伊省, 卡赫拉曼马拉什省, 奥斯曼尼耶省, 阿克萨赖省, 尼代省, 内夫谢希尔省, 克尔谢希尔省, 开塞利省, 锡瓦斯省, 约兹加特省, 卡拉比克省, 昌克勒省, 特拉布宗省, 尚勒乌尔法省, 伊斯坦布尔省]
+2024-12-16T13:44:17.065+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家TT，有省份13条，expedia有省份10条, 相同的8条，找不到省份5条，分别是[里奥克拉鲁-马亚罗区域, 阿里马, 查瓜纳斯, 东多巴哥, 西多巴哥]
+2024-12-16T13:44:17.130+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家DE，有省份14条，expedia有省份334条, 相同的10条，找不到省份4条，分别是[巴登-符腾堡州, 勃兰登堡州, 梅克伦堡-前波美拉尼亚州, 下萨克森州]
+2024-12-16T13:44:17.130+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家TV，在expedia数据中找不到
+2024-12-16T13:44:17.138+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家TZ，有省份28条，expedia有省份47条, 相同的14条，找不到省份14条，分别是[阿鲁沙区, 达累斯萨拉姆区, 伊林加区, 北奔巴区, 桑给巴尔北区, 乞力马扎罗区, 南奔巴区, 桑给巴尔南区, 曼亚拉区, 马拉区, 桑给巴尔西区, 姆特瓦拉区, 恩琼贝区, 滨海区]
+2024-12-16T13:44:17.139+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家DJ，有省份6条，expedia有省份7条, 相同的6条，找不到省份0条，分别是[]
+2024-12-16T13:44:17.142+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家DK，有省份5条，expedia有省份103条, 相同的4条，找不到省份1条，分别是[西兰大区]
+2024-12-16T13:44:17.143+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家DM，有省份10条，expedia有省份10条, 相同的0条，找不到省份10条，分别是[圣安德鲁区, 圣大卫教区, 圣乔治堂区, 圣约翰堂区, 圣约瑟夫堂区, 圣卢克堂区, 圣马克堂区, 圣帕特里克堂区, 圣保罗堂区, 圣彼得堂区]
+2024-12-16T13:44:17.149+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家DO，有省份32条，expedia有省份32条, 相同的16条，找不到省份16条，分别是[国家特区, 山美纳, 阿苏阿省, 巴奥鲁可省, 巴拉奥纳省, 达哈朋省, 杜华德省, 艾斯派亚省, 拉维加省, 主教·瑙黎省, 银山省, 佩德纳莱斯省, 米拉贝姐妹省, 圣克里斯多堡省, 圣彼德省, 圣地亚哥省]
+2024-12-16T13:44:17.171+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家UA，有省份24条，expedia有省份161条, 相同的23条，找不到省份1条，分别是[敖德萨州]
+2024-12-16T13:44:17.174+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家UG，有省份4条，expedia有省份116条, 相同的4条，找不到省份0条，分别是[]
+2024-12-16T13:44:17.191+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家DZ，有省份48条，expedia有省份58条, 相同的2条，找不到省份46条，分别是[阿德拉尔省, 艾因迪夫拉省, 艾因泰穆尚特省, 阿尔及尔省, 安纳巴省, 巴特纳省, 贝沙尔省, 贝贾亚省, 比斯克拉省, 卜利达省, 布阿拉里季堡省, 布维拉省, 布米尔达斯省, 谢里夫省, 君士坦丁省, 杰勒法省, 巴亚兹省, 瓦迪省, 塔里夫省, 盖尔达耶省, 盖勒马省, 伊利济省, 吉杰勒省, 汉舍莱省, 艾格瓦特省, 穆阿斯凯尔省, 麦迪亚省, 米拉省, 穆斯塔加奈姆省, 姆西拉省, 奥兰省, 瓦尔格拉省, 乌姆布瓦吉省, 埃利赞省, 赛伊达省, 西迪贝勒阿巴斯省, 斯基克达省, 苏格艾赫拉斯省, 塔曼拉塞特省, 泰贝萨省, 提亚雷特省, 廷杜夫省, 提帕萨省, 提塞姆西勒特省, 提济乌祖省, 特莱姆森省]
+2024-12-16T13:44:17.243+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家EC，有省份24条，expedia有省份241条, 相同的15条，找不到省份9条，分别是[加拉帕戈斯省, 玻利瓦尔省, 卡尼亚尔省, 洛斯里奥斯省, 马纳比省, 莫罗纳-圣地亚哥省, 圣多明各-德洛斯查奇拉斯省, 苏昆比奥斯省, 萨莫拉-钦奇佩省]
+2024-12-16T13:44:18.398+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家US，有省份52条，expedia有省份3461条, 相同的51条，找不到省份1条，分别是[北马里亚纳群岛]
+2024-12-16T13:44:18.406+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家EE，有省份15条，expedia有省份86条, 相同的1条，找不到省份14条，分别是[哈尔尤县, 沃鲁县, 莱内县, 西维鲁县, 派尔努县, 拉普拉县, 耶尔瓦县, 东维鲁县, 约格瓦县, 塔尔图县, 珀尔瓦县, 瓦尔加县, 维尔扬迪县, 希乌县]
+2024-12-16T13:44:18.411+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家EG，有省份27条，expedia有省份32条, 相同的22条，找不到省份5条，分别是[东部省, 布海拉省, 西部省, 谢赫村省, 米努夫省]
+2024-12-16T13:44:18.413+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家UY，有省份19条，expedia有省份18条, 相同的5条，找不到省份14条，分别是[弗罗里达省, 蒙得维的亚, 阿蒂加斯省, 塞尔托省, 帕桑都省, 里奥内格罗省, 索里亚诺省, 科洛尼亚省, 卡内洛内斯省, 马尔多纳多省, 弗洛雷斯省, 杜拉斯诺省, 塞罗拉尔戈省, 拉瓦耶哈省]
+2024-12-16T13:44:18.421+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家UZ，有省份13条，expedia有省份117条, 相同的1条，找不到省份12条，分别是[安集延州, 布哈拉州, 费尔干纳州, 吉扎克州, 纳曼干州, 纳沃伊州, 卡什卡达里亚州, 撒马尔罕州, 锡尔河州, 苏尔汉河州, 花拉子模州, 卡拉卡尔帕克斯坦共和国]
+2024-12-16T13:44:18.422+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家VC，有省份6条，expedia有省份6条, 相同的6条，找不到省份0条，分别是[]
+2024-12-16T13:44:18.422+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家ER，有省份6条，expedia有省份6条, 相同的0条，找不到省份6条，分别是[中部区, 南部区, 安塞巴区, 南红海区, 加什-巴尔卡区, 北红海区]
+2024-12-16T13:44:18.465+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家ES，有省份17条，expedia有省份446条, 相同的14条，找不到省份3条，分别是[卡斯蒂利亚-莱昂, 穆尔西亚自治区, 瓦伦西亚自治区]
+2024-12-16T13:44:18.517+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家VE，有省份25条，expedia有省份370条, 相同的23条，找不到省份2条，分别是[联邦属地, 首都区]
+2024-12-16T13:44:18.522+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家ET，有省份9条，expedia有省份94条, 相同的1条，找不到省份8条，分别是[阿法尔州, 阿姆哈拉州, 本尚古勒-古马兹州, 甘贝拉州, 哈勒尔州, 索马里州, 提格雷州, 南方州]
+2024-12-16T13:44:18.522+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家VG，有省份5条，expedia有省份3条, 相同的3条，找不到省份2条，分别是[约斯特·范大克岛, 维尔京戈达岛]
+2024-12-16T13:44:18.523+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家VI，有省份3条，expedia有省份17条, 相同的0条，找不到省份3条，分别是[圣克罗伊岛, 圣托马斯岛, 圣约翰岛]
+2024-12-16T13:44:18.544+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家VN，有省份58条，expedia有省份65条, 相同的56条，找不到省份2条，分别是[承天顺化省, 清化省]
+2024-12-16T13:44:18.545+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家VU，有省份6条，expedia有省份6条, 相同的6条，找不到省份0条，分别是[]
+2024-12-16T13:44:18.554+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家FI，有省份19条，expedia有省份85条, 相同的15条，找不到省份4条，分别是[奥兰自治区, 北博滕区, 派亚特海梅区, 坎塔海梅区]
+2024-12-16T13:44:18.555+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家FJ，有省份8条，expedia有省份19条, 相同的1条，找不到省份7条，分别是[维提群岛, 劳群岛, 瓦努阿岛列岛, 马马努卡群岛, 亚萨瓦群岛, 坎达武群岛, 罗图马群岛]
+2024-12-16T13:44:18.555+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家FM，有省份4条，expedia有省份4条, 相同的4条，找不到省份0条，分别是[]
+2024-12-16T13:44:18.555+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家FO，有省份6条，expedia有省份6条, 相同的0条，找不到省份6条，分别是[斯特莱默岛, 东岛, 南岛, 沃格岛, 桑岛, 北部群岛]
+2024-12-16T13:44:18.654+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家FR，有省份13条，expedia有省份1350条, 相同的8条，找不到省份5条，分别是[奥弗涅-罗纳-阿尔卑斯大区, 勃艮第-弗朗什-孔泰大区, 法兰西岛大区, 普罗旺斯-阿尔卑斯-蓝色海岸大区, 中央-卢瓦尔河谷大区]
+2024-12-16T13:44:18.655+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GA，有省份9条，expedia有省份9条, 相同的7条，找不到省份2条，分别是[恩古涅省, 奥果韦-伊温多省]
+2024-12-16T13:44:18.971+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GB，有省份134条，expedia有省份344条, 相同的110条，找不到省份24条，分别是[达勒姆郡, 苏格兰高地, 安格斯, 南拉纳克郡, 外赫布里底群岛, 哈尔顿, 米尔顿凯恩斯, 彼得堡, 斯温顿, 沃灵顿, 纽波特（新港）, 卡迪夫, 利斯本和卡斯尔雷阿, 泽西, 根西, 马恩岛, 西伯克郡, 斯劳, 安特里姆与纽顿阿比, 堤道海岸与峡谷, 德里市与斯特拉班, 弗马纳与奥马, 安特里姆中部和东部, 中阿尔斯特]
+2024-12-16T13:44:18.971+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家WS，有省份11条，expedia有省份1条, 相同的1条，找不到省份10条，分别是[阿纳, 艾加伊勒泰, 阿图阿, 法塞莱莱阿加, 加加埃毛加, 加盖福毛加, 帕劳利, 萨图帕伊泰阿, 瓦奥福诺蒂, 韦西加诺]
+2024-12-16T13:44:18.971+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GD，有省份6条，expedia有省份2条, 相同的1条，找不到省份5条，分别是[圣乔治区, 圣安德鲁区, 圣戴维区, 圣约翰区, 圣帕特里克区]
+2024-12-16T13:44:18.973+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GE，有省份11条，expedia有省份11条, 相同的10条，找不到省份1条，分别是[拉恰-列其呼米-下斯瓦涅季亚州]
+2024-12-16T13:44:18.973+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GF，有省份2条，expedia有省份2条, 相同的0条，找不到省份2条，分别是[卡宴区, 圣洛朗杜马罗尼区]
+2024-12-16T13:44:18.987+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GH，有省份10条，expedia有省份257条, 相同的0条，找不到省份10条，分别是[阿散蒂地区, 布朗阿哈福地区, 中部地区, 东部地区, 大阿克拉地区, 北部地区, 东北地区, 西北地区, 沃尔特地区, 西部地区]
+2024-12-16T13:44:18.987+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GL，有省份5条，expedia有省份1条, 相同的1条，找不到省份4条，分别是[库雅雷克, 凯克卡塔, 阿万纳塔, 凯凯塔利克]
+2024-12-16T13:44:18.988+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GM，有省份5条，expedia有省份37条, 相同的4条，找不到省份1条，分别是[西部区]
+2024-12-16T13:44:18.989+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GN，有省份8条，expedia有省份10条, 相同的7条，找不到省份1条，分别是[拉贝大区]
+2024-12-16T13:44:18.989+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GP，有省份2条，expedia有省份7条, 相同的1条，找不到省份1条，分别是[巴斯特尔岛]
+2024-12-16T13:44:18.989+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GQ，有省份6条，expedia有省份8条, 相同的6条，找不到省份0条，分别是[]
+2024-12-16T13:44:18.996+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GR，有省份14条，expedia有省份88条, 相同的7条，找不到省份7条，分别是[伊奥尼亚群岛, 伯罗奔尼撒, 东马其顿-色雷斯, 西希腊, 圣山州, 北爱琴, 西马其顿]
+2024-12-16T13:44:18.999+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GT，有省份21条，expedia有省份22条, 相同的8条，找不到省份13条，分别是[危地马拉省, 贝登省, 奇马尔特南戈省, 索洛拉省, 克萨尔特南戈省, 埃斯昆特拉省, 伊萨瓦尔省, 奇基穆拉省, 哈拉帕省, 胡蒂亚帕省, 雷塔卢莱乌省, 萨卡特佩克斯省, 托托尼卡潘省]
+2024-12-16T13:44:19.001+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GW，有省份9条，expedia有省份45条, 相同的8条，找不到省份1条，分别是[比绍区]
+2024-12-16T13:44:19.002+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GY，有省份10条，expedia有省份10条, 相同的9条，找不到省份1条，分别是[巴里马-瓦伊尼区]
+2024-12-16T13:44:19.004+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家HN，有省份18条，expedia有省份18条, 相同的5条，找不到省份13条，分别是[阿特兰蒂达省, 乔卢特卡省, 科隆省, 科马亚瓜省, 科潘省, 科尔特斯省, 埃尔帕拉伊索省, 弗朗西斯科-莫拉桑省, 海湾群岛省, 皮拉省, 奥兰乔省, 圣巴巴拉省, 山谷省]
+2024-12-16T13:44:19.006+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家HR，有省份20条，expedia有省份20条, 相同的7条，找不到省份13条，分别是[杜布罗夫尼克-内雷特瓦县, 利卡-塞尼县, 滨海和山区县, 卡尔洛瓦茨县, 科普里夫尼察-克里热夫齐县, 维罗维蒂察-波德拉维纳县, 波热加-斯拉沃尼亚县, 布罗德-波萨维纳县, 奥西耶克-巴拉尼亚县, 武科瓦尔-斯里耶姆县, 札达路斯卡县, 斯普利特-达尔马提亚县, 希贝尼克-克宁县]
+2024-12-16T13:44:19.009+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家YE，有省份21条，expedia有省份22条, 相同的6条，找不到省份15条，分别是[亚丁省, 达利省, 贝达省, 荷台达省, 焦夫省, 马哈拉省, 迈赫维特省, 索科特拉省, 哈德拉毛省, 拉赫季省, 马里卜省, 赖马省, 萨达省, 萨那省, 塔伊兹省]
+2024-12-16T13:44:19.009+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家HT，有省份10条，expedia有省份10条, 相同的0条，找不到省份10条，分别是[阿蒂博尼特省, 中央省, 大湾省, 尼普斯省, 北部省, 东北省, 西北省, 西部省, 南部省, 东南省]
+2024-12-16T13:44:19.030+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家HU，有省份19条，expedia有省份193条, 相同的8条，找不到省份11条，分别是[沃什州, 佐洛州, 绍莫吉州, 维斯普雷姆州, 托尔瑙州, 佩斯州, 贝凯什州, 杰尔-莫松-肖普朗州, 诺格拉德州, 琼格拉德州, 赫维什州]
+2024-12-16T13:44:19.031+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家YT，在expedia数据中找不到
+2024-12-16T13:44:19.114+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家ID，有省份34条，expedia有省份436条, 相同的31条，找不到省份3条，分别是[明古鲁省, 占碑省, 巴厘省]
+2024-12-16T13:44:19.118+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家IE，有省份26条，expedia有省份29条, 相同的25条，找不到省份1条，分别是[都柏林郡]
+2024-12-16T13:44:19.118+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家IL，有省份6条，expedia有省份7条, 相同的4条，找不到省份2条，分别是[北部区, 中央区]
+2024-12-16T13:44:19.282+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家IN，有省份35条，expedia有省份820条, 相同的31条，找不到省份4条，分别是[查谟－克什米尔邦, 德里, 达曼-第乌邦, 达德拉-纳加尔哈维利]
+2024-12-16T13:44:19.289+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家ZA，有省份9条，expedia有省份123条, 相同的9条，找不到省份0条，分别是[]
+2024-12-16T13:44:19.291+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家IQ，有省份18条，expedia有省份19条, 相同的13条，找不到省份5条，分别是[穆萨纳省, 卡迪西亚省, 埃尔比勒省, 苏莱曼尼亚省, 杜胡克省]
+2024-12-16T13:44:19.297+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家IR，有省份31条，expedia有省份34条, 相同的28条，找不到省份3条，分别是[恰哈马哈勒－巴赫蒂亚里省, 科吉卢耶－博韦艾哈迈德省, 德黑兰省]
+2024-12-16T13:44:19.298+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家IS，有省份8条，expedia有省份8条, 相同的8条，找不到省份0条，分别是[]
+2024-12-16T13:44:19.312+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家IT，有省份20条，expedia有省份126条, 相同的18条，找不到省份2条，分别是[普利亚大区, 特伦蒂诺-上阿迪杰大区]
+2024-12-16T13:44:19.317+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家ZM，有省份9条，expedia有省份117条, 相同的6条，找不到省份3条，分别是[卢阿普拉省, 北部省, 西部省]
+2024-12-16T13:44:19.321+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家ZW，有省份10条，expedia有省份66条, 相同的8条，找不到省份2条，分别是[布拉瓦约, 马尼卡兰省]
+2024-12-16T13:44:19.323+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家JM，有省份14条，expedia有省份14条, 相同的12条，找不到省份2条，分别是[特里洛尼区, 金斯敦区]
+2024-12-16T13:44:19.324+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家JO，有省份12条，expedia有省份13条, 相同的3条，找不到省份9条，分别是[阿杰隆省, 拜勒加省, 卡拉克省, 马弗拉克省, 塔菲拉省, 扎尔卡省, 伊尔比德省, 杰拉什省, 马安省]
+2024-12-16T13:44:19.512+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家JP，有省份46条，expedia有省份440条, 相同的45条，找不到省份1条，分别是[北海道]
+2024-12-16T13:44:19.525+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家KE，有省份45条，expedia有省份47条, 相同的1条，找不到省份44条，分别是[巴林戈, 博美特郡, 奔戈马, 布西亚, 埃尔格约-马拉奎特郡, 恩布, 加里萨, 霍马贝, 伊西奥洛, 卡贾多, 卡卡梅加, 凯里乔, 基安布, 基利菲, 基里尼亚加郡, 基西, 基苏木, 基图伊, 夸莱, 莱基皮亚, 拉穆, 马查科斯, 马库埃尼, 曼德拉, 马萨比特, 梅鲁, 米戈里, 穆拉雅, 纳库鲁, 南迪郡, 纳罗克, 尼亚米拉郡, 年达鲁阿郡, 涅里, 桑布鲁, 夏亚郡, 泰塔塔维塔郡, 塔纳河郡, 萨拉卡尼蒂郡, 特兰斯-恩佐亚郡, 图尔卡纳, 瓦辛基苏郡, 瓦吉尔, 西波克特郡]
+2024-12-16T13:44:19.526+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家KG，有省份7条，expedia有省份8条, 相同的0条，找不到省份7条，分别是[巴特肯州, 楚河州, 贾拉拉巴德州, 纳伦州, 奥什州, 塔拉斯州, 伊塞克湖州]
+2024-12-16T13:44:19.529+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家KH，有省份23条，expedia有省份24条, 相同的2条，找不到省份21条，分别是[柏威夏省, 班迭棉吉省, 磅同省, 磅湛省, 干丹省, 戈公省, 贡布省, 桔井省, 腊塔纳基里省, 马德望省, 蒙多基里省, 上丁省, 暹粒省, 柴桢省, 磅士卑省, 波萝勉省, 菩萨省, 西哈努克省, 茶胶省, 奥多棉吉省, 拜林市]
+2024-12-16T13:44:19.529+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家KI，有省份3条，expedia有省份3条, 相同的2条，找不到省份1条，分别是[菲尼克斯群岛]
+2024-12-16T13:44:19.529+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家KM，在expedia数据中找不到
+2024-12-16T13:44:19.530+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家KN，有省份11条，expedia有省份14条, 相同的1条，找不到省份10条，分别是[圣安娜沙角区, 圣乔治巴塞特莱区, 圣乔治金哲兰区, 圣詹姆斯温沃德区, 圣约翰费格特里区, 圣玛丽卡永区, 圣保罗卡皮斯特莱区, 圣保罗查尔斯敦区, 圣彼得巴塞特莱区, 圣托马斯米德艾兰区]
+2024-12-16T13:44:19.530+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家KP，在expedia数据中找不到
+2024-12-16T13:44:19.531+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家KR，有省份9条，expedia有省份14条, 相同的1条，找不到省份8条，分别是[京畿道, 庆尚南道, 济州特别自治道, 全罗北道, 庆尚北道, 忠清南道, 忠清北道, 全罗南道]
+2024-12-16T13:44:19.531+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家KW，有省份6条，expedia有省份6条, 相同的2条，找不到省份4条，分别是[科威特省, 大穆巴拉克省, 杰赫拉省, 费尔瓦尼耶省]
+2024-12-16T13:44:19.531+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家KY，有省份1条，expedia有省份3条, 相同的0条，找不到省份1条，分别是[姐妹岛]
+2024-12-16T13:44:19.550+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家KZ，有省份14条，expedia有省份224条, 相同的2条，找不到省份12条，分别是[阿克莫拉州, 阿特劳州, 西哈萨克斯坦州, 曼吉斯套州, 南哈萨克斯坦州, 巴甫洛达尔州, 卡拉干达州, 库斯塔奈州, 克孜勒奥尔达州, 东哈萨克斯坦州, 北哈萨克斯坦州, 江布尔州]
+2024-12-16T13:44:19.552+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家LA，有省份16条，expedia有省份18条, 相同的3条，找不到省份13条，分别是[阿速坡省, 博胶省, 博利坎赛省, 华潘省, 甘蒙省, 琅南塔省, 乌多姆塞省, 丰沙里省, 沙拉湾省, 沙湾拿吉省, 沙耶武里省, 塞公省, 川圹省]
+2024-12-16T13:44:19.553+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家LB，有省份6条，expedia有省份33条, 相同的3条，找不到省份3条，分别是[贝鲁特省, 纳巴泰省, 贝卡省]
+2024-12-16T13:44:19.553+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家LC，在expedia数据中找不到
+2024-12-16T13:44:19.553+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家LI，在expedia数据中找不到
+2024-12-16T13:44:19.572+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家LK，有省份9条，expedia有省份360条, 相同的9条，找不到省份0条，分别是[]
+2024-12-16T13:44:19.574+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家LR，有省份15条，expedia有省份16条, 相同的14条，找不到省份1条，分别是[河塞斯县]
+2024-12-16T13:44:19.574+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家LS，有省份10条，expedia有省份10条, 相同的0条，找不到省份10条，分别是[伯里亚区, 布塔-布泰区, 莱里贝区, 马费滕区, 马塞卢区, 莫哈莱斯胡克区, 莫霍特隆区, 加查斯内克区, 古廷区, 塔巴-采卡区]
+2024-12-16T13:44:19.578+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家LT，有省份10条，expedia有省份65条, 相同的7条，找不到省份3条，分别是[帕涅韦日斯县, 陶拉盖县, 特尔希艾县]
+2024-12-16T13:44:19.579+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家LU，有省份12条，expedia有省份12条, 相同的0条，找不到省份12条，分别是[克莱沃郡, 迪基希郡, 埃希特纳赫郡, 阿尔泽特河畔埃施郡, 卢森堡郡, 梅尔施郡, 雷米希郡, 菲安登郡, 维尔茨郡, 卡佩伦郡, 雷当日郡, 格雷文马赫郡]
+2024-12-16T13:44:19.581+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家LY，有省份22条，expedia有省份21条, 相同的13条，找不到省份9条，分别是[西山省, 吉法拉省, 迈尔盖卜省, 努加特海姆斯省, 扎维耶省, 班加西, 的黎波里省, 瓦迪哈耶特省, 沙提省]
+2024-12-16T13:44:19.587+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MA，有省份11条，expedia有省份87条, 相同的4条，找不到省份7条，分别是[马拉喀什-萨菲大区, 东部大区, 拉巴特-萨累-盖尼特拉大区, 非斯-梅克内斯大区, 阿尤恩大区, 德拉-塔菲拉勒特大区, 贝尼迈拉勒-海尼夫拉大区]
+2024-12-16T13:44:19.594+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MD，有省份34条，expedia有省份37条, 相同的2条，找不到省份32条，分别是[新阿内尼区, 巴萨拉贝亚斯卡区, 布里恰内区, 卡古尔区, 冈代米尔区, 卡拉拉什区, 考沙内区, 奇米什利亚区, 克留莱尼区, 栋久沙内区, 德罗基亚区, 杜博萨雷区, 叶金齐区, 弗莱什蒂区, 弗洛雷什蒂区, 格洛代尼区, 亨切什蒂区, 亚洛韦尼区, 莱奥瓦区, 尼斯波列内区, 奥克尼察区, 奥尔海伊区, 雷济纳区, 雷什卡内区, 森杰雷区, 索罗卡区, 斯特勒谢尼区, 绍尔德内什蒂区, 斯特凡大公区, 塔拉克利亚区, 泰莱内什蒂区, 温格内区]
+2024-12-16T13:44:19.597+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家ME，有省份21条，expedia有省份25条, 相同的2条，找不到省份19条，分别是[安德里耶维察, 巴尔, 贝拉内, 比耶洛波列, 布德瓦, 采蒂涅, 达尼洛夫格勒, 新海尔采格, 科拉欣, 科托尔, 莫伊科瓦茨, 尼克希奇, 普拉夫, 普列夫利亚, 普卢日内, 波德戈里察, 罗扎伊, 蒂瓦特, 乌尔齐尼]
+2024-12-16T13:44:19.598+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MG，有省份6条，expedia有省份25条, 相同的0条，找不到省份6条，分别是[塔那那利佛省, 安齐拉纳纳省, 菲亚纳兰楚阿省, 马哈赞加省, 图阿马西拉省, 图利亚拉省]
+2024-12-16T13:44:19.599+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家ML，有省份9条，expedia有省份11条, 相同的7条，找不到省份2条，分别是[巴马科首都区, 塞古地区]
+2024-12-16T13:44:19.600+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MM，有省份15条，expedia有省份16条, 相同的10条，找不到省份5条，分别是[伊洛瓦底省, 勃固省, 马圭省, 曼德勒省, 实皆省]
+2024-12-16T13:44:19.603+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MN，有省份21条，expedia有省份24条, 相同的16条，找不到省份5条，分别是[巴彦乌列盖省, 库苏古尔省, 南戈壁省, 前杭爱省, 苏赫巴托尔省]
+2024-12-16T13:44:19.603+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MQ，有省份4条，expedia有省份4条, 相同的2条，找不到省份2条，分别是[圣皮埃尔郡, 黛园郡]
+2024-12-16T13:44:19.604+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MR，有省份13条，expedia有省份17条, 相同的12条，找不到省份1条，分别是[首都努瓦克肖特]
+2024-12-16T13:44:19.604+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MS，有省份2条，expedia有省份3条, 相同的2条，找不到省份0条，分别是[]
+2024-12-16T13:44:19.605+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MU，有省份9条，expedia有省份6条, 相同的3条，找不到省份6条，分别是[黑河区, 弗拉克区, 莫卡区, 庞波慕斯区, 路易港区, 朗帕河区]
+2024-12-16T13:44:19.607+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MV，有省份19条，expedia有省份20条, 相同的14条，找不到省份5条，分别是[哈阿里夫环礁, 北阿里环礁, 南阿里环礁, 美慕环礁, 达鲁环礁]
+2024-12-16T13:44:19.607+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MW，有省份3条，expedia有省份3条, 相同的3条，找不到省份0条，分别是[]
+2024-12-16T13:44:19.626+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MX，有省份32条，expedia有省份105条, 相同的27条，找不到省份5条，分别是[米却肯州, 克雷塔罗州, 尤卡坦州, 新莱昂州, 联邦区]
+2024-12-16T13:44:19.638+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MY，有省份13条，expedia有省份163条, 相同的12条，找不到省份1条，分别是[马六甲州]
+2024-12-16T13:44:19.647+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MZ，有省份10条，expedia有省份155条, 相同的10条，找不到省份0条，分别是[]
+2024-12-16T13:44:19.648+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家NA，有省份13条，expedia有省份14条, 相同的0条，找不到省份13条，分别是[埃龙戈区, 哈达普区, 卡拉斯区, 奥卡万戈区, 霍马斯区, 库内内区, 奥汉圭纳区, 奥马海凯区, 奥穆萨蒂区, 奥沙纳区, 奥希科托区, 奥乔宗朱帕区, 赞比西区]
+2024-12-16T13:44:19.648+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家NC，有省份3条，expedia有省份3条, 相同的3条，找不到省份0条，分别是[]
+2024-12-16T13:44:19.651+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家NE，有省份8条，expedia有省份44条, 相同的7条，找不到省份1条，分别是[尼亚美市]
+2024-12-16T13:44:19.822+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家NG，有省份36条，expedia有省份810条, 相同的36条，找不到省份0条，分别是[]
+2024-12-16T13:44:19.824+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家NI，有省份17条，expedia有省份17条, 相同的6条，找不到省份11条，分别是[博阿科省, 奇南德加省, 琼塔莱斯省, 埃斯特利省, 格拉纳达省, 希诺特加省, 莱昂省, 马那瓜省, 马萨亚省, 马塔加尔帕省, 里瓦斯省]
+2024-12-16T13:44:19.848+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家NL，有省份12条，expedia有省份354条, 相同的9条，找不到省份3条，分别是[北布拉邦省, 北荷兰省, 南荷兰省]
+2024-12-16T13:44:19.850+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家NO，有省份20条，expedia有省份14条, 相同的8条，找不到省份12条，分别是[奥普兰郡, 北特伦德拉格郡, 霍达兰郡, 松恩-菲尤拉讷郡, 东阿格德尔郡, 奥斯陆郡, 西阿格德尔郡, 默勒-鲁姆斯达尔郡, 东福尔郡, 海德马克郡, 南特伦德拉格郡, 斯瓦尔巴]
+2024-12-16T13:44:19.857+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家NP，有省份14条，expedia有省份84条, 相同的5条，找不到省份9条，分别是[伯瑞, 达瓦尔阿基里, 贾纳克布尔, 马哈卡里, 梅吉, 纳拉亚尼, 拉普蒂, 萨加玛塔, 瑟地]
+2024-12-16T13:44:19.857+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家NR，有省份1条，expedia有省份14条, 相同的1条，找不到省份0条，分别是[]
+2024-12-16T13:44:19.864+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家NZ，有省份17条，expedia有省份69条, 相同的9条，找不到省份8条，分别是[丰盛湾大区, 马纳瓦图－旺加努伊大区, 惠灵顿大区, 霍克湾大区, 塔斯曼大区, 吉斯伯恩大区, 尼尔逊, 查塔姆群岛]
+2024-12-16T13:44:19.864+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家OM，有省份11条，expedia有省份11条, 相同的1条，找不到省份10条，分别是[内地省, 扎希拉省, 北巴提奈省, 布赖米省, 中部省, 东北省, 佐法尔省, 马斯喀特省, 南巴提奈省, 东南省]
+2024-12-16T13:44:19.871+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家PA，有省份12条，expedia有省份98条, 相同的3条，找不到省份9条，分别是[巴拿马省, 博卡斯德尔托罗省, 奇里基省, 科克莱省, 科隆省, 达连省, 恩贝拉-沃内安特区, 库纳雅拉特区, 恩戈贝-布格雷特区]
+2024-12-16T13:44:19.905+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家PE，有省份26条，expedia有省份223条, 相同的2条，找不到省份24条，分别是[阿雷基帕大区, 库斯科大区, 皮乌拉大区, 马德雷德迪奥斯大区, 亚马孙大区, 阿普里马克大区, 阿亚库乔大区, 卡哈马卡大区, 万卡韦利卡大区, 瓦努科大区, 伊卡大区, 胡宁大区, 拉利伯塔德大区, 兰巴耶克大区, 洛雷托大区, 莫克瓜大区, 帕斯科大区, 普诺大区, 圣马丁大区, 塔克纳大区, 通贝斯大区, 乌卡亚利大区, 安卡什大区, 卡亚俄大区]
+2024-12-16T13:44:19.906+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家PF，有省份6条，expedia有省份5条, 相同的4条，找不到省份2条，分别是[甘比尔群岛, 土阿莫土群岛]
+2024-12-16T13:44:19.909+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家PG，有省份21条，expedia有省份23条, 相同的17条，找不到省份4条，分别是[钦布省, 北部省, 桑道恩省, 布干维尔自治省]
+2024-12-16T13:44:19.918+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家PH，有省份17条，expedia有省份98条, 相同的14条，找不到省份3条，分别是[伊罗戈大区, 邦萨摩洛, 马尼拉]
+2024-12-16T13:44:19.919+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家PK，有省份7条，expedia有省份10条, 相同的5条，找不到省份2条，分别是[伊斯兰堡首都区, 联邦直辖部落地区]
+2024-12-16T13:44:19.949+08:00  INFO 23260 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家PL，有省份16条，expedia有省份330条, 相同的0条，找不到省份16条，分别是[西里西亚省, 奥波莱, 滨海省, 波德拉谢, 大波兰省, 库亚维-滨海省, 卢布斯卡省, 罗兹省, 马佐夫舍, 瓦尔米亚-马祖里, 西滨海省, 下西里西亚省, 小波兰省, 卢布林省, 圣十字省, 喀尔巴阡山省]
+2024-12-16T14:19:33.626+08:00  INFO 23260 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-12-16T14:19:33.628+08:00  INFO 23260 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-12-16T14:19:37.898+08:00  INFO 24456 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 24456 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
+2024-12-16T14:19:37.900+08:00  INFO 24456 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
+2024-12-16T14:19:38.323+08:00  INFO 24456 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-12-16T14:19:38.325+08:00  INFO 24456 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-12-16T14:19:38.345+08:00  INFO 24456 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 Redis repository interfaces.
+2024-12-16T14:19:38.717+08:00  INFO 24456 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
+2024-12-16T14:19:38.723+08:00  INFO 24456 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-12-16T14:19:38.723+08:00  INFO 24456 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
+2024-12-16T14:19:38.786+08:00  INFO 24456 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-12-16T14:19:38.786+08:00  INFO 24456 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 859 ms
+2024-12-16T14:19:39.727+08:00  INFO 24456 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
+2024-12-16T14:19:39.733+08:00  INFO 24456 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 2.05 seconds (process running for 2.438)
+2024-12-16T14:21:26.440+08:00  INFO 24456 --- [http-nio-9008-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-12-16T14:21:26.440+08:00  INFO 24456 --- [http-nio-9008-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-12-16T14:21:26.441+08:00  INFO 24456 --- [http-nio-9008-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-12-16T14:21:26.470+08:00  INFO 24456 --- [http-nio-9008-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-12-16T14:21:26.606+08:00  INFO 24456 --- [http-nio-9008-exec-1] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1287e084
+2024-12-16T14:21:26.607+08:00  INFO 24456 --- [http-nio-9008-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-12-16T14:22:05.945+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家PS，有省份3条，expedia有省份2条, 相同的0条，找不到省份3条，分别是[伯利恒省, 希布伦省, 杰里科省]
+2024-12-16T14:22:05.961+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家PT，有省份20条，expedia有省份19条, 相同的18条，找不到省份2条，分别是[里斯本大区, 马德拉群岛]
+2024-12-16T14:22:05.964+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家PY，有省份18条，expedia有省份18条, 相同的1条，找不到省份17条，分别是[大亚松森, 上巴拉圭省, 上巴拉那省, 阿曼拜省, 博克龙省, 卡瓜苏省, 卡萨帕省, 卡宁德尤省, 中央省, 康塞普西翁省, 瓜伊拉省, 伊塔普阿省, 米西奥内斯省, 涅恩布库省, 巴拉瓜里省, 阿耶斯总统省, 圣佩德罗省]
+2024-12-16T14:22:05.964+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家AD，有省份7条，expedia有省份7条, 相同的7条，找不到省份0条，分别是[]
+2024-12-16T14:22:05.965+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家AE，有省份7条，expedia有省份7条, 相同的0条，找不到省份7条，分别是[阿布扎比酋长国, 迪拜酋长国, 沙迦酋长国, 富查伊拉酋长国, 拉斯海马酋长国, 阿治曼酋长国, 乌姆盖万酋长国]
+2024-12-16T14:22:05.972+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家AF，有省份34条，expedia有省份36条, 相同的34条，找不到省份0条，分别是[]
+2024-12-16T14:22:05.972+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家AG，有省份7条，expedia有省份7条, 相同的7条，找不到省份0条，分别是[]
+2024-12-16T14:22:05.978+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家AL，有省份12条，expedia有省份73条, 相同的12条，找不到省份0条，分别是[]
+2024-12-16T14:22:05.979+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家AM，有省份11条，expedia有省份10条, 相同的5条，找不到省份6条，分别是[埃里温, 科泰克州, 洛里州, 休尼克州, 塔武什州, 瓦约茨佐尔州]
+2024-12-16T14:22:05.981+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家AO，有省份18条，expedia有省份18条, 相同的14条，找不到省份4条，分别是[库安多古班哥省, 北广萨省, 南广萨省, 纳米贝省]
+2024-12-16T14:22:06.073+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家AR，有省份23条，expedia有省份536条, 相同的4条，找不到省份19条，分别是[恩特雷里奥斯省, 萨尔塔省, 圣路易斯省, 图库曼省, 胡胡伊省, 门多萨省, 圣胡安省, 圣地亚哥-德尔埃斯特罗省, 火地岛省, 米西奥内斯省, 圣克鲁斯省, 卡塔马卡省, 查科省, 丘布特省, 科连特斯省, 福莫萨, 拉潘帕省, 里奥哈省, 圣菲省]
+2024-12-16T14:22:06.073+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家AS，有省份3条，expedia有省份3条, 相同的2条，找不到省份1条，分别是[马努阿区]
+2024-12-16T14:22:06.077+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家AT，有省份8条，expedia有省份88条, 相同的8条，找不到省份0条，分别是[]
+2024-12-16T14:22:06.105+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家AU，有省份8条，expedia有省份565条, 相同的8条，找不到省份0条，分别是[]
+2024-12-16T14:22:06.116+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家RO，有省份41条，expedia有省份41条, 相同的8条，找不到省份33条，分别是[阿尔杰什县, 布拉索夫县, 克鲁日县, 普拉霍瓦县, 比霍尔县, 梅赫丁茨县, 加拉茨县, 穆列什县, 苏恰瓦县, 阿尔巴县, 阿拉德县, 巴克乌县, 比斯特里察-讷瑟乌德县, 博托沙尼县, 布勒伊拉县, 布泽乌县, 克勒拉希县, 康斯坦察县, 科瓦斯纳县, 登博维察县, 多尔日县, 久尔久县, 戈尔日县, 胡内多阿拉县, 雅洛米察县, 雅西县, 尼亚姆茨县, 奥尔特县, 萨图马雷县, 瑟拉日县, 图尔恰县, 瓦斯卢伊县, 弗朗恰县]
+2024-12-16T14:22:06.117+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BA，有省份3条，expedia有省份13条, 相同的3条，找不到省份0条，分别是[]
+2024-12-16T14:22:06.118+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BB，有省份11条，expedia有省份11条, 相同的1条，找不到省份10条，分别是[圣安德鲁区, 圣乔治区, 圣詹姆斯区, 圣约翰区, 圣约瑟夫区, 圣卢西区, 圣迈克尔区, 圣彼得区, 圣菲利普区, 圣托马斯区]
+2024-12-16T14:22:06.122+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家RS，有省份25条，expedia有省份28条, 相同的23条，找不到省份2条，分别是[舒马迪亚州, 兹拉提波尔州]
+2024-12-16T14:22:06.125+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BD，有省份7条，expedia有省份72条, 相同的1条，找不到省份6条，分别是[巴里萨尔专区, 吉大港专区, 库尔纳专区, 拉杰沙希专区, 朗布尔专区, 锡尔赫特专区]
+2024-12-16T14:22:07.186+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家RU，有省份81条，expedia有省份1997条, 相同的66条，找不到省份15条，分别是[莫斯科州, 克拉斯诺达尔边疆区, 加里宁格勒州, 鞑靼斯坦共和国, 萨马拉州, 罗斯托夫州, 弗拉基米尔州, 车里雅宾斯克州, 斯塔夫罗波尔边疆区, 伊尔库茨克州, 萨拉托夫州, 卡拉恰伊-切尔克斯共和国, 卡巴尔达-巴尔卡尔共和国, 印古什共和国, 图瓦共和国]
+2024-12-16T14:22:07.187+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BE，有省份11条，expedia有省份13条, 相同的2条，找不到省份9条，分别是[东弗兰德省, 列日省, 西弗兰德省, 弗拉芒-布拉班特省, 埃诺省, 林堡省, 那慕尔省, 瓦隆-布拉班特省, 安特卫普省]
+2024-12-16T14:22:07.192+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BF，有省份13条，expedia有省份58条, 相同的1条，找不到省份12条，分别是[布克莱迪穆翁大区, 瀑布大区, 中东大区, 中北大区, 中西大区, 中南大区, 东部大区, 上盆地大区, 北部大区, 高原-中部大区, 萨赫勒大区, 西南大区]
+2024-12-16T14:22:07.193+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家RW，有省份5条，expedia有省份34条, 相同的0条，找不到省份5条，分别是[基加利市, 东部省, 北部省, 西部省, 南部省]
+2024-12-16T14:22:07.242+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BG，有省份27条，expedia有省份29条, 相同的19条，找不到省份8条，分别是[蒙塔纳州, 布拉戈耶夫格勒州, 布尔加斯州, 帕扎尔吉克州, 洛维奇州, 拉兹格勒州, 弗拉察州, 扬博尔州]
+2024-12-16T14:22:07.242+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BH，有省份5条，expedia有省份4条, 相同的4条，找不到省份1条，分别是[中央省]
+2024-12-16T14:22:07.245+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BI，有省份17条，expedia有省份18条, 相同的0条，找不到省份17条，分别是[布班扎省, 布琼布拉城市省, 布琼布拉乡村省, 布鲁里省, 坎库佐省, 锡比托凯省, 基特加省, 卡鲁济省, 卡扬扎省, 基龙多省, 马坎巴省, 穆拉姆维亚省, 穆因加省, 穆瓦洛省, 恩戈齐省, 鲁塔纳省, 鲁伊吉省]
+2024-12-16T14:22:07.246+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BJ，有省份12条，expedia有省份13条, 相同的10条，找不到省份2条，分别是[阿塔科拉省, 库福省]
+2024-12-16T14:22:07.246+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BM，在expedia数据中找不到
+2024-12-16T14:22:07.246+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BN，有省份4条，expedia有省份4条, 相同的4条，找不到省份0条，分别是[]
+2024-12-16T14:22:07.252+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BO，有省份9条，expedia有省份121条, 相同的9条，找不到省份0条，分别是[]
+2024-12-16T14:22:07.253+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家SA，有省份13条，expedia有省份13条, 相同的3条，找不到省份10条，分别是[麦地那省, 阿西尔省, 盖西姆省, 巴哈省, 北部边疆省, 焦夫省, 哈伊勒省, 吉赞省, 奈季兰省, 塔布克省]
+2024-12-16T14:22:07.254+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BQ，有省份3条，expedia有省份3条, 相同的3条，找不到省份0条，分别是[]
+2024-12-16T14:22:07.254+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家SB，有省份9条，expedia有省份10条, 相同的1条，找不到省份8条，分别是[中部群岛省, 舒瓦瑟尔省, 瓜达尔卡纳尔省, 伊莎贝尔省, 马莱塔省, 拉纳尔和贝罗纳省, 泰莫图省, 西部省]
+2024-12-16T14:22:07.258+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BR，有省份27条，expedia有省份27条, 相同的25条，找不到省份2条，分别是[联邦区, 马拉尼昂州]
+2024-12-16T14:22:07.264+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BS，有省份29条，expedia有省份27条, 相同的20条，找不到省份9条，分别是[阿克林岛, 比米尼群岛, 哈勃岛, 伊纳瓜群岛, 曼格罗夫岛, 马亚瓜纳岛, 拉吉德岛, 圣萨尔瓦多岛, 新普罗维登斯岛]
+2024-12-16T14:22:07.266+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家SD，有省份15条，expedia有省份20条, 相同的14条，找不到省份1条，分别是[加达里夫州]
+2024-12-16T14:22:07.268+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BT，有省份19条，expedia有省份20条, 相同的11条，找不到省份8条，分别是[楚卡宗, 廷布宗, 旺杜波德朗宗, 通萨宗, 谢姆冈宗, 塔希冈宗, 伦奇宗, 塔希央奇宗]
+2024-12-16T14:22:07.309+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家SE，有省份21条，expedia有省份311条, 相同的4条，找不到省份17条，分别是[西约塔兰省, 耶夫勒堡省, 达拉纳省, 哈兰省, 东约特兰省, 斯科讷省, 南曼兰省, 韦姆兰省, 西曼兰省, 延雪平省, 克鲁努贝里省, 哥得兰省, 布莱金厄省, 西诺尔兰省, 耶姆特兰省, 西博滕省, 北博滕省]
+2024-12-16T14:22:07.310+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BW，有省份9条，expedia有省份10条, 相同的4条，找不到省份5条，分别是[杭济区, 卡拉哈迪区, 卡特伦区, 奎嫩区, 东南区]
+2024-12-16T14:22:07.310+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BY，有省份6条，expedia有省份15条, 相同的5条，找不到省份1条，分别是[戈梅利州]
+2024-12-16T14:22:07.311+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BZ，有省份6条，expedia有省份6条, 相同的2条，找不到省份4条，分别是[卡约区, 科罗萨尔区, 奥兰治沃克区, 斯坦克里克区]
+2024-12-16T14:22:07.315+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家SK，有省份8条，expedia有省份78条, 相同的1条，找不到省份7条，分别是[尼特拉州, 日利纳州, 科希策州, 布拉迪斯拉发州, 特尔纳瓦州, 班斯卡·比斯特理察州, 特伦钦州]
+2024-12-16T14:22:07.315+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家SL，有省份4条，expedia有省份7条, 相同的1条，找不到省份3条，分别是[东方省, 北方省, 南方省]
+2024-12-16T14:22:07.315+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家SM，在expedia数据中找不到
+2024-12-16T14:22:07.316+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家SN，有省份12条，expedia有省份14条, 相同的0条，找不到省份12条，分别是[达喀尔区, 久尔贝勒区, 法蒂克区, 考拉克区, 凯杜古区, 科尔达区, 卢加区, 马塔姆区, 圣路易区, 坦巴昆达区, 捷斯区, 济金绍尔区]
+2024-12-16T14:22:07.318+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家SO，有省份18条，expedia有省份20条, 相同的14条，找不到省份4条，分别是[下谢贝利州, 希兰州, 努加尔州, 沃戈伊加勒贝德州]
+2024-12-16T14:22:07.376+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CA，有省份13条，expedia有省份772条, 相同的13条，找不到省份0条，分别是[]
+2024-12-16T14:22:07.380+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家SR，有省份10条，expedia有省份60条, 相同的6条，找不到省份4条，分别是[帕拉马里博, 科默韦讷区, 尼克里区, 锡帕利维尼区]
+2024-12-16T14:22:07.380+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家SS，有省份10条，expedia有省份11条, 相同的10条，找不到省份0条，分别是[]
+2024-12-16T14:22:07.384+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CD，有省份26条，expedia有省份26条, 相同的22条，找不到省份4条，分别是[中刚果省, 南基伍省, 北基伍省, 赤道省]
+2024-12-16T14:22:07.384+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家ST，有省份2条，expedia有省份1条, 相同的1条，找不到省份1条，分别是[普林西比]
+2024-12-16T14:22:07.386+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CF，有省份16条，expedia有省份17条, 相同的15条，找不到省份1条，分别是[翁贝拉-姆波科省]
+2024-12-16T14:22:07.387+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家SV，有省份14条，expedia有省份14条, 相同的0条，找不到省份14条，分别是[阿瓦查潘省, 卡瓦尼亚斯省, 库斯卡特兰省, 查拉特南戈省, 拉利伯塔德省, 拉巴斯省, 拉乌尼翁省, 莫拉桑省, 圣米格尔省, 圣萨尔瓦多省, 圣安娜省, 圣维森特省, 松索纳特省, 乌苏卢坦省]
+2024-12-16T14:22:07.388+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CG，有省份11条，expedia有省份12条, 相同的11条，找不到省份0条，分别是[]
+2024-12-16T14:22:07.413+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CH，有省份26条，expedia有省份153条, 相同的18条，找不到省份8条，分别是[伯尔尼州, 格劳宾登州, 瓦莱州, 巴塞尔乡村州, 外阿彭策尔州, 巴塞尔城市州, 乌里州, 内阿彭策尔州]
+2024-12-16T14:22:07.418+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CI，有省份18条，expedia有省份47条, 相同的10条，找不到省份8条，分别是[恩济-科莫埃区, 南科莫埃区, 沃罗杜古区, 巴芬区, 弗罗马格尔区, 中卡瓦利区, 中科莫埃区, 南邦达马区]
+2024-12-16T14:22:07.419+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家SY，有省份11条，expedia有省份15条, 相同的0条，找不到省份11条，分别是[哈塞克省, 拉塔基亚省, 库奈特拉省, 德拉省, 代尔祖尔省, 大马士革省, 阿勒颇省, 哈马省, 霍姆斯省, 大马士革农村省, 塔尔图斯省]
+2024-12-16T14:22:07.420+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家SZ，有省份4条，expedia有省份4条, 相同的4条，找不到省份0条，分别是[]
+2024-12-16T14:22:07.420+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CK，在expedia数据中找不到
+2024-12-16T14:22:07.427+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CL，有省份15条，expedia有省份71条, 相同的2条，找不到省份13条，分别是[安托法加斯塔大区, 塔拉帕卡大区, 阿塔卡马大区, 科金博大区, 湖大区, 麦哲伦-智利南极大区, 阿劳卡尼亚大区, 阿里卡和帕里纳科塔大区, 奥伊金斯将军解放者大区, 马乌莱大区, 河大区, 伊瓦涅斯将军艾森大区, 圣地亚哥首都大区]
+2024-12-16T14:22:07.431+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CM，有省份10条，expedia有省份68条, 相同的5条，找不到省份5条，分别是[阿达马瓦区, 中部区, 极北区, 西北区, 西南区]
+2024-12-16T14:22:07.431+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CN，有省份3条，expedia有省份39条, 相同的0条，找不到省份3条，分别是[香港, 澳门, 台湾]
+2024-12-16T14:22:07.438+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CO，有省份33条，expedia有省份33条, 相同的29条，找不到省份4条，分别是[阿劳卡省, 圣安德列斯省, 瓜希拉省, 波哥大]
+2024-12-16T14:22:07.442+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CR，有省份7条，expedia有省份91条, 相同的1条，找不到省份6条，分别是[蓬塔雷纳斯省, 阿拉胡埃垃省, 利蒙省, 圣何塞省, 卡塔戈省, 埃雷迪亚省]
+2024-12-16T14:22:07.446+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家TD，有省份22条，expedia有省份22条, 相同的18条，找不到省份4条，分别是[加扎勒河区, 哈杰尔-拉密区, 恩内迪区, 恩贾梅纳]
+2024-12-16T14:22:07.447+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CU，有省份15条，expedia有省份16条, 相同的8条，找不到省份7条，分别是[卡马圭省, 谢戈德阿维拉省, 西恩富戈斯省, 格拉玛省, 关塔那摩省, 玛雅贝克省, 青年岛特区]
+2024-12-16T14:22:07.448+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CV，在expedia数据中找不到
+2024-12-16T14:22:07.448+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家TG，有省份5条，expedia有省份5条, 相同的0条，找不到省份5条，分别是[中部区, 卡拉区, 滨海区, 高原区, 草原区]
+2024-12-16T14:22:07.485+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家TH，有省份76条，expedia有省份79条, 相同的76条，找不到省份0条，分别是[]
+2024-12-16T14:22:07.486+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家TJ，有省份4条，expedia有省份62条, 相同的1条，找不到省份3条，分别是[戈尔诺-巴达赫尚自治州, 哈特隆州, 粟特州]
+2024-12-16T14:22:07.487+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CY，有省份6条，expedia有省份13条, 相同的5条，找不到省份1条，分别是[凯里尼亚区]
+2024-12-16T14:22:07.494+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CZ，有省份13条，expedia有省份89条, 相同的4条，找不到省份9条，分别是[乌斯季州, 奥洛穆茨, 摩拉维亚-西里西亚州, 南摩拉维亚州, 中波希米亚, 卡罗维发利州, 南波希米亚州, 比尔森州, 维索基纳州]
+2024-12-16T14:22:07.494+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家TL，有省份8条，expedia有省份13条, 相同的7条，找不到省份1条，分别是[欧库西区]
+2024-12-16T14:22:07.495+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家TM，有省份5条，expedia有省份5条, 相同的4条，找不到省份1条，分别是[巴尔坎州]
+2024-12-16T14:22:07.503+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家TN，有省份24条，expedia有省份59条, 相同的2条，找不到省份22条，分别是[托泽尔省, 比塞大省, 泰塔温省, 马努巴省, 突尼斯省, 本阿鲁斯省, 梅德宁省, 加贝斯省, 吉比利省, 卡塞林省, 马赫迪耶省, 西迪布济德省, 莫纳斯提尔省, 坚杜拜省, 巴杰省, 锡勒亚奈省, 卡夫省, 凯鲁万省, 斯法克斯省, 加夫萨省, 苏塞省, 宰格万省]
+2024-12-16T14:22:07.503+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家TO，有省份5条，expedia有省份5条, 相同的4条，找不到省份1条，分别是[纽阿斯]
+2024-12-16T14:22:07.541+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家TR，有省份81条，expedia有省份81条, 相同的52条，找不到省份29条，分别是[泰基尔达省, 埃迪尔内省, 克尔克拉雷利省, 巴勒克埃西尔省, 恰纳卡莱省, 伊兹密尔省, 艾登省, 穆拉省, 马尼萨省, 布尔萨省, 埃斯基谢希尔省, 比莱吉克省, 科贾埃利省, 萨卡里亚省, 安卡拉省, 科尼亚省, 安塔利亚省, 哈塔伊省, 奥斯曼尼耶省, 阿克萨赖省, 尼代省, 内夫谢希尔省, 克尔谢希尔省, 开塞利省, 锡瓦斯省, 约兹加特省, 昌克勒省, 特拉布宗省, 伊斯坦布尔省]
+2024-12-16T14:22:07.542+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家TT，有省份13条，expedia有省份10条, 相同的8条，找不到省份5条，分别是[里奥克拉鲁-马亚罗区域, 阿里马, 查瓜纳斯, 东多巴哥, 西多巴哥]
+2024-12-16T14:22:07.569+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家DE，有省份14条，expedia有省份334条, 相同的11条，找不到省份3条，分别是[勃兰登堡州, 梅克伦堡-前波美拉尼亚州, 下萨克森州]
+2024-12-16T14:22:07.569+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家TV，在expedia数据中找不到
+2024-12-16T14:22:07.577+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家TZ，有省份28条，expedia有省份47条, 相同的14条，找不到省份14条，分别是[阿鲁沙区, 达累斯萨拉姆区, 伊林加区, 北奔巴区, 桑给巴尔北区, 乞力马扎罗区, 南奔巴区, 桑给巴尔南区, 曼亚拉区, 马拉区, 桑给巴尔西区, 姆特瓦拉区, 恩琼贝区, 滨海区]
+2024-12-16T14:22:07.577+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家DJ，有省份6条，expedia有省份7条, 相同的6条，找不到省份0条，分别是[]
+2024-12-16T14:22:07.626+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家DK，有省份5条，expedia有省份103条, 相同的4条，找不到省份1条，分别是[西兰大区]
+2024-12-16T14:22:07.627+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家DM，有省份10条，expedia有省份10条, 相同的0条，找不到省份10条，分别是[圣安德鲁区, 圣大卫教区, 圣乔治堂区, 圣约翰堂区, 圣约瑟夫堂区, 圣卢克堂区, 圣马克堂区, 圣帕特里克堂区, 圣保罗堂区, 圣彼得堂区]
+2024-12-16T14:22:07.634+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家DO，有省份32条，expedia有省份32条, 相同的18条，找不到省份14条，分别是[国家特区, 阿苏阿省, 巴奥鲁可省, 巴拉奥纳省, 达哈朋省, 杜华德省, 艾斯派亚省, 拉维加省, 主教·瑙黎省, 银山省, 佩德纳莱斯省, 米拉贝姐妹省, 圣克里斯多堡省, 圣地亚哥省]
+2024-12-16T14:22:07.659+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家UA，有省份24条，expedia有省份161条, 相同的23条，找不到省份1条，分别是[敖德萨州]
+2024-12-16T14:22:07.662+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家UG，有省份4条，expedia有省份116条, 相同的4条，找不到省份0条，分别是[]
+2024-12-16T14:22:07.679+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家DZ，有省份48条，expedia有省份58条, 相同的2条，找不到省份46条，分别是[阿德拉尔省, 艾因迪夫拉省, 艾因泰穆尚特省, 阿尔及尔省, 安纳巴省, 巴特纳省, 贝沙尔省, 贝贾亚省, 比斯克拉省, 卜利达省, 布阿拉里季堡省, 布维拉省, 布米尔达斯省, 谢里夫省, 君士坦丁省, 杰勒法省, 巴亚兹省, 瓦迪省, 塔里夫省, 盖尔达耶省, 盖勒马省, 伊利济省, 吉杰勒省, 汉舍莱省, 艾格瓦特省, 穆阿斯凯尔省, 麦迪亚省, 米拉省, 穆斯塔加奈姆省, 姆西拉省, 奥兰省, 瓦尔格拉省, 乌姆布瓦吉省, 埃利赞省, 赛伊达省, 西迪贝勒阿巴斯省, 斯基克达省, 苏格艾赫拉斯省, 塔曼拉塞特省, 泰贝萨省, 提亚雷特省, 廷杜夫省, 提帕萨省, 提塞姆西勒特省, 提济乌祖省, 特莱姆森省]
+2024-12-16T14:22:07.720+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家EC，有省份24条，expedia有省份241条, 相同的21条，找不到省份3条，分别是[洛斯里奥斯省, 莫罗纳-圣地亚哥省, 萨莫拉-钦奇佩省]
+2024-12-16T14:22:08.902+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家US，有省份52条，expedia有省份3461条, 相同的51条，找不到省份1条，分别是[北马里亚纳群岛]
+2024-12-16T14:22:08.910+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家EE，有省份15条，expedia有省份86条, 相同的1条，找不到省份14条，分别是[哈尔尤县, 沃鲁县, 莱内县, 西维鲁县, 派尔努县, 拉普拉县, 耶尔瓦县, 东维鲁县, 约格瓦县, 塔尔图县, 珀尔瓦县, 瓦尔加县, 维尔扬迪县, 希乌县]
+2024-12-16T14:22:08.915+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家EG，有省份27条，expedia有省份32条, 相同的22条，找不到省份5条，分别是[东部省, 布海拉省, 西部省, 谢赫村省, 米努夫省]
+2024-12-16T14:22:08.917+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家UY，有省份19条，expedia有省份18条, 相同的5条，找不到省份14条，分别是[弗罗里达省, 蒙得维的亚, 阿蒂加斯省, 塞尔托省, 帕桑都省, 里奥内格罗省, 索里亚诺省, 科洛尼亚省, 卡内洛内斯省, 马尔多纳多省, 弗洛雷斯省, 杜拉斯诺省, 塞罗拉尔戈省, 拉瓦耶哈省]
+2024-12-16T14:22:08.926+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家UZ，有省份13条，expedia有省份117条, 相同的1条，找不到省份12条，分别是[安集延州, 布哈拉州, 费尔干纳州, 吉扎克州, 纳曼干州, 纳沃伊州, 卡什卡达里亚州, 撒马尔罕州, 锡尔河州, 苏尔汉河州, 花拉子模州, 卡拉卡尔帕克斯坦共和国]
+2024-12-16T14:22:08.926+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家VC，有省份6条，expedia有省份6条, 相同的6条，找不到省份0条，分别是[]
+2024-12-16T14:22:08.927+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家ER，有省份6条，expedia有省份6条, 相同的0条，找不到省份6条，分别是[中部区, 南部区, 安塞巴区, 南红海区, 加什-巴尔卡区, 北红海区]
+2024-12-16T14:22:08.971+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家ES，有省份17条，expedia有省份446条, 相同的15条，找不到省份2条，分别是[穆尔西亚自治区, 瓦伦西亚自治区]
+2024-12-16T14:22:09.023+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家VE，有省份25条，expedia有省份370条, 相同的23条，找不到省份2条，分别是[联邦属地, 首都区]
+2024-12-16T14:22:09.028+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家ET，有省份9条，expedia有省份94条, 相同的1条，找不到省份8条，分别是[阿法尔州, 阿姆哈拉州, 本尚古勒-古马兹州, 甘贝拉州, 哈勒尔州, 索马里州, 提格雷州, 南方州]
+2024-12-16T14:22:09.029+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家VG，有省份5条，expedia有省份3条, 相同的3条，找不到省份2条，分别是[约斯特·范大克岛, 维尔京戈达岛]
+2024-12-16T14:22:09.029+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家VI，有省份3条，expedia有省份17条, 相同的0条，找不到省份3条，分别是[圣克罗伊岛, 圣托马斯岛, 圣约翰岛]
+2024-12-16T14:22:09.050+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家VN，有省份58条，expedia有省份65条, 相同的57条，找不到省份1条，分别是[承天顺化省]
+2024-12-16T14:22:09.050+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家VU，有省份6条，expedia有省份6条, 相同的6条，找不到省份0条，分别是[]
+2024-12-16T14:22:09.060+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家FI，有省份19条，expedia有省份85条, 相同的16条，找不到省份3条，分别是[奥兰自治区, 北博滕区, 坎塔海梅区]
+2024-12-16T14:22:09.061+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家FJ，有省份8条，expedia有省份19条, 相同的1条，找不到省份7条，分别是[维提群岛, 劳群岛, 瓦努阿岛列岛, 马马努卡群岛, 亚萨瓦群岛, 坎达武群岛, 罗图马群岛]
+2024-12-16T14:22:09.061+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家FM，有省份4条，expedia有省份4条, 相同的4条，找不到省份0条，分别是[]
+2024-12-16T14:22:09.061+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家FO，有省份6条，expedia有省份6条, 相同的0条，找不到省份6条，分别是[斯特莱默岛, 东岛, 南岛, 沃格岛, 桑岛, 北部群岛]
+2024-12-16T14:22:09.262+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家FR，有省份13条，expedia有省份1350条, 相同的12条，找不到省份1条，分别是[中央-卢瓦尔河谷大区]
+2024-12-16T14:22:09.263+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GA，有省份9条，expedia有省份9条, 相同的9条，找不到省份0条，分别是[]
+2024-12-16T14:22:09.531+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GB，有省份134条，expedia有省份344条, 相同的110条，找不到省份24条，分别是[达勒姆郡, 苏格兰高地, 安格斯, 南拉纳克郡, 外赫布里底群岛, 哈尔顿, 米尔顿凯恩斯, 彼得堡, 斯温顿, 沃灵顿, 纽波特（新港）, 卡迪夫, 利斯本和卡斯尔雷阿, 泽西, 根西, 马恩岛, 西伯克郡, 斯劳, 安特里姆与纽顿阿比, 堤道海岸与峡谷, 德里市与斯特拉班, 弗马纳与奥马, 安特里姆中部和东部, 中阿尔斯特]
+2024-12-16T14:22:09.531+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家WS，有省份11条，expedia有省份1条, 相同的1条，找不到省份10条，分别是[阿纳, 艾加伊勒泰, 阿图阿, 法塞莱莱阿加, 加加埃毛加, 加盖福毛加, 帕劳利, 萨图帕伊泰阿, 瓦奥福诺蒂, 韦西加诺]
+2024-12-16T14:22:09.532+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GD，有省份6条，expedia有省份2条, 相同的1条，找不到省份5条，分别是[圣乔治区, 圣安德鲁区, 圣戴维区, 圣约翰区, 圣帕特里克区]
+2024-12-16T14:22:09.533+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GE，有省份11条，expedia有省份11条, 相同的10条，找不到省份1条，分别是[拉恰-列其呼米-下斯瓦涅季亚州]
+2024-12-16T14:22:09.533+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GF，有省份2条，expedia有省份2条, 相同的0条，找不到省份2条，分别是[卡宴区, 圣洛朗杜马罗尼区]
+2024-12-16T14:22:09.549+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GH，有省份10条，expedia有省份257条, 相同的0条，找不到省份10条，分别是[阿散蒂地区, 布朗阿哈福地区, 中部地区, 东部地区, 大阿克拉地区, 北部地区, 东北地区, 西北地区, 沃尔特地区, 西部地区]
+2024-12-16T14:22:09.549+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GL，有省份5条，expedia有省份1条, 相同的1条，找不到省份4条，分别是[库雅雷克, 凯克卡塔, 阿万纳塔, 凯凯塔利克]
+2024-12-16T14:22:09.550+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GM，有省份5条，expedia有省份37条, 相同的4条，找不到省份1条，分别是[西部区]
+2024-12-16T14:22:09.550+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GN，有省份8条，expedia有省份10条, 相同的8条，找不到省份0条，分别是[]
+2024-12-16T14:22:09.551+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GP，有省份2条，expedia有省份7条, 相同的1条，找不到省份1条，分别是[巴斯特尔岛]
+2024-12-16T14:22:09.551+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GQ，有省份6条，expedia有省份8条, 相同的6条，找不到省份0条，分别是[]
+2024-12-16T14:22:09.558+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GR，有省份14条，expedia有省份88条, 相同的7条，找不到省份7条，分别是[伊奥尼亚群岛, 伯罗奔尼撒, 东马其顿-色雷斯, 西希腊, 圣山州, 北爱琴, 西马其顿]
+2024-12-16T14:22:09.561+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GT，有省份21条，expedia有省份22条, 相同的9条，找不到省份12条，分别是[危地马拉省, 奇马尔特南戈省, 索洛拉省, 克萨尔特南戈省, 埃斯昆特拉省, 伊萨瓦尔省, 奇基穆拉省, 哈拉帕省, 胡蒂亚帕省, 雷塔卢莱乌省, 萨卡特佩克斯省, 托托尼卡潘省]
+2024-12-16T14:22:09.563+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GW，有省份9条，expedia有省份45条, 相同的8条，找不到省份1条，分别是[比绍区]
+2024-12-16T14:22:09.564+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GY，有省份10条，expedia有省份10条, 相同的9条，找不到省份1条，分别是[巴里马-瓦伊尼区]
+2024-12-16T14:22:09.566+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家HN，有省份18条，expedia有省份18条, 相同的8条，找不到省份10条，分别是[乔卢特卡省, 科马亚瓜省, 科潘省, 埃尔帕拉伊索省, 弗朗西斯科-莫拉桑省, 海湾群岛省, 皮拉省, 奥兰乔省, 圣巴巴拉省, 山谷省]
+2024-12-16T14:22:09.569+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家HR，有省份20条，expedia有省份20条, 相同的7条，找不到省份13条，分别是[杜布罗夫尼克-内雷特瓦县, 利卡-塞尼县, 滨海和山区县, 卡尔洛瓦茨县, 科普里夫尼察-克里热夫齐县, 维罗维蒂察-波德拉维纳县, 波热加-斯拉沃尼亚县, 布罗德-波萨维纳县, 奥西耶克-巴拉尼亚县, 武科瓦尔-斯里耶姆县, 札达路斯卡县, 斯普利特-达尔马提亚县, 希贝尼克-克宁县]
+2024-12-16T14:22:09.572+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家YE，有省份21条，expedia有省份22条, 相同的6条，找不到省份15条，分别是[亚丁省, 达利省, 贝达省, 荷台达省, 焦夫省, 马哈拉省, 迈赫维特省, 索科特拉省, 哈德拉毛省, 拉赫季省, 马里卜省, 赖马省, 萨达省, 萨那省, 塔伊兹省]
+2024-12-16T14:22:09.572+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家HT，有省份10条，expedia有省份10条, 相同的0条，找不到省份10条，分别是[阿蒂博尼特省, 中央省, 大湾省, 尼普斯省, 北部省, 东北省, 西北省, 西部省, 南部省, 东南省]
+2024-12-16T14:22:09.594+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家HU，有省份19条，expedia有省份193条, 相同的10条，找不到省份9条，分别是[沃什州, 佐洛州, 绍莫吉州, 维斯普雷姆州, 托尔瑙州, 佩斯州, 贝凯什州, 诺格拉德州, 赫维什州]
+2024-12-16T14:22:09.594+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家YT，在expedia数据中找不到
+2024-12-16T14:22:09.679+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家ID，有省份34条，expedia有省份436条, 相同的31条，找不到省份3条，分别是[明古鲁省, 占碑省, 巴厘省]
+2024-12-16T14:22:09.683+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家IE，有省份26条，expedia有省份29条, 相同的25条，找不到省份1条，分别是[都柏林郡]
+2024-12-16T14:22:09.683+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家IL，有省份6条，expedia有省份7条, 相同的4条，找不到省份2条，分别是[北部区, 中央区]
+2024-12-16T14:22:09.939+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家IN，有省份35条，expedia有省份820条, 相同的31条，找不到省份4条，分别是[查谟－克什米尔邦, 德里, 达曼-第乌邦, 达德拉-纳加尔哈维利]
+2024-12-16T14:22:09.946+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家ZA，有省份9条，expedia有省份123条, 相同的9条，找不到省份0条，分别是[]
+2024-12-16T14:22:09.948+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家IQ，有省份18条，expedia有省份19条, 相同的13条，找不到省份5条，分别是[穆萨纳省, 卡迪西亚省, 埃尔比勒省, 苏莱曼尼亚省, 杜胡克省]
+2024-12-16T14:22:09.954+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家IR，有省份31条，expedia有省份34条, 相同的28条，找不到省份3条，分别是[恰哈马哈勒－巴赫蒂亚里省, 科吉卢耶－博韦艾哈迈德省, 德黑兰省]
+2024-12-16T14:22:09.954+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家IS，有省份8条，expedia有省份8条, 相同的8条，找不到省份0条，分别是[]
+2024-12-16T14:22:09.969+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家IT，有省份20条，expedia有省份126条, 相同的18条，找不到省份2条，分别是[普利亚大区, 特伦蒂诺-上阿迪杰大区]
+2024-12-16T14:22:09.975+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家ZM，有省份9条，expedia有省份117条, 相同的6条，找不到省份3条，分别是[卢阿普拉省, 北部省, 西部省]
+2024-12-16T14:22:09.979+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家ZW，有省份10条，expedia有省份66条, 相同的8条，找不到省份2条，分别是[布拉瓦约, 马尼卡兰省]
+2024-12-16T14:22:09.980+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家JM，有省份14条，expedia有省份14条, 相同的12条，找不到省份2条，分别是[特里洛尼区, 金斯敦区]
+2024-12-16T14:22:09.981+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家JO，有省份12条，expedia有省份13条, 相同的3条，找不到省份9条，分别是[阿杰隆省, 拜勒加省, 卡拉克省, 马弗拉克省, 塔菲拉省, 扎尔卡省, 伊尔比德省, 杰拉什省, 马安省]
+2024-12-16T14:22:10.097+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家JP，有省份46条，expedia有省份440条, 相同的45条，找不到省份1条，分别是[北海道]
+2024-12-16T14:22:10.109+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家KE，有省份45条，expedia有省份47条, 相同的1条，找不到省份44条，分别是[巴林戈, 博美特郡, 奔戈马, 布西亚, 埃尔格约-马拉奎特郡, 恩布, 加里萨, 霍马贝, 伊西奥洛, 卡贾多, 卡卡梅加, 凯里乔, 基安布, 基利菲, 基里尼亚加郡, 基西, 基苏木, 基图伊, 夸莱, 莱基皮亚, 拉穆, 马查科斯, 马库埃尼, 曼德拉, 马萨比特, 梅鲁, 米戈里, 穆拉雅, 纳库鲁, 南迪郡, 纳罗克, 尼亚米拉郡, 年达鲁阿郡, 涅里, 桑布鲁, 夏亚郡, 泰塔塔维塔郡, 塔纳河郡, 萨拉卡尼蒂郡, 特兰斯-恩佐亚郡, 图尔卡纳, 瓦辛基苏郡, 瓦吉尔, 西波克特郡]
+2024-12-16T14:22:10.109+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家KG，有省份7条，expedia有省份8条, 相同的0条，找不到省份7条，分别是[巴特肯州, 楚河州, 贾拉拉巴德州, 纳伦州, 奥什州, 塔拉斯州, 伊塞克湖州]
+2024-12-16T14:22:10.112+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家KH，有省份23条，expedia有省份24条, 相同的2条，找不到省份21条，分别是[柏威夏省, 班迭棉吉省, 磅同省, 磅湛省, 干丹省, 戈公省, 贡布省, 桔井省, 腊塔纳基里省, 马德望省, 蒙多基里省, 上丁省, 暹粒省, 柴桢省, 磅士卑省, 波萝勉省, 菩萨省, 西哈努克省, 茶胶省, 奥多棉吉省, 拜林市]
+2024-12-16T14:22:10.113+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家KI，有省份3条，expedia有省份3条, 相同的2条，找不到省份1条，分别是[菲尼克斯群岛]
+2024-12-16T14:22:10.113+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家KM，在expedia数据中找不到
+2024-12-16T14:22:10.114+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家KN，有省份11条，expedia有省份14条, 相同的1条，找不到省份10条，分别是[圣安娜沙角区, 圣乔治巴塞特莱区, 圣乔治金哲兰区, 圣詹姆斯温沃德区, 圣约翰费格特里区, 圣玛丽卡永区, 圣保罗卡皮斯特莱区, 圣保罗查尔斯敦区, 圣彼得巴塞特莱区, 圣托马斯米德艾兰区]
+2024-12-16T14:22:10.114+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家KP，在expedia数据中找不到
+2024-12-16T14:22:10.115+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家KR，有省份9条，expedia有省份14条, 相同的1条，找不到省份8条，分别是[京畿道, 庆尚南道, 济州特别自治道, 全罗北道, 庆尚北道, 忠清南道, 忠清北道, 全罗南道]
+2024-12-16T14:22:10.115+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家KW，有省份6条，expedia有省份6条, 相同的2条，找不到省份4条，分别是[科威特省, 大穆巴拉克省, 杰赫拉省, 费尔瓦尼耶省]
+2024-12-16T14:22:10.115+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家KY，有省份1条，expedia有省份3条, 相同的0条，找不到省份1条，分别是[姐妹岛]
+2024-12-16T14:22:10.133+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家KZ，有省份14条，expedia有省份224条, 相同的2条，找不到省份12条，分别是[阿克莫拉州, 阿特劳州, 西哈萨克斯坦州, 曼吉斯套州, 南哈萨克斯坦州, 巴甫洛达尔州, 卡拉干达州, 库斯塔奈州, 克孜勒奥尔达州, 东哈萨克斯坦州, 北哈萨克斯坦州, 江布尔州]
+2024-12-16T14:22:10.135+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家LA，有省份16条，expedia有省份18条, 相同的3条，找不到省份13条，分别是[阿速坡省, 博胶省, 博利坎赛省, 华潘省, 甘蒙省, 琅南塔省, 乌多姆塞省, 丰沙里省, 沙拉湾省, 沙湾拿吉省, 沙耶武里省, 塞公省, 川圹省]
+2024-12-16T14:22:10.136+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家LB，有省份6条，expedia有省份33条, 相同的3条，找不到省份3条，分别是[贝鲁特省, 纳巴泰省, 贝卡省]
+2024-12-16T14:22:10.136+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家LC，在expedia数据中找不到
+2024-12-16T14:22:10.136+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家LI，在expedia数据中找不到
+2024-12-16T14:22:10.155+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家LK，有省份9条，expedia有省份360条, 相同的9条，找不到省份0条，分别是[]
+2024-12-16T14:22:10.156+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家LR，有省份15条，expedia有省份16条, 相同的14条，找不到省份1条，分别是[河塞斯县]
+2024-12-16T14:22:10.157+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家LS，有省份10条，expedia有省份10条, 相同的0条，找不到省份10条，分别是[伯里亚区, 布塔-布泰区, 莱里贝区, 马费滕区, 马塞卢区, 莫哈莱斯胡克区, 莫霍特隆区, 加查斯内克区, 古廷区, 塔巴-采卡区]
+2024-12-16T14:22:10.161+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家LT，有省份10条，expedia有省份65条, 相同的10条，找不到省份0条，分别是[]
+2024-12-16T14:22:10.162+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家LU，有省份12条，expedia有省份12条, 相同的0条，找不到省份12条，分别是[克莱沃郡, 迪基希郡, 埃希特纳赫郡, 阿尔泽特河畔埃施郡, 卢森堡郡, 梅尔施郡, 雷米希郡, 菲安登郡, 维尔茨郡, 卡佩伦郡, 雷当日郡, 格雷文马赫郡]
+2024-12-16T14:22:10.165+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家LY，有省份22条，expedia有省份21条, 相同的13条，找不到省份9条，分别是[西山省, 吉法拉省, 迈尔盖卜省, 努加特海姆斯省, 扎维耶省, 班加西, 的黎波里省, 瓦迪哈耶特省, 沙提省]
+2024-12-16T14:22:10.170+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MA，有省份11条，expedia有省份87条, 相同的9条，找不到省份2条，分别是[马拉喀什-萨菲大区, 东部大区]
+2024-12-16T14:22:10.178+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MD，有省份34条，expedia有省份37条, 相同的2条，找不到省份32条，分别是[新阿内尼区, 巴萨拉贝亚斯卡区, 布里恰内区, 卡古尔区, 冈代米尔区, 卡拉拉什区, 考沙内区, 奇米什利亚区, 克留莱尼区, 栋久沙内区, 德罗基亚区, 杜博萨雷区, 叶金齐区, 弗莱什蒂区, 弗洛雷什蒂区, 格洛代尼区, 亨切什蒂区, 亚洛韦尼区, 莱奥瓦区, 尼斯波列内区, 奥克尼察区, 奥尔海伊区, 雷济纳区, 雷什卡内区, 森杰雷区, 索罗卡区, 斯特勒谢尼区, 绍尔德内什蒂区, 斯特凡大公区, 塔拉克利亚区, 泰莱内什蒂区, 温格内区]
+2024-12-16T14:22:10.181+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家ME，有省份21条，expedia有省份25条, 相同的2条，找不到省份19条，分别是[安德里耶维察, 巴尔, 贝拉内, 比耶洛波列, 布德瓦, 采蒂涅, 达尼洛夫格勒, 新海尔采格, 科拉欣, 科托尔, 莫伊科瓦茨, 尼克希奇, 普拉夫, 普列夫利亚, 普卢日内, 波德戈里察, 罗扎伊, 蒂瓦特, 乌尔齐尼]
+2024-12-16T14:22:10.182+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MG，有省份6条，expedia有省份25条, 相同的0条，找不到省份6条，分别是[塔那那利佛省, 安齐拉纳纳省, 菲亚纳兰楚阿省, 马哈赞加省, 图阿马西拉省, 图利亚拉省]
+2024-12-16T14:22:10.183+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家ML，有省份9条，expedia有省份11条, 相同的8条，找不到省份1条，分别是[巴马科首都区]
+2024-12-16T14:22:10.184+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MM，有省份15条，expedia有省份16条, 相同的10条，找不到省份5条，分别是[伊洛瓦底省, 勃固省, 马圭省, 曼德勒省, 实皆省]
+2024-12-16T14:22:10.187+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MN，有省份21条，expedia有省份24条, 相同的19条，找不到省份2条，分别是[库苏古尔省, 前杭爱省]
+2024-12-16T14:22:10.188+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MQ，有省份4条，expedia有省份4条, 相同的2条，找不到省份2条，分别是[圣皮埃尔郡, 黛园郡]
+2024-12-16T14:22:10.189+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MR，有省份13条，expedia有省份17条, 相同的12条，找不到省份1条，分别是[首都努瓦克肖特]
+2024-12-16T14:22:10.189+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MS，有省份2条，expedia有省份3条, 相同的2条，找不到省份0条，分别是[]
+2024-12-16T14:22:10.190+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MU，有省份9条，expedia有省份6条, 相同的4条，找不到省份5条，分别是[黑河区, 弗拉克区, 莫卡区, 庞波慕斯区, 路易港区]
+2024-12-16T14:22:10.192+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MV，有省份19条，expedia有省份20条, 相同的14条，找不到省份5条，分别是[哈阿里夫环礁, 北阿里环礁, 南阿里环礁, 美慕环礁, 达鲁环礁]
+2024-12-16T14:22:10.193+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MW，有省份3条，expedia有省份3条, 相同的3条，找不到省份0条，分别是[]
+2024-12-16T14:22:10.212+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MX，有省份32条，expedia有省份105条, 相同的31条，找不到省份1条，分别是[联邦区]
+2024-12-16T14:22:10.224+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MY，有省份13条，expedia有省份163条, 相同的12条，找不到省份1条，分别是[马六甲州]
+2024-12-16T14:22:10.233+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MZ，有省份10条，expedia有省份155条, 相同的10条，找不到省份0条，分别是[]
+2024-12-16T14:22:10.234+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家NA，有省份13条，expedia有省份14条, 相同的0条，找不到省份13条，分别是[埃龙戈区, 哈达普区, 卡拉斯区, 奥卡万戈区, 霍马斯区, 库内内区, 奥汉圭纳区, 奥马海凯区, 奥穆萨蒂区, 奥沙纳区, 奥希科托区, 奥乔宗朱帕区, 赞比西区]
+2024-12-16T14:22:10.235+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家NC，有省份3条，expedia有省份3条, 相同的3条，找不到省份0条，分别是[]
+2024-12-16T14:22:10.236+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家NE，有省份8条，expedia有省份44条, 相同的7条，找不到省份1条，分别是[尼亚美市]
+2024-12-16T14:22:10.401+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家NG，有省份36条，expedia有省份810条, 相同的36条，找不到省份0条，分别是[]
+2024-12-16T14:22:10.403+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家NI，有省份17条，expedia有省份17条, 相同的6条，找不到省份11条，分别是[博阿科省, 奇南德加省, 琼塔莱斯省, 埃斯特利省, 格拉纳达省, 希诺特加省, 莱昂省, 马那瓜省, 马萨亚省, 马塔加尔帕省, 里瓦斯省]
+2024-12-16T14:22:10.428+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家NL，有省份12条，expedia有省份354条, 相同的9条，找不到省份3条，分别是[北布拉邦省, 北荷兰省, 南荷兰省]
+2024-12-16T14:22:10.430+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家NO，有省份20条，expedia有省份14条, 相同的8条，找不到省份12条，分别是[奥普兰郡, 北特伦德拉格郡, 霍达兰郡, 松恩-菲尤拉讷郡, 东阿格德尔郡, 奥斯陆郡, 西阿格德尔郡, 默勒-鲁姆斯达尔郡, 东福尔郡, 海德马克郡, 南特伦德拉格郡, 斯瓦尔巴]
+2024-12-16T14:22:10.437+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家NP，有省份14条，expedia有省份84条, 相同的5条，找不到省份9条，分别是[伯瑞, 达瓦尔阿基里, 贾纳克布尔, 马哈卡里, 梅吉, 纳拉亚尼, 拉普蒂, 萨加玛塔, 瑟地]
+2024-12-16T14:22:10.437+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家NR，有省份1条，expedia有省份14条, 相同的1条，找不到省份0条，分别是[]
+2024-12-16T14:22:10.444+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家NZ，有省份17条，expedia有省份69条, 相同的9条，找不到省份8条，分别是[丰盛湾大区, 马纳瓦图－旺加努伊大区, 惠灵顿大区, 霍克湾大区, 塔斯曼大区, 吉斯伯恩大区, 尼尔逊, 查塔姆群岛]
+2024-12-16T14:22:10.444+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家OM，有省份11条，expedia有省份11条, 相同的1条，找不到省份10条，分别是[内地省, 扎希拉省, 北巴提奈省, 布赖米省, 中部省, 东北省, 佐法尔省, 马斯喀特省, 南巴提奈省, 东南省]
+2024-12-16T14:22:10.452+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家PA，有省份12条，expedia有省份98条, 相同的6条，找不到省份6条，分别是[博卡斯德尔托罗省, 奇里基省, 达连省, 恩贝拉-沃内安特区, 库纳雅拉特区, 恩戈贝-布格雷特区]
+2024-12-16T14:22:10.486+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家PE，有省份26条，expedia有省份223条, 相同的2条，找不到省份24条，分别是[阿雷基帕大区, 库斯科大区, 皮乌拉大区, 马德雷德迪奥斯大区, 亚马孙大区, 阿普里马克大区, 阿亚库乔大区, 卡哈马卡大区, 万卡韦利卡大区, 瓦努科大区, 伊卡大区, 胡宁大区, 拉利伯塔德大区, 兰巴耶克大区, 洛雷托大区, 莫克瓜大区, 帕斯科大区, 普诺大区, 圣马丁大区, 塔克纳大区, 通贝斯大区, 乌卡亚利大区, 安卡什大区, 卡亚俄大区]
+2024-12-16T14:22:10.486+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家PF，有省份6条，expedia有省份5条, 相同的4条，找不到省份2条，分别是[甘比尔群岛, 土阿莫土群岛]
+2024-12-16T14:22:10.488+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家PG，有省份21条，expedia有省份23条, 相同的17条，找不到省份4条，分别是[钦布省, 北部省, 桑道恩省, 布干维尔自治省]
+2024-12-16T14:22:10.498+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家PH，有省份17条，expedia有省份98条, 相同的14条，找不到省份3条，分别是[伊罗戈大区, 邦萨摩洛, 马尼拉]
+2024-12-16T14:22:10.498+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家PK，有省份7条，expedia有省份10条, 相同的5条，找不到省份2条，分别是[伊斯兰堡首都区, 联邦直辖部落地区]
+2024-12-16T14:22:10.547+08:00  INFO 24456 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家PL，有省份16条，expedia有省份330条, 相同的0条，找不到省份16条，分别是[西里西亚省, 奥波莱, 滨海省, 波德拉谢, 大波兰省, 库亚维-滨海省, 卢布斯卡省, 罗兹省, 马佐夫舍, 瓦尔米亚-马祖里, 西滨海省, 下西里西亚省, 小波兰省, 卢布林省, 圣十字省, 喀尔巴阡山省]
+2024-12-16T15:11:33.175+08:00  INFO 24456 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-12-16T15:11:33.177+08:00  INFO 24456 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-12-16T15:11:38.545+08:00  INFO 24424 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 24424 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
+2024-12-16T15:11:38.547+08:00  INFO 24424 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
+2024-12-16T15:11:38.990+08:00  INFO 24424 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-12-16T15:11:38.991+08:00  INFO 24424 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-12-16T15:11:39.011+08:00  INFO 24424 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 Redis repository interfaces.
+2024-12-16T15:11:39.447+08:00  INFO 24424 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
+2024-12-16T15:11:39.457+08:00  INFO 24424 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-12-16T15:11:39.457+08:00  INFO 24424 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
+2024-12-16T15:11:39.552+08:00  INFO 24424 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-12-16T15:11:39.553+08:00  INFO 24424 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 979 ms
+2024-12-16T15:11:40.524+08:00  INFO 24424 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
+2024-12-16T15:11:40.529+08:00  INFO 24424 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 2.202 seconds (process running for 2.575)
+2024-12-16T15:11:43.222+08:00  INFO 24424 --- [http-nio-9008-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-12-16T15:11:43.222+08:00  INFO 24424 --- [http-nio-9008-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-12-16T15:11:43.223+08:00  INFO 24424 --- [http-nio-9008-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-12-16T15:11:43.248+08:00  INFO 24424 --- [http-nio-9008-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-12-16T15:11:43.409+08:00  INFO 24424 --- [http-nio-9008-exec-1] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@683febad
+2024-12-16T15:11:43.413+08:00  INFO 24424 --- [http-nio-9008-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-12-16T15:11:46.205+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家PS，有省份3条，expedia有省份2条, 相同的0条，找不到省份3条，分别是[伯利恒省, 希布伦省, 杰里科省]
+2024-12-16T15:11:46.224+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家PT，有省份20条，expedia有省份19条, 相同的19条，找不到省份1条，分别是[里斯本大区]
+2024-12-16T15:11:46.228+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家PY，有省份18条，expedia有省份18条, 相同的17条，找不到省份1条，分别是[大亚松森]
+2024-12-16T15:11:46.251+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家AM，有省份11条，expedia有省份10条, 相同的10条，找不到省份1条，分别是[埃里温]
+2024-12-16T15:11:46.254+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家AO，有省份18条，expedia有省份18条, 相同的15条，找不到省份3条，分别是[库安多古班哥省, 北广萨省, 南广萨省]
+2024-12-16T15:11:46.358+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家AR，有省份23条，expedia有省份536条, 相同的22条，找不到省份1条，分别是[里奥哈省]
+2024-12-16T15:11:46.358+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家AS，有省份3条，expedia有省份3条, 相同的2条，找不到省份1条，分别是[马努阿区]
+2024-12-16T15:11:47.630+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家RU，有省份81条，expedia有省份1997条, 相同的76条，找不到省份5条，分别是[鞑靼斯坦共和国, 卡拉恰伊-切尔克斯共和国, 卡巴尔达-巴尔卡尔共和国, 印古什共和国, 图瓦共和国]
+2024-12-16T15:11:47.632+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BE，有省份11条，expedia有省份13条, 相同的9条，找不到省份2条，分别是[瓦隆-布拉班特省, 安特卫普省]
+2024-12-16T15:11:47.637+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家RW，有省份5条，expedia有省份34条, 相同的3条，找不到省份2条，分别是[基加利市, 东部省]
+2024-12-16T15:11:47.643+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BG，有省份27条，expedia有省份29条, 相同的24条，找不到省份3条，分别是[洛维奇州, 弗拉察州, 扬博尔州]
+2024-12-16T15:11:47.643+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BH，有省份5条，expedia有省份4条, 相同的4条，找不到省份1条，分别是[中央省]
+2024-12-16T15:11:47.646+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BJ，有省份12条，expedia有省份13条, 相同的10条，找不到省份2条，分别是[阿塔科拉省, 库福省]
+2024-12-16T15:11:47.646+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BM，在expedia数据中找不到
+2024-12-16T15:11:47.655+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家SA，有省份13条，expedia有省份13条, 相同的11条，找不到省份2条，分别是[阿西尔省, 哈伊勒省]
+2024-12-16T15:11:47.655+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家SB，有省份9条，expedia有省份10条, 相同的8条，找不到省份1条，分别是[拉纳尔和贝罗纳省]
+2024-12-16T15:11:47.660+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BR，有省份27条，expedia有省份27条, 相同的25条，找不到省份2条，分别是[联邦区, 马拉尼昂州]
+2024-12-16T15:11:47.665+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BS，有省份29条，expedia有省份27条, 相同的21条，找不到省份8条，分别是[阿克林岛, 比米尼群岛, 哈勃岛, 曼格罗夫岛, 马亚瓜纳岛, 拉吉德岛, 圣萨尔瓦多岛, 新普罗维登斯岛]
+2024-12-16T15:11:47.667+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家SD，有省份15条，expedia有省份20条, 相同的14条，找不到省份1条，分别是[加达里夫州]
+2024-12-16T15:11:47.670+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BT，有省份19条，expedia有省份20条, 相同的11条，找不到省份8条，分别是[楚卡宗, 廷布宗, 旺杜波德朗宗, 通萨宗, 谢姆冈宗, 塔希冈宗, 伦奇宗, 塔希央奇宗]
+2024-12-16T15:11:47.713+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家SE，有省份21条，expedia有省份311条, 相同的17条，找不到省份4条，分别是[卡尔马省, 斯德哥尔摩省, 斯科讷省, 乌普萨拉省]
+2024-12-16T15:11:47.719+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家SM，在expedia数据中找不到
+2024-12-16T15:11:47.722+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家SO，有省份18条，expedia有省份20条, 相同的14条，找不到省份4条，分别是[下谢贝利州, 希兰州, 努加尔州, 沃戈伊加勒贝德州]
+2024-12-16T15:11:47.794+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家SR，有省份10条，expedia有省份60条, 相同的9条，找不到省份1条，分别是[帕拉马里博]
+2024-12-16T15:11:47.800+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CD，有省份26条，expedia有省份26条, 相同的23条，找不到省份3条，分别是[南基伍省, 北基伍省, 赤道省]
+2024-12-16T15:11:47.800+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家ST，有省份2条，expedia有省份1条, 相同的1条，找不到省份1条，分别是[普林西比]
+2024-12-16T15:11:47.867+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CH，有省份26条，expedia有省份153条, 相同的18条，找不到省份8条，分别是[伯尔尼州, 格劳宾登州, 瓦莱州, 巴塞尔乡村州, 外阿彭策尔州, 巴塞尔城市州, 乌里州, 内阿彭策尔州]
+2024-12-16T15:11:47.874+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CI，有省份18条，expedia有省份47条, 相同的13条，找不到省份5条，分别是[恩济-科莫埃区, 弗罗马格尔区, 中卡瓦利区, 中科莫埃区, 南邦达马区]
+2024-12-16T15:11:47.875+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家SY，有省份11条，expedia有省份15条, 相同的8条，找不到省份3条，分别是[哈塞克省, 库奈特拉省, 大马士革省]
+2024-12-16T15:11:47.876+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CK，在expedia数据中找不到
+2024-12-16T15:11:47.884+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CL，有省份15条，expedia有省份71条, 相同的13条，找不到省份2条，分别是[麦哲伦-智利南极大区, 圣地亚哥首都大区]
+2024-12-16T15:11:47.889+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CM，有省份10条，expedia有省份68条, 相同的7条，找不到省份3条，分别是[阿达马瓦区, 中部区, 极北区]
+2024-12-16T15:11:47.890+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CN，有省份3条，expedia有省份39条, 相同的0条，找不到省份3条，分别是[香港, 澳门, 台湾]
+2024-12-16T15:11:47.897+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CO，有省份33条，expedia有省份33条, 相同的30条，找不到省份3条，分别是[圣安德列斯省, 瓜希拉省, 波哥大]
+2024-12-16T15:11:47.905+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家TD，有省份22条，expedia有省份22条, 相同的19条，找不到省份3条，分别是[加扎勒河区, 恩内迪区, 恩贾梅纳]
+2024-12-16T15:11:47.907+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CU，有省份15条，expedia有省份16条, 相同的9条，找不到省份6条，分别是[卡马圭省, 谢戈德阿维拉省, 格拉玛省, 关塔那摩省, 玛雅贝克省, 青年岛特区]
+2024-12-16T15:11:47.907+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CV，在expedia数据中找不到
+2024-12-16T15:11:47.908+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家TG，有省份5条，expedia有省份5条, 相同的3条，找不到省份2条，分别是[中部区, 草原区]
+2024-12-16T15:11:47.950+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家TJ，有省份4条，expedia有省份62条, 相同的3条，找不到省份1条，分别是[戈尔诺-巴达赫尚自治州]
+2024-12-16T15:11:47.950+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CY，有省份6条，expedia有省份13条, 相同的5条，找不到省份1条，分别是[凯里尼亚区]
+2024-12-16T15:11:47.958+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CZ，有省份13条，expedia有省份89条, 相同的7条，找不到省份6条，分别是[乌斯季州, 摩拉维亚-西里西亚州, 南摩拉维亚州, 卡罗维发利州, 南波希米亚州, 比尔森州]
+2024-12-16T15:11:47.959+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家TL，有省份8条，expedia有省份13条, 相同的7条，找不到省份1条，分别是[欧库西区]
+2024-12-16T15:11:47.959+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家TM，有省份5条，expedia有省份5条, 相同的4条，找不到省份1条，分别是[巴尔坎州]
+2024-12-16T15:11:47.968+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家TN，有省份24条，expedia有省份59条, 相同的6条，找不到省份18条，分别是[托泽尔省, 比塞大省, 泰塔温省, 马努巴省, 本阿鲁斯省, 加贝斯省, 吉比利省, 卡塞林省, 西迪布济德省, 莫纳斯提尔省, 坚杜拜省, 巴杰省, 锡勒亚奈省, 卡夫省, 凯鲁万省, 斯法克斯省, 加夫萨省, 宰格万省]
+2024-12-16T15:11:47.969+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家TO，有省份5条，expedia有省份5条, 相同的4条，找不到省份1条，分别是[纽阿斯]
+2024-12-16T15:11:48.011+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家TT，有省份13条，expedia有省份10条, 相同的8条，找不到省份5条，分别是[里奥克拉鲁-马亚罗区域, 阿里马, 查瓜纳斯, 东多巴哥, 西多巴哥]
+2024-12-16T15:11:48.041+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家DE，有省份14条，expedia有省份334条, 相同的13条，找不到省份1条，分别是[梅克伦堡-前波美拉尼亚州]
+2024-12-16T15:11:48.042+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家TV，在expedia数据中找不到
+2024-12-16T15:11:48.050+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家TZ，有省份28条，expedia有省份47条, 相同的22条，找不到省份6条，分别是[北奔巴区, 桑给巴尔北区, 南奔巴区, 桑给巴尔南区, 桑给巴尔西区, 滨海区]
+2024-12-16T15:11:48.054+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家DK，有省份5条，expedia有省份103条, 相同的4条，找不到省份1条，分别是[西兰大区]
+2024-12-16T15:11:48.054+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家DM，有省份10条，expedia有省份10条, 相同的0条，找不到省份10条，分别是[圣安德鲁区, 圣大卫教区, 圣乔治堂区, 圣约翰堂区, 圣约瑟夫堂区, 圣卢克堂区, 圣马克堂区, 圣帕特里克堂区, 圣保罗堂区, 圣彼得堂区]
+2024-12-16T15:11:48.061+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家DO，有省份32条，expedia有省份32条, 相同的30条，找不到省份2条，分别是[国家特区, 主教·瑙黎省]
+2024-12-16T15:11:48.088+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家UA，有省份24条，expedia有省份161条, 相同的23条，找不到省份1条，分别是[敖德萨州]
+2024-12-16T15:11:48.110+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家DZ，有省份48条，expedia有省份58条, 相同的46条，找不到省份2条，分别是[阿尔及尔省, 姆西拉省]
+2024-12-16T15:11:49.484+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家US，有省份52条，expedia有省份3461条, 相同的51条，找不到省份1条，分别是[北马里亚纳群岛]
+2024-12-16T15:11:49.493+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家EE，有省份15条，expedia有省份86条, 相同的1条，找不到省份14条，分别是[哈尔尤县, 沃鲁县, 莱内县, 西维鲁县, 派尔努县, 拉普拉县, 耶尔瓦县, 东维鲁县, 约格瓦县, 塔尔图县, 珀尔瓦县, 瓦尔加县, 维尔扬迪县, 希乌县]
+2024-12-16T15:11:49.498+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家EG，有省份27条，expedia有省份32条, 相同的26条，找不到省份1条，分别是[东部省]
+2024-12-16T15:11:49.501+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家UY，有省份19条，expedia有省份18条, 相同的18条，找不到省份1条，分别是[蒙得维的亚]
+2024-12-16T15:11:49.511+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家UZ，有省份13条，expedia有省份117条, 相同的11条，找不到省份2条，分别是[撒马尔罕州, 卡拉卡尔帕克斯坦共和国]
+2024-12-16T15:11:49.511+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家ER，有省份6条，expedia有省份6条, 相同的5条，找不到省份1条，分别是[中部区]
+2024-12-16T15:11:49.559+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家ES，有省份17条，expedia有省份446条, 相同的15条，找不到省份2条，分别是[穆尔西亚自治区, 瓦伦西亚自治区]
+2024-12-16T15:11:49.619+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家VE，有省份25条，expedia有省份370条, 相同的23条，找不到省份2条，分别是[联邦属地, 首都区]
+2024-12-16T15:11:49.625+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家ET，有省份9条，expedia有省份94条, 相同的8条，找不到省份1条，分别是[南方州]
+2024-12-16T15:11:49.625+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家VG，有省份5条，expedia有省份3条, 相同的3条，找不到省份2条，分别是[约斯特·范大克岛, 维尔京戈达岛]
+2024-12-16T15:11:49.625+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家VI，有省份3条，expedia有省份17条, 相同的0条，找不到省份3条，分别是[圣克罗伊岛, 圣托马斯岛, 圣约翰岛]
+2024-12-16T15:11:49.650+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家VN，有省份58条，expedia有省份65条, 相同的57条，找不到省份1条，分别是[承天顺化省]
+2024-12-16T15:11:49.661+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家FI，有省份19条，expedia有省份85条, 相同的16条，找不到省份3条，分别是[奥兰自治区, 北博滕区, 坎塔海梅区]
+2024-12-16T15:11:49.662+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家FJ，有省份8条，expedia有省份19条, 相同的1条，找不到省份7条，分别是[维提群岛, 劳群岛, 瓦努阿岛列岛, 马马努卡群岛, 亚萨瓦群岛, 坎达武群岛, 罗图马群岛]
+2024-12-16T15:11:49.662+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家FO，有省份6条，expedia有省份6条, 相同的4条，找不到省份2条，分别是[南岛, 北部群岛]
+2024-12-16T15:11:49.824+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家FR，有省份13条，expedia有省份1350条, 相同的12条，找不到省份1条，分别是[中央-卢瓦尔河谷大区]
+2024-12-16T15:11:50.123+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GB，有省份134条，expedia有省份344条, 相同的111条，找不到省份23条，分别是[苏格兰高地, 安格斯, 南拉纳克郡, 外赫布里底群岛, 哈尔顿, 米尔顿凯恩斯, 彼得堡, 斯温顿, 沃灵顿, 纽波特（新港）, 卡迪夫, 利斯本和卡斯尔雷阿, 泽西, 根西, 马恩岛, 西伯克郡, 斯劳, 安特里姆与纽顿阿比, 堤道海岸与峡谷, 德里市与斯特拉班, 弗马纳与奥马, 安特里姆中部和东部, 中阿尔斯特]
+2024-12-16T15:11:50.123+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家WS，有省份11条，expedia有省份1条, 相同的1条，找不到省份10条，分别是[阿纳, 艾加伊勒泰, 阿图阿, 法塞莱莱阿加, 加加埃毛加, 加盖福毛加, 帕劳利, 萨图帕伊泰阿, 瓦奥福诺蒂, 韦西加诺]
+2024-12-16T15:11:50.124+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GD，有省份6条，expedia有省份2条, 相同的1条，找不到省份5条，分别是[圣乔治区, 圣安德鲁区, 圣戴维区, 圣约翰区, 圣帕特里克区]
+2024-12-16T15:11:50.124+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GE，有省份11条，expedia有省份11条, 相同的10条，找不到省份1条，分别是[拉恰-列其呼米-下斯瓦涅季亚州]
+2024-12-16T15:11:50.125+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GF，有省份2条，expedia有省份2条, 相同的0条，找不到省份2条，分别是[卡宴区, 圣洛朗杜马罗尼区]
+2024-12-16T15:11:50.166+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GH，有省份10条，expedia有省份257条, 相同的8条，找不到省份2条，分别是[布朗阿哈福地区, 大阿克拉地区]
+2024-12-16T15:11:50.167+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GL，有省份5条，expedia有省份1条, 相同的1条，找不到省份4条，分别是[库雅雷克, 凯克卡塔, 阿万纳塔, 凯凯塔利克]
+2024-12-16T15:11:50.168+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GM，有省份5条，expedia有省份37条, 相同的4条，找不到省份1条，分别是[西部区]
+2024-12-16T15:11:50.169+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GP，有省份2条，expedia有省份7条, 相同的1条，找不到省份1条，分别是[巴斯特尔岛]
+2024-12-16T15:11:50.177+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GR，有省份14条，expedia有省份88条, 相同的9条，找不到省份5条，分别是[东马其顿-色雷斯, 西希腊, 圣山州, 北爱琴, 西马其顿]
+2024-12-16T15:11:50.181+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GT，有省份21条，expedia有省份22条, 相同的17条，找不到省份4条，分别是[危地马拉省, 索洛拉省, 埃斯昆特拉省, 萨卡特佩克斯省]
+2024-12-16T15:11:50.183+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GW，有省份9条，expedia有省份45条, 相同的8条，找不到省份1条，分别是[比绍区]
+2024-12-16T15:11:50.184+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GY，有省份10条，expedia有省份10条, 相同的9条，找不到省份1条，分别是[巴里马-瓦伊尼区]
+2024-12-16T15:11:50.186+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家HN，有省份18条，expedia有省份18条, 相同的17条，找不到省份1条，分别是[海湾群岛省]
+2024-12-16T15:11:50.189+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家HR，有省份20条，expedia有省份20条, 相同的17条，找不到省份3条，分别是[卡尔洛瓦茨县, 科普里夫尼察-克里热夫齐县, 武科瓦尔-斯里耶姆县]
+2024-12-16T15:11:50.192+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家YE，有省份21条，expedia有省份22条, 相同的11条，找不到省份10条，分别是[亚丁省, 达利省, 贝达省, 索科特拉省, 哈德拉毛省, 拉赫季省, 马里卜省, 萨达省, 萨那省, 塔伊兹省]
+2024-12-16T15:11:50.192+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家HT，有省份10条，expedia有省份10条, 相同的9条，找不到省份1条，分别是[大湾省]
+2024-12-16T15:11:50.216+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家YT，在expedia数据中找不到
+2024-12-16T15:11:50.312+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家ID，有省份34条，expedia有省份436条, 相同的33条，找不到省份1条，分别是[巴厘省]
+2024-12-16T15:11:50.317+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家IE，有省份26条，expedia有省份29条, 相同的25条，找不到省份1条，分别是[都柏林郡]
+2024-12-16T15:11:50.318+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家IL，有省份6条，expedia有省份7条, 相同的4条，找不到省份2条，分别是[北部区, 中央区]
+2024-12-16T15:11:50.503+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家IN，有省份35条，expedia有省份820条, 相同的32条，找不到省份3条，分别是[查谟－克什米尔邦, 德里, 达曼-第乌邦]
+2024-12-16T15:11:50.512+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家IQ，有省份18条，expedia有省份19条, 相同的14条，找不到省份4条，分别是[穆萨纳省, 卡迪西亚省, 苏莱曼尼亚省, 杜胡克省]
+2024-12-16T15:11:50.519+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家IR，有省份31条，expedia有省份34条, 相同的29条，找不到省份2条，分别是[恰哈马哈勒－巴赫蒂亚里省, 科吉卢耶－博韦艾哈迈德省]
+2024-12-16T15:11:50.582+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家IT，有省份20条，expedia有省份126条, 相同的19条，找不到省份1条，分别是[普利亚大区]
+2024-12-16T15:11:50.594+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家ZW，有省份10条，expedia有省份66条, 相同的9条，找不到省份1条，分别是[布拉瓦约]
+2024-12-16T15:11:50.595+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家JM，有省份14条，expedia有省份14条, 相同的12条，找不到省份2条，分别是[特里洛尼区, 金斯敦区]
+2024-12-16T15:11:50.596+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家JO，有省份12条，expedia有省份13条, 相同的10条，找不到省份2条，分别是[杰拉什省, 马安省]
+2024-12-16T15:11:50.727+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家JP，有省份46条，expedia有省份440条, 相同的45条，找不到省份1条，分别是[北海道]
+2024-12-16T15:11:50.741+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家KE，有省份45条，expedia有省份47条, 相同的44条，找不到省份1条，分别是[穆拉雅]
+2024-12-16T15:11:50.741+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家KG，有省份7条，expedia有省份8条, 相同的5条，找不到省份2条，分别是[楚河州, 伊塞克湖州]
+2024-12-16T15:11:50.745+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家KH，有省份23条，expedia有省份24条, 相同的15条，找不到省份8条，分别是[磅湛省, 马德望省, 磅士卑省, 波萝勉省, 菩萨省, 西哈努克省, 奥多棉吉省, 拜林市]
+2024-12-16T15:11:50.745+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家KI，有省份3条，expedia有省份3条, 相同的2条，找不到省份1条，分别是[菲尼克斯群岛]
+2024-12-16T15:11:50.745+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家KM，在expedia数据中找不到
+2024-12-16T15:11:50.746+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家KN，有省份11条，expedia有省份14条, 相同的1条，找不到省份10条，分别是[圣安娜沙角区, 圣乔治巴塞特莱区, 圣乔治金哲兰区, 圣詹姆斯温沃德区, 圣约翰费格特里区, 圣玛丽卡永区, 圣保罗卡皮斯特莱区, 圣保罗查尔斯敦区, 圣彼得巴塞特莱区, 圣托马斯米德艾兰区]
+2024-12-16T15:11:50.746+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家KP，在expedia数据中找不到
+2024-12-16T15:11:50.747+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家KR，有省份9条，expedia有省份14条, 相同的2条，找不到省份7条，分别是[京畿道, 庆尚南道, 全罗北道, 庆尚北道, 忠清南道, 忠清北道, 全罗南道]
+2024-12-16T15:11:50.748+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家KW，有省份6条，expedia有省份6条, 相同的4条，找不到省份2条，分别是[杰赫拉省, 费尔瓦尼耶省]
+2024-12-16T15:11:50.748+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家KY，有省份1条，expedia有省份3条, 相同的0条，找不到省份1条，分别是[姐妹岛]
+2024-12-16T15:11:50.768+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家KZ，有省份14条，expedia有省份224条, 相同的13条，找不到省份1条，分别是[南哈萨克斯坦州]
+2024-12-16T15:11:50.772+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家LB，有省份6条，expedia有省份33条, 相同的4条，找不到省份2条，分别是[纳巴泰省, 贝卡省]
+2024-12-16T15:11:50.772+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家LC，在expedia数据中找不到
+2024-12-16T15:11:50.772+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家LI，在expedia数据中找不到
+2024-12-16T15:11:50.794+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家LS，有省份10条，expedia有省份10条, 相同的8条，找不到省份2条，分别是[莫哈莱斯胡克区, 加查斯内克区]
+2024-12-16T15:11:50.799+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家LT，有省份10条，expedia有省份65条, 相同的5条，找不到省份5条，分别是[维尔纽斯县, 克莱佩达县, 考纳斯县, 阿雷图斯县, 乌泰纳县]
+2024-12-16T15:11:50.800+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家LU，有省份12条，expedia有省份12条, 相同的0条，找不到省份12条，分别是[克莱沃郡, 迪基希郡, 埃希特纳赫郡, 阿尔泽特河畔埃施郡, 卢森堡郡, 梅尔施郡, 雷米希郡, 菲安登郡, 维尔茨郡, 卡佩伦郡, 雷当日郡, 格雷文马赫郡]
+2024-12-16T15:11:50.803+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家LY，有省份22条，expedia有省份21条, 相同的13条，找不到省份9条，分别是[西山省, 吉法拉省, 迈尔盖卜省, 努加特海姆斯省, 扎维耶省, 班加西, 的黎波里省, 瓦迪哈耶特省, 沙提省]
+2024-12-16T15:11:50.809+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MA，有省份11条，expedia有省份87条, 相同的10条，找不到省份1条，分别是[马拉喀什-萨菲大区]
+2024-12-16T15:11:50.820+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家ME，有省份21条，expedia有省份25条, 相同的2条，找不到省份19条，分别是[安德里耶维察, 巴尔, 贝拉内, 比耶洛波列, 布德瓦, 采蒂涅, 达尼洛夫格勒, 新海尔采格, 科拉欣, 科托尔, 莫伊科瓦茨, 尼克希奇, 普拉夫, 普列夫利亚, 普卢日内, 波德戈里察, 罗扎伊, 蒂瓦特, 乌尔齐尼]
+2024-12-16T15:11:50.821+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MG，有省份6条，expedia有省份25条, 相同的0条，找不到省份6条，分别是[塔那那利佛省, 安齐拉纳纳省, 菲亚纳兰楚阿省, 马哈赞加省, 图阿马西拉省, 图利亚拉省]
+2024-12-16T15:11:50.822+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家ML，有省份9条，expedia有省份11条, 相同的8条，找不到省份1条，分别是[巴马科首都区]
+2024-12-16T15:11:50.823+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MM，有省份15条，expedia有省份16条, 相同的14条，找不到省份1条，分别是[伊洛瓦底省]
+2024-12-16T15:11:50.827+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MN，有省份21条，expedia有省份24条, 相同的19条，找不到省份2条，分别是[库苏古尔省, 前杭爱省]
+2024-12-16T15:11:50.827+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MQ，有省份4条，expedia有省份4条, 相同的2条，找不到省份2条，分别是[圣皮埃尔郡, 黛园郡]
+2024-12-16T15:11:50.828+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MR，有省份13条，expedia有省份17条, 相同的12条，找不到省份1条，分别是[首都努瓦克肖特]
+2024-12-16T15:11:50.829+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MU，有省份9条，expedia有省份6条, 相同的6条，找不到省份3条，分别是[莫卡区, 庞波慕斯区, 路易港区]
+2024-12-16T15:11:50.831+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MV，有省份19条，expedia有省份20条, 相同的14条，找不到省份5条，分别是[哈阿里夫环礁, 北阿里环礁, 南阿里环礁, 美慕环礁, 达鲁环礁]
+2024-12-16T15:11:50.853+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MX，有省份32条，expedia有省份105条, 相同的31条，找不到省份1条，分别是[联邦区]
+2024-12-16T15:11:50.867+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MY，有省份13条，expedia有省份163条, 相同的12条，找不到省份1条，分别是[马六甲州]
+2024-12-16T15:11:50.879+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家NA，有省份13条，expedia有省份14条, 相同的12条，找不到省份1条，分别是[奥卡万戈区]
+2024-12-16T15:11:50.882+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家NE，有省份8条，expedia有省份44条, 相同的7条，找不到省份1条，分别是[尼亚美市]
+2024-12-16T15:11:51.152+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家NL，有省份12条，expedia有省份354条, 相同的9条，找不到省份3条，分别是[北布拉邦省, 北荷兰省, 南荷兰省]
+2024-12-16T15:11:51.154+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家NO，有省份20条，expedia有省份14条, 相同的8条，找不到省份12条，分别是[奥普兰郡, 北特伦德拉格郡, 霍达兰郡, 松恩-菲尤拉讷郡, 东阿格德尔郡, 奥斯陆郡, 西阿格德尔郡, 默勒-鲁姆斯达尔郡, 东福尔郡, 海德马克郡, 南特伦德拉格郡, 斯瓦尔巴]
+2024-12-16T15:11:51.162+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家NP，有省份14条，expedia有省份84条, 相同的5条，找不到省份9条，分别是[伯瑞, 达瓦尔阿基里, 贾纳克布尔, 马哈卡里, 梅吉, 纳拉亚尼, 拉普蒂, 萨加玛塔, 瑟地]
+2024-12-16T15:11:51.171+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家NZ，有省份17条，expedia有省份69条, 相同的14条，找不到省份3条，分别是[马纳瓦图－旺加努伊大区, 惠灵顿大区, 查塔姆群岛]
+2024-12-16T15:11:51.172+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家OM，有省份11条，expedia有省份11条, 相同的9条，找不到省份2条，分别是[布赖米省, 马斯喀特省]
+2024-12-16T15:11:51.181+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家PA，有省份12条，expedia有省份98条, 相同的9条，找不到省份3条，分别是[恩贝拉-沃内安特区, 库纳雅拉特区, 恩戈贝-布格雷特区]
+2024-12-16T15:11:51.227+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家PF，有省份6条，expedia有省份5条, 相同的4条，找不到省份2条，分别是[甘比尔群岛, 土阿莫土群岛]
+2024-12-16T15:11:51.230+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家PG，有省份21条，expedia有省份23条, 相同的17条，找不到省份4条，分别是[钦布省, 北部省, 桑道恩省, 布干维尔自治省]
+2024-12-16T15:11:51.243+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家PH，有省份17条，expedia有省份98条, 相同的15条，找不到省份2条，分别是[邦萨摩洛, 马尼拉]
+2024-12-16T15:11:51.244+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家PK，有省份7条，expedia有省份10条, 相同的5条，找不到省份2条，分别是[伊斯兰堡首都区, 联邦直辖部落地区]
+2024-12-16T15:11:51.279+08:00  INFO 24424 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家PL，有省份16条，expedia有省份330条, 相同的1条，找不到省份15条，分别是[西里西亚省, 滨海省, 波德拉谢, 大波兰省, 库亚维-滨海省, 卢布斯卡省, 罗兹省, 马佐夫舍, 瓦尔米亚-马祖里, 西滨海省, 下西里西亚省, 小波兰省, 卢布林省, 圣十字省, 喀尔巴阡山省]
+2024-12-16T16:53:29.470+08:00  INFO 24424 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-12-16T16:53:29.472+08:00  INFO 24424 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-12-16T16:53:35.441+08:00  INFO 23120 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 23120 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
+2024-12-16T16:53:35.442+08:00  INFO 23120 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
+2024-12-16T16:53:35.966+08:00  INFO 23120 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-12-16T16:53:35.967+08:00  INFO 23120 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-12-16T16:53:35.989+08:00  INFO 23120 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 11 ms. Found 0 Redis repository interfaces.
+2024-12-16T16:53:36.402+08:00  INFO 23120 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
+2024-12-16T16:53:36.408+08:00  INFO 23120 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-12-16T16:53:36.408+08:00  INFO 23120 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
+2024-12-16T16:53:36.481+08:00  INFO 23120 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-12-16T16:53:36.482+08:00  INFO 23120 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1007 ms
+2024-12-16T16:53:37.510+08:00  INFO 23120 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
+2024-12-16T16:53:37.516+08:00  INFO 23120 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 2.346 seconds (process running for 2.753)
+2024-12-16T16:53:40.825+08:00  INFO 23120 --- [http-nio-9008-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-12-16T16:53:40.825+08:00  INFO 23120 --- [http-nio-9008-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-12-16T16:53:40.826+08:00  INFO 23120 --- [http-nio-9008-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-12-16T16:53:40.853+08:00  INFO 23120 --- [http-nio-9008-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-12-16T16:53:41.003+08:00  INFO 23120 --- [http-nio-9008-exec-1] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@737f4537
+2024-12-16T16:53:41.004+08:00  INFO 23120 --- [http-nio-9008-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-12-16T16:54:17.837+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家PS，有省份3条，expedia有省份2条, 相同的0条，找不到省份3条，分别是[伯利恒省, 希布伦省, 杰里科省]
+2024-12-16T16:54:17.864+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家PT，有省份20条，expedia有省份19条, 相同的19条，找不到省份1条，分别是[里斯本大区]
+2024-12-16T16:54:18.427+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家PY，有省份18条，expedia有省份18条, 相同的17条，找不到省份1条，分别是[大亚松森]
+2024-12-16T16:54:21.006+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家AM，有省份11条，expedia有省份10条, 相同的10条，找不到省份1条，分别是[埃里温]
+2024-12-16T16:54:21.298+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家AO，有省份18条，expedia有省份18条, 相同的15条，找不到省份3条，分别是[库安多古班哥省, 北广萨省, 南广萨省]
+2024-12-16T16:54:21.859+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家AR，有省份23条，expedia有省份536条, 相同的22条，找不到省份1条，分别是[里奥哈省]
+2024-12-16T16:54:22.479+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家AS，有省份3条，expedia有省份3条, 相同的2条，找不到省份1条，分别是[马努阿区]
+2024-12-16T16:54:27.085+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家RU，有省份81条，expedia有省份1997条, 相同的78条，找不到省份3条，分别是[卡拉恰伊-切尔克斯共和国, 卡巴尔达-巴尔卡尔共和国, 图瓦共和国]
+2024-12-16T16:54:29.487+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BE，有省份11条，expedia有省份13条, 相同的9条，找不到省份2条，分别是[瓦隆-布拉班特省, 安特卫普省]
+2024-12-16T16:54:30.141+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家RW，有省份5条，expedia有省份34条, 相同的3条，找不到省份2条，分别是[基加利市, 东部省]
+2024-12-16T16:54:30.240+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BG，有省份27条，expedia有省份29条, 相同的24条，找不到省份3条，分别是[洛维奇州, 弗拉察州, 扬博尔州]
+2024-12-16T16:54:30.997+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BH，有省份5条，expedia有省份4条, 相同的4条，找不到省份1条，分别是[中央省]
+2024-12-16T16:54:31.613+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BJ，有省份12条，expedia有省份13条, 相同的10条，找不到省份2条，分别是[阿塔科拉省, 库福省]
+2024-12-16T16:54:31.893+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BM，在expedia数据中找不到
+2024-12-16T16:54:32.289+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家SA，有省份13条，expedia有省份13条, 相同的11条，找不到省份2条，分别是[阿西尔省, 哈伊勒省]
+2024-12-16T16:54:32.728+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家SB，有省份9条，expedia有省份10条, 相同的8条，找不到省份1条，分别是[拉纳尔和贝罗纳省]
+2024-12-16T16:54:32.980+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BR，有省份27条，expedia有省份27条, 相同的25条，找不到省份2条，分别是[联邦区, 马拉尼昂州]
+2024-12-16T16:54:33.685+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BS，有省份29条，expedia有省份27条, 相同的25条，找不到省份4条，分别是[比米尼群岛, 哈勃岛, 曼格罗夫岛, 拉吉德岛]
+2024-12-16T16:54:34.390+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家SD，有省份15条，expedia有省份20条, 相同的14条，找不到省份1条，分别是[加达里夫州]
+2024-12-16T16:54:34.833+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家BT，有省份19条，expedia有省份20条, 相同的15条，找不到省份4条，分别是[楚卡宗, 谢姆冈宗, 伦奇宗, 塔希央奇宗]
+2024-12-16T16:54:35.331+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家SE，有省份21条，expedia有省份311条, 相同的20条，找不到省份1条，分别是[斯科讷省]
+2024-12-16T16:54:36.813+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家SM，在expedia数据中找不到
+2024-12-16T16:54:37.151+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家SO，有省份18条，expedia有省份20条, 相同的17条，找不到省份1条，分别是[沃戈伊加勒贝德州]
+2024-12-16T16:54:38.096+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家SR，有省份10条，expedia有省份60条, 相同的9条，找不到省份1条，分别是[帕拉马里博]
+2024-12-16T16:54:39.354+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家ST，有省份2条，expedia有省份1条, 相同的1条，找不到省份1条，分别是[普林西比]
+2024-12-16T16:54:40.906+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CH，有省份26条，expedia有省份153条, 相同的18条，找不到省份8条，分别是[伯尔尼州, 格劳宾登州, 瓦莱州, 巴塞尔乡村州, 外阿彭策尔州, 巴塞尔城市州, 乌里州, 内阿彭策尔州]
+2024-12-16T16:54:41.400+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CI，有省份18条，expedia有省份47条, 相同的13条，找不到省份5条，分别是[恩济-科莫埃区, 弗罗马格尔区, 中卡瓦利区, 中科莫埃区, 南邦达马区]
+2024-12-16T16:54:41.770+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家SY，有省份11条，expedia有省份15条, 相同的8条，找不到省份3条，分别是[哈塞克省, 库奈特拉省, 大马士革省]
+2024-12-16T16:54:42.095+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CK，在expedia数据中找不到
+2024-12-16T16:54:42.106+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CL，有省份15条，expedia有省份71条, 相同的13条，找不到省份2条，分别是[麦哲伦-智利南极大区, 圣地亚哥首都大区]
+2024-12-16T16:54:42.475+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CM，有省份10条，expedia有省份68条, 相同的7条，找不到省份3条，分别是[阿达马瓦区, 中部区, 极北区]
+2024-12-16T16:54:42.669+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CN，有省份3条，expedia有省份39条, 相同的0条，找不到省份3条，分别是[香港, 澳门, 台湾]
+2024-12-16T16:54:42.682+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CO，有省份33条，expedia有省份33条, 相同的30条，找不到省份3条，分别是[圣安德列斯省, 瓜希拉省, 波哥大]
+2024-12-16T16:54:43.760+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家TD，有省份22条，expedia有省份22条, 相同的19条，找不到省份3条，分别是[加扎勒河区, 恩内迪区, 恩贾梅纳]
+2024-12-16T16:54:44.304+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CU，有省份15条，expedia有省份16条, 相同的9条，找不到省份6条，分别是[卡马圭省, 谢戈德阿维拉省, 格拉玛省, 关塔那摩省, 玛雅贝克省, 青年岛特区]
+2024-12-16T16:54:44.550+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CV，在expedia数据中找不到
+2024-12-16T16:54:44.552+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家TG，有省份5条，expedia有省份5条, 相同的3条，找不到省份2条，分别是[中部区, 草原区]
+2024-12-16T16:54:46.847+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家TJ，有省份4条，expedia有省份62条, 相同的3条，找不到省份1条，分别是[戈尔诺-巴达赫尚自治州]
+2024-12-16T16:54:46.931+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CY，有省份6条，expedia有省份13条, 相同的5条，找不到省份1条，分别是[凯里尼亚区]
+2024-12-16T16:54:47.115+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家CZ，有省份13条，expedia有省份89条, 相同的7条，找不到省份6条，分别是[乌斯季州, 摩拉维亚-西里西亚州, 南摩拉维亚州, 卡罗维发利州, 南波希米亚州, 比尔森州]
+2024-12-16T16:54:47.333+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家TL，有省份8条，expedia有省份13条, 相同的7条，找不到省份1条，分别是[欧库西区]
+2024-12-16T16:54:47.532+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家TM，有省份5条，expedia有省份5条, 相同的4条，找不到省份1条，分别是[巴尔坎州]
+2024-12-16T16:54:47.678+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家TN，有省份24条，expedia有省份59条, 相同的23条，找不到省份1条，分别是[卡夫省]
+2024-12-16T16:54:48.343+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家TO，有省份5条，expedia有省份5条, 相同的4条，找不到省份1条，分别是[纽阿斯]
+2024-12-16T16:54:50.664+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家TT，有省份13条，expedia有省份10条, 相同的8条，找不到省份5条，分别是[里奥克拉鲁-马亚罗区域, 阿里马, 查瓜纳斯, 东多巴哥, 西多巴哥]
+2024-12-16T16:54:50.910+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家DE，有省份14条，expedia有省份334条, 相同的13条，找不到省份1条，分别是[梅克伦堡-前波美拉尼亚州]
+2024-12-16T16:54:51.254+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家TV，在expedia数据中找不到
+2024-12-16T16:54:51.274+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家TZ，有省份28条，expedia有省份47条, 相同的22条，找不到省份6条，分别是[北奔巴区, 桑给巴尔北区, 南奔巴区, 桑给巴尔南区, 桑给巴尔西区, 滨海区]
+2024-12-16T16:54:52.025+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家DK，有省份5条，expedia有省份103条, 相同的4条，找不到省份1条，分别是[西兰大区]
+2024-12-16T16:54:52.405+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家DO，有省份32条，expedia有省份32条, 相同的30条，找不到省份2条，分别是[国家特区, 主教·瑙黎省]
+2024-12-16T16:54:53.216+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家UA，有省份24条，expedia有省份161条, 相同的23条，找不到省份1条，分别是[敖德萨州]
+2024-12-16T16:54:53.940+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家DZ，有省份48条，expedia有省份58条, 相同的46条，找不到省份2条，分别是[阿尔及尔省, 姆西拉省]
+2024-12-16T16:54:57.297+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家US，有省份52条，expedia有省份3461条, 相同的51条，找不到省份1条，分别是[北马里亚纳群岛]
+2024-12-16T16:54:58.725+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家EE，有省份15条，expedia有省份86条, 相同的2条，找不到省份13条，分别是[哈尔尤县, 沃鲁县, 莱内县, 西维鲁县, 派尔努县, 拉普拉县, 耶尔瓦县, 东维鲁县, 约格瓦县, 塔尔图县, 珀尔瓦县, 瓦尔加县, 维尔扬迪县]
+2024-12-16T16:54:58.788+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家EG，有省份27条，expedia有省份32条, 相同的26条，找不到省份1条，分别是[东部省]
+2024-12-16T16:54:59.484+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家UY，有省份19条，expedia有省份18条, 相同的18条，找不到省份1条，分别是[蒙得维的亚]
+2024-12-16T16:54:59.968+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家UZ，有省份13条，expedia有省份117条, 相同的12条，找不到省份1条，分别是[撒马尔罕州]
+2024-12-16T16:55:00.580+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家ER，有省份6条，expedia有省份6条, 相同的5条，找不到省份1条，分别是[中部区]
+2024-12-16T16:55:00.792+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家ES，有省份17条，expedia有省份446条, 相同的15条，找不到省份2条，分别是[穆尔西亚自治区, 瓦伦西亚自治区]
+2024-12-16T16:55:01.386+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家VE，有省份25条，expedia有省份370条, 相同的23条，找不到省份2条，分别是[联邦属地, 首都区]
+2024-12-16T16:55:02.018+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家ET，有省份9条，expedia有省份94条, 相同的8条，找不到省份1条，分别是[南方州]
+2024-12-16T16:55:02.227+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家VG，有省份5条，expedia有省份3条, 相同的3条，找不到省份2条，分别是[约斯特·范大克岛, 维尔京戈达岛]
+2024-12-16T16:55:02.313+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家VI，有省份3条，expedia有省份17条, 相同的1条，找不到省份2条，分别是[圣托马斯岛, 圣约翰岛]
+2024-12-16T16:55:02.381+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家VN，有省份58条，expedia有省份65条, 相同的57条，找不到省份1条，分别是[承天顺化省]
+2024-12-16T16:55:04.199+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家FI，有省份19条，expedia有省份85条, 相同的16条，找不到省份3条，分别是[奥兰自治区, 北博滕区, 坎塔海梅区]
+2024-12-16T16:55:04.669+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家FJ，有省份8条，expedia有省份19条, 相同的1条，找不到省份7条，分别是[维提群岛, 劳群岛, 瓦努阿岛列岛, 马马努卡群岛, 亚萨瓦群岛, 坎达武群岛, 罗图马群岛]
+2024-12-16T16:55:04.818+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家FO，有省份6条，expedia有省份6条, 相同的4条，找不到省份2条，分别是[南岛, 北部群岛]
+2024-12-16T16:55:05.076+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家FR，有省份13条，expedia有省份1350条, 相同的12条，找不到省份1条，分别是[中央-卢瓦尔河谷大区]
+2024-12-16T16:55:06.094+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GB，有省份134条，expedia有省份344条, 相同的111条，找不到省份23条，分别是[苏格兰高地, 安格斯, 南拉纳克郡, 外赫布里底群岛, 哈尔顿, 米尔顿凯恩斯, 彼得堡, 斯温顿, 沃灵顿, 纽波特（新港）, 卡迪夫, 利斯本和卡斯尔雷阿, 泽西, 根西, 马恩岛, 西伯克郡, 斯劳, 安特里姆与纽顿阿比, 堤道海岸与峡谷, 德里市与斯特拉班, 弗马纳与奥马, 安特里姆中部和东部, 中阿尔斯特]
+2024-12-16T16:55:09.134+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家WS，有省份11条，expedia有省份1条, 相同的1条，找不到省份10条，分别是[阿纳, 艾加伊勒泰, 阿图阿, 法塞莱莱阿加, 加加埃毛加, 加盖福毛加, 帕劳利, 萨图帕伊泰阿, 瓦奥福诺蒂, 韦西加诺]
+2024-12-16T16:55:09.160+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GD，有省份6条，expedia有省份2条, 相同的1条，找不到省份5条，分别是[圣乔治区, 圣安德鲁区, 圣戴维区, 圣约翰区, 圣帕特里克区]
+2024-12-16T16:55:09.187+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GE，有省份11条，expedia有省份11条, 相同的10条，找不到省份1条，分别是[拉恰-列其呼米-下斯瓦涅季亚州]
+2024-12-16T16:55:09.474+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GF，有省份2条，expedia有省份2条, 相同的0条，找不到省份2条，分别是[卡宴区, 圣洛朗杜马罗尼区]
+2024-12-16T16:55:09.504+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GH，有省份10条，expedia有省份257条, 相同的8条，找不到省份2条，分别是[布朗阿哈福地区, 大阿克拉地区]
+2024-12-16T16:55:09.714+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GL，有省份5条，expedia有省份1条, 相同的1条，找不到省份4条，分别是[库雅雷克, 凯克卡塔, 阿万纳塔, 凯凯塔利克]
+2024-12-16T16:55:09.743+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GM，有省份5条，expedia有省份37条, 相同的4条，找不到省份1条，分别是[西部区]
+2024-12-16T16:55:10.317+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GR，有省份14条，expedia有省份88条, 相同的9条，找不到省份5条，分别是[东马其顿-色雷斯, 西希腊, 圣山州, 北爱琴, 西马其顿]
+2024-12-16T16:55:10.574+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GT，有省份21条，expedia有省份22条, 相同的17条，找不到省份4条，分别是[危地马拉省, 索洛拉省, 埃斯昆特拉省, 萨卡特佩克斯省]
+2024-12-16T16:55:11.061+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GW，有省份9条，expedia有省份45条, 相同的8条，找不到省份1条，分别是[比绍区]
+2024-12-16T16:55:11.308+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家GY，有省份10条，expedia有省份10条, 相同的9条，找不到省份1条，分别是[巴里马-瓦伊尼区]
+2024-12-16T16:55:11.551+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家HN，有省份18条，expedia有省份18条, 相同的17条，找不到省份1条，分别是[海湾群岛省]
+2024-12-16T16:55:12.051+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家HR，有省份20条，expedia有省份20条, 相同的18条，找不到省份2条，分别是[科普里夫尼察-克里热夫齐县, 武科瓦尔-斯里耶姆县]
+2024-12-16T16:55:12.537+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家YE，有省份21条，expedia有省份22条, 相同的11条，找不到省份10条，分别是[亚丁省, 达利省, 贝达省, 索科特拉省, 哈德拉毛省, 拉赫季省, 马里卜省, 萨达省, 萨那省, 塔伊兹省]
+2024-12-16T16:55:12.827+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家HT，有省份10条，expedia有省份10条, 相同的9条，找不到省份1条，分别是[大湾省]
+2024-12-16T16:55:13.617+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家YT，在expedia数据中找不到
+2024-12-16T16:55:13.745+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家ID，有省份34条，expedia有省份436条, 相同的33条，找不到省份1条，分别是[巴厘省]
+2024-12-16T16:55:14.638+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家IE，有省份26条，expedia有省份29条, 相同的25条，找不到省份1条，分别是[都柏林郡]
+2024-12-16T16:55:15.325+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家IL，有省份6条，expedia有省份7条, 相同的4条，找不到省份2条，分别是[北部区, 中央区]
+2024-12-16T16:55:15.736+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家IN，有省份35条，expedia有省份820条, 相同的32条，找不到省份3条，分别是[查谟－克什米尔邦, 德里, 达曼-第乌邦]
+2024-12-16T16:55:16.950+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家IQ，有省份18条，expedia有省份19条, 相同的14条，找不到省份4条，分别是[穆萨纳省, 卡迪西亚省, 苏莱曼尼亚省, 杜胡克省]
+2024-12-16T16:55:17.333+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家IR，有省份31条，expedia有省份34条, 相同的29条，找不到省份2条，分别是[恰哈马哈勒－巴赫蒂亚里省, 科吉卢耶－博韦艾哈迈德省]
+2024-12-16T16:55:18.352+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家IT，有省份20条，expedia有省份126条, 相同的19条，找不到省份1条，分别是[普利亚大区]
+2024-12-16T16:55:19.095+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家ZW，有省份10条，expedia有省份66条, 相同的9条，找不到省份1条，分别是[布拉瓦约]
+2024-12-16T16:55:19.376+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家JM，有省份14条，expedia有省份14条, 相同的13条，找不到省份1条，分别是[特里洛尼区]
+2024-12-16T16:55:19.831+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家JO，有省份12条，expedia有省份13条, 相同的10条，找不到省份2条，分别是[杰拉什省, 马安省]
+2024-12-16T16:55:20.306+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家JP，有省份46条，expedia有省份440条, 相同的45条，找不到省份1条，分别是[北海道]
+2024-12-16T16:55:21.548+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家KE，有省份45条，expedia有省份47条, 相同的44条，找不到省份1条，分别是[穆拉雅]
+2024-12-16T16:55:22.693+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家KG，有省份7条，expedia有省份8条, 相同的5条，找不到省份2条，分别是[楚河州, 伊塞克湖州]
+2024-12-16T16:55:22.828+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家KH，有省份23条，expedia有省份24条, 相同的15条，找不到省份8条，分别是[磅湛省, 马德望省, 磅士卑省, 波萝勉省, 菩萨省, 西哈努克省, 奥多棉吉省, 拜林市]
+2024-12-16T16:55:23.214+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家KI，有省份3条，expedia有省份3条, 相同的2条，找不到省份1条，分别是[菲尼克斯群岛]
+2024-12-16T16:55:23.271+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家KM，在expedia数据中找不到
+2024-12-16T16:55:23.561+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家KP，在expedia数据中找不到
+2024-12-16T16:55:23.563+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家KR，有省份9条，expedia有省份14条, 相同的2条，找不到省份7条，分别是[京畿道, 庆尚南道, 全罗北道, 庆尚北道, 忠清南道, 忠清北道, 全罗南道]
+2024-12-16T16:55:23.621+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家KW，有省份6条，expedia有省份6条, 相同的4条，找不到省份2条，分别是[杰赫拉省, 费尔瓦尼耶省]
+2024-12-16T16:55:23.725+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家KY，有省份1条，expedia有省份3条, 相同的0条，找不到省份1条，分别是[姐妹岛]
+2024-12-16T16:55:23.756+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家KZ，有省份14条，expedia有省份224条, 相同的13条，找不到省份1条，分别是[南哈萨克斯坦州]
+2024-12-16T16:55:24.565+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家LB，有省份6条，expedia有省份33条, 相同的4条，找不到省份2条，分别是[纳巴泰省, 贝卡省]
+2024-12-16T16:55:24.697+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家LC，在expedia数据中找不到
+2024-12-16T16:55:24.697+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家LI，在expedia数据中找不到
+2024-12-16T16:55:25.394+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家LS，有省份10条，expedia有省份10条, 相同的8条，找不到省份2条，分别是[莫哈莱斯胡克区, 加查斯内克区]
+2024-12-16T16:55:25.913+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家LU，有省份12条，expedia有省份12条, 相同的0条，找不到省份12条，分别是[克莱沃郡, 迪基希郡, 埃希特纳赫郡, 阿尔泽特河畔埃施郡, 卢森堡郡, 梅尔施郡, 雷米希郡, 菲安登郡, 维尔茨郡, 卡佩伦郡, 雷当日郡, 格雷文马赫郡]
+2024-12-16T16:55:25.918+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家LY，有省份22条，expedia有省份21条, 相同的13条，找不到省份9条，分别是[西山省, 吉法拉省, 迈尔盖卜省, 努加特海姆斯省, 扎维耶省, 班加西, 的黎波里省, 瓦迪哈耶特省, 沙提省]
+2024-12-16T16:55:26.294+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MA，有省份11条，expedia有省份87条, 相同的10条，找不到省份1条，分别是[马拉喀什-萨菲大区]
+2024-12-16T16:55:27.493+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家ME，有省份21条，expedia有省份25条, 相同的2条，找不到省份19条，分别是[安德里耶维察, 巴尔, 贝拉内, 比耶洛波列, 布德瓦, 采蒂涅, 达尼洛夫格勒, 新海尔采格, 科拉欣, 科托尔, 莫伊科瓦茨, 尼克希奇, 普拉夫, 普列夫利亚, 普卢日内, 波德戈里察, 罗扎伊, 蒂瓦特, 乌尔齐尼]
+2024-12-16T16:55:27.543+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MG，有省份6条，expedia有省份25条, 相同的0条，找不到省份6条，分别是[塔那那利佛省, 安齐拉纳纳省, 菲亚纳兰楚阿省, 马哈赞加省, 图阿马西拉省, 图利亚拉省]
+2024-12-16T16:55:27.544+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家ML，有省份9条，expedia有省份11条, 相同的8条，找不到省份1条，分别是[巴马科首都区]
+2024-12-16T16:55:27.763+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MM，有省份15条，expedia有省份16条, 相同的14条，找不到省份1条，分别是[伊洛瓦底省]
+2024-12-16T16:55:28.131+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MN，有省份21条，expedia有省份24条, 相同的19条，找不到省份2条，分别是[库苏古尔省, 前杭爱省]
+2024-12-16T16:55:28.664+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MQ，有省份4条，expedia有省份4条, 相同的2条，找不到省份2条，分别是[圣皮埃尔郡, 黛园郡]
+2024-12-16T16:55:28.713+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MR，有省份13条，expedia有省份17条, 相同的12条，找不到省份1条，分别是[首都努瓦克肖特]
+2024-12-16T16:55:29.073+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MU，有省份9条，expedia有省份6条, 相同的6条，找不到省份3条，分别是[莫卡区, 庞波慕斯区, 路易港区]
+2024-12-16T16:55:29.228+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MV，有省份19条，expedia有省份20条, 相同的14条，找不到省份5条，分别是[哈阿里夫环礁, 北阿里环礁, 南阿里环礁, 美慕环礁, 达鲁环礁]
+2024-12-16T16:55:29.735+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MX，有省份32条，expedia有省份105条, 相同的31条，找不到省份1条，分别是[联邦区]
+2024-12-16T16:55:30.629+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家MY，有省份13条，expedia有省份163条, 相同的12条，找不到省份1条，分别是[马六甲州]
+2024-12-16T16:55:31.198+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家NA，有省份13条，expedia有省份14条, 相同的12条，找不到省份1条，分别是[奥卡万戈区]
+2024-12-16T16:55:31.600+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家NE，有省份8条，expedia有省份44条, 相同的7条，找不到省份1条，分别是[尼亚美市]
+2024-12-16T16:55:33.514+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家NL，有省份12条，expedia有省份354条, 相同的9条，找不到省份3条，分别是[北布拉邦省, 北荷兰省, 南荷兰省]
+2024-12-16T16:55:33.769+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家NO，有省份20条，expedia有省份14条, 相同的8条，找不到省份12条，分别是[奥普兰郡, 北特伦德拉格郡, 霍达兰郡, 松恩-菲尤拉讷郡, 东阿格德尔郡, 奥斯陆郡, 西阿格德尔郡, 默勒-鲁姆斯达尔郡, 东福尔郡, 海德马克郡, 南特伦德拉格郡, 斯瓦尔巴]
+2024-12-16T16:55:33.985+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家NP，有省份14条，expedia有省份84条, 相同的5条，找不到省份9条，分别是[伯瑞, 达瓦尔阿基里, 贾纳克布尔, 马哈卡里, 梅吉, 纳拉亚尼, 拉普蒂, 萨加玛塔, 瑟地]
+2024-12-16T16:55:34.148+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家NZ，有省份17条，expedia有省份69条, 相同的14条，找不到省份3条，分别是[马纳瓦图－旺加努伊大区, 惠灵顿大区, 查塔姆群岛]
+2024-12-16T16:55:34.540+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家OM，有省份11条，expedia有省份11条, 相同的9条，找不到省份2条，分别是[布赖米省, 马斯喀特省]
+2024-12-16T16:55:34.786+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家PA，有省份12条，expedia有省份98条, 相同的9条，找不到省份3条，分别是[恩贝拉-沃内安特区, 库纳雅拉特区, 恩戈贝-布格雷特区]
+2024-12-16T16:55:35.757+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家PF，有省份6条，expedia有省份5条, 相同的4条，找不到省份2条，分别是[甘比尔群岛, 土阿莫土群岛]
+2024-12-16T16:55:35.871+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家PG，有省份21条，expedia有省份23条, 相同的17条，找不到省份4条，分别是[钦布省, 北部省, 桑道恩省, 布干维尔自治省]
+2024-12-16T16:55:36.342+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家PH，有省份17条，expedia有省份98条, 相同的15条，找不到省份2条，分别是[邦萨摩洛, 马尼拉]
+2024-12-16T16:55:36.755+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家PK，有省份7条，expedia有省份10条, 相同的5条，找不到省份2条，分别是[伊斯兰堡首都区, 联邦直辖部落地区]
+2024-12-16T16:55:36.955+08:00  INFO 23120 --- [http-nio-9008-exec-1] c.e.basic.service.GlobalHotelService     : 携程国家PL，有省份16条，expedia有省份330条, 相同的1条，找不到省份15条，分别是[西里西亚省, 滨海省, 波德拉谢, 大波兰省, 库亚维-滨海省, 卢布斯卡省, 罗兹省, 马佐夫舍, 瓦尔米亚-马祖里, 西滨海省, 下西里西亚省, 小波兰省, 卢布林省, 圣十字省, 喀尔巴阡山省]

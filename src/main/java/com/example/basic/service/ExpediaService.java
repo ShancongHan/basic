@@ -38,6 +38,7 @@ import java.util.*;
 import java.util.concurrent.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author han
@@ -1868,5 +1869,61 @@ public class ExpediaService {
         if (CollectionUtils.isNotEmpty(list)) {
             zhJdJdbGjMappingDao.insertBatch(list);
         }
+    }
+
+    public void analyzeRegion() throws Exception {
+        //test();
+        String file = "C:\\wst_han\\打杂\\酒店统筹\\EPS梳理\\test.csv";
+        String all = IOUtils.inputStreamToString(new FileInputStream(file));
+//        Map<String, String> placesMap = Maps.newHashMap();
+        Set<String> placesSet = Sets.newHashSet();
+//        Map<String, String> administrativeMap = Maps.newHashMap();
+        Set<String> administrativeSet = Sets.newHashSet();
+        //[place:administrative, administrative:country]
+        for (String oneLine : all.split("\r\n")) {
+            String subLine = oneLine.replace("[", "").replace("]", "");
+            for (String line : subLine.split(",")) {
+                if (line.contains("place:")) {
+                    placesSet.add(line.split(":")[1]);
+                }
+                if (line.contains("administrative:")) {
+                    String s = line.split(":")[1];
+                    administrativeSet.add(s);
+                }
+            }
+        }
+        System.out.println(String.join(",", placesSet));
+        System.out.println(String.join(",", administrativeSet));
+    }
+
+    private void test() {
+        List<ExpediaRegion> expediaRegions = expediaRegionDao.selectCategories();
+        List<String> strings = expediaRegions.stream().map(ExpediaRegion::getCategories).toList();
+        log.info(String.join("---", strings));
+        String file = "C:\\wst_han\\打杂\\酒店统筹\\EPS梳理\\test.csv";
+        EasyExcel.write(file, String.class).sheet("xx").doWrite(strings);
+    }
+
+    public void analyzeRegion2() throws Exception {
+        // test2();
+        String file = "C:\\wst_han\\打杂\\酒店统筹\\EPS梳理\\test2.csv";
+        String all = IOUtils.inputStreamToString(new FileInputStream(file));
+        Set<String> geoSet = Sets.newHashSet();
+        //"[geo-admin:department, geo-admin:city]"
+        for (String oneLine : all.split("\r\n")) {
+            String subLine = oneLine.replace("[", "").replace("\"", "")
+                    .replace("]", "");
+            for (String line : subLine.split(",")) {
+                if (line.contains("geo-admin:")) {
+                    geoSet.add(line.split(":")[1]);
+                }
+            }
+        }
+        System.out.println(String.join(",", geoSet));
+    }
+    private void test2() {
+        List<ExpediaRegion> expediaRegions = expediaRegionDao.selectTags();
+        String file = "C:\\wst_han\\打杂\\酒店统筹\\EPS梳理\\test2.csv";
+        EasyExcel.write(file, ExpediaRegion.class).sheet("xx").doWrite(expediaRegions);
     }
 }

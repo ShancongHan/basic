@@ -26,4 +26,41 @@
         SELECT *
         FROM `expedia_region`
     </select>
+
+    <select id="selectCategories" resultType="com.example.basic.entity.ExpediaRegion">
+        SELECT distinct categories
+        FROM `expedia_region`
+    </select>
+
+    <select id="selectTags" resultType="com.example.basic.entity.ExpediaRegion">
+        SELECT distinct tags
+        FROM `expedia_region`
+    </select>
+
+    <select id="selectUsaList" resultType="com.example.basic.entity.ExpediaRegion">
+        SELECT *
+        FROM `expedia_region`
+        WHERE type = 'province_state' AND `country_code` = 'US'
+    </select>
+
+    <select id="selectAllProvinces" resultType="com.example.basic.entity.ExpediaRegion">
+        SELECT *
+        FROM `expedia_region`
+        WHERE type = 'province_state'
+    </select>
+
+    <select id="selectListByCountry" parameterType="java.lang.String" resultType="com.example.basic.entity.ExpediaRegion">
+        SELECT *
+        FROM `expedia_region`
+        WHERE `country_code` = 'US'
+    </select>
+
+    <update id="updateParentPath">
+        UPDATE `expedia_region`
+        SET `categories` = #{provincePath}
+        WHERE `id` IN
+        <foreach collection="provinceIds" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
 </mapper>

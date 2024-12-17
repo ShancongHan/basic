@@ -383,4 +383,28 @@ public class ExpediaController {
             System.out.println(Throwables.getStackTraceAsString(e));
         }
     }
+
+    /**
+     * 解析区域
+     */
+    @PostMapping(value = "analyze-region")
+    public void analyzeRegion() {
+        try {
+            expediaService.analyzeRegion();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
+
+    /**
+     * 解析区域2
+     */
+    @PostMapping(value = "analyze-region2")
+    public void analyzeRegion2() {
+        try {
+            expediaService.analyzeRegion2();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
 }
