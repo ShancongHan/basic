@@ -31,4 +31,64 @@ public class WstGlobalController {
             System.out.println(Throwables.getStackTraceAsString(e));
         }
     }
+
+    /**
+     * 国际酒店主题字典
+     */
+    @PostMapping(value = "themes-dictionary")
+    public void themesDictionary() {
+        try {
+            wstGlobalService.themesDictionary();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
+
+    /**
+     * 国际酒店统计字典
+     */
+    @PostMapping(value = "statistics-dictionary")
+    public void statisticsDictionary() {
+        try {
+            wstGlobalService.statisticsDictionary();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
+
+    /**
+     * 国际酒店图片字典
+     */
+    @PostMapping(value = "images-dictionary")
+    public void imagesDictionary() {
+        try {
+            wstGlobalService.imagesDictionary();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
+
+    /**
+     * 国际酒店语言字典
+     */
+    @PostMapping(value = "spoken_languages-dictionary")
+    public void spokenLanguagesDictionary() {
+        try {
+            wstGlobalService.spokenLanguagesDictionary();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
+
+    /**
+     * 国际酒店房景字典
+     */
+    @PostMapping(value = "room_views-dictionary")
+    public void roomViewsDictionary() {
+        try {
+            wstGlobalService.roomViewsDictionary();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
 }
