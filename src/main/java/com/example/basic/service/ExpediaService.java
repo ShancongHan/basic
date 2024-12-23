@@ -1422,7 +1422,7 @@ public class ExpediaService {
                             String type = region.getType();
                             expediaRegion.setType(type);
                             expediaRegion.setNameEn(region.getName());
-                            expediaRegion.setNameFullEn(region.getName_full());
+                            //expediaRegion.setNameFullEn(region.getName_full());
                             expediaRegion.setCountryCode(region.getCountry_code());
                             expediaRegion.setRealExist(true);
                             expediaRegions.add(expediaRegion);

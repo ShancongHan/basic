@@ -15,11 +15,9 @@ import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -183,7 +181,7 @@ public class GlobalHotelService {
 
     public void analyzeCity() {
         List<ExpediaRegion> expediaRegions = expediaRegionDao.selectListByCountry("US");
-        ExpediaRegion country = expediaRegions.stream().filter(e -> "country".equals(e.getType())).findFirst().get();
+        /*ExpediaRegion country = expediaRegions.stream().filter(e -> "country".equals(e.getType())).findFirst().get();
         String parentPath = country.getParentPath();
         String provincePath = parentPath + country.getRegionId() + "/";
         String provinceSign = "administrative:province";
@@ -191,65 +189,67 @@ public class GlobalHotelService {
         String provinceSign2 = "subProvince2";
         String provinceSign3 = "subProvince3";
         String provinceSign4 = "subProvince4";
-        String citySign = "administrative:city";
+        String citySign = "administrative:city";*/
         Map<String, ExpediaRegion> regionIdMap = expediaRegions.stream().collect(Collectors.toMap(ExpediaRegion::getRegionId, e -> e));
         for (ExpediaRegion expediaRegion : expediaRegions) {
-            Long id = expediaRegion.getId();
+            /*Long id = expediaRegion.getId();
             String regionId = String.valueOf(expediaRegion.getRegionId());
-            String categories = expediaRegion.getCategories();
             String ancestors = expediaRegion.getAncestors();
-            String type = expediaRegion.getType();
-            if ("province_state".equals(type)) {
-                if (provinceSign.equals(categories)) {
-                    expediaRegion.setParentPath(parentPath);
-                }
-                if (provinceSign1.equals(categories)) {
-                    // [{"id":"207","type":"province_state"},{"id":"201","type":"country"},{"id":"500001","type":"continent"}]
-                    String fatherRegionId = findProvinceFather(ancestors, regionIdMap, provinceSign);
-                    expediaRegion.setParentPath(parentPath + "/" + fatherRegionId);
-                }
-                if (provinceSign2.equals(categories)) {
-                    String fatherRegionId = findProvinceFather(ancestors, regionIdMap, provinceSign1);
-                    expediaRegion.setParentPath(parentPath + "/" + fatherRegionId);
-                }
-                if (provinceSign3.equals(categories)) {
-                    String fatherRegionId = findProvinceFather(ancestors, regionIdMap, provinceSign2);
-                    expediaRegion.setParentPath(parentPath + "/" + fatherRegionId);
-                }
-                if (provinceSign4.equals(categories)) {
-                    String fatherRegionId = findProvinceFather(ancestors, regionIdMap, provinceSign3);
-                    expediaRegion.setParentPath(parentPath + "/" + fatherRegionId);
-                }
-            }
-            if ("multi_city_vicinity".equals(type)) {
-                if (citySign.equals(categories)) {
-
-                }
-            }
-            if ("city".equals(type)) {
-                if (citySign.equals(categories)) {
-
-                }
-            }
+            String type = expediaRegion.getType();*/
+            String ancestors = expediaRegion.getAncestors();
+            String path = handlerPath(ancestors, regionIdMap);
+            if (path == null) continue;
+            expediaRegion.setParentPath(path);
+            String[] split = path.split("/");
+            expediaRegion.setParentId(split[split.length - 1]);
+            expediaRegionDao.updatePath(expediaRegion);
         }
 
-        List<Long> provinceIds = expediaRegions.stream().filter(e -> provinceSign.equals(e.getCategories())).map(ExpediaRegion::getId).toList();
+        /*List<Long> provinceIds = expediaRegions.stream().filter(e -> provinceSign.equals(e.getCategories())).map(ExpediaRegion::getId).toList();
         expediaRegionDao.updateParentPath(provinceIds, provincePath);
-        List<ExpediaRegion> expediaRegions1 = expediaRegions.stream().filter(e -> provinceSign1.equals(e.getCategories())).toList();
+        List<ExpediaRegion> expediaRegions1 = expediaRegions.stream().filter(e -> provinceSign1.equals(e.getCategories())).toList();*/
 
 
     }
 
-    private String findProvinceFather(String ancestors, Map<String, ExpediaRegion> regionIdMap, String parentSign) {
+    private String handlerPath(String ancestors, Map<String, ExpediaRegion> regionIdMap) {
+        if (!StringUtils.hasLength(ancestors)) return null;
         List<Ancestors> ancestorsList = JSON.parseArray(ancestors, Ancestors.class);
-        List<Ancestors> provinceState = ancestorsList.stream().filter(e -> e.getType().equals("province_state")).toList();
-        for (Ancestors ancestor : provinceState) {
-            ExpediaRegion expediaRegion = regionIdMap.get(ancestor.getId());
-            String maybeAncestors = expediaRegion.getAncestors();
-            if (maybeAncestors.equals(parentSign)) {
-                return expediaRegion.getRegionId();
-            }
+        if (CollectionUtils.isEmpty(ancestorsList)) return null;
+        StringBuilder builder = new StringBuilder("/0/");
+        Optional<Ancestors> continent = ancestorsList.stream().filter(e -> "continent".equals(e.getType())).findFirst();
+        continent.ifPresent(value -> builder.append(value.getId()).append("/"));
+        Optional<Ancestors> country = ancestorsList.stream().filter(e -> "country".equals(e.getType())).findFirst();
+        country.ifPresent(value -> builder.append(value.getId()).append("/"));
+        List<Ancestors> provinceState = ancestorsList.stream().filter(e -> "province_state".equals(e.getType())).toList();
+        if (!CollectionUtils.isEmpty(provinceState) && provinceState.size() > 5) {
+            return null;
         }
-        return null;
+        if (!CollectionUtils.isEmpty(provinceState)) {
+            String provinceSign = "administrative:province";
+            String provinceSign1 = "subProvince1";
+            String provinceSign2 = "subProvince2";
+            String provinceSign3 = "subProvince3";
+            String provinceSign4 = "subProvince4";
+            Optional<Ancestors> firstProvince = provinceState.stream().filter(e -> regionIdMap.get(e.getId()).getCategories().contains(provinceSign)).findFirst();
+            firstProvince.ifPresent(e -> builder.append(e.getId()).append("/"));
+            Optional<Ancestors> firstProvince1 = provinceState.stream().filter(e -> regionIdMap.get(e.getId()).getCategories().contains(provinceSign1)).findFirst();
+            firstProvince1.ifPresent(e -> builder.append(e.getId()).append("/"));
+            Optional<Ancestors> firstProvince2 = provinceState.stream().filter(e -> regionIdMap.get(e.getId()).getCategories().contains(provinceSign2)).findFirst();
+            firstProvince2.ifPresent(e -> builder.append(e.getId()).append("/"));
+            Optional<Ancestors> firstProvince3 = provinceState.stream().filter(e -> regionIdMap.get(e.getId()).getCategories().contains(provinceSign3)).findFirst();
+            firstProvince3.ifPresent(e -> builder.append(e.getId()).append("/"));
+            Optional<Ancestors> firstProvince4 = provinceState.stream().filter(e -> regionIdMap.get(e.getId()).getCategories().contains(provinceSign4)).findFirst();
+            firstProvince4.ifPresent(e -> builder.append(e.getId()).append("/"));
+        }
+        Optional<Ancestors> highLevelRegion = ancestorsList.stream().filter(e -> "high_level_region".equals(e.getType())).findFirst();
+        highLevelRegion.ifPresent(value -> builder.append(value.getId()).append("/"));
+        Optional<Ancestors> multiCityVicinity = ancestorsList.stream().filter(e -> "multi_city_vicinity".equals(e.getType())).findFirst();
+        multiCityVicinity.ifPresent(value -> builder.append(value.getId()).append("/"));
+        Optional<Ancestors> city = ancestorsList.stream().filter(e -> "city".equals(e.getType())).findFirst();
+        city.ifPresent(value -> builder.append(value.getId()).append("/"));
+        Optional<Ancestors> neighborhood = ancestorsList.stream().filter(e -> "neighborhood".equals(e.getType())).findFirst();
+        neighborhood.ifPresent(value -> builder.append(value.getId()).append("/"));
+        return builder.toString();
     }
 }

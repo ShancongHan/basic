@@ -63,4 +63,10 @@
             #{id}
         </foreach>
     </update>
+
+    <update id="updatePath" parameterType="com.example.basic.entity.ExpediaRegion">
+        UPDATE `expedia_region`
+        SET `parent_path` = #{parentPath}, `parent_id` = #{parentId}
+        WHERE `id` = #{id}
+    </update>
 </mapper>

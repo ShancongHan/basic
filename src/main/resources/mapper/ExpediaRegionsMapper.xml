@@ -3,10 +3,10 @@
 <mapper namespace="com.example.basic.dao.ExpediaRegionsDao">
 
     <insert id="saveBatch" parameterType="com.example.basic.entity.ExpediaRegions">
-        insert into expedia_regions (region_id, type, name_en, name_full_en, country_code, real_exist)
+        insert into expedia_regions (region_id, type, name_en, full_name_en, country_code, real_exist)
         values
         <foreach collection="insertList" separator="," item="item">
-            (#{item.regionId}, #{item.type}, #{item.nameEn}, #{item.nameFullEn}, #{item.countryCode}, #{item.realExist})
+            (#{item.regionId}, #{item.type}, #{item.nameEn}, #{item.fullNameEn}, #{item.countryCode}, #{item.realExist})
         </foreach>
     </insert>
     
@@ -20,7 +20,7 @@
         UPDATE `expedia_regions`
         <set>
             <if test="name != null"> name = #{name,jdbcType=VARCHAR},</if>
-            <if test="nameFull != null"> name_full = #{nameFull,jdbcType=VARCHAR},</if>
+            <if test="fullName != null"> full_name = #{fullName,jdbcType=VARCHAR},</if>
             <if test="countrySubdivisionCode != null"> country_subdivision_code = #{countrySubdivisionCode,jdbcType=VARCHAR},</if>
             <if test="parentId != null"> parent_id = #{parentId,jdbcType=VARCHAR},</if>
             <if test="parentPath != null"> parent_path = #{parentPath,jdbcType=VARCHAR},</if>
@@ -31,7 +31,6 @@
             <if test="ancestors != null"> ancestors = #{ancestors,jdbcType=VARCHAR},</if>
             <if test="descendants != null"> descendants = #{descendants,jdbcType=VARCHAR},</if>
             <if test="hasZh != null"> has_zh = #{hasZh,jdbcType=TINYINT},</if>
-            <if test="hasProperty != null"> has_property = #{hasProperty,jdbcType=TINYINT},</if>
         </set>
         WHERE `id` = #{id}
     </update>

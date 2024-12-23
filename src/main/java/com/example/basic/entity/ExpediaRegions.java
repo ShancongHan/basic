@@ -3,7 +3,6 @@ package com.example.basic.entity;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 /**
  * @author han
@@ -20,11 +19,11 @@ public class ExpediaRegions {
 
     private String name;	// 名称
 
-    private String nameFull;	// 长名称
+    private String fullName;	// 长名称
 
     private String nameEn;	// 英文名称
 
-    private String nameFullEn;	// 英文长名称
+    private String fullNameEn;	// 英文长名称
 
     private String continent;	// 大洲
 
@@ -51,6 +50,4 @@ public class ExpediaRegions {
     private Boolean realExist;	// 真实存在-1，否则0
 
     private Boolean hasZh;	// 中文可以查询到-1，否则0
-
-    private Boolean hasProperty;	// 有酒店-1，无酒店-0
 }

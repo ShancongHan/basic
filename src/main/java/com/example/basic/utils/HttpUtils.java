@@ -323,7 +323,7 @@ public class HttpUtils {
     }
 
     public ExpediaResponse pullRegionsV2(String sourceUrl, String countryCode) throws Exception {
-        String url = StringUtils.isNotBlank(sourceUrl) ? sourceUrl : ENDPOINT + REGIONS + "?include=standard&language=en-US&include=property_ids&country_code=" + countryCode;
+        String url = StringUtils.isNotBlank(sourceUrl) ? sourceUrl : ENDPOINT + REGIONS + "?include=standard&language=en-US&country_code=" + countryCode;
         /*StopWatch watch = new StopWatch();
         watch.start("http发送请求");*/
         Request request = new Request.Builder()
@@ -385,45 +385,13 @@ public class HttpUtils {
                 return expediaRegions;
             }
             Region region = JSON.parseObject(body, Region.class);
-            String type = region.getType();
             String name = region.getName();
             expediaRegions.setName(name);
             if (StringUtils.isNotBlank(name)) {
                 expediaRegions.setHasZh(true);
             }
-            expediaRegions.setNameFull(region.getName_full());
+            expediaRegions.setFullName(region.getName_full());
             expediaRegions.setCountrySubdivisionCode(region.getCountry_subdivision_code());
-            List<Ancestors> ancestors = region.getAncestors();
-            if (CollectionUtils.isEmpty(ancestors)) {
-                expediaRegions.setParentId("0");
-                expediaRegions.setParentPath(null);
-            } else {
-                // type == country
-                if (ancestors.size() == 1) {
-                    expediaRegions.setParentId(ancestors.get(0).getId());
-                    expediaRegions.setParentPath("/0/" + ancestors.get(0).getId() + "/");
-                }
-                // type == province_state
-                if ("province_state".equals(type)) {
-                    List<Ancestors> list = ancestors.stream().filter(e -> "country".equals(e.getType())).toList();
-                    if (CollectionUtils.isNotEmpty(list) && list.size() == 1) {
-                        expediaRegions.setParentId(list.get(0).getId());
-                    }
-                }
-                if ("multi_city_vicinity".equals(type)) {
-                    List<Ancestors> list = ancestors.stream().filter(e -> "province_state".equals(e.getType())).toList();
-                    if (CollectionUtils.isNotEmpty(list) && list.size() == 1) {
-                        expediaRegions.setParentId(list.get(0).getId());
-                    }
-                }
-                if ("neighborhood".equals(type)) {
-                    List<Ancestors> list = ancestors.stream().filter(e -> "city".equals(e.getType())).toList();
-                    if (CollectionUtils.isNotEmpty(list) && list.size() == 1) {
-                        expediaRegions.setParentId(list.get(0).getId());
-                    }
-                }
-
-            }
             expediaRegions.setCenterLatitude(BigDecimal.valueOf(region.getCoordinates().getCenter_latitude()));
             expediaRegions.setCenterLongitude(BigDecimal.valueOf(region.getCoordinates().getCenter_longitude()));
             if (CollectionUtils.isNotEmpty(region.getCategories())) {

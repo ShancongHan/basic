@@ -28,4 +28,6 @@ public interface ExpediaRegionDao {
     List<ExpediaRegion> selectListByCountry(String countryCode);
 
     void updateParentPath(@Param(value = "provinceIds") List<Long> provinceIds, @Param(value = "provincePath") String provincePath);
+
+    void updatePath(ExpediaRegion expediaRegion);
 }
