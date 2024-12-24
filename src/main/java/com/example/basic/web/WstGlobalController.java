@@ -91,4 +91,63 @@ public class WstGlobalController {
             System.out.println(Throwables.getStackTraceAsString(e));
         }
     }
+
+    /**
+     * 国际酒店房间设施字典
+     */
+    @PostMapping(value = "amenities_rooms-dictionary")
+    public void amenitiesRoomsDictionary() {
+        try {
+            wstGlobalService.amenitiesRoomsDictionary();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
+
+    /**
+     * 国际酒店设施字典
+     */
+    @PostMapping(value = "amenities_property-dictionary")
+    public void amenitiesPropertyDictionary() {
+        try {
+            wstGlobalService.amenitiesPropertyDictionary();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
+    /**
+     * 国际酒店现付支付方式字典
+     */
+    @PostMapping(value = "onsite_payment-dictionary")
+    public void onsitePaymentDictionary() {
+        try {
+            wstGlobalService.onsitePaymentDictionary();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
+
+    /**
+     * 国际酒店设施费率字典
+     */
+    @PostMapping(value = "amenities_rates-dictionary")
+    public void amenitiesRatesDictionary() {
+        try {
+            wstGlobalService.amenitiesRatesDictionary();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
+
+    /**
+     * 国际酒店宠物字典
+     */
+    @PostMapping(value = "pets-dictionary")
+    public void petsDictionary() {
+        try {
+            wstGlobalService.petsDictionary();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
 }

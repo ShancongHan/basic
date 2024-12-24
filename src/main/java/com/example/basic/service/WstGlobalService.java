@@ -46,6 +46,16 @@ public class WstGlobalService {
     private WstHotelGlobalSpokenLanguagesDictionaryDao wstHotelGlobalSpokenLanguagesDictionaryDao;
     @Resource
     private WstHotelGlobalRoomViewsDictionaryDao wstHotelGlobalRoomViewsDictionaryDao;
+    @Resource
+    private WstHotelGlobalAmenitiesRoomsDictionaryDao wstHotelGlobalAmenitiesRoomsDictionaryDao;
+    @Resource
+    private WstHotelGlobalAmenitiesPropertyDictionaryDao wstHotelGlobalAmenitiesPropertyDictionaryDao;
+    @Resource
+    private WstHotelGlobalOnsitePaymentDictionaryDao wstHotelGlobalOnsitePaymentDictionaryDao;
+    @Resource
+    private WstHotelGlobalAmenitiesRatesDictionaryDao wstHotelGlobalAmenitiesRatesDictionaryDao;
+    @Resource
+    private WstHotelGlobalPetsDictionaryDao wstHotelGlobalPetsDictionaryDao;
 
     public void categoryDictionary() throws Exception {
         //initCategory();
@@ -278,6 +288,216 @@ public class WstGlobalService {
             one.setId(Integer.valueOf(id));
             one.setNameEn(nameEn);
             one.setSysCreateTime(date);
+            one.setExpediaFileTime(expediaFileTime);
+            list.add(one);
+        }
+        return list;
+    }
+
+    public void amenitiesRoomsDictionary() throws Exception{
+        //initAmenitiesRooms();
+        String fileName = "C:\\wst_han\\打杂\\酒店统筹\\EPS梳理\\静态数据\\amenities_rooms-翻译.txt";
+        ImmutableList<String> lines = Files.asCharSource(new File(fileName), Charset.defaultCharset()).readLines();
+        for (String line : lines) {
+            String[] split = line.split(" - ");
+            WstHotelGlobalAmenitiesRoomsDictionary update = new WstHotelGlobalAmenitiesRoomsDictionary();
+            update.setNameEn(split[0]);
+            update.setName(split[1]);
+            wstHotelGlobalAmenitiesRoomsDictionaryDao.updateByName(update);
+        }
+    }
+    private void initAmenitiesRooms() throws Exception{
+        String fileName = "C:\\wst_han\\打杂\\酒店统筹\\EPS梳理\\静态数据\\amenities_rooms.json";
+        String json = IOUtils.inputStreamToString(new FileInputStream(fileName));
+        List<WstHotelGlobalAmenitiesRoomsDictionary> list = parseAmenitiesRooms(json);
+        wstHotelGlobalAmenitiesRoomsDictionaryDao.saveBatch(list);
+    }
+
+    private List<WstHotelGlobalAmenitiesRoomsDictionary> parseAmenitiesRooms(String json) {
+        JSONObject jsonObject = JSON.parseObject(json);
+        JSONObject object = (JSONObject) jsonObject.get("amenities_rooms");
+        Collection<Object> values = object.values();
+        List<WstHotelGlobalAmenitiesRoomsDictionary> list = Lists.newArrayListWithCapacity(values.size());
+        Date date = new Date();
+        Date expediaFileTime = TimeUtils.parseStringToDate("2024-10-21", "yyyy-MM-dd");
+        for (Object value : values) {
+            JSONObject valueObject = (JSONObject) value;
+            String id = valueObject.get("id").toString();
+            String nameEn = valueObject.get("name").toString();
+            WstHotelGlobalAmenitiesRoomsDictionary one = new WstHotelGlobalAmenitiesRoomsDictionary();
+            one.setId(Integer.valueOf(id));
+            one.setNameEn(nameEn);
+            one.setSysCreateTime(date);
+            one.setExpediaFileTime(expediaFileTime);
+            list.add(one);
+        }
+        return list;
+    }
+
+    public void amenitiesPropertyDictionary() throws Exception{
+        //initAmenitiesProperty();
+        String fileName = "C:\\wst_han\\打杂\\酒店统筹\\EPS梳理\\静态数据\\amenities_property-翻译.txt";
+        ImmutableList<String> lines = Files.asCharSource(new File(fileName), Charset.defaultCharset()).readLines();
+        for (String line : lines) {
+            String[] split = line.split(" - ");
+            WstHotelGlobalAmenitiesPropertyDictionary update = new WstHotelGlobalAmenitiesPropertyDictionary();
+            update.setNameEn(split[0]);
+            update.setName(split[1]);
+            wstHotelGlobalAmenitiesPropertyDictionaryDao.updateByName(update);
+        }
+    }
+
+    private void initAmenitiesProperty() throws Exception{
+        String fileName = "C:\\wst_han\\打杂\\酒店统筹\\EPS梳理\\静态数据\\amenities_property.json";
+        String json = IOUtils.inputStreamToString(new FileInputStream(fileName));
+        List<WstHotelGlobalAmenitiesPropertyDictionary> list = parseAmenitiesProperty(json);
+        wstHotelGlobalAmenitiesPropertyDictionaryDao.saveBatch(list);
+    }
+
+    private List<WstHotelGlobalAmenitiesPropertyDictionary> parseAmenitiesProperty(String json) {
+        JSONObject jsonObject = JSON.parseObject(json);
+        JSONObject object = (JSONObject) jsonObject.get("amenities_property");
+        Collection<Object> values = object.values();
+        List<WstHotelGlobalAmenitiesPropertyDictionary> list = Lists.newArrayListWithCapacity(values.size());
+        Date date = new Date();
+        Date expediaFileTime = TimeUtils.parseStringToDate("2024-10-21", "yyyy-MM-dd");
+        for (Object value : values) {
+            JSONObject valueObject = (JSONObject) value;
+            String id = valueObject.get("id").toString();
+            String nameEn = valueObject.get("name").toString();
+            boolean hanValue = (boolean) valueObject.get("has_value");
+            WstHotelGlobalAmenitiesPropertyDictionary one = new WstHotelGlobalAmenitiesPropertyDictionary();
+            one.setId(Integer.valueOf(id));
+            one.setNameEn(nameEn);
+            one.setHasValue(hanValue);
+            one.setSysCreateTime(date);
+            one.setExpediaFileTime(expediaFileTime);
+            list.add(one);
+        }
+        return list;
+    }
+
+    public void onsitePaymentDictionary() throws Exception{
+//        initOnsitePayment();
+        String fileName = "C:\\wst_han\\打杂\\酒店统筹\\EPS梳理\\静态数据\\onsite_payment-翻译.txt";
+        ImmutableList<String> lines = Files.asCharSource(new File(fileName), Charset.defaultCharset()).readLines();
+        for (String line : lines) {
+            String[] split = line.split(" - ");
+            WstHotelGlobalOnsitePaymentDictionary update = new WstHotelGlobalOnsitePaymentDictionary();
+            update.setNameEn(split[0]);
+            update.setName(split[1]);
+            wstHotelGlobalOnsitePaymentDictionaryDao.updateByName(update);
+        }
+    }
+
+    private void initOnsitePayment() throws Exception{
+        String fileName = "C:\\wst_han\\打杂\\酒店统筹\\EPS梳理\\静态数据\\onsite_payment.json";
+        String json = IOUtils.inputStreamToString(new FileInputStream(fileName));
+        List<WstHotelGlobalOnsitePaymentDictionary> list = parseOnsitePayment(json);
+        wstHotelGlobalOnsitePaymentDictionaryDao.saveBatch(list);
+    }
+
+    private List<WstHotelGlobalOnsitePaymentDictionary> parseOnsitePayment(String json) {
+        JSONObject jsonObject = JSON.parseObject(json);
+        JSONObject object = (JSONObject) jsonObject.get("onsite_payment_types");
+        Collection<Object> values = object.values();
+        List<WstHotelGlobalOnsitePaymentDictionary> list = Lists.newArrayListWithCapacity(values.size());
+        Date date = new Date();
+        Date expediaFileTime = TimeUtils.parseStringToDate("2024-10-21", "yyyy-MM-dd");
+        for (Object value : values) {
+            JSONObject valueObject = (JSONObject) value;
+            String id = valueObject.get("id").toString();
+            String nameEn = valueObject.get("name").toString();
+            WstHotelGlobalOnsitePaymentDictionary one = new WstHotelGlobalOnsitePaymentDictionary();
+            one.setId(Integer.valueOf(id));
+            one.setNameEn(nameEn);
+            one.setSysCreateTime(date);
+            one.setExpediaFileTime(expediaFileTime);
+            list.add(one);
+        }
+        return list;
+    }
+
+    public void amenitiesRatesDictionary() throws Exception{
+//        initAmenitiesRates();
+        String fileName = "C:\\wst_han\\打杂\\酒店统筹\\EPS梳理\\静态数据\\amenities_rates-翻译.txt";
+        ImmutableList<String> lines = Files.asCharSource(new File(fileName), Charset.defaultCharset()).readLines();
+        for (String line : lines) {
+            String[] split = line.split(" - ");
+            WstHotelGlobalAmenitiesRatesDictionary update = new WstHotelGlobalAmenitiesRatesDictionary();
+            update.setNameEn(split[0]);
+            update.setName(split[1]);
+            wstHotelGlobalAmenitiesRatesDictionaryDao.updateByName(update);
+        }
+    }
+
+    private void initAmenitiesRates() throws Exception{
+        String fileName = "C:\\wst_han\\打杂\\酒店统筹\\EPS梳理\\静态数据\\amenities_rates.json";
+        String json = IOUtils.inputStreamToString(new FileInputStream(fileName));
+        List<WstHotelGlobalAmenitiesRatesDictionary> list = parseAmenitiesRates(json);
+        wstHotelGlobalAmenitiesRatesDictionaryDao.saveBatch(list);
+    }
+
+    private List<WstHotelGlobalAmenitiesRatesDictionary> parseAmenitiesRates(String json) {
+        JSONObject jsonObject = JSON.parseObject(json);
+        JSONObject object = (JSONObject) jsonObject.get("amenities_rates");
+        Collection<Object> values = object.values();
+        List<WstHotelGlobalAmenitiesRatesDictionary> list = Lists.newArrayListWithCapacity(values.size());
+        Date date = new Date();
+        Date expediaFileTime = TimeUtils.parseStringToDate("2024-10-21", "yyyy-MM-dd");
+        for (Object value : values) {
+            JSONObject valueObject = (JSONObject) value;
+            String id = valueObject.get("id").toString();
+            String nameEn = valueObject.get("name").toString();
+            boolean hanValue = (boolean) valueObject.get("has_value");
+            WstHotelGlobalAmenitiesRatesDictionary one = new WstHotelGlobalAmenitiesRatesDictionary();
+            one.setId(Integer.valueOf(id));
+            one.setNameEn(nameEn);
+            one.setSysCreateTime(date);
+            one.setHasValue(hanValue);
+            one.setExpediaFileTime(expediaFileTime);
+            list.add(one);
+        }
+        return list;
+    }
+
+    public void petsDictionary() throws Exception{
+//        initPets();
+        String fileName = "C:\\wst_han\\打杂\\酒店统筹\\EPS梳理\\静态数据\\attributes_pets-翻译.txt";
+        ImmutableList<String> lines = Files.asCharSource(new File(fileName), Charset.defaultCharset()).readLines();
+        for (String line : lines) {
+            String[] split = line.split("-");
+            WstHotelGlobalPetsDictionary dictionary = new WstHotelGlobalPetsDictionary();
+            dictionary.setNameEn(split[0]);
+            dictionary.setName(split[1]);
+            wstHotelGlobalPetsDictionaryDao.updateByName(dictionary);
+        }
+    }
+
+    private void initPets() throws Exception{
+        String fileName = "C:\\wst_han\\打杂\\酒店统筹\\EPS梳理\\静态数据\\attributes_pets.json";
+        String json = IOUtils.inputStreamToString(new FileInputStream(fileName));
+        List<WstHotelGlobalPetsDictionary> list = parsePets(json);
+        wstHotelGlobalPetsDictionaryDao.saveBatch(list);
+    }
+
+    private List<WstHotelGlobalPetsDictionary> parsePets(String json) {
+        JSONObject jsonObject = JSON.parseObject(json);
+        JSONObject object = (JSONObject) jsonObject.get("attributes_pets");
+        Collection<Object> values = object.values();
+        List<WstHotelGlobalPetsDictionary> list = Lists.newArrayListWithCapacity(values.size());
+        Date date = new Date();
+        Date expediaFileTime = TimeUtils.parseStringToDate("2024-10-21", "yyyy-MM-dd");
+        for (Object value : values) {
+            JSONObject valueObject = (JSONObject) value;
+            String id = valueObject.get("id").toString();
+            String nameEn = valueObject.get("name").toString();
+            boolean hanValue = (boolean) valueObject.get("has_value");
+            WstHotelGlobalPetsDictionary one = new WstHotelGlobalPetsDictionary();
+            one.setId(Integer.valueOf(id));
+            one.setNameEn(nameEn);
+            one.setSysCreateTime(date);
+            one.setHasValue(hanValue);
             one.setExpediaFileTime(expediaFileTime);
             list.add(one);
         }
