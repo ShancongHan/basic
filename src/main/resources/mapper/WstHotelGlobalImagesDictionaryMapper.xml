@@ -14,4 +14,10 @@
         SET `name` = #{name}
         WHERE `name_en` = #{nameEn}
     </update>
+
+    <update id="updateGroupName" parameterType="com.example.basic.entity.WstHotelGlobalImagesDictionary">
+        UPDATE `wst_hotel_global_images_dictionary`
+        SET `group` = #{group}
+        WHERE `group_en` = #{groupEn}
+    </update>
 </mapper>

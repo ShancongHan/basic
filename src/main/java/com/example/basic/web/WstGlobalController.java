@@ -150,4 +150,16 @@ public class WstGlobalController {
             System.out.println(Throwables.getStackTraceAsString(e));
         }
     }
+
+    /**
+     * 国际酒店通用属性字典
+     */
+    @PostMapping(value = "general-dictionary")
+    public void generalDictionary() {
+        try {
+            wstGlobalService.generalDictionary();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
 }

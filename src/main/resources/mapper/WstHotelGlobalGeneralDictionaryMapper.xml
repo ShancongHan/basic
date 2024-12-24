@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic.dao.WstHotelGlobalGeneralDictionaryDao">
+    <insert id="saveBatch" parameterType="java.util.List">
+        insert into wst_hotel_global_general_dictionary (id, name_en, name, has_value, sys_create_time, expedia_file_time)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id},#{item.nameEn},#{item.name},#{item.hasValue},#{item.sysCreateTime},#{item.expediaFileTime})
+        </foreach>
+    </insert>
+
+    <update id="updateByName" parameterType="com.example.basic.entity.WstHotelGlobalGeneralDictionary">
+        UPDATE `wst_hotel_global_general_dictionary`
+        SET `name` = #{name}
+        WHERE `name_en` = #{nameEn}
+    </update>
+</mapper>

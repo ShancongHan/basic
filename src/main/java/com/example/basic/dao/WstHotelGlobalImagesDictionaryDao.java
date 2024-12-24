@@ -12,4 +12,5 @@ public interface WstHotelGlobalImagesDictionaryDao {
     void saveBatch(List<WstHotelGlobalImagesDictionary> list);
     void updateByName(WstHotelGlobalImagesDictionary dictionary);
 
+    void updateGroupName(WstHotelGlobalImagesDictionary update);
 }
