@@ -1,26 +1,24 @@
 package com.example.basic.service;
 
-import com.alibaba.excel.util.DateUtils;
 import com.alibaba.fastjson2.JSON;
-import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 import com.example.basic.dao.*;
 import com.example.basic.entity.*;
+import com.example.basic.utils.HttpUtils;
 import com.example.basic.utils.IOUtils;
 import com.example.basic.utils.TimeUtils;
+import com.google.common.base.Throwables;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.io.Files;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.math.BigDecimal;
 import java.nio.charset.Charset;
-import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -58,6 +56,13 @@ public class WstGlobalService {
     private WstHotelGlobalPetsDictionaryDao wstHotelGlobalPetsDictionaryDao;
     @Resource
     private WstHotelGlobalGeneralDictionaryDao wstHotelGlobalGeneralDictionaryDao;
+
+    @Resource
+    private WstHotelGlobalBrandDao wstHotelGlobalBrandDao;
+    @Resource
+    private WstHotelGlobalChainDao wstHotelGlobalChainDao;
+    @Resource
+    private HttpUtils httpUtils;
 
     public void categoryDictionary() throws Exception {
         //initCategory();
@@ -569,5 +574,47 @@ public class WstGlobalService {
             list.add(one);
         }
         return list;
+    }
+
+    public void chainBrand() throws Exception{
+        List<WstHotelGlobalChain> chains = Lists.newArrayList();
+        List<WstHotelGlobalBrand> brands = Lists.newArrayList();
+        String response = httpUtils.pullChain();
+        try {
+            transferChainAndBrand(chains, brands, response);
+        } catch (Exception e) {
+            log.error("解析发生异常:{}", Throwables.getStackTraceAsString(e));
+        }
+        /*System.out.println(chains.size());
+        System.out.println(brands.size());*/
+        wstHotelGlobalChainDao.saveBatch(chains);
+        wstHotelGlobalBrandDao.saveBatch(brands);
+    }
+
+    private void transferChainAndBrand(List<WstHotelGlobalChain> chains, List<WstHotelGlobalBrand> brands, String body) {
+        JSONObject jsonObject = JSON.parseObject(body);
+        Date date = new Date();
+        for (Map.Entry<String, Object> entry : jsonObject.entrySet()) {
+            WstHotelGlobalChain chain = new WstHotelGlobalChain();
+            JSONObject value = (JSONObject) entry.getValue();
+            Integer chainId = Integer.valueOf(value.get("id").toString());
+            chain.setId(chainId);
+            chain.setNameEn((String) value.get("name"));
+            chain.setUpdateTime(date);
+            chains.add(chain);
+
+            JSONObject object = (JSONObject) value.get("brands");
+            if (object != null) {
+                for (Map.Entry<String, Object> entry1 : object.entrySet()) {
+                    JSONObject value1 = (JSONObject) entry1.getValue();
+                    WstHotelGlobalBrand brand = new WstHotelGlobalBrand();
+                    brand.setId(Integer.valueOf(value1.get("id").toString()));
+                    brand.setNameEn((String) value1.get("name"));
+                    brand.setChainId(chainId);
+                    brand.setUpdateTime(date);
+                    brands.add(brand);
+                }
+            }
+        }
     }
 }

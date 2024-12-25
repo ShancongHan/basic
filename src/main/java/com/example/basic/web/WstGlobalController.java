@@ -162,4 +162,16 @@ public class WstGlobalController {
             System.out.println(Throwables.getStackTraceAsString(e));
         }
     }
+
+    /**
+     * 国际酒店连锁
+     */
+    @PostMapping(value = "chain_brand")
+    public void chainBrand() {
+        try {
+            wstGlobalService.chainBrand();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
 }
