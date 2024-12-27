@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic.dao.ExpediaPolicyDao">
+    <insert id="saveBatch" parameterType="com.example.basic.entity.ExpediaPolicy">
+        insert into expedia_policy (hotel_id, all_day_checkin, checkin_start, checkin_end, checkout_time, min_age,
+        special_instructions_en, special_instructions, pets_en, pets, onsite_payments)
+        values
+        <foreach collection="insertList" separator="," item="item">
+            (#{item.hotelId},#{item.allDayCheckin},#{item.checkinStart},#{item.checkinEnd},#{item.checkoutTime},
+            #{item.min_age},#{item.specialInstructionsEn},#{item.specialInstructions}
+            ,#{item.petsEn},#{item.pets},#{item.onsitePayments})
+        </foreach>
+    </insert>
+</mapper>

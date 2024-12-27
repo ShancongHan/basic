@@ -7,10 +7,12 @@ import lombok.Data;
  * @date 2024/12/26
  */
 @Data
-public class ExpediaImages {
+public class ExpediaRoomsImages {
     private Long id;	// 主键id
 
     private String hotelId;	// 酒店id
+
+    private String roomId;	// 房间id
 
     private Integer heroImage;	// 精选封面:1-true,0-false
 

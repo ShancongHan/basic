@@ -195,6 +195,30 @@ public class HttpUtils {
         return response.body().string();
     }
 
+    public String pullHotelDetailListByIdsEn(List<String> hotelIds) throws Exception {
+        return pullHotelDetailListByIds(hotelIds, LANGUAGE);
+    }
+
+    public String pullHotelDetailListByIdsZh(List<String> hotelIds) throws Exception {
+        return pullHotelDetailListByIds(hotelIds, CHINESE_LANGUAGE);
+    }
+    public String pullHotelDetailListByIds(List<String> hotelIds, String language) throws Exception {
+        StringBuilder sb = new StringBuilder("?supply_source=expedia&")
+                .append(LANGUAGE_KEY).append("=").append(language).append("&");
+        for (String hotelId : hotelIds) {
+            sb.append("property_id=").append(hotelId).append("&");
+        }
+        String url = ENDPOINT + CONTENT + sb.substring(0, sb.length() - 1);
+        Request request = new Request.Builder()
+                .url(url)
+                .header("Accept", "application/json")
+                .header("Authorization", createSign())
+                .build();
+        Call call = okHttpClient.newCall(request);
+        Response response = call.execute();
+        return response.body().string();
+    }
+
     public DongChengGnResponse getDongChengCity() {
         String url = DONGCHENG_URL + "/Api/GetCitiesList?TokenID=UUhoa3psfFFISEtkdXFpdWV5c3N6bHpsemw";
         Request request = new Request.Builder()

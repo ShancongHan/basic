@@ -9,18 +9,18 @@ import java.util.Date;
  * @date 2024/12/26
  */
 @Data
-public class ExpediaStatistics {
+public class ExpediaAttributes {
     private Long id;	// 主键id
 
     private String hotelId;	// 酒店id
 
-    private Integer statisticsId;	// 统计id
+    private Integer generalId;	// 特征id
 
-    private String statisticsNameEn;	// 统计名称(英文)
+    private String generalNameEn;	// 特征名称(英文)
 
-    private String statisticsName;	// 统计名称
+    private String generalName;	// 特征名称
 
-    private String statisticsValue;	// 统计值
+    private String generalValue;	// 特征值
 
     private Date createTime;	// 系统新增时间
 

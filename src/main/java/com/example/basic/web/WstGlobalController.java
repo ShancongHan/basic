@@ -174,4 +174,20 @@ public class WstGlobalController {
             System.out.println(Throwables.getStackTraceAsString(e));
         }
     }
+
+    /**
+     * 解析20241225下载的酒店基础信息文件
+     */
+    @PostMapping(value = "analyze-hotel-file")
+    public void analyzeHotelFile() throws Exception {
+        wstGlobalService.analyzeHotelFile();
+    }
+
+    /**
+     * 拉取酒店英文信息
+     */
+    @PostMapping(value = "pull-hotel-en")
+    public void pullHotelEn() throws Exception {
+        wstGlobalService.pullHotelEn();
+    }
 }

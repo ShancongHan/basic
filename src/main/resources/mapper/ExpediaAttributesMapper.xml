@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic.dao.ExpediaAttributesDao">
+    <insert id="saveBatch" parameterType="com.example.basic.entity.ExpediaAttributes">
+        insert into expedia_amenities (hotel_id, amenities_id, amenities_name_en, amenities_name, amenities_value,
+        amenities_categories)
+        values
+        <foreach collection="insertList" separator="," item="item">
+            (#{item.hotelId},#{item.amenitiesId},#{item.amenitiesNameEn},#{item.amenitiesName},#{item.amenitiesValue},
+            #{item.amenitiesCategories})
+        </foreach>
+    </insert>
+</mapper>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic.dao.ExpediaInfoDao">
+    <insert id="saveBatch" parameterType="com.example.basic.entity.ExpediaInfo">
+        insert into expedia_info (hotel_id, name_en, address_en, country_code, province_code, province_name_en,city_en,
+        zip_code, star_rating, guest, score,longitude, latitude, telephone, fax, category_id, category_en,
+        expedia_collect,property_collect, rank, chain_id, chain_name_en, brand_id, brand_name_en,added_time,
+        updated_time, airport_nearby, supply_source, create_time)
+        values
+        <foreach collection="insertList" separator="," item="item">
+            (#{item.hotelId}, #{item.nameEn}, #{item.addressEn}, #{item.countryCode}, #{item.provinceCode},
+            #{item.provinceNameEn}, #{item.cityEn},#{item.zipCode},#{item.starRating},#{item.guest} ,#{item.score},
+            #{item.longitude}, #{item.latitude}, #{item.telephone}, #{item.fax}, #{item.categoryId},#{item.categoryEn},
+            #{item.expediaCollect}, #{item.propertyCollect}, #{item.rank}, #{item.chainId}, #{item.chainNameEn},
+            #{item.brandId}, #{item.brandNameEn},#{item.addedTime}, #{item.updatedTime}, #{item.airportNearby},
+            #{item.supplySource}, #{item.createTime})
+        </foreach>
+    </insert>
+
+    <select id="selectNeedUpdate" resultType="java.lang.String">
+        SELECT `hotel_id`
+        FROM `expedia_info`
+        WHERE `update_time` is null LIMIT 500
+    </select>
+</mapper>

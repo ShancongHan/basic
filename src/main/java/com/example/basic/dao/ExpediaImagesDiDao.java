@@ -6,8 +6,11 @@ import java.util.List;
 
 /**
  * @author han
- * @date 2024/12/26
+ * @date 2024/8/2
  */
-public interface ExpediaImagesDao {
+public interface ExpediaImagesDiDao {
+
+    List<ExpediaImages> selectAll();
+
     void saveBatch(List<ExpediaImages> insertList);
 }

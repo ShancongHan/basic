@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic.dao.ExpediaRoomsImagesDao">
+    <insert id="saveBatch" parameterType="com.example.basic.entity.ExpediaRoomsImages">
+        insert into expedia_rooms_images (hotel_id, room_id, hero_image, group_en, `group`, category_id, category_en,
+        caption, small_size_url, large_size_url)
+        values
+        <foreach collection="insertList" separator="," item="item">
+            (#{item.hotelId},#{item.roomId},#{item.heroImage},#{item.groupEn},#{item.group},
+            #{item.categoryId},#{item.categoryEn},#{item.caption},#{item.smallSizeUrl},#{item.largeSizeUrl})
+        </foreach>
+    </insert>
+</mapper>

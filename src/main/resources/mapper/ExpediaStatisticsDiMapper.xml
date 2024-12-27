@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic.dao.ExpediaStatisticsDiDao">
+    <select id="selectAll" resultType="com.example.basic.entity.ExpediaStatisticsDi">
+        SELECT *
+        FROM `expedia_statistics`
+    </select>
+    
+    <insert id="saveBatch" parameterType="com.example.basic.entity.ExpediaStatisticsDi">
+        insert into expedia_statistics (id, name, has_value, create_time)
+        values
+        <foreach collection="insertList" separator="," item="item">
+            (#{item.id}, #{item.name}, #{item.hasValue}, #{item.createTime})
+        </foreach>
+    </insert>
+</mapper>

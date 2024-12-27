@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic.dao.ExpediaDetailInfoDao">
+    <insert id="saveBatch" parameterType="com.example.basic.entity.ExpediaDetailInfo">
+        insert into expedia_detail_info (hotel_id, registry_number, spoken_languages, tax_id, descriptions_en, descriptions,
+        rates, all_inclusive)
+        values
+        <foreach collection="insertList" separator="," item="item">
+            (#{item.hotelId},#{item.registryNumber},#{item.spokenLanguages},#{item.taxId},#{item.descriptionsEn},
+            #{item.descriptions},#{item.rates},#{item.allInclusive})
+        </foreach>
+    </insert>
+</mapper>
