@@ -13,4 +13,6 @@ public interface ExpediaInfoDao {
     void saveBatch(List<ExpediaInfo> insertList);
 
     List<String> selectNeedUpdate();
+
+    void update(ExpediaInfo expediaInfo);
 }

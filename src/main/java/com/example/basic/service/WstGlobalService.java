@@ -2,8 +2,10 @@ package com.example.basic.service;
 
 import com.alibaba.excel.util.DateUtils;
 import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 import com.example.basic.dao.*;
+import com.example.basic.domain.expedia.Pets;
 import com.example.basic.domain.to.Coordinates;
 import com.example.basic.entity.*;
 import com.example.basic.utils.HttpUtils;
@@ -16,15 +18,26 @@ import com.google.common.io.Files;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.StopWatch;
 import org.springframework.util.StringUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.math.BigDecimal;
+import java.net.SocketException;
 import java.nio.charset.Charset;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeoutException;
+import java.util.stream.Collectors;
 
 /**
  * @author han
@@ -88,6 +101,10 @@ public class WstGlobalService {
     @Resource
     private ExpediaDetailInfoDao expediaDetailInfoDao;
 
+    @Resource
+    private PlatformTransactionManager transactionManager;
+    @Resource
+    private TransactionDefinition transactionDefinition;
     public void categoryDictionary() throws Exception {
         //initCategory();
         String fileName = "C:\\wst_han\\打杂\\酒店统筹\\EPS梳理\\静态数据\\categories-翻译.txt";
@@ -663,9 +680,9 @@ public class WstGlobalService {
         ExpediaInfo info = new ExpediaInfo();
         info.setHotelId((String) jsonObject.get("property_id"));
         info.setNameEn((String) jsonObject.get("name"));
-        if (info.getNameEn().length() > 250) {
+        /*if (info.getNameEn().length() > 250) {
             System.out.println(info.getHotelId());
-        }
+        }*/
         JSONObject address = (JSONObject) jsonObject.get("address");
         if (address != null) {
             String line1 = (String) address.get("line_1");
@@ -735,35 +752,499 @@ public class WstGlobalService {
     }
 
     public void pullHotelEn() throws Exception {
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start("查询db");
         List<String> propertyIds = expediaInfoDao.selectNeedUpdate();
+        stopWatch.stop();
+        log.info("查询db花费时间: {}", stopWatch.getTotalTimeMillis());
         int max = Math.max(250, propertyIds.size());
+        Date date = new Date();
+        List<ExpediaInfo> expediaInfos = Lists.newArrayListWithCapacity(250);
+        List<ExpediaDetailInfo> expediaDetailInfos = Lists.newArrayListWithCapacity(250);
+        List<ExpediaImages> expediaImages = Lists.newArrayListWithCapacity(20000);
+        List<ExpediaPolicy> expediaPolicies = Lists.newArrayListWithCapacity(250);
+        List<ExpediaRooms> expediaRooms = Lists.newArrayListWithCapacity(5000);
+        List<ExpediaRoomsImages> expediaRoomsImages = Lists.newArrayListWithCapacity(60000);
+        List<ExpediaRoomsAmenities> expediaRoomsAmenities = Lists.newArrayListWithCapacity(80000);
+        List<ExpediaAmenities> expediaAmenities = Lists.newArrayListWithCapacity(5000);
+        List<ExpediaAttributes> expediaAttributes = Lists.newArrayListWithCapacity(6000);
+        List<ExpediaImportantInfo> expediaImportantInfos = Lists.newArrayListWithCapacity(250);
+        List<ExpediaStatistics> expediaStatistics = Lists.newArrayListWithCapacity(1000);
         for (int i = 0; i < max; ) {
+            StopWatch watch = new StopWatch();
             int start = i;
             int end = Math.min(i + 250, max);
             List<String> queryList = propertyIds.subList(start, end);
-            String body = httpUtils.pullHotelDetailListByIdsEn(queryList);
+            watch.start("请求酒店");
+            String body = null;
+            int retry = 0;
+            int maxRetry = 10;
+            while (retry <= maxRetry) {
+                try {
+                    body = httpUtils.pullHotelDetailListByIdsEn(queryList);
+                    if (StringUtils.hasLength(body)) break;
+                } catch (TimeoutException | SocketException exception) {
+                    log.error("本次超时");
+                    retry++;
+                }
+            }
+            watch.stop();
             i += 250;
             JSONObject jsonObject = JSON.parseObject(body);
+            watch.start("转换并存库");
             for (Map.Entry<String, Object> entry : jsonObject.entrySet()) {
-                System.out.println(entry.getKey());
-                /*ExpediaPropertyBasic expediaPropertyBasic = new ExpediaPropertyBasic();
-                String key = entry.getKey();
-                expediaPropertyBasic.setPropertyId(key);
-                JSONObject value = (JSONObject) entry.getValue();
-                //expediaPropertyBasic.setNameEn((String) value.get("name"));
-                JSONObject address = (JSONObject) value.get("address");
-                if (address != null) {
-                    String line1 = (String) address.get("line_1");
-                    String line2 = (String) address.get("line_2");
-                    expediaPropertyBasic.setAddressEn(line1 + (StringUtils.hasLength(line2) ? line2 : ""));
-                    expediaPropertyBasic.setCountryCode((String) address.get("country_code"));
-                    expediaPropertyBasic.setStateProvinceCode((String) address.get("state_province_code"));
-                    expediaPropertyBasic.setStateProvinceName((String) address.get("state_province_name"));
-                    expediaPropertyBasic.setCity((String) address.get("city"));
-                    expediaPropertyBasic.setZipCode((String) address.get("postal_code"));
+                String hotelId = entry.getKey();
+                JSONObject hotelDetail = (JSONObject) entry.getValue();
+                convertDetail(hotelId, hotelDetail, expediaInfos, expediaDetailInfos, expediaImages, expediaPolicies, expediaRooms,
+                        expediaRoomsImages, expediaRoomsAmenities, expediaAmenities, expediaAttributes, expediaImportantInfos,
+                        expediaStatistics, date);
+                TransactionStatus transaction = transactionManager.getTransaction(transactionDefinition);
+                try {
+                    saveOrUpdate(expediaInfos, expediaDetailInfos, expediaImages, expediaPolicies, expediaRooms,
+                            expediaRoomsImages, expediaRoomsAmenities, expediaAmenities, expediaAttributes, expediaImportantInfos, expediaStatistics);
+                    transactionManager.commit(transaction);
+                } catch (Exception exception) {
+                    log.info("本此批次抛出异常，这些id:{}跳过", queryList);
+                    log.error("本此批次抛出异常{}，跳过", Throwables.getStackTraceAsString(exception));
+                    transactionManager.rollback(transaction);
                 }
-                expediaPropertyBasicDao.update(expediaPropertyBasic);*/
+                expediaInfos.clear();
+                expediaDetailInfos.clear();
+                expediaImages.clear();
+                expediaPolicies.clear();
+                expediaRooms.clear();
+                expediaRoomsImages.clear();
+                expediaRoomsAmenities.clear();
+                expediaAmenities.clear();
+                expediaAttributes.clear();
+                expediaImportantInfos.clear();
+                expediaStatistics.clear();
+            }
+            watch.stop();
+            log.info("本批次执行总时长：{}, 具体耗时为：{}", watch.getTotalTimeMillis(), watch.prettyPrint());
+        }
+    }
+
+    public void saveOrUpdate(List<ExpediaInfo> expediaInfos, List<ExpediaDetailInfo> expediaDetailInfos,
+                             List<ExpediaImages> expediaImages, List<ExpediaPolicy> expediaPolicies,
+                             List<ExpediaRooms> expediaRooms, List<ExpediaRoomsImages> expediaRoomsImages,
+                             List<ExpediaRoomsAmenities> expediaRoomsAmenities, List<ExpediaAmenities> expediaAmenities,
+                             List<ExpediaAttributes> expediaAttributes, List<ExpediaImportantInfo> expediaImportantInfos,
+                             List<ExpediaStatistics> expediaStatistics) {
+        if (!CollectionUtils.isEmpty(expediaInfos)) {
+            for (ExpediaInfo expediaInfo : expediaInfos) {
+                expediaInfoDao.update(expediaInfo);
             }
         }
+        if (!CollectionUtils.isEmpty(expediaDetailInfos)) {
+            expediaDetailInfoDao.saveBatch(expediaDetailInfos);
+        }
+        if (!CollectionUtils.isEmpty(expediaImages)) {
+            expediaImagesDao.saveBatch(expediaImages);
+        }
+        if (!CollectionUtils.isEmpty(expediaPolicies)) {
+            expediaPolicyDao.saveBatch(expediaPolicies);
+        }
+        if (!CollectionUtils.isEmpty(expediaRooms)) {
+            expediaRoomsDao.saveBatch(expediaRooms);
+        }
+        if (!CollectionUtils.isEmpty(expediaRoomsImages)) {
+            expediaRoomsImagesDao.saveBatch(expediaRoomsImages);
+        }
+        if (!CollectionUtils.isEmpty(expediaRoomsAmenities)) {
+            expediaRoomsAmenitiesDao.saveBatch(expediaRoomsAmenities);
+        }
+        if (!CollectionUtils.isEmpty(expediaAmenities)) {
+            expediaAmenitiesDao.saveBatch(expediaAmenities);
+        }
+        if (!CollectionUtils.isEmpty(expediaAttributes)) {
+            expediaAttributesDao.saveBatch(expediaAttributes);
+        }
+        if (!CollectionUtils.isEmpty(expediaImportantInfos)) {
+            expediaImportantInfoDao.saveBatch(expediaImportantInfos);
+        }
+        if (!CollectionUtils.isEmpty(expediaStatistics)) {
+            expediaStatisticsDao.saveBatch(expediaStatistics);
+        }
+    }
+
+    private void convertDetail(String hotelId, JSONObject hotelDetail, List<ExpediaInfo> expediaInfos,
+                               List<ExpediaDetailInfo> expediaDetailInfos, List<ExpediaImages> expediaImages,
+                               List<ExpediaPolicy> expediaPolicies, List<ExpediaRooms> expediaRooms,
+                               List<ExpediaRoomsImages> expediaRoomsImages, List<ExpediaRoomsAmenities> expediaRoomsAmenities,
+                               List<ExpediaAmenities> expediaAmenities, List<ExpediaAttributes> expediaAttributes,
+                               List<ExpediaImportantInfo> expediaImportantInfos, List<ExpediaStatistics> expediaStatistics,
+                               Date date) throws Exception{
+        ExpediaInfo expediaInfo = new ExpediaInfo();
+        expediaInfo.setHotelId(hotelId);
+        expediaInfo.setNameEn(getStringValueByKey(hotelDetail, "name"));
+        JSONObject address = (JSONObject) hotelDetail.get("address");
+        if (address != null) {
+            String line1 = getStringValueByKey(address, "line_1");
+            String line2 = getStringValueByKey(address, "line_2");
+            expediaInfo.setAddressEn(line1 + (StringUtils.hasLength(line2) ? line2 : ""));
+            expediaInfo.setCountryCode(getStringValueByKey(address, "country_code"));
+            expediaInfo.setProvinceCode(getStringValueByKey(address, "state_province_code"));
+            expediaInfo.setProvinceNameEn(getStringValueByKey(address, "state_province_name"));
+            expediaInfo.setCityEn(getStringValueByKey(address, "city"));
+            expediaInfo.setZipCode(getStringValueByKey(address, "postal_code"));
+        }
+        JSONObject ratings = (JSONObject) hotelDetail.get("ratings");
+        if (ratings != null) {
+            JSONObject property = (JSONObject) ratings.get("property");
+            if (property != null) {
+                expediaInfo.setStarRating(getBigDecimalValueByKey(property, "rating"));
+            }
+            // TODO 看下是否要处理
+            String guest = getStringValueByKey(ratings, "guest");
+            expediaInfo.setGuest(guest);
+            if (guest != null) {
+                JSONObject guestJson = (JSONObject) ratings.get("guest");
+                expediaInfo.setScore(getBigDecimalValueByKey(guestJson, "overall"));
+            }
+        }
+
+        JSONObject location = (JSONObject) hotelDetail.get("location");
+        if (location != null) {
+            String coordinates = getStringValueByKey(location, "coordinates");
+            if (StringUtils.hasLength(coordinates)) {
+                Coordinates coordinates1 = JSON.parseObject(coordinates, Coordinates.class);
+                expediaInfo.setLongitude(coordinates1.getLongitude());
+                expediaInfo.setLatitude(coordinates1.getLatitude());
+            }
+        }
+        expediaInfo.setTelephone(getStringValueByKey(hotelDetail, "phone"));
+        expediaInfo.setFax(getStringValueByKey(hotelDetail, "fax"));
+
+        JSONObject category = (JSONObject) hotelDetail.get("category");
+        if (category != null) {
+            expediaInfo.setCategoryId(getIntegerValueByKey(category, "id"));
+            expediaInfo.setCategoryEn(getStringValueByKey(category, "name"));
+        }
+        expediaInfo.setRank(getIntegerValueByKey(hotelDetail, "rank"));
+
+        JSONObject businessModel = (JSONObject) hotelDetail.get("business_model");
+        if (businessModel != null) {
+            expediaInfo.setExpediaCollect(getBooleanValueByKey(businessModel, "expedia_collect"));
+            expediaInfo.setPropertyCollect(getBooleanValueByKey(businessModel, "property_collect"));
+        }
+        ExpediaPolicy expediaPolicy = new ExpediaPolicy();
+        expediaPolicy.setHotelId(hotelId);
+
+        ExpediaImportantInfo expediaImportantInfo = new ExpediaImportantInfo();
+        expediaImportantInfo.setHotelId(hotelId);
+        JSONObject checkin = (JSONObject) hotelDetail.get("checkin");
+        if (checkin != null) {
+            expediaPolicy.setAllDayCheckin(getStringValueByKey(checkin,"24_hour"));
+            expediaPolicy.setCheckinStart(getStringValueByKey(checkin,"begin_time"));
+            expediaPolicy.setCheckinEnd(getStringValueByKey(checkin,"end_time"));
+            expediaPolicy.setMinAge(getIntegerValueByKey(checkin,"min_age"));
+            expediaPolicy.setSpecialInstructionsEn(getStringValueByKey(checkin,"special_instructions"));
+            /*if (StringUtils.hasLength(expediaPolicy.getSpecialInstructionsEn()) && expediaPolicy.getSpecialInstructionsEn().length() > 1000) {
+                System.out.println(expediaPolicy.getSpecialInstructionsEn());
+            }*/
+            expediaImportantInfo.setInstructionsEn(getStringValueByKey(checkin, "instructions"));
+        }
+        JSONObject checkout = (JSONObject) hotelDetail.get("checkout");
+        if (checkout != null) {
+            expediaPolicy.setCheckoutTime(getStringValueByKey(checkout,"time"));
+        }
+        JSONObject fees = (JSONObject) hotelDetail.get("fees");
+        if (fees != null) {
+            expediaImportantInfo.setFeeMandatory(getStringValueByKey(fees,"mandatory"));
+            expediaImportantInfo.setFeeOptional(getStringValueByKey(fees,"optional"));
+        }
+        JSONObject policies = (JSONObject) hotelDetail.get("policies");
+        if (policies != null) {
+            expediaImportantInfo.setKnowBeforeYouGoEn(getStringValueByKey(policies,"know_before_you_go"));
+        }
+        expediaImportantInfos.add(expediaImportantInfo);
+        JSONObject attributes = (JSONObject) hotelDetail.get("attributes");
+        if (attributes != null) {
+            JSONObject general = (JSONObject) attributes.get("general");
+            if (general != null) {
+                for (Map.Entry<String, Object> entry : general.entrySet()) {
+                    String generalId = entry.getKey();
+                    JSONObject realGeneral = (JSONObject) entry.getValue();
+                    ExpediaAttributes expediaAttribute = new ExpediaAttributes();
+                    expediaAttribute.setHotelId(hotelId);
+                    expediaAttribute.setGeneralId(Integer.valueOf(generalId));
+                    expediaAttribute.setGeneralNameEn(getStringValueByKey(realGeneral, "name"));
+                    /*if (StringUtils.hasLength(expediaAttribute.getGeneralNameEn()) && expediaAttribute.getGeneralNameEn().length() > 100) {
+                        System.out.println(expediaAttribute.getGeneralNameEn());
+                    }*/
+                    expediaAttribute.setGeneralValue(getStringValueByKey(realGeneral, "value"));
+                    expediaAttributes.add(expediaAttribute);
+                }
+            }
+            JSONObject pets = (JSONObject) attributes.get("pets");
+            if (pets != null) {
+                List<Pets> petList = Lists.newArrayListWithCapacity(10);
+                for (Map.Entry<String, Object> entry : pets.entrySet()) {
+                    Pets pet = JSON.parseObject(entry.getValue().toString(), Pets.class);
+                    petList.add(pet);
+                }
+                expediaPolicy.setPetsEn(JSON.toJSONString(petList));
+                /*if (StringUtils.hasLength(expediaPolicy.getPetsEn()) && expediaPolicy.getPetsEn().length() > 800) {
+                    System.out.println(expediaPolicy.getPetsEn());
+                }*/
+            }
+        }
+        JSONObject amenities = (JSONObject) hotelDetail.get("amenities");
+        if (amenities != null) {
+            for (Map.Entry<String, Object> entry : amenities.entrySet()) {
+                String amenitiesId = entry.getKey();
+                JSONObject realAmenities = (JSONObject) entry.getValue();
+                ExpediaAmenities one = new ExpediaAmenities();
+                one.setHotelId(hotelId);
+                one.setAmenitiesId(Integer.valueOf(amenitiesId));
+                one.setAmenitiesNameEn(getStringValueByKey(realAmenities, "name"));
+                one.setAmenitiesValue(getStringValueByKey(realAmenities, "value"));
+                JSONArray categoriesArray = (JSONArray) realAmenities.get("categories");
+                if (categoriesArray != null && categoriesArray.size() > 0) {
+                    one.setAmenitiesCategories(categoriesArray.stream().map(Object::toString).collect(Collectors.joining(",")));
+                }
+                expediaAmenities.add(one);
+            }
+        }
+        JSONArray images = (JSONArray) hotelDetail.get("images");
+        if (images != null && images.size() > 0) {
+            for (Object image : images) {
+                JSONObject imageJson = (JSONObject) image;
+                ExpediaImages expediaImage = new ExpediaImages();
+                expediaImage.setHotelId(hotelId);
+                Boolean heroImage = getBooleanValueByKey(imageJson, "hero_image");
+                expediaImage.setHeroImage(heroImage);
+                expediaImage.setCategoryId(getIntegerValueByKey(imageJson, "category"));
+                expediaImage.setCategoryEn(getStringValueByKey(imageJson, "caption"));
+                JSONObject links = (JSONObject) imageJson.get("links");
+                if (links != null) {
+                    for (Map.Entry<String, Object> entry : links.entrySet()) {
+                        String key = entry.getKey();
+                        JSONObject link = (JSONObject) entry.getValue();
+                        String href = getStringValueByKey(link, "href");
+                        if ("350px".equals(key)) {
+                            expediaImage.setSmallSizeUrl(href);
+                            if (heroImage != null && heroImage) {
+                                expediaInfo.setHeroImage(href);
+                            }
+                        }
+                        if ("1000px".equals(key)) {
+                            expediaImage.setLargeSizeUrl(href);
+                        }
+                    }
+                }
+                expediaImages.add(expediaImage);
+            }
+        }
+
+        JSONObject onsitePayments = (JSONObject) hotelDetail.get("onsite_payments");
+        if (onsitePayments != null) {
+            expediaPolicy.setOnsitePaymentsCurrency(getStringValueByKey(onsitePayments, "currency"));
+            JSONObject types = (JSONObject) onsitePayments.get("types");
+            if (types != null) {
+                expediaPolicy.setOnsitePayments(String.join(",", types.keySet()));
+            }
+            expediaPolicies.add(expediaPolicy);
+        }
+
+        JSONObject rooms = (JSONObject) hotelDetail.get("rooms");
+        if (rooms != null) {
+            for (Map.Entry<String, Object> entry : rooms.entrySet()) {
+                String roomId = entry.getKey();
+                JSONObject room = (JSONObject) entry.getValue();
+                ExpediaRooms expediaRoom = new ExpediaRooms();
+                expediaRoom.setHotelId(hotelId);
+                expediaRoom.setRoomId(roomId);
+                expediaRoom.setNameEn(getStringValueByKey(room, "name"));
+                JSONObject descriptions = (JSONObject) room.get("descriptions");
+                if (descriptions != null) {
+                    expediaRoom.setDescriptionsEn(getStringValueByKey(descriptions, "overview"));
+                }
+                expediaRoom.setBedGroups(getStringValueByKey(room, "bed_groups"));
+                JSONObject area = (JSONObject) room.get("area");
+                if (area != null) {
+                    expediaRoom.setAreaSquareFeet(getBigDecimalValueByKey(area, "square_feet"));
+                    expediaRoom.setAreaSquareMeters(getBigDecimalValueByKey(area, "square_meters"));
+                }
+                JSONObject views = (JSONObject) room.get("views");
+                if (views != null) {
+                    expediaRoom.setRoomView(String.join(",",views.keySet()));
+                }
+                JSONObject occupancy = (JSONObject) room.get("occupancy");
+                if (occupancy != null) {
+                    JSONObject maxAllowed = (JSONObject) occupancy.get("max_allowed");
+                    if (maxAllowed != null) {
+                        expediaRoom.setMaxAllowedTotal(getIntegerValueByKey(maxAllowed, "total"));
+                        if (expediaRoom.getMaxAllowedTotal() != null && expediaRoom.getMaxAllowedTotal() > 10) {
+                            System.out.println(expediaRoom.getMaxAllowedTotal());
+                        }
+                        expediaRoom.setMaxAllowedAdults(getIntegerValueByKey(maxAllowed, "adults"));
+                        expediaRoom.setMaxAllowedChildren(getIntegerValueByKey(maxAllowed, "children"));
+                    }
+                    JSONObject ageCategories = (JSONObject) occupancy.get("age_categories");
+                    if (ageCategories != null) {
+                        StringBuilder categoryStr = new StringBuilder();
+                        StringBuilder age = new StringBuilder();
+                        for (Map.Entry<String, Object>  ageCategoriesMap : ageCategories.entrySet()) {
+                            JSONObject ageCategory = (JSONObject) ageCategoriesMap.getValue();
+                            categoryStr.append(getStringValueByKey(ageCategory, "name")).append(",");
+                            age.append(getStringValueByKey(ageCategory, "minimum_age")).append(",");
+                        }
+                        expediaRoom.setAgeCategoriesName(categoryStr.substring(0, categoryStr.length() -1));
+                        expediaRoom.setAgeCategoriesMinimumAge(age.substring(0, age.length() -1));
+                    }
+                }
+                expediaRooms.add(expediaRoom);
+
+                JSONObject roomAmenities = (JSONObject) room.get("amenities");
+                if (roomAmenities != null) {
+                    for (Map.Entry<String, Object> roomAmenitiesMap : roomAmenities.entrySet()) {
+                        JSONObject roomAmenitiesJson = (JSONObject) roomAmenitiesMap.getValue();
+                        ExpediaRoomsAmenities expediaRoomsAmenities1 = new ExpediaRoomsAmenities();
+                        expediaRoomsAmenities1.setHotelId(hotelId);
+                        expediaRoomsAmenities1.setRoomId(roomId);
+                        expediaRoomsAmenities1.setAmenitiesId(getIntegerValueByKey(roomAmenitiesJson, "id"));
+                        expediaRoomsAmenities1.setAmenitiesNameEn(getStringValueByKey(roomAmenitiesJson, "name"));
+                        expediaRoomsAmenities1.setAmenitiesValue(getStringValueByKey(roomAmenitiesJson, "value"));
+                        /*if (StringUtils.hasLength(expediaRoomsAmenities1.getAmenitiesValue())) {
+                            if (expediaRoomsAmenities1.getAmenitiesValue().length() > 30) {
+                                System.out.println(expediaRoomsAmenities1.getAmenitiesValue());
+                            }
+                        }*/
+                        expediaRoomsAmenities1.setAmenitiesCategories(getStringValueByKey(roomAmenitiesJson, "categories"));
+                        expediaRoomsAmenities.add(expediaRoomsAmenities1);
+                    }
+                }
+
+                JSONArray roomImages = (JSONArray) room.get("images");
+                if (roomImages != null && roomImages.size() > 0) {
+                    for (Object roomImage : roomImages) {
+                        JSONObject roomImageJson = (JSONObject) roomImage;
+                        ExpediaRoomsImages expediaRoomsImages1 = new ExpediaRoomsImages();
+                        expediaRoomsImages1.setHotelId(hotelId);
+                        expediaRoomsImages1.setRoomId(roomId);
+                        expediaRoomsImages1.setHeroImage(getBooleanValueByKey(roomImageJson, "hero_image"));
+                        expediaRoomsImages1.setCategoryId(getIntegerValueByKey(roomImageJson, "category"));
+                        expediaRoomsImages1.setCategoryEn(getStringValueByKey(roomImageJson, "caption"));
+                        JSONObject links = (JSONObject) roomImageJson.get("links");
+                        if (links != null) {
+                            for (Map.Entry<String, Object> entry1 : links.entrySet()) {
+                                String key = entry1.getKey();
+                                JSONObject link = (JSONObject) entry1.getValue();
+                                String href = getStringValueByKey(link, "href");
+                                if ("350px".equals(key)) {
+                                    expediaRoomsImages1.setSmallSizeUrl(href);
+                                }
+                                if ("1000px".equals(key)) {
+                                    expediaRoomsImages1.setLargeSizeUrl(href);
+                                }
+                            }
+                        }
+                        expediaRoomsImages.add(expediaRoomsImages1);
+                    }
+                }
+            }
+        }
+        ExpediaDetailInfo expediaDetailInfo = new ExpediaDetailInfo();
+        expediaDetailInfo.setHotelId(hotelId);
+        // 此字段目前没有作用且过长，丢弃
+        /*JSONObject rates = (JSONObject) hotelDetail.get("rates");
+        if (rates != null) {
+            expediaDetailInfo.setRates(rates.toString());
+        }*/
+
+        JSONObject dates = (JSONObject) hotelDetail.get("dates");
+        if (dates != null) {
+            expediaInfo.setAddedTime(transferDateTime(getStringValueByKey(dates, "added")));
+            expediaInfo.setUpdatedTime(transferDateTime(getStringValueByKey(dates, "updated")));
+        }
+
+        JSONObject descriptions = (JSONObject) hotelDetail.get("descriptions");
+        if (descriptions != null) {
+            expediaDetailInfo.setDescriptionsEn(descriptions.toString());
+        }
+        JSONObject statistics = (JSONObject) hotelDetail.get("statistics");
+        if (statistics != null) {
+            for (Map.Entry<String, Object> statisticsMap : statistics.entrySet()) {
+                JSONObject statisticsJson = (JSONObject) statisticsMap.getValue();
+                ExpediaStatistics expediaStatistics1 = new ExpediaStatistics();
+                expediaStatistics1.setHotelId(hotelId);
+                expediaStatistics1.setStatisticsId(getIntegerValueByKey(statisticsJson, "id"));
+                expediaStatistics1.setStatisticsNameEn(getStringValueByKey(statisticsJson, "name"));
+                expediaStatistics1.setStatisticsValue(getStringValueByKey(statisticsJson, "value"));
+                expediaStatistics.add(expediaStatistics1);
+            }
+        }
+
+        JSONObject airports = (JSONObject) hotelDetail.get("airports");
+        if (airports != null) {
+            JSONObject preferred = (JSONObject) airports.get("preferred");
+            if (preferred != null) {
+                expediaInfo.setAirportNearby(getStringValueByKey(preferred, "iata_airport_code"));
+            }
+        }
+
+        JSONObject themes = (JSONObject) hotelDetail.get("themes");
+        if (themes != null) {
+            expediaInfo.setThemes(String.join(",", themes.keySet()));
+        }
+
+        JSONObject allInclusive = (JSONObject) hotelDetail.get("all_inclusive");
+        if (allInclusive != null) {
+            expediaDetailInfo.setAllInclusive(allInclusive.toString());
+        }
+        expediaDetailInfo.setTaxId(getStringValueByKey(hotelDetail,"tax_id"));
+
+        JSONObject chain = (JSONObject) hotelDetail.get("chain");
+        if (chain != null) {
+            expediaInfo.setChainId(getIntegerValueByKey(chain, "id"));
+            expediaInfo.setChainNameEn(getStringValueByKey(chain, "name"));
+        }
+
+        JSONObject brand = (JSONObject) hotelDetail.get("brand");
+        if (brand != null) {
+            expediaInfo.setBrandId(getIntegerValueByKey(brand, "id"));
+            expediaInfo.setBrandNameEn(getStringValueByKey(brand, "name"));
+        }
+        JSONObject spokenLanguages = (JSONObject) hotelDetail.get("spoken_languages");
+        if (spokenLanguages != null) {
+            expediaDetailInfo.setSpokenLanguages(String.join(",", spokenLanguages.keySet()));
+        }
+        expediaInfo.setSupplySource(getStringValueByKey(hotelDetail, "supplySource"));
+        expediaDetailInfo.setRegistryNumber(getStringValueByKey(hotelDetail, "registry_number"));
+        expediaInfo.setUpdateTime(date);
+        expediaInfos.add(expediaInfo);
+        expediaDetailInfos.add(expediaDetailInfo);
+    }
+
+    private Boolean getBooleanValueByKey(JSONObject jsonObject, String key) {
+        Object object = jsonObject.get(key);
+        if (object == null) return null;
+        return Boolean.valueOf(object.toString());
+    }
+
+    private Integer getIntegerValueByKey(JSONObject jsonObject, String key) {
+        Object object = jsonObject.get(key);
+        if (object == null) return null;
+        return Integer.valueOf(object.toString());
+    }
+
+    private Long getLongValueByKey(JSONObject jsonObject, String key) {
+        Object object = jsonObject.get(key);
+        if (object == null) return null;
+        return Long.valueOf(object.toString());
+    }
+
+    private BigDecimal getBigDecimalValueByKey(JSONObject jsonObject, String key) {
+        Object object = jsonObject.get(key);
+        if (object == null) return null;
+        return new BigDecimal(object.toString());
+    }
+
+    private String getStringValueByKey(JSONObject jsonObject, String key) {
+        Object object = jsonObject.get(key);
+        if (object == null) return null;
+        return object.toString();
     }
 }

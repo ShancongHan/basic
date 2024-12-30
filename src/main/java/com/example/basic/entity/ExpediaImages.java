@@ -12,7 +12,7 @@ public class ExpediaImages {
 
     private String hotelId;	// 酒店id
 
-    private Integer heroImage;	// 精选封面:1-true,0-false
+    private Boolean heroImage;	// 精选封面:1-true,0-false
 
     private String groupEn;	// 分组英文名字
 

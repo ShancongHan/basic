@@ -3,12 +3,12 @@
 <mapper namespace="com.example.basic.dao.ExpediaPolicyDao">
     <insert id="saveBatch" parameterType="com.example.basic.entity.ExpediaPolicy">
         insert into expedia_policy (hotel_id, all_day_checkin, checkin_start, checkin_end, checkout_time, min_age,
-        special_instructions_en, special_instructions, pets_en, pets, onsite_payments)
+        special_instructions_en, special_instructions, pets_en, pets, onsite_payments, onsite_payments_currency)
         values
         <foreach collection="insertList" separator="," item="item">
             (#{item.hotelId},#{item.allDayCheckin},#{item.checkinStart},#{item.checkinEnd},#{item.checkoutTime},
-            #{item.min_age},#{item.specialInstructionsEn},#{item.specialInstructions}
-            ,#{item.petsEn},#{item.pets},#{item.onsitePayments})
+            #{item.minAge},#{item.specialInstructionsEn},#{item.specialInstructions}
+            ,#{item.petsEn},#{item.pets},#{item.onsitePayments},#{item.onsitePaymentsCurrency})
         </foreach>
     </insert>
 </mapper>

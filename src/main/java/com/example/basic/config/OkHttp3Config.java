@@ -106,7 +106,7 @@ public class OkHttp3Config {
                 .retryOnConnectionFailure(true)
                 // 连接池
                 .connectionPool(pool())
-                .connectTimeout(60L, TimeUnit.SECONDS)
+                .connectTimeout(5L, TimeUnit.SECONDS)
                 .readTimeout(120L, TimeUnit.SECONDS)
                 .build();
     }

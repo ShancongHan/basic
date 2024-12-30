@@ -20,6 +20,50 @@
     <select id="selectNeedUpdate" resultType="java.lang.String">
         SELECT `hotel_id`
         FROM `expedia_info`
-        WHERE `update_time` is null LIMIT 500
+        WHERE `update_time` is null
     </select>
+
+    <update id="update" parameterType="com.example.basic.entity.ExpediaInfo">
+        UPDATE expedia_info
+        set
+        <if test="nameEn != null">name_en = #{nameEn},</if>
+        <if test="name != null">name = #{name},</if>
+        <if test="addressEn != null">address_en = #{addressEn},</if>
+        <if test="address != null">address = #{address},</if>
+        <if test="countryCode != null">country_code = #{countryCode},</if>
+        <if test="provinceCode != null">province_code = #{provinceCode},</if>
+        <if test="provinceNameEn != null">province_name_en = #{provinceNameEn},</if>
+        <if test="provinceName != null">province_name = #{provinceName},</if>
+        <if test="cityId != null">city_id = #{cityId},</if>
+        <if test="cityEn != null">city_en = #{cityEn},</if>
+        <if test="city != null">city = #{city},</if>
+        <if test="wstCityId != null">wst_city_id = #{wstCityId},</if>
+        <if test="zipCode != null">zip_code = #{zipCode},</if>
+        <if test="starRating != null">star_rating = #{starRating},</if>
+        <if test="guest != null">guest = #{guest},</if>
+        <if test="score != null">score = #{score},</if>
+        <if test="longitude != null">longitude = #{longitude},</if>
+        <if test="latitude != null">latitude = #{latitude},</if>
+        <if test="telephone != null">telephone = #{telephone},</if>
+        <if test="fax != null">fax = #{fax},</if>
+        <if test="categoryId != null">category_id = #{categoryId},</if>
+        <if test="categoryEn != null">category_en = #{categoryEn},</if>
+        <if test="category != null">category = #{category},</if>
+        <if test="expediaCollect != null">expedia_collect = #{expediaCollect},</if>
+        <if test="propertyCollect != null">property_collect = #{propertyCollect},</if>
+        <if test="rank != null">rank = #{rank},</if>
+        <if test="chainId != null">chain_id = #{chainId},</if>
+        <if test="chainNameEn != null">chain_name_en = #{chainNameEn},</if>
+        <if test="brandId != null">brand_id = #{brandId},</if>
+        <if test="brandNameEn != null">brand_name_en = #{brandNameEn},</if>
+        <if test="themes != null">themes = #{themes},</if>
+        <if test="heroImage != null">hero_image = #{heroImage},</if>
+        <if test="addedTime!= null or addedTime != null">added_time = #{addedTime},</if>
+        <if test="updatedTime!= null or updatedTime != null">updated_time = #{updatedTime},</if>
+        <if test="airportNearby != null">airport_nearby = #{airportNearby},</if>
+        <if test="supplySource != null">supply_source = #{supplySource},</if>
+        <if test="createTime!= null or createTime != null">create_time = #{createTime},</if>
+        update_time = #{updateTime}
+        WHERE hotel_id = #{hotelId}
+    </update>
 </mapper>

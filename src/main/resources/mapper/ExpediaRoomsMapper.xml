@@ -7,7 +7,7 @@
         age_categories_minimum_age, bed_groups, descriptions_en, descriptions)
         values
         <foreach collection="insertList" separator="," item="item">
-            (#{item.hotelId},#{item.roomId},#{item.nameEn},#{item.areaSquareMeters},#{item.areaSquareMeet},#{item.roomView},
+            (#{item.hotelId},#{item.roomId},#{item.nameEn},#{item.areaSquareMeters},#{item.areaSquareFeet},#{item.roomView},
             #{item.maxAllowedTotal}
             ,#{item.maxAllowedAdults},#{item.maxAllowedChildren},#{item.ageCategoriesName},#{item.ageCategoriesMinimumAge},
             #{item.bedGroups}
