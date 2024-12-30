@@ -190,4 +190,12 @@ public class WstGlobalController {
     public void pullHotelEn() throws Exception {
         wstGlobalService.pullHotelEn();
     }
+
+    /**
+     * 拉取酒店中文信息
+     */
+    @PostMapping(value = "pull-hotel")
+    public void pullHotel() throws Exception {
+        wstGlobalService.pullHotel();
+    }
 }

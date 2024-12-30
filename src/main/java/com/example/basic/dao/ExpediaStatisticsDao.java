@@ -13,4 +13,7 @@ public interface ExpediaStatisticsDao {
 
     void saveBatch(List<ExpediaStatistics> insertList);
 
+    List<ExpediaStatistics> selectListByHotelIds(List<String> propertyIds);
+
+    void update(ExpediaStatistics expediaStatistic);
 }

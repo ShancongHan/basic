@@ -4,14 +4,33 @@
     <insert id="saveBatch" parameterType="com.example.basic.entity.ExpediaRooms">
         insert into expedia_rooms (hotel_id, room_id, name_en, area_square_meters, area_square_feet, room_view,
         max_allowed_total, max_allowed_adults, max_allowed_children, age_categories_name,
-        age_categories_minimum_age, bed_groups, descriptions_en, descriptions)
+        age_categories_minimum_age, bed_groups_en, descriptions_en, descriptions)
         values
         <foreach collection="insertList" separator="," item="item">
             (#{item.hotelId},#{item.roomId},#{item.nameEn},#{item.areaSquareMeters},#{item.areaSquareFeet},#{item.roomView},
             #{item.maxAllowedTotal}
             ,#{item.maxAllowedAdults},#{item.maxAllowedChildren},#{item.ageCategoriesName},#{item.ageCategoriesMinimumAge},
-            #{item.bedGroups}
+            #{item.bedGroupsEn}
             ,#{item.descriptionsEn},#{item.descriptions})
         </foreach>
     </insert>
+
+    <select id="selectListByHotelIds" parameterType="java.util.List" resultType="com.example.basic.entity.ExpediaRooms">
+        SELECT id, hotel_id, room_id
+        FROM `expedia_rooms`
+        WHERE `hotel_id` IN
+        <foreach collection="propertyIds" item="hotelId" open="(" separator="," close=")">
+            #{hotelId}
+        </foreach>
+    </select>
+    
+    <update id="update" parameterType="com.example.basic.entity.ExpediaRooms">
+        UPDATE `expedia_rooms`
+        <set>
+            <if test="name != null"> name = #{name},</if>
+            <if test="bedGroups != null"> bed_groups = #{bedGroups},</if>
+            <if test="descriptions != null"> descriptions = #{descriptions},</if>
+        </set>
+        WHERE hotel_id = #{hotelId} and `room_id` = #{roomId}
+    </update>
 </mapper>

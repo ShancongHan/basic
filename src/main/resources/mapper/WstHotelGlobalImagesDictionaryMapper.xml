@@ -20,4 +20,9 @@
         SET `group` = #{group}
         WHERE `group_en` = #{groupEn}
     </update>
+
+    <select id="selectAll" resultType="com.example.basic.entity.WstHotelGlobalImagesDictionary">
+        SELECT *
+        FROM `wst_hotel_global_images_dictionary`
+    </select>
 </mapper>

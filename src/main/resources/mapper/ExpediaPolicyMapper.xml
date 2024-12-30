@@ -11,4 +11,13 @@
             ,#{item.petsEn},#{item.pets},#{item.onsitePayments},#{item.onsitePaymentsCurrency})
         </foreach>
     </insert>
+
+    <update id="update" parameterType="com.example.basic.entity.ExpediaPolicy">
+        UPDATE `expedia_policy`
+        <set>
+            <if test="specialInstructions != null"> special_instructions = #{specialInstructions},</if>
+            <if test="pets != null"> pets = #{pets},</if>
+        </set>
+        WHERE hotel_id = #{hotelId}
+    </update>
 </mapper>

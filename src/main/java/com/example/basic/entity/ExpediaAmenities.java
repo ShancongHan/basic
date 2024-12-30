@@ -22,6 +22,7 @@ public class ExpediaAmenities {
 
     private String amenitiesValue;	// 设施值
 
+    private String amenitiesCategoriesEn;	// 设施分类(英文)
     private String amenitiesCategories;	// 设施分类
 
     private Date createTime;	// 系统新增时间

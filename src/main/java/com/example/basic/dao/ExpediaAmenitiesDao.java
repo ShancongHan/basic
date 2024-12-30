@@ -10,4 +10,8 @@ import java.util.List;
  */
 public interface ExpediaAmenitiesDao {
     void saveBatch(List<ExpediaAmenities> insertList);
+
+    List<ExpediaAmenities> selectListByHotelIds(List<String> propertyIds);
+
+    void update(ExpediaAmenities expediaAmenity);
 }

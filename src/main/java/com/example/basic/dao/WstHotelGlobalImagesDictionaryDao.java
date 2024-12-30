@@ -13,4 +13,6 @@ public interface WstHotelGlobalImagesDictionaryDao {
     void updateByName(WstHotelGlobalImagesDictionary dictionary);
 
     void updateGroupName(WstHotelGlobalImagesDictionary update);
+
+    List<WstHotelGlobalImagesDictionary> selectAll();
 }

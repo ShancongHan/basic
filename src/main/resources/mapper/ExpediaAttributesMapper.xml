@@ -8,4 +8,21 @@
             (#{item.hotelId},#{item.generalId},#{item.generalNameEn},#{item.generalName},#{item.generalValue})
         </foreach>
     </insert>
+
+    <select id="selectListByHotelIds" parameterType="java.util.List" resultType="com.example.basic.entity.ExpediaAttributes">
+        SELECT id, hotel_id
+        FROM `expedia_attributes`
+        WHERE `hotel_id` IN
+        <foreach collection="propertyIds" item="hotelId" open="(" separator="," close=")">
+            #{hotelId}
+        </foreach>
+    </select>
+
+    <update id="update" parameterType="com.example.basic.entity.ExpediaAttributes">
+        UPDATE `expedia_attributes`
+        <set>
+        <if test="generalName != null"> general_name = #{generalName},</if>
+        </set>
+        WHERE hotel_id = #{hotelId} AND `general_id` = #{generalId}
+    </update>
 </mapper>

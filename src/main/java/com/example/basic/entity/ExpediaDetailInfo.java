@@ -23,5 +23,6 @@ public class ExpediaDetailInfo {
 
     private String rates;	// rates(JSON串)
 
+    private String allInclusiveEn;	// 全包(JSON串)(英文)
     private String allInclusive;	// 全包(JSON串)
 }

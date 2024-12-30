@@ -19,6 +19,8 @@ public class ExpediaRooms {
 
     private String nameEn;	// 房间名字(英文)
 
+    private String name;	// 房间名字
+
     private BigDecimal areaSquareMeters;	// 面积(平方米)
 
     private BigDecimal areaSquareFeet;	// 面积(平方英尺)
@@ -35,6 +37,7 @@ public class ExpediaRooms {
 
     private String ageCategoriesMinimumAge;	// 年龄分类最低年龄限制(,分割)
 
+    private String bedGroupsEn;	// 房间床型(JSON串)(英文)
     private String bedGroups;	// 房间床型(JSON串)
 
     private String descriptionsEn;	// 房间简介(英文)

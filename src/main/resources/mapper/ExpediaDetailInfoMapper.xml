@@ -3,11 +3,20 @@
 <mapper namespace="com.example.basic.dao.ExpediaDetailInfoDao">
     <insert id="saveBatch" parameterType="com.example.basic.entity.ExpediaDetailInfo">
         insert into expedia_detail_info (hotel_id, registry_number, spoken_languages, tax_id, descriptions_en, descriptions,
-        rates, all_inclusive)
+        rates, all_inclusive_en)
         values
         <foreach collection="insertList" separator="," item="item">
             (#{item.hotelId},#{item.registryNumber},#{item.spokenLanguages},#{item.taxId},#{item.descriptionsEn},
-            #{item.descriptions},#{item.rates},#{item.allInclusive})
+            #{item.descriptions},#{item.rates},#{item.allInclusiveEn})
         </foreach>
     </insert>
+
+    <update id="update" parameterType="com.example.basic.entity.ExpediaDetailInfo">
+        UPDATE expedia_detail_info
+        <set>
+            <if test="allInclusive != null">all_inclusive = #{allInclusive},</if>
+            <if test="descriptions != null">descriptions = #{descriptions},</if>
+        </set>
+        WHERE `hotel_id` = #{hotelId}
+    </update>
 </mapper>

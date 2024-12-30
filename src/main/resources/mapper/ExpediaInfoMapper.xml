@@ -25,7 +25,7 @@
 
     <update id="update" parameterType="com.example.basic.entity.ExpediaInfo">
         UPDATE expedia_info
-        set
+        SET
         <if test="nameEn != null">name_en = #{nameEn},</if>
         <if test="name != null">name = #{name},</if>
         <if test="addressEn != null">address_en = #{addressEn},</if>
@@ -62,7 +62,6 @@
         <if test="updatedTime!= null or updatedTime != null">updated_time = #{updatedTime},</if>
         <if test="airportNearby != null">airport_nearby = #{airportNearby},</if>
         <if test="supplySource != null">supply_source = #{supplySource},</if>
-        <if test="createTime!= null or createTime != null">create_time = #{createTime},</if>
         update_time = #{updateTime}
         WHERE hotel_id = #{hotelId}
     </update>

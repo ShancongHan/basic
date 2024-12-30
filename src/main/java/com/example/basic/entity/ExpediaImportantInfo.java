@@ -12,8 +12,10 @@ import java.util.Date;
 public class ExpediaImportantInfo {
     private String hotelId;	// 酒店id
 
+    private String feeMandatoryEn;	// 费用(英文)
     private String feeMandatory;	// 费用
 
+    private String feeOptionalEn;	// 费用-其他选项(英文)
     private String feeOptional;	// 费用-其他选项
 
     private String instructionsEn;	// 入住政策原文(英文)

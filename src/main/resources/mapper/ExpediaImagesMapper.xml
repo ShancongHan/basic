@@ -10,4 +10,23 @@
             #{item.categoryEn},#{item.caption},#{item.smallSizeUrl},#{item.largeSizeUrl})
         </foreach>
     </insert>
+
+    <select id="selectListByHotelIds" parameterType="java.util.List" resultType="com.example.basic.entity.ExpediaImages">
+        SELECT id, hotel_id
+        FROM `expedia_images`
+        WHERE `hotel_id` IN
+        <foreach collection="propertyIds" item="hotelId" open="(" separator="," close=")">
+            #{hotelId}
+        </foreach>
+    </select>
+
+    <update id="update" parameterType="com.example.basic.entity.ExpediaImages">
+        UPDATE expedia_images
+        <set>
+            <if test="groupEn != null"> group_en = #{groupEn},</if>
+            <if test="group != null"> `group` = #{group},</if>
+            <if test="caption != null"> caption = #{caption},</if>
+        </set>
+        WHERE hotel_id = #{hotelId} and `category_id` = #{categoryId}
+    </update>
 </mapper>

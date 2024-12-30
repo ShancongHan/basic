@@ -10,4 +10,6 @@ import java.util.List;
  */
 public interface ExpediaPolicyDao {
     void saveBatch(List<ExpediaPolicy> insertList);
+
+    void update(ExpediaPolicy expediaPolicy);
 }
