@@ -198,4 +198,12 @@ public class WstGlobalController {
     public void pullHotel() throws Exception {
         wstGlobalService.pullHotel();
     }
+
+    /**
+     * 完善区域数据
+     */
+    @PostMapping(value = "complete-region")
+    public void completeRegion() throws Exception {
+        wstGlobalService.completeRegion();
+    }
 }

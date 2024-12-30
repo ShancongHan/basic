@@ -5,6 +5,7 @@ import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 import com.example.basic.dao.*;
+import com.example.basic.domain.eps.Ancestors;
 import com.example.basic.domain.expedia.Pets;
 import com.example.basic.domain.to.Coordinates;
 import com.example.basic.entity.*;
@@ -30,10 +31,7 @@ import java.io.FileInputStream;
 import java.math.BigDecimal;
 import java.net.SocketException;
 import java.nio.charset.Charset;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 
@@ -103,6 +101,10 @@ public class WstGlobalService {
     private PlatformTransactionManager transactionManager;
     @Resource
     private TransactionDefinition transactionDefinition;
+
+    @Resource
+    private ExpediaRegionsDao expediaRegionsDao;
+
     public void categoryDictionary() throws Exception {
         //initCategory();
         String fileName = "C:\\wst_han\\打杂\\酒店统筹\\EPS梳理\\静态数据\\categories-翻译.txt";
@@ -116,7 +118,7 @@ public class WstGlobalService {
         }
     }
 
-    private void initCategory() throws Exception{
+    private void initCategory() throws Exception {
         String fileName = "C:\\wst_han\\打杂\\酒店统筹\\EPS梳理\\静态数据\\categories.json";
         String json = IOUtils.inputStreamToString(new FileInputStream(fileName));
         List<WstHotelGlobalCategoryDictionary> list = parseCategory(json);
@@ -144,7 +146,7 @@ public class WstGlobalService {
         return dictionaries;
     }
 
-    public void themesDictionary() throws Exception{
+    public void themesDictionary() throws Exception {
         //initThemes();
         String fileName = "C:\\wst_han\\打杂\\酒店统筹\\EPS梳理\\静态数据\\themes-翻译.txt";
         ImmutableList<String> lines = Files.asCharSource(new File(fileName), Charset.defaultCharset()).readLines();
@@ -157,7 +159,7 @@ public class WstGlobalService {
         }
     }
 
-    private void initThemes() throws Exception{
+    private void initThemes() throws Exception {
         String fileName = "C:\\wst_han\\打杂\\酒店统筹\\EPS梳理\\静态数据\\themes.json";
         String json = IOUtils.inputStreamToString(new FileInputStream(fileName));
         List<WstHotelGlobalThemesDictionary> list = parseThemes(json);
@@ -185,7 +187,7 @@ public class WstGlobalService {
         return list;
     }
 
-    public void statisticsDictionary() throws Exception{
+    public void statisticsDictionary() throws Exception {
         //initStatistics();
         String fileName = "C:\\wst_han\\打杂\\酒店统筹\\EPS梳理\\静态数据\\statistics-翻译.txt";
         ImmutableList<String> lines = Files.asCharSource(new File(fileName), Charset.defaultCharset()).readLines();
@@ -198,7 +200,7 @@ public class WstGlobalService {
         }
     }
 
-    private void initStatistics() throws Exception{
+    private void initStatistics() throws Exception {
         String fileName = "C:\\wst_han\\打杂\\酒店统筹\\EPS梳理\\静态数据\\statistics.json";
         String json = IOUtils.inputStreamToString(new FileInputStream(fileName));
         List<WstHotelGlobalStatisticsDictionary> list = parseStatistics(json);
@@ -226,7 +228,7 @@ public class WstGlobalService {
         return list;
     }
 
-    public void imagesDictionary() throws Exception{
+    public void imagesDictionary() throws Exception {
 //        initImages();
         updateImageName();
         String fileName = "C:\\wst_han\\打杂\\酒店统筹\\EPS梳理\\静态数据\\images_group-翻译.txt";
@@ -240,7 +242,7 @@ public class WstGlobalService {
         }
     }
 
-    private void updateImageName() throws Exception{
+    private void updateImageName() throws Exception {
         String fileName = "C:\\wst_han\\打杂\\酒店统筹\\EPS梳理\\静态数据\\images-翻译.txt";
         ImmutableList<String> lines = Files.asCharSource(new File(fileName), Charset.defaultCharset()).readLines();
         for (String line : lines) {
@@ -252,7 +254,7 @@ public class WstGlobalService {
         }
     }
 
-    private void initImages() throws Exception{
+    private void initImages() throws Exception {
         String fileName = "C:\\wst_han\\打杂\\酒店统筹\\EPS梳理\\静态数据\\images.json";
         String json = IOUtils.inputStreamToString(new FileInputStream(fileName));
         List<WstHotelGlobalImagesDictionary> list = parseImages(json);
@@ -280,7 +282,7 @@ public class WstGlobalService {
         return list;
     }
 
-    public void spokenLanguagesDictionary() throws Exception{
+    public void spokenLanguagesDictionary() throws Exception {
         //spokenLanguagesImages();
         String fileName = "C:\\wst_han\\打杂\\酒店统筹\\EPS梳理\\静态数据\\spoken_languages-翻译.txt";
         ImmutableList<String> lines = Files.asCharSource(new File(fileName), Charset.defaultCharset()).readLines();
@@ -293,7 +295,7 @@ public class WstGlobalService {
         }
     }
 
-    private void spokenLanguagesImages() throws Exception{
+    private void spokenLanguagesImages() throws Exception {
         String fileName = "C:\\wst_han\\打杂\\酒店统筹\\EPS梳理\\静态数据\\spoken_languages.json";
         String json = IOUtils.inputStreamToString(new FileInputStream(fileName));
         List<WstHotelGlobalSpokenLanguagesDictionary> list = parseSpokenLanguages(json);
@@ -321,7 +323,7 @@ public class WstGlobalService {
         return list;
     }
 
-    public void roomViewsDictionary() throws Exception{
+    public void roomViewsDictionary() throws Exception {
         //initRoomViews();
         String fileName = "C:\\wst_han\\打杂\\酒店统筹\\EPS梳理\\静态数据\\room_views-翻译.txt";
         ImmutableList<String> lines = Files.asCharSource(new File(fileName), Charset.defaultCharset()).readLines();
@@ -334,7 +336,7 @@ public class WstGlobalService {
         }
     }
 
-    private void initRoomViews() throws Exception{
+    private void initRoomViews() throws Exception {
         String fileName = "C:\\wst_han\\打杂\\酒店统筹\\EPS梳理\\静态数据\\room_views.json";
         String json = IOUtils.inputStreamToString(new FileInputStream(fileName));
         List<WstHotelGlobalRoomViewsDictionary> list = parseRoomViews(json);
@@ -362,7 +364,7 @@ public class WstGlobalService {
         return list;
     }
 
-    public void amenitiesRoomsDictionary() throws Exception{
+    public void amenitiesRoomsDictionary() throws Exception {
         //initAmenitiesRooms();
         String fileName = "C:\\wst_han\\打杂\\酒店统筹\\EPS梳理\\静态数据\\amenities_rooms-翻译.txt";
         ImmutableList<String> lines = Files.asCharSource(new File(fileName), Charset.defaultCharset()).readLines();
@@ -374,7 +376,8 @@ public class WstGlobalService {
             wstHotelGlobalAmenitiesRoomsDictionaryDao.updateByName(update);
         }
     }
-    private void initAmenitiesRooms() throws Exception{
+
+    private void initAmenitiesRooms() throws Exception {
         String fileName = "C:\\wst_han\\打杂\\酒店统筹\\EPS梳理\\静态数据\\amenities_rooms.json";
         String json = IOUtils.inputStreamToString(new FileInputStream(fileName));
         List<WstHotelGlobalAmenitiesRoomsDictionary> list = parseAmenitiesRooms(json);
@@ -402,7 +405,7 @@ public class WstGlobalService {
         return list;
     }
 
-    public void amenitiesPropertyDictionary() throws Exception{
+    public void amenitiesPropertyDictionary() throws Exception {
         //initAmenitiesProperty();
         String fileName = "C:\\wst_han\\打杂\\酒店统筹\\EPS梳理\\静态数据\\amenities_property-翻译.txt";
         ImmutableList<String> lines = Files.asCharSource(new File(fileName), Charset.defaultCharset()).readLines();
@@ -415,7 +418,7 @@ public class WstGlobalService {
         }
     }
 
-    private void initAmenitiesProperty() throws Exception{
+    private void initAmenitiesProperty() throws Exception {
         String fileName = "C:\\wst_han\\打杂\\酒店统筹\\EPS梳理\\静态数据\\amenities_property.json";
         String json = IOUtils.inputStreamToString(new FileInputStream(fileName));
         List<WstHotelGlobalAmenitiesPropertyDictionary> list = parseAmenitiesProperty(json);
@@ -445,7 +448,7 @@ public class WstGlobalService {
         return list;
     }
 
-    public void onsitePaymentDictionary() throws Exception{
+    public void onsitePaymentDictionary() throws Exception {
 //        initOnsitePayment();
         String fileName = "C:\\wst_han\\打杂\\酒店统筹\\EPS梳理\\静态数据\\onsite_payment-翻译.txt";
         ImmutableList<String> lines = Files.asCharSource(new File(fileName), Charset.defaultCharset()).readLines();
@@ -458,7 +461,7 @@ public class WstGlobalService {
         }
     }
 
-    private void initOnsitePayment() throws Exception{
+    private void initOnsitePayment() throws Exception {
         String fileName = "C:\\wst_han\\打杂\\酒店统筹\\EPS梳理\\静态数据\\onsite_payment.json";
         String json = IOUtils.inputStreamToString(new FileInputStream(fileName));
         List<WstHotelGlobalOnsitePaymentDictionary> list = parseOnsitePayment(json);
@@ -486,7 +489,7 @@ public class WstGlobalService {
         return list;
     }
 
-    public void amenitiesRatesDictionary() throws Exception{
+    public void amenitiesRatesDictionary() throws Exception {
 //        initAmenitiesRates();
         String fileName = "C:\\wst_han\\打杂\\酒店统筹\\EPS梳理\\静态数据\\amenities_rates-翻译.txt";
         ImmutableList<String> lines = Files.asCharSource(new File(fileName), Charset.defaultCharset()).readLines();
@@ -499,7 +502,7 @@ public class WstGlobalService {
         }
     }
 
-    private void initAmenitiesRates() throws Exception{
+    private void initAmenitiesRates() throws Exception {
         String fileName = "C:\\wst_han\\打杂\\酒店统筹\\EPS梳理\\静态数据\\amenities_rates.json";
         String json = IOUtils.inputStreamToString(new FileInputStream(fileName));
         List<WstHotelGlobalAmenitiesRatesDictionary> list = parseAmenitiesRates(json);
@@ -529,7 +532,7 @@ public class WstGlobalService {
         return list;
     }
 
-    public void petsDictionary() throws Exception{
+    public void petsDictionary() throws Exception {
 //        initPets();
         String fileName = "C:\\wst_han\\打杂\\酒店统筹\\EPS梳理\\静态数据\\attributes_pets-翻译.txt";
         ImmutableList<String> lines = Files.asCharSource(new File(fileName), Charset.defaultCharset()).readLines();
@@ -542,7 +545,7 @@ public class WstGlobalService {
         }
     }
 
-    private void initPets() throws Exception{
+    private void initPets() throws Exception {
         String fileName = "C:\\wst_han\\打杂\\酒店统筹\\EPS梳理\\静态数据\\attributes_pets.json";
         String json = IOUtils.inputStreamToString(new FileInputStream(fileName));
         List<WstHotelGlobalPetsDictionary> list = parsePets(json);
@@ -572,7 +575,7 @@ public class WstGlobalService {
         return list;
     }
 
-    public void generalDictionary() throws Exception{
+    public void generalDictionary() throws Exception {
 //        initGeneral();
         String fileName = "C:\\wst_han\\打杂\\酒店统筹\\EPS梳理\\静态数据\\attributes_general-翻译.txt";
         ImmutableList<String> lines = Files.asCharSource(new File(fileName), Charset.defaultCharset()).readLines();
@@ -585,7 +588,7 @@ public class WstGlobalService {
         }
     }
 
-    private void initGeneral() throws Exception{
+    private void initGeneral() throws Exception {
         String fileName = "C:\\wst_han\\打杂\\酒店统筹\\EPS梳理\\静态数据\\attributes_general.json";
         String json = IOUtils.inputStreamToString(new FileInputStream(fileName));
         List<WstHotelGlobalGeneralDictionary> list = parseGeneral(json);
@@ -615,7 +618,7 @@ public class WstGlobalService {
         return list;
     }
 
-    public void chainBrand() throws Exception{
+    public void chainBrand() throws Exception {
         List<WstHotelGlobalChain> chains = Lists.newArrayList();
         List<WstHotelGlobalBrand> brands = Lists.newArrayList();
         String response = httpUtils.pullChain();
@@ -872,7 +875,7 @@ public class WstGlobalService {
                                List<ExpediaRoomsImages> expediaRoomsImages, List<ExpediaRoomsAmenities> expediaRoomsAmenities,
                                List<ExpediaAmenities> expediaAmenities, List<ExpediaAttributes> expediaAttributes,
                                List<ExpediaImportantInfo> expediaImportantInfos, List<ExpediaStatistics> expediaStatistics,
-                               Date date) throws Exception{
+                               Date date) throws Exception {
         ExpediaInfo expediaInfo = new ExpediaInfo();
         expediaInfo.setHotelId(hotelId);
         expediaInfo.setNameEn(getStringValueByKey(hotelDetail, "name"));
@@ -933,11 +936,11 @@ public class WstGlobalService {
         expediaImportantInfo.setHotelId(hotelId);
         JSONObject checkin = (JSONObject) hotelDetail.get("checkin");
         if (checkin != null) {
-            expediaPolicy.setAllDayCheckin(getStringValueByKey(checkin,"24_hour"));
-            expediaPolicy.setCheckinStart(getStringValueByKey(checkin,"begin_time"));
-            expediaPolicy.setCheckinEnd(getStringValueByKey(checkin,"end_time"));
-            expediaPolicy.setMinAge(getIntegerValueByKey(checkin,"min_age"));
-            expediaPolicy.setSpecialInstructionsEn(getStringValueByKey(checkin,"special_instructions"));
+            expediaPolicy.setAllDayCheckin(getStringValueByKey(checkin, "24_hour"));
+            expediaPolicy.setCheckinStart(getStringValueByKey(checkin, "begin_time"));
+            expediaPolicy.setCheckinEnd(getStringValueByKey(checkin, "end_time"));
+            expediaPolicy.setMinAge(getIntegerValueByKey(checkin, "min_age"));
+            expediaPolicy.setSpecialInstructionsEn(getStringValueByKey(checkin, "special_instructions"));
             /*if (StringUtils.hasLength(expediaPolicy.getSpecialInstructionsEn()) && expediaPolicy.getSpecialInstructionsEn().length() > 1000) {
                 System.out.println(expediaPolicy.getSpecialInstructionsEn());
             }*/
@@ -945,16 +948,16 @@ public class WstGlobalService {
         }
         JSONObject checkout = (JSONObject) hotelDetail.get("checkout");
         if (checkout != null) {
-            expediaPolicy.setCheckoutTime(getStringValueByKey(checkout,"time"));
+            expediaPolicy.setCheckoutTime(getStringValueByKey(checkout, "time"));
         }
         JSONObject fees = (JSONObject) hotelDetail.get("fees");
         if (fees != null) {
-            expediaImportantInfo.setFeeMandatoryEn(getStringValueByKey(fees,"mandatory"));
-            expediaImportantInfo.setFeeOptionalEn(getStringValueByKey(fees,"optional"));
+            expediaImportantInfo.setFeeMandatoryEn(getStringValueByKey(fees, "mandatory"));
+            expediaImportantInfo.setFeeOptionalEn(getStringValueByKey(fees, "optional"));
         }
         JSONObject policies = (JSONObject) hotelDetail.get("policies");
         if (policies != null) {
-            expediaImportantInfo.setKnowBeforeYouGoEn(getStringValueByKey(policies,"know_before_you_go"));
+            expediaImportantInfo.setKnowBeforeYouGoEn(getStringValueByKey(policies, "know_before_you_go"));
         }
         expediaImportantInfos.add(expediaImportantInfo);
         JSONObject attributes = (JSONObject) hotelDetail.get("attributes");
@@ -1067,7 +1070,7 @@ public class WstGlobalService {
                 }
                 JSONObject views = (JSONObject) room.get("views");
                 if (views != null) {
-                    expediaRoom.setRoomView(String.join(",",views.keySet()));
+                    expediaRoom.setRoomView(String.join(",", views.keySet()));
                 }
                 JSONObject occupancy = (JSONObject) room.get("occupancy");
                 if (occupancy != null) {
@@ -1084,13 +1087,13 @@ public class WstGlobalService {
                     if (ageCategories != null) {
                         StringBuilder categoryStr = new StringBuilder();
                         StringBuilder age = new StringBuilder();
-                        for (Map.Entry<String, Object>  ageCategoriesMap : ageCategories.entrySet()) {
+                        for (Map.Entry<String, Object> ageCategoriesMap : ageCategories.entrySet()) {
                             JSONObject ageCategory = (JSONObject) ageCategoriesMap.getValue();
                             categoryStr.append(getStringValueByKey(ageCategory, "name")).append(",");
                             age.append(getStringValueByKey(ageCategory, "minimum_age")).append(",");
                         }
-                        expediaRoom.setAgeCategoriesName(categoryStr.substring(0, categoryStr.length() -1));
-                        expediaRoom.setAgeCategoriesMinimumAge(age.substring(0, age.length() -1));
+                        expediaRoom.setAgeCategoriesName(categoryStr.substring(0, categoryStr.length() - 1));
+                        expediaRoom.setAgeCategoriesMinimumAge(age.substring(0, age.length() - 1));
                     }
                 }
                 expediaRooms.add(expediaRoom);
@@ -1192,7 +1195,7 @@ public class WstGlobalService {
         if (allInclusive != null) {
             expediaDetailInfo.setAllInclusiveEn(allInclusive.toString());
         }
-        expediaDetailInfo.setTaxId(getStringValueByKey(hotelDetail,"tax_id"));
+        expediaDetailInfo.setTaxId(getStringValueByKey(hotelDetail, "tax_id"));
 
         JSONObject chain = (JSONObject) hotelDetail.get("chain");
         if (chain != null) {
@@ -1246,7 +1249,7 @@ public class WstGlobalService {
         return object.toString();
     }
 
-    public void pullHotel() throws Exception{
+    public void pullHotel() throws Exception {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start("查询db");
         List<String> propertyIds = expediaInfoDao.selectNeedUpdate();
@@ -1399,7 +1402,7 @@ public class WstGlobalService {
                                  List<ExpediaRoomsImages> expediaRoomsImages, List<ExpediaRoomsAmenities> expediaRoomsAmenities,
                                  List<ExpediaAmenities> expediaAmenities, List<ExpediaAttributes> expediaAttributes,
                                  List<ExpediaImportantInfo> expediaImportantInfos, List<ExpediaStatistics> expediaStatistics,
-                                 Date date, Map<Integer, WstHotelGlobalImagesDictionary> imagesMap) throws Exception{
+                                 Date date, Map<Integer, WstHotelGlobalImagesDictionary> imagesMap) throws Exception {
         ExpediaInfo expediaInfo = new ExpediaInfo();
         expediaInfo.setHotelId(hotelId);
         expediaInfo.setName(getStringValueByKey(hotelDetail, "name"));
@@ -1422,17 +1425,17 @@ public class WstGlobalService {
 
         JSONObject checkin = (JSONObject) hotelDetail.get("checkin");
         if (checkin != null) {
-            expediaPolicy.setSpecialInstructions(getStringValueByKey(checkin,"special_instructions"));
+            expediaPolicy.setSpecialInstructions(getStringValueByKey(checkin, "special_instructions"));
             expediaImportantInfo.setInstructions(getStringValueByKey(checkin, "instructions"));
         }
         JSONObject fees = (JSONObject) hotelDetail.get("fees");
         if (fees != null) {
-            expediaImportantInfo.setFeeMandatory(getStringValueByKey(fees,"mandatory"));
-            expediaImportantInfo.setFeeOptional(getStringValueByKey(fees,"optional"));
+            expediaImportantInfo.setFeeMandatory(getStringValueByKey(fees, "mandatory"));
+            expediaImportantInfo.setFeeOptional(getStringValueByKey(fees, "optional"));
         }
         JSONObject policies = (JSONObject) hotelDetail.get("policies");
         if (policies != null) {
-            expediaImportantInfo.setKnowBeforeYouGo(getStringValueByKey(policies,"know_before_you_go"));
+            expediaImportantInfo.setKnowBeforeYouGo(getStringValueByKey(policies, "know_before_you_go"));
         }
         expediaImportantInfos.add(expediaImportantInfo);
         JSONObject attributes = (JSONObject) hotelDetail.get("attributes");
@@ -1569,5 +1572,67 @@ public class WstGlobalService {
         expediaInfo.setUpdateTime(date);
         expediaInfos.add(expediaInfo);
         expediaDetailInfos.add(expediaDetailInfo);
+    }
+
+    public void completeRegion() throws Exception {
+        List<ExpediaRegions> expediaRegions = expediaRegionsDao.selectAll();
+        List<String> notHandlerRegionsList = Lists.newArrayListWithCapacity(1000);
+        Map<String, List<ExpediaRegions>> countryCodeMap = expediaRegions.stream().collect(Collectors.groupingBy(ExpediaRegions::getCountryCode));
+        for (Map.Entry<String, List<ExpediaRegions>> entry : countryCodeMap.entrySet()) {
+            List<ExpediaRegions> oneCountryList = entry.getValue();
+            Map<String, ExpediaRegions> regionIdMap = oneCountryList.stream().collect(Collectors.toMap(ExpediaRegions::getRegionId, e -> e));
+            for (ExpediaRegions expediaRegion : expediaRegions) {
+                handlerPath(expediaRegion, regionIdMap, notHandlerRegionsList);
+                expediaRegionsDao.update(expediaRegion);
+            }
+        }
+        log.info("这些区域数据异常(共{}条)，具体未解析id如下：{}",notHandlerRegionsList.size(), notHandlerRegionsList);
+    }
+
+    private void handlerPath(ExpediaRegions expediaRegion, Map<String, ExpediaRegions> regionIdMap, List<String> notHandlerRegionsList) {
+        String ancestors = expediaRegion.getAncestors();
+        if (!StringUtils.hasLength(ancestors)) return;
+        List<Ancestors> ancestorsList = JSON.parseArray(ancestors, Ancestors.class);
+        if (CollectionUtils.isEmpty(ancestorsList)) return;
+        StringBuilder builder = new StringBuilder("/");
+        Optional<Ancestors> continent = ancestorsList.stream().filter(e -> "continent".equals(e.getType())).findFirst();
+        continent.ifPresent(value -> builder.append(value.getId()).append("/"));
+        continent.ifPresent(value -> expediaRegion.setContinent(value.getId()));
+        Optional<Ancestors> country = ancestorsList.stream().filter(e -> "country".equals(e.getType())).findFirst();
+        country.ifPresent(value -> builder.append(value.getId()).append("/"));
+        List<Ancestors> provinceState = ancestorsList.stream().filter(e -> "province_state".equals(e.getType())).toList();
+        if (!CollectionUtils.isEmpty(provinceState) && provinceState.size() > 5) {
+            notHandlerRegionsList.add(expediaRegion.getRegionId());
+            return;
+        }
+        if (!CollectionUtils.isEmpty(provinceState)) {
+            String provinceSign = "administrative:province";
+            String provinceSign1 = "subProvince1";
+            String provinceSign2 = "subProvince2";
+            String provinceSign3 = "subProvince3";
+            String provinceSign4 = "subProvince4";
+            Optional<Ancestors> firstProvince = provinceState.stream().filter(e -> regionIdMap.get(e.getId()).getCategories().contains(provinceSign)).findFirst();
+            firstProvince.ifPresent(e -> builder.append(e.getId()).append("/"));
+            Optional<Ancestors> firstProvince1 = provinceState.stream().filter(e -> regionIdMap.get(e.getId()).getCategories().contains(provinceSign1)).findFirst();
+            firstProvince1.ifPresent(e -> builder.append(e.getId()).append("/"));
+            Optional<Ancestors> firstProvince2 = provinceState.stream().filter(e -> regionIdMap.get(e.getId()).getCategories().contains(provinceSign2)).findFirst();
+            firstProvince2.ifPresent(e -> builder.append(e.getId()).append("/"));
+            Optional<Ancestors> firstProvince3 = provinceState.stream().filter(e -> regionIdMap.get(e.getId()).getCategories().contains(provinceSign3)).findFirst();
+            firstProvince3.ifPresent(e -> builder.append(e.getId()).append("/"));
+            Optional<Ancestors> firstProvince4 = provinceState.stream().filter(e -> regionIdMap.get(e.getId()).getCategories().contains(provinceSign4)).findFirst();
+            firstProvince4.ifPresent(e -> builder.append(e.getId()).append("/"));
+        }
+        Optional<Ancestors> highLevelRegion = ancestorsList.stream().filter(e -> "high_level_region".equals(e.getType())).findFirst();
+        highLevelRegion.ifPresent(value -> builder.append(value.getId()).append("/"));
+        Optional<Ancestors> multiCityVicinity = ancestorsList.stream().filter(e -> "multi_city_vicinity".equals(e.getType())).findFirst();
+        multiCityVicinity.ifPresent(value -> builder.append(value.getId()).append("/"));
+        Optional<Ancestors> city = ancestorsList.stream().filter(e -> "city".equals(e.getType())).findFirst();
+        city.ifPresent(value -> builder.append(value.getId()).append("/"));
+        Optional<Ancestors> neighborhood = ancestorsList.stream().filter(e -> "neighborhood".equals(e.getType())).findFirst();
+        neighborhood.ifPresent(value -> builder.append(value.getId()).append("/"));
+        String path = builder.toString();
+        expediaRegion.setParentPath(path);
+        String[] split = path.split("/");
+        expediaRegion.setParentId(split[split.length - 1]);
     }
 }

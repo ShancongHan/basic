@@ -20,4 +20,6 @@ public interface ExpediaRegionsDao {
     List<ExpediaRegions> selectAllAncestors();
 
     void updateContinent(@Param(value = "id") Long id, @Param(value = "continentId") String continentId);
+
+    List<ExpediaRegions> selectAll();
 }

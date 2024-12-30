@@ -46,4 +46,9 @@
         SET `continent` = #{continentId}
         WHERE `id` = #{id}
     </update>
+
+    <select id="selectAll" resultType="com.example.basic.entity.ExpediaRegions">
+        SELECT *
+        FROM expedia_regions
+    </select>
 </mapper>
