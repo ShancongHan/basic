@@ -19,18 +19,18 @@
     <update id="update" parameterType="com.example.basic.entity.ExpediaRegions">
         UPDATE `expedia_regions`
         <set>
-            <if test="name != null"> name = #{name,jdbcType=VARCHAR},</if>
-            <if test="fullName != null"> full_name = #{fullName,jdbcType=VARCHAR},</if>
-            <if test="countrySubdivisionCode != null"> country_subdivision_code = #{countrySubdivisionCode,jdbcType=VARCHAR},</if>
-            <if test="parentId != null"> parent_id = #{parentId,jdbcType=VARCHAR},</if>
-            <if test="parentPath != null"> parent_path = #{parentPath,jdbcType=VARCHAR},</if>
-            <if test="centerLongitude != null"> center_longitude = #{centerLongitude,jdbcType=DECIMAL},</if>
-            <if test="centerLatitude != null"> center_latitude = #{centerLatitude,jdbcType=DECIMAL},</if>
-            <if test="categories != null"> categories = #{categories,jdbcType=VARCHAR},</if>
-            <if test="tags != null"> tags = #{tags,jdbcType=VARCHAR},</if>
-            <if test="ancestors != null"> ancestors = #{ancestors,jdbcType=VARCHAR},</if>
-            <if test="descendants != null"> descendants = #{descendants,jdbcType=VARCHAR},</if>
-            <if test="hasZh != null"> has_zh = #{hasZh,jdbcType=TINYINT},</if>
+            <if test="name != null"> name = #{name},</if>
+            <if test="fullName != null"> full_name = #{fullName},</if>
+            <if test="countrySubdivisionCode != null"> country_subdivision_code = #{countrySubdivisionCode},</if>
+            <if test="parentId != null"> parent_id = #{parentId},</if>
+            <if test="parentPath != null"> parent_path = #{parentPath},</if>
+            <if test="centerLongitude != null"> center_longitude = #{centerLongitude},</if>
+            <if test="centerLatitude != null"> center_latitude = #{centerLatitude},</if>
+            <if test="categories != null"> categories = #{categories},</if>
+            <if test="tags != null"> tags = #{tags},</if>
+            <if test="ancestors != null"> ancestors = #{ancestors},</if>
+            <if test="descendants != null"> descendants = #{descendants},</if>
+            <if test="hasZh != null"> has_zh = #{hasZh},</if>
         </set>
         WHERE `id` = #{id}
     </update>
@@ -50,5 +50,22 @@
     <select id="selectAll" resultType="com.example.basic.entity.ExpediaRegions">
         SELECT *
         FROM expedia_regions
+        WHERE country_code = 'AF'
     </select>
+
+    <select id="selectListByCountryCode" resultType="com.example.basic.entity.ExpediaRegions">
+        SELECT *
+        FROM expedia_regions
+        WHERE country_code = #{countryCode}
+    </select>
+
+    <update id="updateSomeData" parameterType="com.example.basic.entity.ExpediaRegions">
+        UPDATE `expedia_regions`
+        <set>
+            <if test="continent != null"> continent = #{continent},</if>
+            <if test="parentId != null"> parent_id = #{parentId},</if>
+            <if test="parentPath != null"> parent_path = #{parentPath},</if>
+        </set>
+        WHERE `id` = #{id}
+    </update>
 </mapper>

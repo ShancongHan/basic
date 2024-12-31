@@ -5,6 +5,7 @@ import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 import com.example.basic.dao.*;
+import com.example.basic.domain.ExpediaPriceResult;
 import com.example.basic.domain.eps.Ancestors;
 import com.example.basic.domain.expedia.Pets;
 import com.example.basic.domain.to.Coordinates;
@@ -32,7 +33,7 @@ import java.math.BigDecimal;
 import java.net.SocketException;
 import java.nio.charset.Charset;
 import java.util.*;
-import java.util.concurrent.TimeoutException;
+import java.util.concurrent.*;
 import java.util.stream.Collectors;
 
 /**
@@ -104,6 +105,11 @@ public class WstGlobalService {
 
     @Resource
     private ExpediaRegionsDao expediaRegionsDao;
+    @Resource
+    private ExpediaCountryDao expediaCountryDao;
+
+    private static final Executor executor = new ThreadPoolExecutor(50, 100,
+            0L, TimeUnit.MILLISECONDS, new LinkedBlockingDeque<>(300000));
 
     public void categoryDictionary() throws Exception {
         //initCategory();
@@ -1256,7 +1262,7 @@ public class WstGlobalService {
         List<WstHotelGlobalImagesDictionary> wstHotelGlobalImagesDictionaries = wstHotelGlobalImagesDictionaryDao.selectAll();
         Map<Integer, WstHotelGlobalImagesDictionary> imagesMap = wstHotelGlobalImagesDictionaries.stream().collect(Collectors.toMap(WstHotelGlobalImagesDictionary::getId, e -> e));
         stopWatch.stop();
-        log.info("查询db花费时间: {}", stopWatch.getTotalTimeMillis());
+        log.info("查询db花费时间: {}", stopWatch.getTotalTimeSeconds());
         int max = Math.max(250, propertyIds.size());
         Date date = new Date();
         /*List<ExpediaInfo> expediaInfos = Lists.newArrayListWithCapacity(250);
@@ -1304,11 +1310,15 @@ public class WstGlobalService {
             JSONObject jsonObject = JSON.parseObject(body);
             watch.start("转换并存库");
             for (Map.Entry<String, Object> entry : jsonObject.entrySet()) {
+                StopWatch stopWatch2 = new StopWatch();
                 String hotelId = entry.getKey();
                 JSONObject hotelDetail = (JSONObject) entry.getValue();
+                stopWatch2.start("转换单个酒店详情");
                 convertDetailZh(hotelId, hotelDetail, expediaInfos, expediaDetailInfos, expediaImages, expediaPolicies, expediaRooms,
                         expediaRoomsImages, expediaRoomsAmenities, expediaAmenities, expediaAttributes, expediaImportantInfos,
                         expediaStatistics, date, imagesMap);
+                stopWatch2.stop();
+                stopWatch2.start("更新单个酒店");
                 TransactionStatus transaction = transactionManager.getTransaction(transactionDefinition);
                 try {
                     update(expediaInfos, expediaDetailInfos, expediaImages, expediaPolicies, expediaRooms,
@@ -1318,7 +1328,10 @@ public class WstGlobalService {
                     log.info("本此批次抛出异常，这些id:{}跳过", queryList);
                     log.error("本此批次抛出异常{}，跳过", Throwables.getStackTraceAsString(exception));
                     transactionManager.rollback(transaction);
+                    stopWatch2.stop();
                 }
+                stopWatch2.stop();
+                log.info("单个酒店执行总时长：{}, 具体耗时为：{}", watch.getTotalTimeSeconds(), watch.prettyPrint());
                 expediaInfos.clear();
                 expediaDetailInfos.clear();
                 expediaImages.clear();
@@ -1332,7 +1345,7 @@ public class WstGlobalService {
                 expediaStatistics.clear();
             }
             watch.stop();
-            log.info("本批次执行总时长：{}, 具体耗时为：{}", watch.getTotalTimeMillis(), watch.prettyPrint());
+            log.info("本批次执行总时长：{}, 具体耗时为：{}", watch.getTotalTimeSeconds(), watch.prettyPrint());
         }
     }
 
@@ -1575,25 +1588,45 @@ public class WstGlobalService {
     }
 
     public void completeRegion() throws Exception {
-        List<ExpediaRegions> expediaRegions = expediaRegionsDao.selectAll();
-        List<String> notHandlerRegionsList = Lists.newArrayListWithCapacity(1000);
-        Map<String, List<ExpediaRegions>> countryCodeMap = expediaRegions.stream().collect(Collectors.groupingBy(ExpediaRegions::getCountryCode));
-        for (Map.Entry<String, List<ExpediaRegions>> entry : countryCodeMap.entrySet()) {
-            List<ExpediaRegions> oneCountryList = entry.getValue();
+        List<ExpediaCountry> expediaCountries = expediaCountryDao.selectAllCode();
+        List<String> skip = Lists.newArrayList("AF","AU","LR","LY","LT","LU","MO","MK","MG","MW","MY","MV");
+        List<String> countryCodeList = expediaCountries.stream().map(ExpediaCountry::getCode).toList();
+        for (String countryCode : countryCodeList) {
+            if (skip.contains(countryCode)) continue;
+            StopWatch watch = new StopWatch();
+            List<String> notHandlerRegionsList = Lists.newArrayListWithCapacity(500);
+            watch.start("查询国家" + countryCode + "数据");
+            List<ExpediaRegions> oneCountryList = expediaRegionsDao.selectListByCountryCode(countryCode);
+            watch.stop();
+            watch.start("处理数据");
+            List<CompletableFuture<List<String>>> futures = Lists.newArrayListWithCapacity(oneCountryList.size());
             Map<String, ExpediaRegions> regionIdMap = oneCountryList.stream().collect(Collectors.toMap(ExpediaRegions::getRegionId, e -> e));
-            for (ExpediaRegions expediaRegion : expediaRegions) {
-                handlerPath(expediaRegion, regionIdMap, notHandlerRegionsList);
-                expediaRegionsDao.update(expediaRegion);
+            for (ExpediaRegions expediaRegion : oneCountryList) {
+                if (StringUtils.hasLength(expediaRegion.getParentPath())) continue;
+                futures.add(CompletableFuture.supplyAsync(() -> handlerPathAndUpdate(expediaRegion, regionIdMap), executor));
             }
+            CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
+            for (CompletableFuture<List<String>> future : futures) {
+                try {
+                    List<String> list = future.get(3, TimeUnit.MILLISECONDS);
+                    if (!CollectionUtils.isEmpty(list)) {
+                        notHandlerRegionsList.addAll(list);
+                    }
+                } catch (TimeoutException ignore) {
+                }
+            }
+            watch.stop();
+            log.info("国家{}，这些区域数据异常(共{}条)，具体未解析id如下：{}", countryCode, notHandlerRegionsList.size(), notHandlerRegionsList);
+            log.info("国家{}执行总时长：{}, 具体耗时为：{}", countryCode, watch.getTotalTimeSeconds(), watch.prettyPrint());
         }
-        log.info("这些区域数据异常(共{}条)，具体未解析id如下：{}",notHandlerRegionsList.size(), notHandlerRegionsList);
     }
 
-    private void handlerPath(ExpediaRegions expediaRegion, Map<String, ExpediaRegions> regionIdMap, List<String> notHandlerRegionsList) {
+    private List<String> handlerPathAndUpdate(ExpediaRegions expediaRegion, Map<String, ExpediaRegions> regionIdMap) {
+        List<String> notHandlerRegionsList = Lists.newArrayList(expediaRegion.getRegionId());
         String ancestors = expediaRegion.getAncestors();
-        if (!StringUtils.hasLength(ancestors)) return;
+        if (!StringUtils.hasLength(ancestors)) return notHandlerRegionsList;
         List<Ancestors> ancestorsList = JSON.parseArray(ancestors, Ancestors.class);
-        if (CollectionUtils.isEmpty(ancestorsList)) return;
+        if (CollectionUtils.isEmpty(ancestorsList)) return notHandlerRegionsList;
         StringBuilder builder = new StringBuilder("/");
         Optional<Ancestors> continent = ancestorsList.stream().filter(e -> "continent".equals(e.getType())).findFirst();
         continent.ifPresent(value -> builder.append(value.getId()).append("/"));
@@ -1603,7 +1636,7 @@ public class WstGlobalService {
         List<Ancestors> provinceState = ancestorsList.stream().filter(e -> "province_state".equals(e.getType())).toList();
         if (!CollectionUtils.isEmpty(provinceState) && provinceState.size() > 5) {
             notHandlerRegionsList.add(expediaRegion.getRegionId());
-            return;
+            return notHandlerRegionsList;
         }
         if (!CollectionUtils.isEmpty(provinceState)) {
             String provinceSign = "administrative:province";
@@ -1611,6 +1644,12 @@ public class WstGlobalService {
             String provinceSign2 = "subProvince2";
             String provinceSign3 = "subProvince3";
             String provinceSign4 = "subProvince4";
+            for (String id : provinceState.stream().map(Ancestors::getId).collect(Collectors.toSet())) {
+                if (!regionIdMap.containsKey(id)) {
+                    log.info("国家{} 区域 {}中，存在无效的id：{}", expediaRegion.getCountryCode(), expediaRegion.getRegionId(), id);
+                    return notHandlerRegionsList;
+                }
+            }
             Optional<Ancestors> firstProvince = provinceState.stream().filter(e -> regionIdMap.get(e.getId()).getCategories().contains(provinceSign)).findFirst();
             firstProvince.ifPresent(e -> builder.append(e.getId()).append("/"));
             Optional<Ancestors> firstProvince1 = provinceState.stream().filter(e -> regionIdMap.get(e.getId()).getCategories().contains(provinceSign1)).findFirst();
@@ -1626,13 +1665,32 @@ public class WstGlobalService {
         highLevelRegion.ifPresent(value -> builder.append(value.getId()).append("/"));
         Optional<Ancestors> multiCityVicinity = ancestorsList.stream().filter(e -> "multi_city_vicinity".equals(e.getType())).findFirst();
         multiCityVicinity.ifPresent(value -> builder.append(value.getId()).append("/"));
-        Optional<Ancestors> city = ancestorsList.stream().filter(e -> "city".equals(e.getType())).findFirst();
-        city.ifPresent(value -> builder.append(value.getId()).append("/"));
+        List<Ancestors> cityList = ancestorsList.stream().filter(e -> "city".equals(e.getType())).toList();
+        if (!CollectionUtils.isEmpty(cityList)  && cityList.size() > 2) {
+            notHandlerRegionsList.add(expediaRegion.getRegionId());
+            return notHandlerRegionsList;
+        }
+        if (!CollectionUtils.isEmpty(cityList)) {
+            String realCityStr = "administrative:city";
+            String villageStr = "administrative:village";
+            for (String id : cityList.stream().map(Ancestors::getId).collect(Collectors.toSet())) {
+                if (!regionIdMap.containsKey(id)) {
+                    log.info("国家{} 区域 {}中，存在无效的id：{}", expediaRegion.getCountryCode(), expediaRegion.getRegionId(), id);
+                    return notHandlerRegionsList;
+                }
+            }
+            Optional<Ancestors> realCity = cityList.stream().filter(e -> regionIdMap.get(e.getId()).getCategories().contains(realCityStr)).findFirst();
+            realCity.ifPresent(value -> builder.append(value.getId()).append("/"));
+            Optional<Ancestors> village = cityList.stream().filter(e -> regionIdMap.get(e.getId()).getCategories().contains(villageStr)).findFirst();
+            village.ifPresent(value -> builder.append(value.getId()).append("/"));
+        }
         Optional<Ancestors> neighborhood = ancestorsList.stream().filter(e -> "neighborhood".equals(e.getType())).findFirst();
         neighborhood.ifPresent(value -> builder.append(value.getId()).append("/"));
         String path = builder.toString();
         expediaRegion.setParentPath(path);
         String[] split = path.split("/");
         expediaRegion.setParentId(split[split.length - 1]);
+        expediaRegionsDao.updateSomeData(expediaRegion);
+        return null;
     }
 }
