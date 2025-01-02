@@ -14,4 +14,6 @@ public interface ExpediaRoomsDao {
     List<ExpediaRooms> selectListByHotelIds(List<String> propertyIds);
 
     void update(ExpediaRooms expediaRoom);
+
+    List<ExpediaRooms> selectAllIds();
 }

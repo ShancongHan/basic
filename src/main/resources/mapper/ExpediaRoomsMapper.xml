@@ -23,14 +23,17 @@
             #{hotelId}
         </foreach>
     </select>
+
+    <select id="selectAllIds" resultType="com.example.basic.entity.ExpediaRooms">
+        SELECT id, hotel_id, room_id
+        FROM `expedia_rooms`
+    </select>
     
     <update id="update" parameterType="com.example.basic.entity.ExpediaRooms">
         UPDATE `expedia_rooms`
-        <set>
-            <if test="name != null"> name = #{name},</if>
-            <if test="bedGroups != null"> bed_groups = #{bedGroups},</if>
-            <if test="descriptions != null"> descriptions = #{descriptions},</if>
-        </set>
-        WHERE hotel_id = #{hotelId} and `room_id` = #{roomId}
+        SET `name`         = #{name},
+            bed_groups   = #{bedGroups},
+            descriptions = #{descriptions}
+        WHERE id = #{id}
     </update>
 </mapper>

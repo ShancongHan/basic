@@ -13,12 +13,10 @@
 
     <update id="update" parameterType="com.example.basic.entity.ExpediaImportantInfo">
         UPDATE `expedia_important_info`
-        <set>
-            <if test="feeMandatory != null"> fee_mandatory = #{feeMandatory},</if>
-            <if test="feeOptional != null"> fee_optional = #{feeOptional},</if>
-            <if test="instructions != null"> instructions = #{instructions},</if>
-            <if test="knowBeforeYouGo != null"> know_before_you_go = #{knowBeforeYouGo},</if>
-        </set>
+        SET fee_mandatory      = #{feeMandatory},
+            fee_optional       = #{feeOptional},
+            instructions       = #{instructions},
+            know_before_you_go = #{knowBeforeYouGo}
         WHERE hotel_id = #{hotelId}
     </update>
 </mapper>

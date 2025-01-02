@@ -5,8 +5,8 @@ import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 import com.example.basic.dao.*;
-import com.example.basic.domain.ExpediaPriceResult;
 import com.example.basic.domain.eps.Ancestors;
+import com.example.basic.domain.expedia.BatchUpdateResult;
 import com.example.basic.domain.expedia.Pets;
 import com.example.basic.domain.to.Coordinates;
 import com.example.basic.entity.*;
@@ -1259,40 +1259,19 @@ public class WstGlobalService {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start("查询db");
         List<String> propertyIds = expediaInfoDao.selectNeedUpdate();
-        List<WstHotelGlobalImagesDictionary> wstHotelGlobalImagesDictionaries = wstHotelGlobalImagesDictionaryDao.selectAll();
-        Map<Integer, WstHotelGlobalImagesDictionary> imagesMap = wstHotelGlobalImagesDictionaries.stream().collect(Collectors.toMap(WstHotelGlobalImagesDictionary::getId, e -> e));
+        List<ExpediaRooms> expediaRooms = expediaRoomsDao.selectAllIds();
+        Map<String, List<ExpediaRooms>> hotelIdMap = expediaRooms.stream().collect(Collectors.groupingBy(ExpediaRooms::getHotelId));
         stopWatch.stop();
         log.info("查询db花费时间: {}", stopWatch.getTotalTimeSeconds());
         int max = Math.max(250, propertyIds.size());
         Date date = new Date();
-        /*List<ExpediaInfo> expediaInfos = Lists.newArrayListWithCapacity(250);
-        List<ExpediaDetailInfo> expediaDetailInfos = Lists.newArrayListWithCapacity(250);
-        List<ExpediaImages> expediaImages = expediaImagesDao.selectListByHotelIds(propertyIds);
-        List<ExpediaPolicy> expediaPolicies = Lists.newArrayListWithCapacity(250);
-        List<ExpediaRooms> expediaRooms = expediaRoomsDao.selectListByHotelIds(propertyIds);
-        List<ExpediaRoomsImages> expediaRoomsImages = expediaRoomsImagesDao.selectListByHotelIds(propertyIds);
-        List<ExpediaRoomsAmenities> expediaRoomsAmenities = expediaRoomsAmenitiesDao.selectListByHotelIds(propertyIds);
-        List<ExpediaAmenities> expediaAmenities = expediaAmenitiesDao.selectListByHotelIds(propertyIds);
-        List<ExpediaAttributes> expediaAttributes = expediaAttributesDao.selectListByHotelIds(propertyIds);
-        List<ExpediaImportantInfo> expediaImportantInfos = Lists.newArrayListWithCapacity(250);
-        List<ExpediaStatistics> expediaStatistics = expediaStatisticsDao.selectListByHotelIds(propertyIds);*/
-        List<ExpediaInfo> expediaInfos = Lists.newArrayListWithCapacity(250);
-        List<ExpediaDetailInfo> expediaDetailInfos = Lists.newArrayListWithCapacity(250);
-        List<ExpediaImages> expediaImages = Lists.newArrayListWithCapacity(20000);
-        List<ExpediaPolicy> expediaPolicies = Lists.newArrayListWithCapacity(250);
-        List<ExpediaRooms> expediaRooms = Lists.newArrayListWithCapacity(5000);
-        List<ExpediaRoomsImages> expediaRoomsImages = Lists.newArrayListWithCapacity(60000);
-        List<ExpediaRoomsAmenities> expediaRoomsAmenities = Lists.newArrayListWithCapacity(80000);
-        List<ExpediaAmenities> expediaAmenities = Lists.newArrayListWithCapacity(5000);
-        List<ExpediaAttributes> expediaAttributes = Lists.newArrayListWithCapacity(6000);
-        List<ExpediaImportantInfo> expediaImportantInfos = Lists.newArrayListWithCapacity(250);
-        List<ExpediaStatistics> expediaStatistics = Lists.newArrayListWithCapacity(1000);
+        List<String> failList = Lists.newArrayListWithCapacity(500000);
         for (int i = 0; i < max; ) {
             StopWatch watch = new StopWatch();
             int start = i;
             int end = Math.min(i + 250, max);
             List<String> queryList = propertyIds.subList(start, end);
-            watch.start("请求酒店");
+            watch.start("请求EPS");
             String body = null;
             int retry = 0;
             int maxRetry = 10;
@@ -1305,48 +1284,53 @@ public class WstGlobalService {
                     retry++;
                 }
             }
-            watch.stop();
             i += 250;
             JSONObject jsonObject = JSON.parseObject(body);
-            watch.start("转换并存库");
+            if (jsonObject == null) {
+                // 超过重试次数，就直接跳过本批次
+                continue;
+            }
+            watch.stop();
+            watch.start("批量更新数据");
+            List<CompletableFuture<BatchUpdateResult>> futures = Lists.newArrayListWithCapacity(queryList.size());
             for (Map.Entry<String, Object> entry : jsonObject.entrySet()) {
-                StopWatch stopWatch2 = new StopWatch();
-                String hotelId = entry.getKey();
-                JSONObject hotelDetail = (JSONObject) entry.getValue();
-                stopWatch2.start("转换单个酒店详情");
-                convertDetailZh(hotelId, hotelDetail, expediaInfos, expediaDetailInfos, expediaImages, expediaPolicies, expediaRooms,
-                        expediaRoomsImages, expediaRoomsAmenities, expediaAmenities, expediaAttributes, expediaImportantInfos,
-                        expediaStatistics, date, imagesMap);
-                stopWatch2.stop();
-                stopWatch2.start("更新单个酒店");
-                TransactionStatus transaction = transactionManager.getTransaction(transactionDefinition);
-                try {
-                    update(expediaInfos, expediaDetailInfos, expediaImages, expediaPolicies, expediaRooms,
-                            expediaRoomsImages, expediaRoomsAmenities, expediaAmenities, expediaAttributes, expediaImportantInfos, expediaStatistics);
-                    transactionManager.commit(transaction);
-                } catch (Exception exception) {
-                    log.info("本此批次抛出异常，这些id:{}跳过", queryList);
-                    log.error("本此批次抛出异常{}，跳过", Throwables.getStackTraceAsString(exception));
-                    transactionManager.rollback(transaction);
-                    stopWatch2.stop();
+                futures.add(updateOneHotel(entry, hotelIdMap, date));
+            }
+            watch.stop();
+            watch.start("等待线程结果汇总");
+            CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
+            for (CompletableFuture<BatchUpdateResult> future : futures) {
+                BatchUpdateResult batchUpdateResult = future.get();
+                if (batchUpdateResult != null && !batchUpdateResult.getStatus()) {
+                    failList.add(batchUpdateResult.getHotelId());
                 }
-                stopWatch2.stop();
-                log.info("单个酒店执行总时长：{}, 具体耗时为：{}", watch.getTotalTimeSeconds(), watch.prettyPrint());
-                expediaInfos.clear();
-                expediaDetailInfos.clear();
-                expediaImages.clear();
-                expediaPolicies.clear();
-                expediaRooms.clear();
-                expediaRoomsImages.clear();
-                expediaRoomsAmenities.clear();
-                expediaAmenities.clear();
-                expediaAttributes.clear();
-                expediaImportantInfos.clear();
-                expediaStatistics.clear();
             }
             watch.stop();
             log.info("本批次执行总时长：{}, 具体耗时为：{}", watch.getTotalTimeSeconds(), watch.prettyPrint());
         }
+        log.info("本次循环失败数：{},具体失败列表为：{}",failList.size(), failList);
+    }
+
+    private CompletableFuture<BatchUpdateResult> updateOneHotel(Map.Entry<String, Object> entry,
+                                                                Map<String, List<ExpediaRooms>> hotelIdMap,
+                                                                Date date) {
+        return CompletableFuture.supplyAsync(() -> {
+            String hotelId = entry.getKey();
+            JSONObject hotelDetail = (JSONObject) entry.getValue();
+            List<ExpediaRooms> expediaRooms = hotelIdMap.get(hotelId);
+            BatchUpdateResult result = new BatchUpdateResult();
+            result.setHotelId(hotelId);
+            result.setStatus(false);
+            if (CollectionUtils.isEmpty(expediaRooms)) return result;
+            Map<String, List<ExpediaRooms>> roomIdMap = expediaRooms.stream().collect(Collectors.groupingBy(ExpediaRooms::getRoomId));
+            try {
+                convertAndUpdate(hotelId, hotelDetail, roomIdMap, date);
+            } catch (Exception exception) {
+                log.error("本此批次抛出异常{}，跳过", Throwables.getStackTraceAsString(exception));
+            }
+            result.setStatus(true);
+            return result;
+        }, executor);
     }
 
     private void update(List<ExpediaInfo> expediaInfos, List<ExpediaDetailInfo> expediaDetailInfos, List<ExpediaImages> expediaImages, List<ExpediaPolicy> expediaPolicies, List<ExpediaRooms> expediaRooms, List<ExpediaRoomsImages> expediaRoomsImages, List<ExpediaRoomsAmenities> expediaRoomsAmenities, List<ExpediaAmenities> expediaAmenities, List<ExpediaAttributes> expediaAttributes, List<ExpediaImportantInfo> expediaImportantInfos, List<ExpediaStatistics> expediaStatistics) {
@@ -1409,13 +1393,8 @@ public class WstGlobalService {
         }
     }
 
-    private void convertDetailZh(String hotelId, JSONObject hotelDetail, List<ExpediaInfo> expediaInfos,
-                                 List<ExpediaDetailInfo> expediaDetailInfos, List<ExpediaImages> expediaImages,
-                                 List<ExpediaPolicy> expediaPolicies, List<ExpediaRooms> expediaRooms,
-                                 List<ExpediaRoomsImages> expediaRoomsImages, List<ExpediaRoomsAmenities> expediaRoomsAmenities,
-                                 List<ExpediaAmenities> expediaAmenities, List<ExpediaAttributes> expediaAttributes,
-                                 List<ExpediaImportantInfo> expediaImportantInfos, List<ExpediaStatistics> expediaStatistics,
-                                 Date date, Map<Integer, WstHotelGlobalImagesDictionary> imagesMap) throws Exception {
+    private void convertAndUpdate(String hotelId, JSONObject hotelDetail,
+                                  Map<String, List<ExpediaRooms>> roomIdMap, Date date) {
         ExpediaInfo expediaInfo = new ExpediaInfo();
         expediaInfo.setHotelId(hotelId);
         expediaInfo.setName(getStringValueByKey(hotelDetail, "name"));
@@ -1450,115 +1429,23 @@ public class WstGlobalService {
         if (policies != null) {
             expediaImportantInfo.setKnowBeforeYouGo(getStringValueByKey(policies, "know_before_you_go"));
         }
-        expediaImportantInfos.add(expediaImportantInfo);
-        JSONObject attributes = (JSONObject) hotelDetail.get("attributes");
-        if (attributes != null) {
-            JSONObject general = (JSONObject) attributes.get("general");
-            if (general != null) {
-                for (Map.Entry<String, Object> entry : general.entrySet()) {
-                    String generalId = entry.getKey();
-                    JSONObject realGeneral = (JSONObject) entry.getValue();
-                    ExpediaAttributes expediaAttribute = new ExpediaAttributes();
-                    expediaAttribute.setHotelId(hotelId);
-                    expediaAttribute.setGeneralId(Integer.valueOf(generalId));
-                    expediaAttribute.setGeneralName(getStringValueByKey(realGeneral, "name"));
-                    expediaAttributes.add(expediaAttribute);
-                }
-            }
-            JSONObject pets = (JSONObject) attributes.get("pets");
-            if (pets != null) {
-                List<Pets> petList = Lists.newArrayListWithCapacity(10);
-                for (Map.Entry<String, Object> entry : pets.entrySet()) {
-                    Pets pet = JSON.parseObject(entry.getValue().toString(), Pets.class);
-                    petList.add(pet);
-                }
-                expediaPolicy.setPets(JSON.toJSONString(petList));
-            }
-        }
-        expediaPolicies.add(expediaPolicy);
-        JSONObject amenities = (JSONObject) hotelDetail.get("amenities");
-        if (amenities != null) {
-            for (Map.Entry<String, Object> entry : amenities.entrySet()) {
-                String amenitiesId = entry.getKey();
-                JSONObject realAmenities = (JSONObject) entry.getValue();
-                ExpediaAmenities one = new ExpediaAmenities();
-                one.setHotelId(hotelId);
-                one.setAmenitiesId(Integer.valueOf(amenitiesId));
-                one.setAmenitiesName(getStringValueByKey(realAmenities, "name"));
-                JSONArray categoriesArray = (JSONArray) realAmenities.get("categories");
-                if (categoriesArray != null && categoriesArray.size() > 0) {
-                    one.setAmenitiesCategories(categoriesArray.stream().map(Object::toString).collect(Collectors.joining(",")));
-                }
-                expediaAmenities.add(one);
-            }
-        }
-        JSONArray images = (JSONArray) hotelDetail.get("images");
-        if (images != null && images.size() > 0) {
-            for (Object image : images) {
-                JSONObject imageJson = (JSONObject) image;
-                ExpediaImages expediaImage = new ExpediaImages();
-                expediaImage.setHotelId(hotelId);
-                Integer categoryId = getIntegerValueByKey(imageJson, "category");
-                expediaImage.setCategoryId(categoryId);
-                expediaImage.setCaption(getStringValueByKey(imageJson, "caption"));
-                WstHotelGlobalImagesDictionary wstHotelGlobalImagesDictionary = imagesMap.get(categoryId);
-                if (wstHotelGlobalImagesDictionary == null) {
-                    continue;
-                }
-                expediaImage.setGroup(wstHotelGlobalImagesDictionary.getGroup());
-                expediaImage.setGroupEn(wstHotelGlobalImagesDictionary.getGroupEn());
-                expediaImages.add(expediaImage);
-            }
-        }
+
         JSONObject rooms = (JSONObject) hotelDetail.get("rooms");
+        List<ExpediaRooms> expediaRoomList = Lists.newArrayListWithCapacity(roomIdMap.size());
         if (rooms != null) {
             for (Map.Entry<String, Object> entry : rooms.entrySet()) {
                 String roomId = entry.getKey();
                 JSONObject room = (JSONObject) entry.getValue();
-                ExpediaRooms expediaRoom = new ExpediaRooms();
-                expediaRoom.setHotelId(hotelId);
-                expediaRoom.setRoomId(roomId);
+                List<ExpediaRooms> expediaRooms = roomIdMap.get(roomId);
+                if (CollectionUtils.isEmpty(expediaRooms)) continue;
+                ExpediaRooms expediaRoom = expediaRooms.get(0);
                 expediaRoom.setName(getStringValueByKey(room, "name"));
                 JSONObject descriptions = (JSONObject) room.get("descriptions");
                 if (descriptions != null) {
                     expediaRoom.setDescriptions(getStringValueByKey(descriptions, "overview"));
                 }
                 expediaRoom.setBedGroups(getStringValueByKey(room, "bed_groups"));
-                expediaRooms.add(expediaRoom);
-
-                JSONObject roomAmenities = (JSONObject) room.get("amenities");
-                if (roomAmenities != null) {
-                    for (Map.Entry<String, Object> roomAmenitiesMap : roomAmenities.entrySet()) {
-                        JSONObject roomAmenitiesJson = (JSONObject) roomAmenitiesMap.getValue();
-                        ExpediaRoomsAmenities expediaRoomsAmenities1 = new ExpediaRoomsAmenities();
-                        expediaRoomsAmenities1.setHotelId(hotelId);
-                        expediaRoomsAmenities1.setRoomId(roomId);
-                        expediaRoomsAmenities1.setAmenitiesId(getIntegerValueByKey(roomAmenitiesJson, "id"));
-                        expediaRoomsAmenities1.setAmenitiesName(getStringValueByKey(roomAmenitiesJson, "name"));
-                        expediaRoomsAmenities1.setAmenitiesCategories(getStringValueByKey(roomAmenitiesJson, "categories"));
-                        expediaRoomsAmenities.add(expediaRoomsAmenities1);
-                    }
-                }
-
-                JSONArray roomImages = (JSONArray) room.get("images");
-                if (roomImages != null && roomImages.size() > 0) {
-                    for (Object roomImage : roomImages) {
-                        JSONObject roomImageJson = (JSONObject) roomImage;
-                        ExpediaRoomsImages expediaRoomsImages1 = new ExpediaRoomsImages();
-                        expediaRoomsImages1.setHotelId(hotelId);
-                        expediaRoomsImages1.setRoomId(roomId);
-                        Integer categoryId = getIntegerValueByKey(roomImageJson, "category");
-                        expediaRoomsImages1.setCategoryId(categoryId);
-                        expediaRoomsImages1.setCaption(getStringValueByKey(roomImageJson, "caption"));
-                        WstHotelGlobalImagesDictionary wstHotelGlobalImagesDictionary = imagesMap.get(categoryId);
-                        if (wstHotelGlobalImagesDictionary == null) {
-                            continue;
-                        }
-                        expediaRoomsImages1.setGroup(wstHotelGlobalImagesDictionary.getGroup());
-                        expediaRoomsImages1.setGroupEn(wstHotelGlobalImagesDictionary.getGroupEn());
-                        expediaRoomsImages.add(expediaRoomsImages1);
-                    }
-                }
+                expediaRoomList.add(expediaRoom);
             }
         }
         ExpediaDetailInfo expediaDetailInfo = new ExpediaDetailInfo();
@@ -1567,24 +1454,21 @@ public class WstGlobalService {
         if (descriptions != null) {
             expediaDetailInfo.setDescriptions(descriptions.toString());
         }
-        JSONObject statistics = (JSONObject) hotelDetail.get("statistics");
-        if (statistics != null) {
-            for (Map.Entry<String, Object> statisticsMap : statistics.entrySet()) {
-                JSONObject statisticsJson = (JSONObject) statisticsMap.getValue();
-                ExpediaStatistics expediaStatistics1 = new ExpediaStatistics();
-                expediaStatistics1.setHotelId(hotelId);
-                expediaStatistics1.setStatisticsId(getIntegerValueByKey(statisticsJson, "id"));
-                expediaStatistics1.setStatisticsName(getStringValueByKey(statisticsJson, "name"));
-                expediaStatistics.add(expediaStatistics1);
-            }
-        }
         JSONObject allInclusive = (JSONObject) hotelDetail.get("all_inclusive");
         if (allInclusive != null) {
             expediaDetailInfo.setAllInclusive(allInclusive.toString());
         }
         expediaInfo.setUpdateTime(date);
-        expediaInfos.add(expediaInfo);
-        expediaDetailInfos.add(expediaDetailInfo);
+
+        expediaInfoDao.update(expediaInfo);
+        expediaDetailInfoDao.update(expediaDetailInfo);
+        expediaPolicyDao.update(expediaPolicy);
+        expediaImportantInfoDao.update(expediaImportantInfo);
+        if (!CollectionUtils.isEmpty(expediaRoomList)) {
+            for (ExpediaRooms expediaRoom : expediaRoomList) {
+                expediaRoomsDao.update(expediaRoom);
+            }
+        }
     }
 
     public void completeRegion() throws Exception {

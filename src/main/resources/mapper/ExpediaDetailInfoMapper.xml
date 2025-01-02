@@ -13,10 +13,8 @@
 
     <update id="update" parameterType="com.example.basic.entity.ExpediaDetailInfo">
         UPDATE expedia_detail_info
-        <set>
-            <if test="allInclusive != null">all_inclusive = #{allInclusive},</if>
-            <if test="descriptions != null">descriptions = #{descriptions},</if>
-        </set>
+        SET all_inclusive = #{allInclusive},
+            descriptions  = #{descriptions}
         WHERE `hotel_id` = #{hotelId}
     </update>
 </mapper>
