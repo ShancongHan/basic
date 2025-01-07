@@ -5,7 +5,12 @@ import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 import com.example.basic.dao.*;
+import com.example.basic.domain.ExpediaResponse;
+import com.example.basic.domain.MeiTuanMatchResult;
+import com.example.basic.domain.Region;
 import com.example.basic.domain.eps.Ancestors;
+import com.example.basic.domain.eps.RegionProperty;
+import com.example.basic.domain.eps.RegionPropertyResult;
 import com.example.basic.domain.expedia.BatchUpdateResult;
 import com.example.basic.domain.expedia.Pets;
 import com.example.basic.domain.to.Coordinates;
@@ -16,9 +21,11 @@ import com.example.basic.utils.TimeUtils;
 import com.google.common.base.Throwables;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.google.common.io.Files;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
@@ -107,8 +114,13 @@ public class WstGlobalService {
     private ExpediaRegionsDao expediaRegionsDao;
     @Resource
     private ExpediaCountryDao expediaCountryDao;
+    @Resource
+    private ExpediaRegionsPropertyDao expediaRegionsPropertyDao;
 
     private static final Executor executor = new ThreadPoolExecutor(50, 100,
+            0L, TimeUnit.MILLISECONDS, new LinkedBlockingDeque<>(300000));
+
+    private static final Executor executor2 = new ThreadPoolExecutor(100, 150,
             0L, TimeUnit.MILLISECONDS, new LinkedBlockingDeque<>(300000));
 
     public void categoryDictionary() throws Exception {
@@ -1258,7 +1270,10 @@ public class WstGlobalService {
     public void pullHotel() throws Exception {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start("查询db");
-        List<String> propertyIds = expediaInfoDao.selectNeedUpdate();
+        String fileName = "C:\\wst_han\\打杂\\酒店统筹\\test.txt";
+        String fileContent = IOUtils.inputStreamToString(new FileInputStream(fileName));
+        String[] split = fileContent.split(",");
+        List<String> propertyIds = Arrays.stream(split).collect(Collectors.toList());
         List<ExpediaRooms> expediaRooms = expediaRoomsDao.selectAllIds();
         Map<String, List<ExpediaRooms>> hotelIdMap = expediaRooms.stream().collect(Collectors.groupingBy(ExpediaRooms::getHotelId));
         stopWatch.stop();
@@ -1576,5 +1591,353 @@ public class WstGlobalService {
         expediaRegion.setParentId(split[split.length - 1]);
         expediaRegionsDao.updateSomeData(expediaRegion);
         return null;
+    }
+
+    public void checkRegion() {
+        List<ExpediaCountry> expediaCountries = expediaCountryDao.selectAllCode();
+        List<String> skip = Lists.newArrayList("AF","AU","LR","LY","LT","LU","MO","MK","MG","GL","MT","ML","AT","MV");
+        List<String> handler = Lists.newArrayListWithCapacity(expediaCountries.size());
+        for (ExpediaCountry expediaCountry : expediaCountries) {
+            String countryCode = expediaCountry.getCode();
+            if (skip.contains(countryCode)) continue;
+            StopWatch watch = new StopWatch();
+            watch.start("查询旧数据");
+            List<ExpediaRegions> oldExpediaRegions = expediaRegionsDao.selectListByCountryCode(countryCode);
+            watch.stop();
+            if (CollectionUtils.isEmpty(oldExpediaRegions)) {
+                handler.add(countryCode);
+                continue;
+            }
+            watch.start("查询标准完整数据");
+            List<ExpediaRegions> freshExpediaRegions = queryAllRegionIds(countryCode, oldExpediaRegions.size());
+            if (freshExpediaRegions == null) {
+                log.info("国家{}, 新旧数据条数一致为{}", countryCode, oldExpediaRegions.size());
+                handler.add(countryCode);
+                continue;
+            }
+            watch.stop();
+            watch.start("筛选出没有的区域");
+            Set<String> regionIdSet = oldExpediaRegions.stream().map(ExpediaRegions::getRegionId).collect(Collectors.toSet());
+            int oldSize = oldExpediaRegions.size();
+            int newSize = freshExpediaRegions.size();
+            if (newSize < oldSize) {
+                log.info("国家{}, 新数据{}比旧数据少{}", countryCode, newSize, oldSize);
+                handler.add(countryCode);
+                continue;
+            }
+            List<ExpediaRegions> newRegions = Lists.newArrayListWithCapacity(Math.abs(oldSize - newSize));
+            for (ExpediaRegions newOne : freshExpediaRegions) {
+                if (!regionIdSet.contains(newOne.getRegionId())) {
+                    newRegions.add(newOne);
+                }
+            }
+            watch.stop();
+            watch.start("完善新的区域数据");
+            List<ExpediaRegions> expediaRegionsList = finishRegions(newRegions);
+            watch.stop();
+            watch.start("入库新的数据");
+            saveFullBatch(expediaRegionsList);
+            watch.stop();
+            log.info("国家{}, 新入库{}条数据", countryCode, expediaRegionsList.size());
+            handler.add(countryCode);
+        }
+        log.info("最终处理了{}个国家，分别是{}", handler.size(), String.join(",", handler));
+    }
+
+    private void saveFullBatch(List<ExpediaRegions> expediaRegionsList) {
+        int start = 0;
+        for (int j = 0; j < expediaRegionsList.size(); j++) {
+            if (j != 0 && j % 1000 == 0) {
+                List<ExpediaRegions> list = expediaRegionsList.subList(start, j);
+                expediaRegionsDao.saveFullBatch(list);
+                start = j;
+            }
+        }
+        List<ExpediaRegions> list = expediaRegionsList.subList(start, expediaRegionsList.size());
+        if (org.apache.commons.collections4.CollectionUtils.isNotEmpty(list)) {
+            expediaRegionsDao.saveFullBatch(list);
+        }
+    }
+
+    private List<ExpediaRegions> finishRegions(List<ExpediaRegions> newRegions) {
+        if (CollectionUtils.isEmpty(newRegions)) return Collections.emptyList();
+        List<ExpediaRegions> result = Lists.newArrayListWithCapacity(newRegions.size());
+        for (ExpediaRegions newRegion : newRegions) {
+            String regionId = newRegion.getRegionId();
+            StopWatch watch = new StopWatch();
+            watch.start("查询单个区域耗时");
+            ExpediaRegions expediaRegions = httpUtils.pullRegion(regionId, null);
+            watch.stop();
+            log.info("查询区域{}, 耗时: {}", regionId, watch.getTotalTimeSeconds());
+            expediaRegions.setHasEn(true);
+            expediaRegions.setType(newRegion.getType());
+            expediaRegions.setNameEn(newRegion.getName());
+            expediaRegions.setFullNameEn(newRegion.getFullName());
+            expediaRegions.setCountryCode(newRegion.getCountryCode());
+            result.add(expediaRegions);
+        }
+        return result;
+    }
+
+    private List<ExpediaRegions> queryAllRegionIds(String countryCode, int oldSize) {
+        int page = 0;
+        Integer load;
+        String nextPageUrl = null;
+        boolean countMatch = false;
+        List<ExpediaRegions> result = Lists.newArrayListWithCapacity(200000);
+        do {
+            if ("".equals(nextPageUrl)) break;
+            StopWatch watch = new StopWatch();
+            watch.start("查询单页耗时");
+            ExpediaResponse response = httpUtils.pullRegionStandardEn(nextPageUrl, countryCode);
+            watch.stop();
+            log.info("国家{}, 查询{}页, 耗时: {}", countryCode, page, watch.getTotalTimeSeconds());
+            Integer total = response.getTotal();
+            if (oldSize >= total) {
+                countMatch = true;
+                break;
+            }
+            String body = response.getBody();
+            try {
+                List<Region> regionList = JSON.parseArray(body, Region.class);
+                if (!CollectionUtils.isEmpty(regionList)) {
+                    for (Region region : regionList) {
+                        ExpediaRegions expediaRegion = new ExpediaRegions();
+                        BeanUtils.copyProperties(region, expediaRegion);
+                        expediaRegion.setRegionId(region.getId());
+                        expediaRegion.setCountryCode(region.getCountry_code());
+                        expediaRegion.setFullName(region.getName_full());
+                        expediaRegion.setId(null);
+                        result.add(expediaRegion);
+                    }
+                }
+            } catch (Exception e) {
+                Throwables.getStackTraceAsString(e);
+            }
+            load = response.getLoad();
+            nextPageUrl = response.getNextPageUrl();
+            page++;
+        } while (load > 0);
+        if (countMatch) return null;
+        return result;
+    }
+
+    public void checkRegionLanguage() {
+        List<ExpediaCountry> expediaCountries = expediaCountryDao.selectAllCode();
+        List<String> skip = Lists.newArrayList("AF","AU","LR","LY","LT","LU","MO","MK","MG","MW","MY","MV","AT","ML","MT","GL","MP","MQ","AM","AS","MR","BT","BY","ER","GE","KG","LI","MD","MH","MN","NU","TJ","TM","UZ","SI","BA","MU","YT","MX","BV","IO","CX","CC","FK","TF","HM","FO","IM","KP","PN","PM","SM","SH","SJ","TK","VA","WF","PS","FM","AZ","MC","MS","MA","MZ","MM","NA","NR","NP","NL","GG","BS","KN","NC","PG","NZ","NI","NE","NG","NF","NO","OM","BH","PK","PW","PA","PY","PE","PH","PL","PT","PR","QA","BD","RE","RO","RU","RW","WS","ST","SA","SN","SC","BB","SL","SG","SK","SB","SO","ZA","ES","LK","LC","VC","BE","SD","SR","SZ","SE","CH","SY","TW","TZ","TH","TG","BZ","TO","TT","TN","TR","TC","TV","VI","UG","UA","AE","BJ","GB","UY","VU","VE","VN","YE","RS","CD","ZM","AL","BM","ZW","US","BO","BW","BR","VG","BN","BG","BF","BI","KH","DZ","CM","CA","CV","KY","CF","TD","CL","CN","CO","KM","AD","CG","CK","CR","HR","CU","CY","CZ","DK","DJ","DM","AO","DO","EC","EG","SV","GQ","EE","JE","ET","FJ","FI","FR","AI","GF","TL","ME","AX","BL","MF","PF","BQ","CW","SX","SS","UM","GA","GS","GM","DE","GH","GI","GR","GD","GP","AG","GU","GT","GN","GW","GY","HT","HN","HK","HU","IS","AR","IN","ID","IR","IQ","IE","IL");
+        List<String> complete = Lists.newArrayListWithCapacity(expediaCountries.size());
+        for (ExpediaCountry expediaCountry : expediaCountries) {
+            String countryCode = expediaCountry.getCode();
+            if (skip.contains(countryCode)) continue;
+            StopWatch watch = new StopWatch();
+            watch.start("查询&更新标准英文数据");
+            List<ExpediaRegions> freshEnExpediaRegions = queryAllRegionIds(countryCode, "en-US");
+            List<String> enRegionIds = freshEnExpediaRegions.stream().map(ExpediaRegions::getRegionId).toList();
+            Integer updateHasEn = CollectionUtils.isEmpty(enRegionIds) ? 0 : expediaRegionsDao.updateHasEn(enRegionIds);
+            watch.stop();
+            watch.start("查询&更新标准中文数据");
+            List<ExpediaRegions> freshZhExpediaRegions = queryAllRegionIds(countryCode, "zh-CN");
+            List<String> zhRegionIds = freshZhExpediaRegions.stream().filter(e->StringUtils.hasLength(e.getName())).map(ExpediaRegions::getRegionId).toList();
+            Integer updateHasZh = CollectionUtils.isEmpty(zhRegionIds) ? 0 : expediaRegionsDao.updateHasZh(zhRegionIds);
+            watch.stop();
+            log.info("国家{}, 更新了英文标识{}, 更新了中文标识{}, 共耗时:{}, 分别耗时:{}",
+                    countryCode, updateHasEn, updateHasZh, watch.getTotalTimeSeconds(), watch.prettyPrint());
+            complete.add(countryCode);
+        }
+        log.info("最终处理了{}个国家，分别是{}", complete.size(), String.join(",", complete));
+    }
+
+    private List<ExpediaRegions> queryAllRegionIds(String countryCode, String language) {
+        int page = 0;
+        Integer load;
+        String nextPageUrl = null;
+        List<ExpediaRegions> result = Lists.newArrayListWithCapacity(200000);
+        do {
+            if ("".equals(nextPageUrl)) break;
+            StopWatch watch = new StopWatch();
+            watch.start("查询单页耗时");
+            ExpediaResponse response = httpUtils.pullRegionStandard(nextPageUrl, countryCode, language);
+            watch.stop();
+            log.info("国家{}, 查询语言{}, 查询{}页, 耗时: {}", countryCode, language, page, watch.getTotalTimeSeconds());
+            String body = response.getBody();
+            try {
+                List<Region> regionList = JSON.parseArray(body, Region.class);
+                if (!CollectionUtils.isEmpty(regionList)) {
+                    for (Region region : regionList) {
+                        ExpediaRegions expediaRegion = new ExpediaRegions();
+                        BeanUtils.copyProperties(region, expediaRegion);
+                        expediaRegion.setRegionId(region.getId());
+                        expediaRegion.setCountryCode(region.getCountry_code());
+                        expediaRegion.setFullName(region.getName_full());
+                        expediaRegion.setId(null);
+                        result.add(expediaRegion);
+                    }
+                }
+            } catch (Exception e) {
+                Throwables.getStackTraceAsString(e);
+            }
+            load = response.getLoad();
+            nextPageUrl = response.getNextPageUrl();
+            page++;
+        } while (load > 0);
+        return result;
+    }
+
+    public void pullProperty() throws Exception {
+        List<ExpediaRegions> expediaRegionsList = expediaRegionsDao.selectAllNeedStatistics();
+        int total = expediaRegionsList.size();
+        int onceLimit = 100;
+        for (int i = 0; i < total; ) {
+            StopWatch watch = new StopWatch();
+            watch.start("查询区域酒店映射关系");
+            int start = i;
+            int end = Math.min(i + onceLimit, total);
+            List<ExpediaRegions> onceList = expediaRegionsList.subList(start, end);
+            List<CompletableFuture<RegionPropertyResult>> futures = Lists.newArrayListWithCapacity(onceList.size());
+            for (ExpediaRegions expediaRegions : onceList) {
+                String regionId = expediaRegions.getRegionId();
+                Long id = expediaRegions.getId();
+                futures.add(CompletableFuture.supplyAsync(() -> {
+                    RegionPropertyResult result = new RegionPropertyResult();
+                    result.setId(id);
+                    result.setRegionId(regionId);
+                    String json = httpUtils.pullRegionProperty(regionId);
+                    if (!StringUtils.hasLength(json)) {
+                        result.setHasProperty(false);
+                        return result;
+                    }
+                    if (json.length() > 100) {
+                        System.out.println("车市" + json.substring(0,100));
+                    }
+                    RegionProperty regionProperty = JSON.parseObject(json, RegionProperty.class);
+                    List<String> propertyIds = regionProperty.getProperty_ids();
+                    if (CollectionUtils.isEmpty(propertyIds)) {
+                        result.setHasProperty(false);
+                        return result;
+                    }
+                    result.setHasProperty(true);
+                    result.setPropertyCount(propertyIds.size());
+                    result.setPropertyIds(String.join(",", propertyIds));
+                    return result;
+                }, executor2));
+            }
+            CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
+            watch.stop();
+            watch.start("获取结果，并更新映射关系");
+            List<ExpediaRegionsProperty> insertList = Lists.newArrayListWithCapacity(onceLimit);
+            for (CompletableFuture<RegionPropertyResult> future : futures) {
+                try {
+                    RegionPropertyResult result = future.get(5, TimeUnit.SECONDS);
+                    if (result != null) {
+                        ExpediaRegionsProperty expediaRegionsProperty = new ExpediaRegionsProperty();
+                        expediaRegionsProperty.setRegionId(result.getRegionId());
+                        expediaRegionsProperty.setPropertyIds(result.getPropertyIds());
+                        insertList.add(expediaRegionsProperty);
+                        expediaRegionsDao.updateStatistics(result);
+                    }
+                } catch (TimeoutException ignore) {
+
+                }
+            }
+            if (!CollectionUtils.isEmpty(insertList)) {
+                expediaRegionsPropertyDao.saveBatch(insertList);
+            }
+            i += onceLimit;
+            log.info("本批次耗时{}, 各部分耗时为：{}", watch.getTotalTimeSeconds(), watch.prettyPrint());
+            log.info("当前进度{}/{}", i,total);
+        }
+    }
+
+    public void updateHotelCityId() {
+        List<ExpediaInfo> expediaInfoList = expediaInfoDao.selectAllNeedUpdateCity();
+        Map<String, List<ExpediaInfo>> countryCodeMap = expediaInfoList.stream().collect(Collectors.groupingBy(ExpediaInfo::getCountryCode));
+        List<ExpediaRegions> expediaRegionsList = expediaRegionsDao.selectAllCity();
+        Map<String, List<ExpediaRegions>> countryCodeRegionMap = expediaRegionsList.stream().collect(Collectors.groupingBy(ExpediaRegions::getCountryCode));
+        Date date = new Date();
+        for (Map.Entry<String, List<ExpediaInfo>> entry : countryCodeMap.entrySet()) {
+            String countryCode = entry.getKey();
+            StopWatch watch = new StopWatch();
+            watch.start("城市查询");
+            List<ExpediaInfo> expediaInfos = entry.getValue();
+            Map<String, ExpediaInfo> hotelIdMap = expediaInfos.stream().collect(Collectors.toMap(ExpediaInfo::getHotelId, e -> e));
+            List<ExpediaRegions> expediaRegions = countryCodeRegionMap.get(countryCode);
+            List<String> regionIds = expediaRegions.stream().map(ExpediaRegions::getRegionId).toList();
+            List<ExpediaRegionsProperty> expediaRegionsProperties = expediaRegionsPropertyDao.selectListByRegionIds(regionIds);
+            Map<String, ExpediaRegionsProperty> regionPropertyMap = expediaRegionsProperties.stream().collect(Collectors.toMap(ExpediaRegionsProperty::getRegionId, e -> e));
+            watch.stop();
+            watch.start("线程更新");
+            for (ExpediaRegions expediaRegion : expediaRegions) {
+                CompletableFuture.runAsync(()->{
+                    String regionId = expediaRegion.getRegionId();
+                    String nameEn = expediaRegion.getNameEn();
+                    ExpediaRegionsProperty expediaRegionsProperty = regionPropertyMap.get(regionId);
+                    if (expediaRegionsProperty == null) return;
+                    String propertyIds = expediaRegionsProperty.getPropertyIds();
+                    for (String propertyId : propertyIds.split(",")) {
+                        ExpediaInfo expediaInfo = hotelIdMap.get(propertyId);
+                        if (expediaInfo != null) {
+                            String nameEn1 = expediaInfo.getCityEn();
+                            if (nameEn.equals(nameEn1)) {
+                                ExpediaInfo update = new ExpediaInfo();
+                                update.setHotelId(propertyId);
+                                update.setCityId(regionId);
+                                update.setUpdateTime(date);
+                                expediaInfoDao.update(update);
+                            }
+                        }
+                    }
+                }, executor2);
+            }
+            watch.stop();
+            log.info("国家{} 进行城市映射,耗时{},具体耗时为:{}", countryCode, watch.getTotalTimeSeconds(), watch.prettyPrint());
+        }
+    }
+
+    public void checkPartHotel() throws Exception {
+        List<ExpediaInfo> expediaInfos = expediaInfoDao.selectNoNameList();
+        List<String> propertyIds = expediaInfos.stream().map(ExpediaInfo::getHotelId).toList();
+        int total = propertyIds.size();
+        int onceLimit = 250;
+        Set<String> realEffectiveIds = Sets.newHashSetWithExpectedSize(total);
+        for (int i = 0; i < total; ) {
+            int start = i;
+            int end = Math.min(i + onceLimit, total);
+            List<String> queryList = propertyIds.subList(start, end);
+            StopWatch watch = new StopWatch();
+            watch.start("请求EPS");
+            i += onceLimit;
+            String body = null;
+            int retry = 0;
+            int maxRetry = 10;
+            while (retry <= maxRetry) {
+                try {
+                    body = httpUtils.pullHotelDetailListByIdsEn(queryList);
+                    if (StringUtils.hasLength(body)) break;
+                } catch (TimeoutException | SocketException exception) {
+                    log.error("本次超时");
+                    retry++;
+                }
+            }
+            JSONObject jsonObject = JSON.parseObject(body);
+            if (jsonObject == null) {
+                // 超过重试次数，就直接跳过本批次
+                continue;
+            }
+            watch.stop();
+            watch.start("尝试解析出真实有效的id");
+            for (Map.Entry<String, Object> entry : jsonObject.entrySet()) {
+                realEffectiveIds.add(entry.getKey());
+            }
+            watch.stop();
+            log.info("本批次执行总时长：{}, 具体耗时为：{}", watch.getTotalTimeSeconds(), watch.prettyPrint());
+        }
+        List<String> noExistList = Lists.newArrayListWithCapacity(1000);
+        for (String propertyId : propertyIds) {
+            if (!realEffectiveIds.contains(propertyId)) {
+                noExistList.add(propertyId);
+            }
+        }
+        log.info("本次查找疑似id数{}个, 不存在{}个,具体为: {}", total, noExistList.size(), noExistList);
+        log.info("realEffectiveIds真实存在: {}", String.join(",", realEffectiveIds));
     }
 }

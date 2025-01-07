@@ -403,9 +403,9 @@ public class HttpUtils {
             String body = response.body().string();
             ExpediaRegions expediaRegions = new ExpediaRegions();
             expediaRegions.setId(id);
+            expediaRegions.setRegionId(regionId);
             if (StringUtils.isBlank(body) || "{}".equals(body)) {
                 expediaRegions.setHasZh(false);
-                expediaRegions.setRegionId(regionId);
                 return expediaRegions;
             }
             Region region = JSON.parseObject(body, Region.class);
@@ -464,6 +464,50 @@ public class HttpUtils {
                 .post(body)
                 .header("Content-Type", "application/json")
                 .header("Connection", "keep-alive")
+                .build();
+        Call call = okHttpClient.newCall(request);
+        try (Response response = call.execute()) {
+            return response.body().string();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public ExpediaResponse pullRegionStandardEn(String sourceUrl, String countryCode) {
+        return pullRegionStandard(sourceUrl, countryCode, LANGUAGE);
+    }
+
+    public ExpediaResponse pullRegionStandardZh(String sourceUrl, String countryCode) {
+        return pullRegionStandard(sourceUrl, countryCode, CHINESE_LANGUAGE);
+    }
+
+    public ExpediaResponse pullRegionStandard(String sourceUrl, String countryCode, String language) {
+        String url = StringUtils.isNotBlank(sourceUrl) ? sourceUrl : ENDPOINT + REGIONS + "?include=standard&language=" + language + "&country_code=" + countryCode;
+        Request request = new Request.Builder()
+                .url(url)
+                .header("Accept", "application/json")
+                .header("Authorization", createSign())
+                .build();
+        Call call = okHttpClient.newCall(request);
+        try {
+            Response response = call.execute();
+            String link = response.header(LINK_HEAD_KEY);
+            String nextPageUrl = StringUtils.isBlank(link) ? "" : link.substring(link.indexOf('<') + 1, link.indexOf('>'));
+            String total = response.header(PAGE_HEAD_KEY);
+            String load = response.header(LODA_HEAD_KEY);
+            String body = response.body().string();
+            return ExpediaResponse.builder().build().setBody(body).setTotal(total == null ? 0 : Integer.parseInt(total)).setNextPageUrl(nextPageUrl).setLoad(load == null ? 0 : Integer.parseInt(load));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public String pullRegionProperty(String regionId) {
+        String url = ENDPOINT + REGIONS + "/" + regionId + "?include=property_ids&language=en-US";
+        Request request = new Request.Builder()
+                .url(url)
+                .header("Accept", "application/json")
+                .header("Authorization", createSign())
                 .build();
         Call call = okHttpClient.newCall(request);
         try (Response response = call.execute()) {

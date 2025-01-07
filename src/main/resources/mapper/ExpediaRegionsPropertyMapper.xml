@@ -3,10 +3,24 @@
 <mapper namespace="com.example.basic.dao.ExpediaRegionsPropertyDao">
 
     <insert id="saveBatch" parameterType="com.example.basic.entity.ExpediaRegionsProperty">
-        insert into `expedia_regions_property` (`region_id`, `property_id`)
+        insert into `expedia_regions_property` (`region_id`, `property_ids`)
         values
         <foreach collection="insertList" separator="," item="item">
-            (#{item.regionId}, #{item.propertyId})
+            (#{item.regionId}, #{item.propertyIds})
         </foreach>
     </insert>
+
+    <select id="selectAllRegionIds" resultType="java.lang.String">
+        SELECT `region_id`
+        FROM `expedia_regions_property`
+    </select>
+
+    <select id="selectListByRegionIds" parameterType="java.util.List" resultType="com.example.basic.entity.ExpediaRegionsProperty">
+        SELECT *
+        FROM `expedia_regions_property`
+        WHERE `region_id` IN
+        <foreach collection="regionIds" item="regionId" open="(" separator="," close=")">
+            #{regionId}
+        </foreach>
+    </select>
 </mapper>

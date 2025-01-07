@@ -65,4 +65,15 @@
         update_time = #{updateTime}
         WHERE hotel_id = #{hotelId}
     </update>
+
+    <select id="selectAllNeedUpdateCity" resultType="com.example.basic.entity.ExpediaInfo">
+        SELECT hotel_id, city_en, country_code
+        FROM `expedia_info`
+    </select>
+
+    <select id="selectNoNameList" resultType="com.example.basic.entity.ExpediaInfo">
+        SELECT hotel_id
+        FROM `expedia_info`
+        WHERE `name` is null
+    </select>
 </mapper>

@@ -15,4 +15,8 @@ public interface ExpediaInfoDao {
     List<String> selectNeedUpdate();
 
     void update(ExpediaInfo expediaInfo);
+
+    List<ExpediaInfo> selectAllNeedUpdateCity();
+
+    List<ExpediaInfo> selectNoNameList();
 }

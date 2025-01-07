@@ -48,6 +48,9 @@ public class ExpediaRegions {
     private String descendants;	// 下级节点原文
 
     private Boolean realExist;	// 真实存在-1，否则0
-
+    private Boolean hasEn;	// 英文可以查询到-1，否则0
     private Boolean hasZh;	// 中文可以查询到-1，否则0
+    private Boolean complete;	// 数据完整1-完整;0-不完整
+    private Boolean hasProperty;	// 有酒店1-有;0-没有
+    private Integer propertyCount;	// 酒店个数
 }

@@ -206,4 +206,48 @@ public class WstGlobalController {
     public void completeRegion() throws Exception {
         wstGlobalService.completeRegion();
     }
+
+    /**
+     * 检查区域数据
+     */
+    @PostMapping(value = "check-region")
+    public void checkRegion() throws Exception {
+        wstGlobalService.checkRegion();
+    }
+
+    /**
+     * 校验区域中英文数据
+     */
+    @PostMapping(value = "check-region-language")
+    public void checkRegionLanguage() throws Exception {
+        wstGlobalService.checkRegionLanguage();
+    }
+
+    /**
+     * 查询区域下酒店
+     */
+    @PostMapping(value = "pull-property")
+    public void pullProperty() {
+        try {
+            wstGlobalService.pullProperty();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
+
+    /**
+     * 更新酒店城市id
+     */
+    @PostMapping(value = "update-hotel-city-id")
+    public void updateHotelCityId() throws Exception {
+        wstGlobalService.updateHotelCityId();
+    }
+
+    /**
+     * 确认部分酒店是否真实有效
+     */
+    @PostMapping(value = "check-part-hotel")
+    public void checkPartHotel() throws Exception {
+        wstGlobalService.checkPartHotel();
+    }
 }

@@ -1537,7 +1537,7 @@ public class ExpediaService {
                                 for (String propertyId : propertyIds) {
                                     ExpediaRegionsProperty expediaRegionsProperty = new ExpediaRegionsProperty();
                                     expediaRegionsProperty.setRegionId(region.getId());
-                                    expediaRegionsProperty.setPropertyId(propertyId);
+                                    expediaRegionsProperty.setPropertyIds(propertyId);
                                     expediaRegionsProperties.add(expediaRegionsProperty);
                                 }
                             }

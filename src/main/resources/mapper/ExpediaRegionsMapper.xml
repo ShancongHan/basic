@@ -9,6 +9,19 @@
             (#{item.regionId}, #{item.type}, #{item.nameEn}, #{item.fullNameEn}, #{item.countryCode}, #{item.realExist})
         </foreach>
     </insert>
+
+    <insert id="saveFullBatch" parameterType="com.example.basic.entity.ExpediaRegions">
+        insert into expedia_regions (region_id, `type`, name_en, full_name_en, `name`, full_name, continent, country_code,
+        country_subdivision_code, parent_id, parent_path, center_longitude, center_latitude,
+        categories, tags, ancestors, descendants, has_en, has_zh)
+        values
+        <foreach collection="insertList" separator="," item="item">
+            (#{item.regionId}, #{item.type}, #{item.nameEn}, #{item.fullNameEn}, #{item.name}, #{item.fullName},
+             #{item.continent}, #{item.countryCode}
+            , #{item.countrySubdivisionCode}, #{item.parentId}, #{item.parentPath}, #{item.centerLongitude}, #{item.centerLatitude},
+            #{item.categories}, #{item.tags}, #{item.ancestors}, #{item.descendants}, #{item.hasEn}, #{item.hasZh})
+        </foreach>
+    </insert>
     
     <select id="selectRegions" resultType="com.example.basic.entity.ExpediaRegions">
         SELECT `id`, `region_id`
@@ -68,4 +81,45 @@
         </set>
         WHERE `id` = #{id}
     </update>
+
+    <update id="updateHasZh" parameterType="java.util.List">
+        UPDATE `expedia_regions`
+        SET `has_zh` = 1
+        WHERE region_id IN
+        <foreach collection="regionIds" item="regionId" open="(" separator="," close=")">
+            #{regionId}
+        </foreach>
+    </update>
+
+    <update id="updateHasEn" parameterType="java.util.List">
+        UPDATE `expedia_regions`
+        SET `has_en` = 1
+        WHERE region_id IN
+        <foreach collection="regionIds" item="regionId" open="(" separator="," close=")">
+            #{regionId}
+        </foreach>
+    </update>
+
+    <select id="selectAllRegionIds" resultType="java.lang.String">
+        SELECT `region_id`
+        FROM `expedia_regions`
+    </select>
+
+    <select id="selectAllNeedStatistics" resultType="com.example.basic.entity.ExpediaRegions">
+        SELECT `id`, `region_id`
+        FROM `expedia_regions`
+        WHERE has_property IS NULL
+    </select>
+    
+    <update id="updateStatistics" parameterType="com.example.basic.domain.eps.RegionPropertyResult">
+        UPDATE `expedia_regions`
+        SET `has_property` = #{hasProperty}, `property_count` = #{propertyCount}
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectAllCity" resultType="com.example.basic.entity.ExpediaRegions">
+        SELECT id, region_id, type, country_code, name_en
+        FROM `expedia_regions`
+        WHERE `type` = 'city' and `property_count` is not null
+    </select>
 </mapper>
