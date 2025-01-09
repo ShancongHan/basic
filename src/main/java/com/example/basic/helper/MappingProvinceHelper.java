@@ -10,10 +10,12 @@ import java.text.Normalizer;
  */
 public class MappingProvinceHelper {
 
-    public static boolean match(String name, String provinceName) {
+    public static boolean match(String name, String provinceName, boolean chinese) {
         name = handler(name);
         provinceName = handler(provinceName);
-        provinceName = removeAccents(provinceName);
+        if (!chinese) {
+            provinceName = removeAccents(provinceName);
+        }
         return name.equals(provinceName);
     }
 

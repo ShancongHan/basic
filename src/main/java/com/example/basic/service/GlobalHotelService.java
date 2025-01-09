@@ -35,6 +35,8 @@ public class GlobalHotelService {
 
     @Resource
     private ExpediaRegionDao expediaRegionDao;
+    @Resource
+    private ExpediaRegionsDao expediaRegionsDao;
 
     @Resource
     private OaChengxiCountryDao oaChengxiCountryDao;
@@ -96,7 +98,7 @@ public class GlobalHotelService {
         List<CompletableFuture<ProvinceResult>> futures = Lists.newArrayListWithCapacity(expediaRegions.size());
         for (ExpediaRegion expediaRegion : expediaRegions) {
             futures.add(CompletableFuture.supplyAsync(() -> {
-                boolean match = MappingProvinceHelper.match(xcProvince.getProvinceEnName(), expediaRegion.getNameEn());
+                boolean match = MappingProvinceHelper.match(xcProvince.getProvinceEnName(), expediaRegion.getNameEn(), false);
                 if (match) {
                     ProvinceResult result = new ProvinceResult();
                     result.setProvinceId(xcProvince.getProvinceId());
@@ -118,7 +120,7 @@ public class GlobalHotelService {
 
     public void matchProvince() throws Exception {
         List<WstHotelGlobalProvince> wstHotelGlobalProvinces = wstHotelGlobalProvinceDao.selectAll();
-        List<ExpediaRegion> expediaRegions = expediaRegionDao.selectAllProvinces();
+        List<ExpediaRegion> expediaRegions = expediaRegionsDao.selectAllProvinces();
 
         Map<String, List<ExpediaRegion>> expediaCountryCodeMap = expediaRegions.stream().collect(Collectors.groupingBy(ExpediaRegion::getCountryCode));
         Map<String, List<WstHotelGlobalProvince>> countryCodeMap = wstHotelGlobalProvinces.stream().collect(Collectors.groupingBy(WstHotelGlobalProvince::getCountryCode));
@@ -147,6 +149,7 @@ public class GlobalHotelService {
             for (ProvinceResult result : results) {
                 WstHotelGlobalProvince province = new WstHotelGlobalProvince();
                 province.setId(result.getProvinceId());
+                province.setEpsRegionId(result.getEpsRegionId());
                 province.setEpsName(result.getEpsProvinceName());
                 province.setEpsNameEn(result.getEpsProvinceEnName());
                 province.setEpsCountryCode(countryCode);
@@ -159,14 +162,66 @@ public class GlobalHotelService {
         List<CompletableFuture<ProvinceResult>> futures = Lists.newArrayListWithCapacity(expediaRegions.size());
         for (ExpediaRegion expediaRegion : expediaRegions) {
             futures.add(CompletableFuture.supplyAsync(() -> {
-                boolean match = MappingProvinceHelper.match(province.getNameEn(), expediaRegion.getNameEn());
+                boolean match = MappingProvinceHelper.match(province.getNameEn(), expediaRegion.getNameEn(), false);
                 if (match) {
                     ProvinceResult result = new ProvinceResult();
                     result.setProvinceId(province.getId());
                     result.setProvinceName(province.getName());
                     result.setProvinceEnName(province.getNameEn());
+                    result.setEpsRegionId(expediaRegion.getRegionId());
                     result.setEpsProvinceName(expediaRegion.getName());
                     result.setEpsProvinceEnName(expediaRegion.getNameEn());
+                    return result;
+                }
+                return null;
+            }, executor));
+        }
+        for (CompletableFuture<ProvinceResult> future : futures) {
+            ProvinceResult result = future.get();
+            if (result != null) return result;
+        }
+        return null;
+    }
+
+    public void matchOneProvince() throws Exception {
+        //String countryCode = "EE";
+        List<WstHotelGlobalProvince> wstHotelGlobalProvinces = wstHotelGlobalProvinceDao.selectNeedMatch();
+        List<ExpediaRegion> expediaRegions = expediaRegionsDao.selectAllProvinces();
+        Map<String, List<ExpediaRegion>> expediaCountryCodeMap = expediaRegions.stream().collect(Collectors.groupingBy(ExpediaRegion::getCountryCode));
+
+        List<ProvinceResult> results = Lists.newArrayListWithCapacity(wstHotelGlobalProvinces.size());
+        for (WstHotelGlobalProvince province : wstHotelGlobalProvinces) {
+            String countryCode = province.getCountryCode();
+            if (!expediaCountryCodeMap.containsKey(countryCode)) continue;
+            ProvinceResult result = matchOneProvinceByName(province, expediaRegions);
+            if (result != null) {
+                results.add(result);
+            }
+        }
+        for (ProvinceResult result : results) {
+            WstHotelGlobalProvince province = new WstHotelGlobalProvince();
+            province.setId(result.getProvinceId());
+            province.setEpsRegionId(result.getEpsRegionId());
+            province.setEpsName(result.getEpsProvinceName());
+            province.setEpsNameEn(result.getEpsProvinceEnName());
+            province.setEpsCountryCode(result.getEpsCountryCode());
+            wstHotelGlobalProvinceDao.update(province);
+        }
+    }
+
+    private ProvinceResult matchOneProvinceByName(WstHotelGlobalProvince province, List<ExpediaRegion> expediaRegions) throws ExecutionException, InterruptedException {
+        List<CompletableFuture<ProvinceResult>> futures = Lists.newArrayListWithCapacity(expediaRegions.size());
+        for (ExpediaRegion expediaRegion : expediaRegions) {
+            futures.add(CompletableFuture.supplyAsync(() -> {
+                boolean match = MappingProvinceHelper.match(province.getName(), expediaRegion.getName(), true);
+                if (match) {
+                    ProvinceResult result = new ProvinceResult();
+                    result.setProvinceId(province.getId());
+                    result.setProvinceName(province.getName());
+                    result.setProvinceEnName(province.getNameEn());
+                    result.setEpsRegionId(expediaRegion.getRegionId());
+                    result.setEpsProvinceName(expediaRegion.getName());
+                    result.setEpsCountryCode(expediaRegion.getCountryCode());
                     return result;
                 }
                 return null;
@@ -252,4 +307,6 @@ public class GlobalHotelService {
         neighborhood.ifPresent(value -> builder.append(value.getId()).append("/"));
         return builder.toString();
     }
+
+
 }

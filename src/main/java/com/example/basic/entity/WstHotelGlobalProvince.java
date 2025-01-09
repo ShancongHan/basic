@@ -17,6 +17,8 @@ public class WstHotelGlobalProvince {
 
     private String countryCode;	// 国家二字码
 
+    private String epsRegionId;    // EPS区域id
+
     private String epsName;	// EPS名称
 
     private String epsNameEn;	// EPS英文名称

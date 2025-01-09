@@ -122,4 +122,16 @@
         FROM `expedia_regions`
         WHERE `type` = 'city' and `property_count` is not null
     </select>
+
+    <select id="selectAllProvinces" resultType="com.example.basic.entity.ExpediaRegion">
+        SELECT *
+        FROM `expedia_regions`
+        WHERE type = 'province_state'
+    </select>
+
+    <select id="selectAllProvincesByCountryCode" parameterType="java.lang.String" resultType="com.example.basic.entity.ExpediaRegion">
+        SELECT *
+        FROM `expedia_regions`
+        WHERE `country_code` = #{countryCode} and type = 'province_state' and categories = '[place:administrative, administrative:province]'
+    </select>
 </mapper>

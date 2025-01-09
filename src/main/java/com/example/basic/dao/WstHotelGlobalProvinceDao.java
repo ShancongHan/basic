@@ -12,4 +12,8 @@ public interface WstHotelGlobalProvinceDao {
     List<WstHotelGlobalProvince> selectAll();
 
     void update(WstHotelGlobalProvince province);
+
+    List<WstHotelGlobalProvince> selectOneByCountryCode(String countryCode);
+
+    List<WstHotelGlobalProvince> selectNeedMatch();
 }

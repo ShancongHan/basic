@@ -1,6 +1,7 @@
 package com.example.basic.dao;
 
 import com.example.basic.domain.eps.RegionPropertyResult;
+import com.example.basic.entity.ExpediaRegion;
 import com.example.basic.entity.ExpediaRegions;
 import org.apache.ibatis.annotations.Param;
 
@@ -41,4 +42,8 @@ public interface ExpediaRegionsDao {
     void updateStatistics(RegionPropertyResult expediaRegionsProperty);
 
     List<ExpediaRegions> selectAllCity();
+
+    List<ExpediaRegion> selectAllProvinces();
+
+    List<ExpediaRegion> selectAllProvincesByCountryCode(String countryCode);
 }

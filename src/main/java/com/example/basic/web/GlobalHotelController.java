@@ -57,6 +57,18 @@ public class GlobalHotelController {
     }
 
     /**
+     * 匹配单个省份
+     */
+    @PostMapping(value = "match-one-province")
+    public void matchOneProvince() {
+        try {
+            globalHotelService.matchOneProvince();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
+
+    /**
      * 分析城市
      */
     @PostMapping(value = "analyze-city")

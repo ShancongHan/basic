@@ -8,7 +8,19 @@
 
     <update id="update" parameterType="com.example.basic.entity.WstHotelGlobalProvince">
         UPDATE `wst_hotel_global_province`
-        SET `eps_country_code` = #{epsCountryCode}, `eps_name` =  #{epsName}, `eps_name_en` = #{epsNameEn}
+        SET `eps_country_code` = #{epsCountryCode}, `eps_region_id` =  #{epsRegionId}, `eps_name` =  #{epsName}, `eps_name_en` = #{epsNameEn}
         WHERE `id` = #{id}
     </update>
+
+    <select id="selectOneByCountryCode" parameterType="java.lang.String" resultType="com.example.basic.entity.WstHotelGlobalProvince">
+        SELECT *
+        FROM `wst_hotel_global_province`
+        WHERE `country_code` = #{countryCode}
+    </select>
+    
+    <select id="selectNeedMatch" resultType="com.example.basic.entity.WstHotelGlobalProvince">
+        SELECT *
+        FROM `wst_hotel_global_province`
+        WHERE `eps_region_id` IS NULL
+    </select>
 </mapper>
