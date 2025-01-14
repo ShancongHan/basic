@@ -38,4 +38,13 @@
         SELECT id
         FROM `jd_jdb_gj`
     </select>
+
+    <select id="selectInfoByLocalIds" parameterType="java.lang.String" resultType="com.example.basic.entity.JdJdbGj">
+        SELECT *
+        FROM `jd_jdb_gj`jjg
+        WHERE id IN
+        <foreach collection="localIds" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
 </mapper>

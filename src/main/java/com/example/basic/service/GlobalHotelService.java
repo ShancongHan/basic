@@ -2,25 +2,23 @@ package com.example.basic.service;
 
 import com.alibaba.fastjson2.JSON;
 import com.example.basic.dao.*;
-import com.example.basic.domain.CalculateResult;
 import com.example.basic.domain.eps.Ancestors;
 import com.example.basic.domain.eps.ProvinceResult;
+import com.example.basic.domain.expedia.CityMatchResult;
 import com.example.basic.entity.*;
+import com.example.basic.helper.MappingCityHelper;
 import com.example.basic.helper.MappingProvinceHelper;
-import com.example.basic.helper.MappingScoreHelper2;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StopWatch;
 import org.springframework.util.StringUtils;
 
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * @author han
@@ -51,6 +49,9 @@ public class GlobalHotelService {
 
     @Resource
     private XcProvinceDao xcProvinceDao;
+
+    @Resource
+    private WstHotelGlobalCityDao wstHotelGlobalCityDao;
 
     private static final Integer CORE_POOL_SIZE = 200;
     private static final Integer MAXIMUM_POOL_SIZE = 250;
@@ -309,4 +310,164 @@ public class GlobalHotelService {
     }
 
 
+    public void matchCity() throws ExecutionException, InterruptedException {
+        List<WstHotelGlobalCountry> wstHotelGlobalCountries = wstHotelGlobalCountryDao.selectAll();
+        Map<String, String> countryCodeRelationShipMap = wstHotelGlobalCountries.stream()
+                .filter(e -> StringUtils.hasLength(e.getCode()) && StringUtils.hasLength(e.getEpsCode()))
+                .collect(Collectors.toMap(WstHotelGlobalCountry::getCode, WstHotelGlobalCountry::getEpsCode));
+        List<WstHotelGlobalProvince> provinces = wstHotelGlobalProvinceDao.selectAll();
+        Map<Integer, String> provinceIdRelationShipMap = provinces.stream()
+                .filter(e -> e.getId() != null && StringUtils.hasLength(e.getEpsRegionId()))
+                .collect(Collectors.toMap(WstHotelGlobalProvince::getId, WstHotelGlobalProvince::getEpsRegionId));
+        List<WstHotelGlobalCity> wstHotelGlobalCities = wstHotelGlobalCityDao.selectAll();
+        Map<String, List<WstHotelGlobalCity>> countryCodeMap = wstHotelGlobalCities.stream().collect(Collectors.groupingBy(WstHotelGlobalCity::getCountryCode));
+        for (Map.Entry<String, List<WstHotelGlobalCity>> entry : countryCodeMap.entrySet()) {
+            StopWatch watch = new StopWatch();
+            watch.start("查询eps城市");
+            String countryCode = entry.getKey();
+            String epsCountryCode = countryCodeRelationShipMap.get(countryCode);
+            if (!StringUtils.hasLength(epsCountryCode)) continue;
+            List<WstHotelGlobalCity> globalCities = entry.getValue();
+            List<ExpediaRegions> expediaRegionsList = expediaRegionsDao.selectListByCountryCode(epsCountryCode);
+            watch.stop();
+            // 把没有省份的先省略掉
+           /* watch.start("没有省份的匹配");
+            // 先查出没有省份的city
+            List<WstHotelGlobalCity> notHasProvinceList = globalCities.stream().filter(e -> e.getProvinceId() == null).toList();
+            if (!CollectionUtils.isEmpty(notHasProvinceList)) {
+                List<ExpediaRegions> allEpsCityList = expediaRegionsList.stream().filter(e -> "city".equals(e.getType())).toList();
+                List<CityMatchResult> results = findSameCity(notHasProvinceList, allEpsCityList);
+                updateBatch(results);
+                log.info("国家{}，无省份记录{}条, 匹配到城市{}个",countryCode, notHasProvinceList.size(), results.size());
+                results.clear();
+            }
+            watch.stop();*/
+            watch.start("有省份的比较");
+            // 再查出没有省份的city,并按照省份分类
+            Map<Integer, List<WstHotelGlobalCity>> provinceMap = globalCities.stream()
+                    .filter(e -> e.getProvinceId() != null)
+                    .collect(Collectors.groupingBy(WstHotelGlobalCity::getProvinceId));
+            //noinspection OptionalGetWithoutIsPresent
+            ExpediaRegions epsCountry = expediaRegionsList.stream().filter(e -> "country".equals(e.getType())).findFirst().get();
+            String parentId = epsCountry.getParentId();
+            String path = "/" + parentId + "/" + epsCountry.getRegionId() + "/";
+            for (Map.Entry<Integer, List<WstHotelGlobalCity>> subEntry : provinceMap.entrySet()) {
+                Integer provinceId = subEntry.getKey();
+                List<WstHotelGlobalCity> onePrivinceCityList = subEntry.getValue();
+                // 当前省份下没有城市，直接跳过
+                if (CollectionUtils.isEmpty(onePrivinceCityList)) continue;
+                String provinceName = onePrivinceCityList.get(0).getProvinceName();
+                String epsProvinceId = provinceIdRelationShipMap.get(provinceId);
+                // 如果找不到eps的对应省份，直接跳过
+                if (!StringUtils.hasLength(epsProvinceId)) continue;
+                String provincePath = path + epsProvinceId;
+                // 严格按照省份组装path路径，筛选出城市列表
+                List<ExpediaRegions> toughEpsCityList = expediaRegionsList.stream()
+                        .filter(e -> ("city".equals(e.getType()) || "high_level_region".equals(e.getType()) || "neighborhood".equals(e.getType()) || "multi_city_vicinity".equals(e.getType()))
+                                && (StringUtils.hasLength(e.getParentPath()) && (e.getParentPath().startsWith(provincePath)))).toList();
+                List<CityMatchResult> results = Lists.newArrayListWithCapacity(onePrivinceCityList.size());
+                List<CityMatchResult> matchList = findSameCity(onePrivinceCityList, toughEpsCityList);
+                if (!CollectionUtils.isEmpty(matchList)) results.addAll(matchList);
+                /*Set<Integer> matchCityIds = matchList.stream().map(CityMatchResult::getCityId).collect(Collectors.toSet());
+                List<WstHotelGlobalCity> stillNotFoundList = onePrivinceCityList.stream().filter(e -> !matchCityIds.contains(e.getCityId())).toList();
+                List<ExpediaRegions> looseEpsCityList = expediaRegionsList.stream()
+                        .filter(e -> ("city".equals(e.getType()) || "high_level_region".equals(e.getType()) || "neighborhood".equals(e.getType()) || "multi_city_vicinity".equals(e.getType()))
+                                && (StringUtils.hasLength(e.getParentPath()) && (e.getParentPath().startsWith(path)))).toList();*/
+                updateBatch(results);
+                /*for (WstHotelGlobalCity wstHotelGlobalCity : cityList) {
+                    *//*Integer cityId = wstHotelGlobalCity.getCityId();
+                    String name = wstHotelGlobalCity.getName();
+                    String nameEn = wstHotelGlobalCity.getNameEn();
+                    Map<String, List<ExpediaRegions>> nameMap = epsCityList.stream().collect(Collectors.groupingBy(ExpediaRegions::getName));
+                    Map<String, List<ExpediaRegions>> nameEnMap = epsCityList.stream().collect(Collectors.groupingBy(ExpediaRegions::getNameEn));
+                    if (nameMap.containsKey(name)) {
+                        List<ExpediaRegions> findList = nameMap.get(name);
+                        if (findList.size() == 1) {
+                            ExpediaRegions expediaRegions = findList.get(0);
+                            boolean nameEnMatch = MappingCityHelper.matchNameEn(nameEn, expediaRegions.getNameEn());
+                            if (nameEnMatch) {
+                                CityMatchResult result = setResult(cityId, name, nameEn, expediaRegions);
+                                results.add(result);
+                                continue;
+                            }
+                        }
+                    }
+                    if (nameEnMap.containsKey(nameEn)) {
+                        List<ExpediaRegions> findList = nameEnMap.get(nameEn);
+                        if (findList.size() == 1) {
+                            ExpediaRegions expediaRegions = findList.get(0);
+                            boolean nameMatch = MappingCityHelper.matchName(name, expediaRegions.getName());
+                            if (nameMatch) {
+                                CityMatchResult result = setResult(cityId, name, nameEn, expediaRegions);
+                                results.add(result);
+                                continue;
+                            }
+                        }
+                    }*//*
+
+                }*/
+                log.info("国家{}，省份{}({}), 匹配到这些城市{}",countryCode, provinceName, provinceId, results.size());
+            }
+            watch.stop();
+            log.info("国家{}, 匹配耗时{}, 分别耗时{}",countryCode, watch.getTotalTimeSeconds(), watch.prettyPrint());
+        }
+    }
+
+    private void updateBatch(List<CityMatchResult> results) {
+        if (!CollectionUtils.isEmpty(results)) {
+            for (CityMatchResult result : results) {
+                wstHotelGlobalCityDao.update(result);
+            }
+        }
+    }
+
+    /**
+     * 2个列表互相找相同的城市，仅考虑名字
+     * @param globalCities 本地城市列表
+     * @param epsCityList eps城市列表
+     * @return 匹配的结果
+     * @throws ExecutionException 线程异常
+     * @throws InterruptedException 中断异常
+     */
+    private List<CityMatchResult> findSameCity(List<WstHotelGlobalCity> globalCities, List<ExpediaRegions> epsCityList) throws ExecutionException, InterruptedException {
+        List<CompletableFuture<CityMatchResult>> futures = Lists.newArrayListWithCapacity(globalCities.size());
+        List<CityMatchResult> results = Lists.newArrayListWithCapacity(globalCities.size());
+        for (WstHotelGlobalCity wstHotelGlobalCity : globalCities) {
+            for (ExpediaRegions expediaRegions : epsCityList) {
+                Integer cityId = wstHotelGlobalCity.getCityId();
+                String name = wstHotelGlobalCity.getName();
+                String nameEn = wstHotelGlobalCity.getNameEn();
+                futures.add(CompletableFuture.supplyAsync(() -> {
+                    boolean match = MappingCityHelper.match(name, expediaRegions.getName(), nameEn, expediaRegions.getNameEn());
+                    if (match) {
+                        return setResult(cityId, name, nameEn, expediaRegions);
+                    }
+                    return null;
+                }, executor));
+            }
+        }
+        CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
+        for (CompletableFuture<CityMatchResult> future : futures) {
+            CityMatchResult result = future.get();
+            if (result != null) results.add(result);
+        }
+        return results;
+    }
+
+    private CityMatchResult setResult(Integer cityId, String name, String nameEn, ExpediaRegions expediaRegions) {
+        CityMatchResult result = new CityMatchResult();
+        result.setCityId(cityId);
+        result.setName(name);
+        result.setNameEn(nameEn);
+        result.setEpsCityId(expediaRegions.getRegionId());
+        result.setEpsName(expediaRegions.getName());
+        result.setEpsNameEn(expediaRegions.getNameEn());
+        result.setEpsFullName(expediaRegions.getFullName());
+        result.setEpsFullNameEn(expediaRegions.getFullNameEn());
+        result.setEpsCityType(expediaRegions.getType());
+        result.setEpsCountryCode(expediaRegions.getCountryCode());
+        result.setCenterLongitude(expediaRegions.getCenterLongitude());
+        result.setCenterLatitude(expediaRegions.getCenterLatitude());
+        return result;
+    }
 }

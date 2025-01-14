@@ -79,4 +79,16 @@ public class GlobalHotelController {
             System.out.println(Throwables.getStackTraceAsString(e));
         }
     }
+
+    /**
+     * 匹配城市
+     */
+    @PostMapping(value = "match-city")
+    public void matchCity() {
+        try {
+            globalHotelService.matchCity();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
 }

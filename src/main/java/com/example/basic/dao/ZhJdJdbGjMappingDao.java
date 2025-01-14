@@ -5,6 +5,7 @@ import com.example.basic.entity.ZhJdJdbGjMapping;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author han
@@ -33,4 +34,10 @@ public interface ZhJdJdbGjMappingDao {
     List<Long> selectWebbedsIds();
 
     List<ZhJdJdbGjMapping> selectDidaList();
+
+    List<ZhJdJdbGjMapping> selectEpsListByLocalIds(List<String> list);
+
+    List<String> selectListByLocalIds(Set<String> list);
+
+    List<ZhJdJdbGjMapping> selectLocalIdByPlatIds(List<String> list);
 }

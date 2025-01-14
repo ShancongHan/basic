@@ -19,4 +19,6 @@ public interface ExpediaInfoDao {
     List<ExpediaInfo> selectAllNeedUpdateCity();
 
     List<ExpediaInfo> selectNoNameList();
+
+    List<ExpediaInfo> selectByHotelIds(List<String> epsHotelIds);
 }

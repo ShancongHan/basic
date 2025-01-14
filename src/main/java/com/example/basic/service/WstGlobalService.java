@@ -11,6 +11,7 @@ import com.example.basic.domain.Region;
 import com.example.basic.domain.eps.Ancestors;
 import com.example.basic.domain.eps.RegionProperty;
 import com.example.basic.domain.eps.RegionPropertyResult;
+import com.example.basic.domain.eps.RegionResult;
 import com.example.basic.domain.expedia.BatchUpdateResult;
 import com.example.basic.domain.expedia.Pets;
 import com.example.basic.domain.to.Coordinates;
@@ -1488,44 +1489,60 @@ public class WstGlobalService {
 
     public void completeRegion() throws Exception {
         List<ExpediaCountry> expediaCountries = expediaCountryDao.selectAllCode();
-        List<String> skip = Lists.newArrayList("AF","AU","LR","LY","LT","LU","MO","MK","MG","MW","MY","MV");
+        //List<String> skip = Lists.newArrayList("AF","AU","LR","LY","LT","LU","MO","MK","MG","MW","MY","MV");
+        List<String> finish = Lists.newArrayListWithCapacity(expediaCountries.size());
         List<String> countryCodeList = expediaCountries.stream().map(ExpediaCountry::getCode).toList();
         for (String countryCode : countryCodeList) {
-            if (skip.contains(countryCode)) continue;
+            //if (skip.contains(countryCode)) continue;
             StopWatch watch = new StopWatch();
-            List<String> notHandlerRegionsList = Lists.newArrayListWithCapacity(500);
             watch.start("查询国家" + countryCode + "数据");
             List<ExpediaRegions> oneCountryList = expediaRegionsDao.selectListByCountryCode(countryCode);
             watch.stop();
             watch.start("处理数据");
-            List<CompletableFuture<List<String>>> futures = Lists.newArrayListWithCapacity(oneCountryList.size());
+            List<CompletableFuture<RegionResult>> futures = Lists.newArrayListWithCapacity(oneCountryList.size());
             Map<String, ExpediaRegions> regionIdMap = oneCountryList.stream().collect(Collectors.toMap(ExpediaRegions::getRegionId, e -> e));
             for (ExpediaRegions expediaRegion : oneCountryList) {
                 if (StringUtils.hasLength(expediaRegion.getParentPath())) continue;
                 futures.add(CompletableFuture.supplyAsync(() -> handlerPathAndUpdate(expediaRegion, regionIdMap), executor));
             }
             CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
-            for (CompletableFuture<List<String>> future : futures) {
+            List<RegionResult> results = Lists.newArrayListWithCapacity(500);
+            for (CompletableFuture<RegionResult> future : futures) {
                 try {
-                    List<String> list = future.get(3, TimeUnit.MILLISECONDS);
-                    if (!CollectionUtils.isEmpty(list)) {
-                        notHandlerRegionsList.addAll(list);
+                    RegionResult result = future.get(3, TimeUnit.MILLISECONDS);
+                    if (result != null) {
+                        results.add(result);
                     }
                 } catch (TimeoutException ignore) {
                 }
             }
             watch.stop();
-            log.info("国家{}，这些区域数据异常(共{}条)，具体未解析id如下：{}", countryCode, notHandlerRegionsList.size(), notHandlerRegionsList);
+            finish.add(countryCode);
+            log.info("国家{}，这些区域数据异常(共{}条)", countryCode, results.size());
+            log.info("没有字段的id集合: {}", results.stream().map(RegionResult::getNotFieldRegions).collect(Collectors.joining(",")));
+            log.info("城市字段超过2个的id集合: {}", results.stream().map(RegionResult::getCityOverTwo).collect(Collectors.joining(",")));
+            log.info("城市字段无效的id集合: {}", results.stream().map(RegionResult::getInvalidCity).collect(Collectors.joining(",")));
+            log.info("省份字段超过5个的id集合: {}", results.stream().map(RegionResult::getProvinceOverFive).collect(Collectors.joining(",")));
+            log.info("省份字段无效的id集合: {}", results.stream().map(RegionResult::getInvalidProvince).collect(Collectors.joining(",")));
             log.info("国家{}执行总时长：{}, 具体耗时为：{}", countryCode, watch.getTotalTimeSeconds(), watch.prettyPrint());
+            log.info("进度找我{}，分别是{}", finish.size(), String.join(",", finish));
         }
+        log.info("最终处理了{}个国家，分别是{}", finish.size(), String.join(",", finish));
     }
 
-    private List<String> handlerPathAndUpdate(ExpediaRegions expediaRegion, Map<String, ExpediaRegions> regionIdMap) {
-        List<String> notHandlerRegionsList = Lists.newArrayList(expediaRegion.getRegionId());
+    private RegionResult handlerPathAndUpdate(ExpediaRegions expediaRegion, Map<String, ExpediaRegions> regionIdMap) {
+        RegionResult result = new RegionResult();
         String ancestors = expediaRegion.getAncestors();
-        if (!StringUtils.hasLength(ancestors)) return notHandlerRegionsList;
+        String regionId = expediaRegion.getRegionId();
+        if (!StringUtils.hasLength(ancestors)) {
+            result.setNotFieldRegions(regionId);
+            return result;
+        }
         List<Ancestors> ancestorsList = JSON.parseArray(ancestors, Ancestors.class);
-        if (CollectionUtils.isEmpty(ancestorsList)) return notHandlerRegionsList;
+        if (CollectionUtils.isEmpty(ancestorsList)) {
+            result.setNotFieldRegions(regionId);
+            return result;
+        }
         StringBuilder builder = new StringBuilder("/");
         Optional<Ancestors> continent = ancestorsList.stream().filter(e -> "continent".equals(e.getType())).findFirst();
         continent.ifPresent(value -> builder.append(value.getId()).append("/"));
@@ -1534,8 +1551,8 @@ public class WstGlobalService {
         country.ifPresent(value -> builder.append(value.getId()).append("/"));
         List<Ancestors> provinceState = ancestorsList.stream().filter(e -> "province_state".equals(e.getType())).toList();
         if (!CollectionUtils.isEmpty(provinceState) && provinceState.size() > 5) {
-            notHandlerRegionsList.add(expediaRegion.getRegionId());
-            return notHandlerRegionsList;
+            result.setProvinceOverFive(regionId);
+            return result;
         }
         if (!CollectionUtils.isEmpty(provinceState)) {
             String provinceSign = "administrative:province";
@@ -1546,7 +1563,8 @@ public class WstGlobalService {
             for (String id : provinceState.stream().map(Ancestors::getId).collect(Collectors.toSet())) {
                 if (!regionIdMap.containsKey(id)) {
                     log.info("国家{} 区域 {}中，存在无效的id：{}", expediaRegion.getCountryCode(), expediaRegion.getRegionId(), id);
-                    return notHandlerRegionsList;
+                    result.setInvalidProvince(id);
+                    return result;
                 }
             }
             Optional<Ancestors> firstProvince = provinceState.stream().filter(e -> regionIdMap.get(e.getId()).getCategories().contains(provinceSign)).findFirst();
@@ -1566,8 +1584,8 @@ public class WstGlobalService {
         multiCityVicinity.ifPresent(value -> builder.append(value.getId()).append("/"));
         List<Ancestors> cityList = ancestorsList.stream().filter(e -> "city".equals(e.getType())).toList();
         if (!CollectionUtils.isEmpty(cityList)  && cityList.size() > 2) {
-            notHandlerRegionsList.add(expediaRegion.getRegionId());
-            return notHandlerRegionsList;
+            result.setCityOverTwo(regionId);
+            return result;
         }
         if (!CollectionUtils.isEmpty(cityList)) {
             String realCityStr = "administrative:city";
@@ -1575,7 +1593,8 @@ public class WstGlobalService {
             for (String id : cityList.stream().map(Ancestors::getId).collect(Collectors.toSet())) {
                 if (!regionIdMap.containsKey(id)) {
                     log.info("国家{} 区域 {}中，存在无效的id：{}", expediaRegion.getCountryCode(), expediaRegion.getRegionId(), id);
-                    return notHandlerRegionsList;
+                    result.setInvalidCity(id);
+                    return result;
                 }
             }
             Optional<Ancestors> realCity = cityList.stream().filter(e -> regionIdMap.get(e.getId()).getCategories().contains(realCityStr)).findFirst();

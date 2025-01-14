@@ -76,4 +76,13 @@
         FROM `expedia_info`
         WHERE `name` is null
     </select>
+
+    <select id="selectByHotelIds" parameterType="java.lang.String" resultType="com.example.basic.entity.ExpediaInfo">
+        SELECT hotel_id, `name`, name_en
+        FROM `expedia_info`
+        WHERE hotel_id IN
+        <foreach collection="epsHotelIds" item="hotelId" open="(" separator="," close=")">
+            #{hotelId}
+        </foreach>
+    </select>
 </mapper>

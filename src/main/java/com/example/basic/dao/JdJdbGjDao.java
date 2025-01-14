@@ -18,4 +18,6 @@ public interface JdJdbGjDao {
     List<JdJdbGj> selectPartByCountryAndCityId(@Param(value = "countryCode") String countryCode, @Param(value = "cityId") String cityId);
 
     List<Long> selectAllIds();
+
+    List<JdJdbGj> selectInfoByLocalIds(List<Long> localIds);
 }

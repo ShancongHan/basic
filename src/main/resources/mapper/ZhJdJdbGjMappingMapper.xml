@@ -80,4 +80,36 @@
         FROM `zh_jd_jdb_gj_mapping`
         WHERE `plat` = 2000069
     </select>
+
+    <select id="selectEpsListByLocalIds" parameterType="java.lang.String" resultType="com.example.basic.entity.ZhJdJdbGjMapping">
+        SELECT *
+        FROM `zh_jd_jdb_gj_mapping`
+        WHERE `plat` = 2000073 AND local_id IN
+        <foreach collection="list" item="localId" open="(" separator="," close=")">
+            #{localId}
+        </foreach>
+    </select>
+
+    <select id="selectListByLocalIds" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT `plat_id`
+        FROM `zh_jd_jdb_gj_mapping`
+        WHERE `plat` = 2000069 AND local_id IN
+        <foreach collection="list" item="localId" open="(" separator="," close=")">
+            #{localId}
+        </foreach>
+    </select>
+
+    <select id="selectLocalIdByPlatIds" parameterType="java.lang.String" resultType="com.example.basic.entity.ZhJdJdbGjMapping">
+        SELECT *
+        FROM `zh_jd_jdb_gj_mapping`
+        WHERE `plat` = 2000069 AND plat_id IN
+        <foreach collection="list" item="platId" open="(" separator="," close=")">
+            #{platId}
+        </foreach>
+    </select>
+
+    <insert id="saveBatch" parameterType="com.example.basic.entity.ZhJdJdbGjMapping">
+        insert into zh_jd_jdb_gj_mapping (local_id, plat_id, plat)
+        values ()
+    </insert>
 </mapper>
