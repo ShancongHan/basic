@@ -13,4 +13,8 @@ public interface WstHotelGlobalCityDao {
     List<WstHotelGlobalCity> selectAll();
 
     void update(CityMatchResult result);
+
+    List<WstHotelGlobalCity> selectListByCountryCode(String countryCode);
+
+    Integer selectCountByCountryCode(String countryCode);
 }

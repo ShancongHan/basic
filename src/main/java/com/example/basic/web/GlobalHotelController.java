@@ -91,4 +91,16 @@ public class GlobalHotelController {
             System.out.println(Throwables.getStackTraceAsString(e));
         }
     }
+
+    /**
+     * 二次匹配城市
+     */
+    @PostMapping(value = "second_match-city")
+    public void secondMatchCity(String countryCode) {
+        try {
+            globalHotelService.secondMatchCity(countryCode);
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
 }

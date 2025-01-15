@@ -5,12 +5,14 @@ import com.example.basic.dao.*;
 import com.example.basic.domain.eps.Ancestors;
 import com.example.basic.domain.eps.ProvinceResult;
 import com.example.basic.domain.expedia.CityMatchResult;
+import com.example.basic.domain.expedia.CompareResult;
 import com.example.basic.entity.*;
 import com.example.basic.helper.MappingCityHelper;
 import com.example.basic.helper.MappingProvinceHelper;
 import com.google.common.collect.Lists;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StopWatch;
@@ -375,7 +377,7 @@ public class GlobalHotelService {
                                 && (StringUtils.hasLength(e.getParentPath()) && (e.getParentPath().startsWith(path)))).toList();*/
                 updateBatch(results);
                 /*for (WstHotelGlobalCity wstHotelGlobalCity : cityList) {
-                    *//*Integer cityId = wstHotelGlobalCity.getCityId();
+                    Integer cityId = wstHotelGlobalCity.getCityId();
                     String name = wstHotelGlobalCity.getName();
                     String nameEn = wstHotelGlobalCity.getNameEn();
                     Map<String, List<ExpediaRegions>> nameMap = epsCityList.stream().collect(Collectors.groupingBy(ExpediaRegions::getName));
@@ -403,13 +405,13 @@ public class GlobalHotelService {
                                 continue;
                             }
                         }
-                    }*//*
+                    }
 
                 }*/
-                log.info("国家{}，省份{}({}), 匹配到这些城市{}",countryCode, provinceName, provinceId, results.size());
+                log.info("国家{}，省份{}({}), 匹配到这些城市{}", countryCode, provinceName, provinceId, results.size());
             }
             watch.stop();
-            log.info("国家{}, 匹配耗时{}, 分别耗时{}",countryCode, watch.getTotalTimeSeconds(), watch.prettyPrint());
+            log.info("国家{}, 匹配耗时{}, 分别耗时{}", countryCode, watch.getTotalTimeSeconds(), watch.prettyPrint());
         }
     }
 
@@ -423,10 +425,11 @@ public class GlobalHotelService {
 
     /**
      * 2个列表互相找相同的城市，仅考虑名字
+     *
      * @param globalCities 本地城市列表
-     * @param epsCityList eps城市列表
+     * @param epsCityList  eps城市列表
      * @return 匹配的结果
-     * @throws ExecutionException 线程异常
+     * @throws ExecutionException   线程异常
      * @throws InterruptedException 中断异常
      */
     private List<CityMatchResult> findSameCity(List<WstHotelGlobalCity> globalCities, List<ExpediaRegions> epsCityList) throws ExecutionException, InterruptedException {
@@ -469,5 +472,124 @@ public class GlobalHotelService {
         result.setCenterLongitude(expediaRegions.getCenterLongitude());
         result.setCenterLatitude(expediaRegions.getCenterLatitude());
         return result;
+    }
+
+    public void secondMatchCity(String countryCode) throws Exception {
+        StopWatch watch = new StopWatch();
+        watch.start("查询本地城市");
+       /* List<WstHotelGlobalProvince> provinces = wstHotelGlobalProvinceDao.selectListByCode(countryCode);
+        Map<Integer, String> provinceIdRelationShipMap = provinces.stream()
+                .filter(e -> e.getId() != null && StringUtils.hasLength(e.getEpsRegionId()))
+                .collect(Collectors.toMap(WstHotelGlobalProvince::getId, WstHotelGlobalProvince::getEpsRegionId));*/
+        List<WstHotelGlobalCity> wstHotelGlobalCities = wstHotelGlobalCityDao.selectListByCountryCode(countryCode);
+        Integer realCount = wstHotelGlobalCityDao.selectCountByCountryCode(countryCode);
+        watch.stop();
+        watch.start("查询EPS城市");
+        List<ExpediaRegions> expediaRegionsList;
+        if ("CN".equals(countryCode)) {
+            expediaRegionsList = expediaRegionsDao.selectListByCountryCode("HK");
+            expediaRegionsList.addAll(expediaRegionsDao.selectListByCountryCode("MO"));
+            expediaRegionsList.addAll(expediaRegionsDao.selectListByCountryCode("TW"));
+
+        } else {
+            expediaRegionsList = expediaRegionsDao.selectListByCountryCode(countryCode);
+        }
+        watch.stop();
+        watch.start("尝试进行匹配");
+        int total = wstHotelGlobalCities.size();
+        List<CompareResult> multiList = Lists.newArrayListWithCapacity(total);
+        List<CompareResult> notFoundList = Lists.newArrayListWithCapacity(total);
+        List<CityMatchResult> notCityMatchList = Lists.newArrayListWithCapacity(total);
+        int normalUpdate = 0;
+        for (WstHotelGlobalCity wstHotelGlobalCity : wstHotelGlobalCities) {
+            Integer cityId = wstHotelGlobalCity.getCityId();
+            String name = wstHotelGlobalCity.getName();
+            String nameEn = wstHotelGlobalCity.getNameEn();
+            List<CityMatchResult> matchList = findMaybeCity(cityId, name, nameEn, expediaRegionsList);
+            if (CollectionUtils.isEmpty(matchList)) {
+                CompareResult result = new CompareResult();
+                result.setCityId(cityId);
+                result.setName(name);
+                result.setNameEn(nameEn);
+                notFoundList.add(result);
+                continue;
+            }
+            if (matchList.size() > 1) {
+                List<CityMatchResult> results = matchList.stream().filter(e -> "city".equals(e.getEpsCityType())).toList();
+                if (results.size() == 1) {
+                    updateBatch(matchList);
+                    normalUpdate++;
+                } else {
+                    CompareResult result = new CompareResult();
+                    result.setCityId(cityId);
+                    result.setName(name);
+                    result.setNameEn(nameEn);
+                    List<ExpediaRegions> expediaRegions = Lists.newArrayListWithCapacity(matchList.size());
+                    for (CityMatchResult cityMatchResult : matchList) {
+                        ExpediaRegions expediaRegion = new ExpediaRegions();
+                        expediaRegion.setId(Long.valueOf(cityMatchResult.getEpsCityId()));
+                        expediaRegion.setName(cityMatchResult.getEpsName());
+                        expediaRegion.setNameEn(cityMatchResult.getEpsNameEn());
+                        expediaRegion.setFullName(cityMatchResult.getEpsFullName());
+                        expediaRegion.setFullNameEn(cityMatchResult.getEpsFullNameEn());
+                        expediaRegion.setCountryCode(cityMatchResult.getEpsCountryCode());
+                        expediaRegion.setCenterLongitude(cityMatchResult.getCenterLongitude());
+                        expediaRegion.setCenterLatitude(cityMatchResult.getCenterLatitude());
+                        expediaRegion.setType(cityMatchResult.getEpsCityType());
+                        expediaRegions.add(expediaRegion);
+                    }
+                    result.setExpediaRegions(expediaRegions);
+                    multiList.add(result);
+                }
+                continue;
+            }
+            CityMatchResult result = matchList.get(0);
+            String epsCityType = result.getEpsCityType();
+            if ("city".equals(epsCityType) || "neighborhood".equals(epsCityType)) {
+                updateBatch(matchList);
+                normalUpdate++;
+            } else {
+                notCityMatchList.add(result);
+            }
+        }
+        watch.stop();
+        int count = normalUpdate + notFoundList.size() + multiList.size() + notCityMatchList.size();
+        long epsCount = expediaRegionsList.stream().filter(e -> "city".equals(e.getType()) || "neighborhood".equals(e.getType()) || "high_level_region".equals(e.getType()) || "multi_city_vicinity".equals(e.getType())).count();
+        log.info("国家{}, 总共{}条, EPS有{}条", countryCode, realCount, epsCount);
+        log.info("国家{}, 共{}条, 处理了{}条, 耗费总时长:{}, 各个环境时长{}", countryCode, total, count, watch.getTotalTimeSeconds(), watch.prettyPrint());
+        log.info("成功更新{}条", normalUpdate);
+        log.info("没有找到{}条, 分别是{}", notFoundList.size(), JSON.toJSON(notFoundList));
+        log.info("找到多条{}条, 分别是{}", multiList.size(), JSON.toJSON(multiList));
+        log.info("不是城市{}条, 分别是{}", notCityMatchList.size(), JSON.toJSON(notCityMatchList));
+    }
+
+    /**
+     * 查询可能相同的城市
+     *
+     * @param cityId    本地城市id
+     * @param name               本地城市名
+     * @param nameEn             本地城市英文名
+     * @param expediaRegionsList eps列表
+     * @return 可能匹配的结果集
+     */
+    private List<CityMatchResult> findMaybeCity(Integer cityId, String name,
+                                                String nameEn, List<ExpediaRegions> expediaRegionsList) throws Exception {
+        List<CompletableFuture<CityMatchResult>> futures = Lists.newArrayListWithCapacity(20);
+        List<CityMatchResult> results = Lists.newArrayListWithCapacity(20);
+        for (ExpediaRegions expediaRegions : expediaRegionsList) {
+            futures.add(CompletableFuture.supplyAsync(() -> {
+                boolean match = MappingCityHelper.match(name, expediaRegions.getName(), nameEn, expediaRegions.getNameEn());
+                if (match) {
+                    return setResult(cityId, name, nameEn, expediaRegions);
+                }
+                return null;
+            }, executor));
+        }
+        CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
+        for (CompletableFuture<CityMatchResult> future : futures) {
+            CityMatchResult result = future.get();
+            if (result != null) results.add(result);
+        }
+        return results;
     }
 }

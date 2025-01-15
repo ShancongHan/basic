@@ -21,4 +21,16 @@
             `center_latitude` = #{centerLatitude}
             WHERE `city_id` = #{cityId}
     </update>
+
+    <select id="selectListByCountryCode" parameterType="java.lang.String" resultType="com.example.basic.entity.WstHotelGlobalCity">
+        SELECT *
+        FROM `wst_hotel_global_city`
+        where country_code = #{countryCode} and eps_city_id is null
+    </select>
+
+    <select id="selectCountByCountryCode" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT count(1) cc
+        FROM `wst_hotel_global_city`
+        where country_code = #{countryCode}
+    </select>
 </mapper>

@@ -40,7 +40,7 @@ public class MappingCityHelper {
     }
 
     private static String handler(String name){
-        return StringUtils.hasLength(name) ? name.replaceAll("State", "")
+        return StringUtils.hasLength(name) ? name.replaceAll("市", "")
                 .replaceAll(" ", " ")
                 .replaceAll(" +", "")
                 .toUpperCase() : "***";
@@ -56,6 +56,7 @@ public class MappingCityHelper {
                 .replaceAll("&", "And")
                 .replaceAll("-", " ")
                 .replaceAll("'", " ")
+                .replaceAll("Al", " ")
                 .replaceAll("\\.", " ")
                 .replaceAll(" +", "")
                 .toUpperCase() : "***";

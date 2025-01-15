@@ -13,7 +13,7 @@ public interface WstHotelGlobalProvinceDao {
 
     void update(WstHotelGlobalProvince province);
 
-    List<WstHotelGlobalProvince> selectOneByCountryCode(String countryCode);
-
     List<WstHotelGlobalProvince> selectNeedMatch();
+
+    List<WstHotelGlobalProvince> selectListByCode(String countryCode);
 }

@@ -12,7 +12,7 @@
         WHERE `id` = #{id}
     </update>
 
-    <select id="selectOneByCountryCode" parameterType="java.lang.String" resultType="com.example.basic.entity.WstHotelGlobalProvince">
+    <select id="selectListByCode" parameterType="java.lang.String" resultType="com.example.basic.entity.WstHotelGlobalProvince">
         SELECT *
         FROM `wst_hotel_global_province`
         WHERE `country_code` = #{countryCode}
