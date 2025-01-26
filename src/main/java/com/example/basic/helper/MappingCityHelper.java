@@ -56,7 +56,7 @@ public class MappingCityHelper {
                 .replaceAll("&", "And")
                 .replaceAll("-", " ")
                 .replaceAll("'", " ")
-                .replaceAll("Al", " ")
+                .replaceAll("Harbour", " ")
                 .replaceAll("\\.", " ")
                 .replaceAll(" +", "")
                 .toUpperCase() : "***";

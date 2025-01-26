@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic.dao.WstHotelGlobalInfoDao">
+    <select id="selectAllId" resultType="com.example.basic.entity.WstHotelGlobalInfo">
+        SELECT expedia_id, webbeds_id, dida_id, hotel_id
+        FROM `wst_hotel_global_info`
+    </select>
+
+    <update id="updateWebbedsId" parameterType="com.example.basic.entity.WstHotelGlobalInfo">
+        UPDATE `wst_hotel_global_info`
+        SET `webbeds_id` = #{webbedsId}
+        WHERE `hotel_id` = #{hotelId}
+    </update>
+
+    <update id="updateDidaId" parameterType="com.example.basic.entity.WstHotelGlobalInfo">
+        UPDATE `wst_hotel_global_info`
+        SET `dida_id` = #{didaId}
+        WHERE `hotel_id` = #{hotelId}
+    </update>
+</mapper>
