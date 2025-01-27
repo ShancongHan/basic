@@ -1,6 +1,5 @@
 package com.example.basic.web;
 
-import com.example.basic.service.BasicDataService;
 import com.example.basic.service.IntelMappingService;
 import com.google.common.base.Throwables;
 import jakarta.annotation.Resource;
@@ -11,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * 国际mapping解析入库
  * @author han
- * @date 2025/1/21
+ * {@code @date} 2025/1/21
  */
 @RestController
 @RequestMapping(value = "intel-mapping")

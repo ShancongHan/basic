@@ -516,4 +516,42 @@ public class HttpUtils {
             throw new RuntimeException(e);
         }
     }
+
+    public String pullDidaCountryEn() {
+        return pullDidaCountry("en-US");
+    }
+
+    public String pullDidaCountryCn() {
+        return pullDidaCountry("zh-CN");
+    }
+
+    public String pullDidaCountry(String language) {
+        String url = "https://static-api.didatravel.com/api/v1/region/countries?language=" + language;
+        Request request = new Request.Builder()
+                .url(url)
+                .header("Accept", "application/json")
+                .header("Authorization", "Basic V1NUTFk6V1NUTFlfa2V5")
+                .build();
+        Call call = okHttpClient.newCall(request);
+        try (Response response = call.execute()) {
+            return response.body().string();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public String pullDidaHotelId() {
+        String url = "https://static-api.didatravel.com/api/v1/hotel/list?countryCode=CN&lastUpdateTime=1735097363&language=en-US";
+        Request request = new Request.Builder()
+                .url(url)
+                .header("Accept", "application/json")
+                .header("Authorization", "Basic V1NUTFk6V1NUTFlfa2V5")
+                .build();
+        Call call = okHttpClient.newCall(request);
+        try (Response response = call.execute()) {
+            return response.body().string();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

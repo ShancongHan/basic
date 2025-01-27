@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic.dao.DidaHotelIdDao">
+    <insert id="saveBatch" parameterType="com.example.basic.entity.DidaHotelId">
+        insert into dida_hotel_id (hotel_id)
+        values
+        <foreach collection="list" separator="," item="item">
+            (#{item.hotelId})
+        </foreach>
+    </insert>
+
+    <select id="selectAll" resultType="java.lang.Integer">
+        select *
+        from dida_hotel_id
+    </select>
+</mapper>
