@@ -10,4 +10,6 @@ import java.util.List;
  */
 public interface DidaHotelPolicyDao {
     void saveBatch(List<DidaHotelPolicy> list);
+
+    void update(DidaHotelPolicy policy);
 }

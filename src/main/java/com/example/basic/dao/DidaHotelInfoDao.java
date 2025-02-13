@@ -13,4 +13,6 @@ public interface DidaHotelInfoDao {
     void saveBatch(List<DidaHotelInfo> list);
 
     Set<Long> selectHotelIds();
+
+    void update(DidaHotelInfo info);
 }

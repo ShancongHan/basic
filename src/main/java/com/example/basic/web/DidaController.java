@@ -54,4 +54,16 @@ public class DidaController {
             System.out.println(Throwables.getStackTraceAsString(e));
         }
     }
+
+    /**
+     * 补充酒店信息
+     */
+    @PostMapping(value = "finish-hotel-info")
+    public void finishHotelInfo() {
+        try {
+            didaService.finishHotelInfo();
+        } catch (Exception e) {
+            System.out.println(Throwables.getStackTraceAsString(e));
+        }
+    }
 }

@@ -21,8 +21,10 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.nio.charset.Charset;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.*;
+import java.util.stream.Collectors;
 
 /**
  * @author han
@@ -61,6 +63,14 @@ public class DidaService {
                     0L,
                     TimeUnit.MILLISECONDS,
                     new LinkedBlockingDeque<>(1000));
+
+    private static final Executor executor2 =
+            new ThreadPoolExecutor(
+                    20,
+                    40,
+                    0L,
+                    TimeUnit.MILLISECONDS,
+                    new LinkedBlockingDeque<>(50000));
 
     public void pullCountry() {
         //firstPull();
@@ -126,7 +136,7 @@ public class DidaService {
             List<Integer> onceBatchIdList = hotelIds.subList(i, Math.min(total, i + onceBatchHotelIdSize));
             StopWatch watch = new StopWatch();
             watch.start("查询一批酒店");
-            List<DidaHotelInfoResult> hotelInfoList = queryHotelInfo(onceBatchIdList, apiLimit, onceQueryHotelIdCount);
+            List<DidaHotelInfoResult> hotelInfoList = queryHotelInfo(onceBatchIdList, apiLimit, onceQueryHotelIdCount, true);
             watch.stop();
             watch.start("转换并入库");
             transferAndSaveEn(hotelInfoList);
@@ -172,6 +182,11 @@ public class DidaService {
             if (coordinate != null) {
                 info.setLatitude(BigDecimal.valueOf(coordinate.getLatitude()));
                 info.setLongitude(BigDecimal.valueOf(coordinate.getLongitude()));
+            }
+            Category category = hotelInfo.getCategory();
+            if (category != null) {
+                info.setCategoryCode(StringUtils.hasLength(category.getCode()) ? Integer.valueOf(category.getCode()) : null);
+                info.setCategoryEn(category.getName());
             }
             infos.add(info);
             Policy policy = hotelInfo.getPolicy();
@@ -258,7 +273,7 @@ public class DidaService {
         }
     }
 
-    private List<DidaHotelInfoResult> queryHotelInfo(List<Integer> onceBatchIdList, int apiLimit, int onceQueryHotelIdCount) {
+    private List<DidaHotelInfoResult> queryHotelInfo(List<Integer> onceBatchIdList, int apiLimit, int onceQueryHotelIdCount, boolean english) {
         List<DidaHotelInfoResult> hotelInfoList = Lists.newArrayListWithExpectedSize(apiLimit * onceQueryHotelIdCount);
         List<CompletableFuture<List<DidaHotelInfoResult>>> futures = Lists.newArrayListWithExpectedSize(apiLimit);
         int total = onceBatchIdList.size();
@@ -269,7 +284,13 @@ public class DidaService {
             List<Integer> onceQueryHotelIdList = onceBatchIdList.subList(oneStart, oneEnd);
             if (CollectionUtils.isEmpty(onceQueryHotelIdList)) break;
             futures.add(CompletableFuture.supplyAsync(() -> {
-                String infoJson = httpUtils.pullDidaHotelInfoEn(onceQueryHotelIdList);
+                if (english) {
+                    String infoJson = httpUtils.pullDidaHotelInfoEn(onceQueryHotelIdList);
+                    boolean hasInfo = StringUtils.hasLength(infoJson);
+                    if (!hasInfo) return null;
+                    return handlerInfo(infoJson);
+                }
+                String infoJson = httpUtils.pullDidaHotelInfoCn(onceQueryHotelIdList);
                 boolean hasInfo = StringUtils.hasLength(infoJson);
                 if (!hasInfo) return null;
                 return handlerInfo(infoJson);
@@ -291,4 +312,113 @@ public class DidaService {
         HotelResponse response = JSON.parseObject(infoJson, HotelResponse.class);
         return response.getData();
     }
+
+    public void finishHotelInfo() {
+        List<Integer> hotelIds = didaHotelIdDao.selectAll();
+        List<DidaHotelRoom> rooms = didaHotelRoomDao.selectIds();
+        int apiLimit = 10;
+        int onceQueryHotelIdCount = 50;
+        int onceBatchHotelIdSize = apiLimit * onceQueryHotelIdCount;
+        int total = hotelIds.size();
+        int totalProcess = total / onceBatchHotelIdSize;
+        int process = 1;
+        for (int i = 0; i < total; ) {
+            // 一次查询id列表
+            List<Integer> onceBatchIdList = hotelIds.subList(i, Math.min(total, i + onceBatchHotelIdSize));
+            StopWatch watch = new StopWatch();
+            watch.start("查询一批酒店");
+            List<DidaHotelInfoResult> hotelInfoList = queryHotelInfo(onceBatchIdList, apiLimit, onceQueryHotelIdCount, false);
+            watch.stop();
+            watch.start("转换并入库");
+            transferAndSaveCn(hotelInfoList, rooms);
+            watch.stop();
+            i += onceBatchHotelIdSize;
+            process++;
+            log.info("当前批次{}/{}, 耗时{},分别耗时为:{}", process, totalProcess, watch.getTotalTimeSeconds(), watch.prettyPrint());
+        }
+    }
+
+    private void transferAndSaveCn(List<DidaHotelInfoResult> hotelInfoList, List<DidaHotelRoom> rooms) {
+        Map<Long, List<DidaHotelRoom>> hotelIdListMap = rooms.stream().collect(Collectors.groupingBy(DidaHotelRoom::getHotelId));
+        int size = hotelInfoList.size();
+        List<DidaHotelInfo> infos = Lists.newArrayListWithExpectedSize(size);
+        List<DidaHotelPolicy> policies = Lists.newArrayListWithExpectedSize(size);
+        List<DidaHotelRoom> roomList = Lists.newArrayListWithExpectedSize(size * 20);
+        for (DidaHotelInfoResult hotelInfo : hotelInfoList) {
+            long hotelId = hotelInfo.getId();
+            DidaHotelInfo info = new DidaHotelInfo();
+            info.setHotelId(hotelId);
+            info.setName(hotelInfo.getName());
+            info.setDescription(hotelInfo.getDescription());
+            Location location = hotelInfo.getLocation();
+            Country country = location.getCountry();
+            info.setCountryName(country.getName());
+            Destination destination = location.getDestination();
+            info.setDestinationNameEn(destination.getName());
+            Category category = hotelInfo.getCategory();
+            if (category != null) {
+                info.setCategory(category.getName());
+            }
+            infos.add(info);
+            Policy policy = hotelInfo.getPolicy();
+            if (policy != null) {
+                DidaHotelPolicy didaHotelPolicy = new DidaHotelPolicy();
+                didaHotelPolicy.setHotelId(hotelId);
+                didaHotelPolicy.setDescription(policy.getDescription());
+                List<ExtraInfo> extraInfoList = policy.getExtraInfoList();
+                if (!CollectionUtils.isEmpty(extraInfoList)) {
+                    didaHotelPolicy.setExtraInfoList(JSON.toJSONString(extraInfoList));
+                }
+                policies.add(didaHotelPolicy);
+            }
+            List<Room> hotelInfoRooms = hotelInfo.getRooms();
+            if (!CollectionUtils.isEmpty(hotelInfoRooms)) {
+                List<DidaHotelRoom> didaHotelRooms = hotelIdListMap.get(hotelId);
+                if (!CollectionUtils.isEmpty(didaHotelRooms)) {
+                    Map<Integer, Long> roomIdIdMap = didaHotelRooms.stream().collect(Collectors.toMap(DidaHotelRoom::getRoomId, DidaHotelRoom::getId));
+                    for (Room hotelInfoRoom : hotelInfoRooms) {
+                        int roomId = hotelInfoRoom.getId();
+                        Long id = roomIdIdMap.get(roomId);
+                        if (id != null) {
+                            DidaHotelRoom room = new DidaHotelRoom();
+                            room.setName(hotelInfoRoom.getName());
+                            room.setId(id);
+                            roomList.add(room);
+                        }
+                    }
+                }
+            }
+        }
+        updateInfos(infos);
+        updatePolicies(policies);
+        updateRooms(roomList);
+    }
+
+    private void updateInfos(List<DidaHotelInfo> infos) {
+        if (!CollectionUtils.isEmpty(infos)) {
+            for (DidaHotelInfo info : infos) {
+                CompletableFuture.runAsync(() -> didaHotelInfoDao.update(info), executor2);
+            }
+        }
+    }
+
+    private void updatePolicies(List<DidaHotelPolicy> policies) {
+        if (!CollectionUtils.isEmpty(policies)) {
+            for (DidaHotelPolicy policy : policies) {
+                CompletableFuture.runAsync(() -> didaHotelPolicyDao.update(policy), executor2);
+            }
+        }
+    }
+
+    private void updateRooms(List<DidaHotelRoom> rooms) {
+        if (!CollectionUtils.isEmpty(rooms)) {
+            for (DidaHotelRoom room : rooms) {
+                CompletableFuture.runAsync(() -> didaHotelRoomDao.update(room), executor2);
+            }
+        }
+    }
+
+
+
+
 }

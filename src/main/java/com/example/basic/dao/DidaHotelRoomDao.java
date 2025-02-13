@@ -10,4 +10,8 @@ import java.util.List;
  */
 public interface DidaHotelRoomDao {
     void saveBatch(List<DidaHotelRoom> list);
+
+    List<DidaHotelRoom> selectIds();
+
+    void update(DidaHotelRoom room);
 }

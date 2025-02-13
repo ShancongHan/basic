@@ -9,4 +9,15 @@
              #{item.maxOccupancy}, #{item.size}, #{item.floor})
         </foreach>
     </insert>
+
+    <select id="selectIds" resultType="com.example.basic.entity.DidaHotelRoom">
+        SELECT id, hotel_id, room_id
+        FROM dida_hotel_room
+    </select>
+
+    <update id="update" parameterType="com.example.basic.entity.DidaHotelRoom">
+        UPDATE dida_hotel_room
+        SET `name` = #{name}
+        WHERE id = #{id}
+    </update>
 </mapper>
