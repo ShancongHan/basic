@@ -7,7 +7,6 @@ import com.example.basic.domain.DongChengGnResponse;
 import com.example.basic.domain.DongChengHotelRequest;
 import com.example.basic.domain.ExpediaResponse;
 import com.example.basic.domain.Region;
-import com.example.basic.domain.to.Ancestors;
 import com.example.basic.entity.ExpediaCountry;
 import com.example.basic.entity.ExpediaRegions;
 import com.google.common.base.Throwables;
@@ -544,6 +543,33 @@ public class HttpUtils {
         String url = "https://static-api.didatravel.com/api/v1/hotel/list?countryCode=CN&lastUpdateTime=1735097363&language=en-US";
         Request request = new Request.Builder()
                 .url(url)
+                .header("Accept", "application/json")
+                .header("Authorization", "Basic V1NUTFk6V1NUTFlfa2V5")
+                .build();
+        Call call = okHttpClient.newCall(request);
+        try (Response response = call.execute()) {
+            return response.body().string();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public String pullDidaHotelInfoEn(List<Integer> hotelIds) {
+        return pullDidaHotelInfo(hotelIds,"en-US");
+    }
+
+    public String pullDidaHotelInfoCn(List<Integer> hotelIds) {
+        return pullDidaHotelInfo(hotelIds,"zh-CN");
+    }
+
+    public String pullDidaHotelInfo(List<Integer> hotelIds, String language) {
+        String url = "https://static-api.didatravel.com/api/v1/hotel/details";
+        String jsonBodyFormat = "{\"language\":\"%s\",\"hotelIds\":%s}";
+        String jsonBody = String.format(jsonBodyFormat, language, hotelIds.toString());
+        RequestBody body = RequestBody.create(jsonBody, MediaType.parse("application/json"));
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
                 .header("Accept", "application/json")
                 .header("Authorization", "Basic V1NUTFk6V1NUTFlfa2V5")
                 .build();

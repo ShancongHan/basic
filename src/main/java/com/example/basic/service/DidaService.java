@@ -6,6 +6,8 @@ import com.alibaba.fastjson2.JSONObject;
 import com.example.basic.dao.DidaCountryDao;
 import com.example.basic.dao.DidaHotelIdDao;
 import com.example.basic.domain.DidaResponse;
+import com.example.basic.domain.dida.DidaHotelInfoResult;
+import com.example.basic.domain.dida.HotelResponse;
 import com.example.basic.entity.DidaCountry;
 import com.example.basic.entity.DidaHotelId;
 import com.example.basic.utils.HttpUtils;
@@ -14,10 +16,14 @@ import com.google.common.io.Files;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.StopWatch;
+import org.springframework.util.StringUtils;
 
 import java.io.File;
 import java.nio.charset.Charset;
 import java.util.List;
+import java.util.concurrent.*;
 
 /**
  * @author han
@@ -35,6 +41,14 @@ public class DidaService {
 
     @Resource
     private HttpUtils httpUtils;
+
+    private static final Executor executor =
+            new ThreadPoolExecutor(
+                    20,
+                    50,
+                    0L,
+                    TimeUnit.MILLISECONDS,
+                    new LinkedBlockingDeque<>(1000));
 
     public void pullCountry() {
         //firstPull();
@@ -87,5 +101,54 @@ public class DidaService {
 
     public void pullHotelInfo() {
         List<Integer> hotelIds = didaHotelIdDao.selectAll();
+        int apiLimit = 10;
+        int onceQueryHotelIdCount = 50;
+        int onceBatchHotelIdSize = apiLimit * onceQueryHotelIdCount;
+        int total = hotelIds.size();
+        int totalProcess = total / onceBatchHotelIdSize;
+        int process = 1;
+        for (int i = 0; i < total; ) {
+            // 一次查询id列表
+            List<Integer> onceBatchIdList = hotelIds.subList(i, Math.min(total, i + onceBatchHotelIdSize));
+            List<DidaHotelInfoResult> hotelInfoList = queryHotelInfo(onceBatchIdList, apiLimit, onceQueryHotelIdCount);
+            StopWatch watch = new StopWatch();
+            i += onceBatchHotelIdSize;
+            process++;
+            log.info("当前批次{}/{}, 耗时{},分别耗时为:{}", process, totalProcess, watch.getTotalTimeSeconds(), watch.prettyPrint());
+        }
+    }
+
+    private List<DidaHotelInfoResult> queryHotelInfo(List<Integer> onceBatchIdList, int apiLimit, int onceQueryHotelIdCount) {
+        List<DidaHotelInfoResult> hotelInfoList = Lists.newArrayListWithExpectedSize(apiLimit * onceQueryHotelIdCount);
+        List<CompletableFuture<List<DidaHotelInfoResult>>> futures = Lists.newArrayListWithExpectedSize(apiLimit);
+        int total = onceBatchIdList.size();
+        for (int j = 0; j < apiLimit; j++) {
+            int oneStart = j * onceQueryHotelIdCount;
+            int oneEnd = Math.min(total, (j + 1) * onceQueryHotelIdCount);
+            if (oneStart > total) break;
+            List<Integer> onceQueryHotelIdList = onceBatchIdList.subList(oneStart, oneEnd);
+            if (CollectionUtils.isEmpty(onceQueryHotelIdList)) break;
+            futures.add(CompletableFuture.supplyAsync(() -> {
+                String infoJson = httpUtils.pullDidaHotelInfoEn(onceQueryHotelIdList);
+                boolean hasInfo = StringUtils.hasLength(infoJson);
+                if (!hasInfo) return null;
+                return handlerInfo(infoJson);
+            }, executor));
+        }
+        CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
+        for (Future<List<DidaHotelInfoResult>> future : futures) {
+            try {
+                List<DidaHotelInfoResult> results = future.get(5, TimeUnit.SECONDS);
+                if (CollectionUtils.isEmpty(results)) continue;
+                hotelInfoList.addAll(results);
+            } catch (Exception ignore) {
+            }
+        }
+        return hotelInfoList;
+    }
+
+    private List<DidaHotelInfoResult> handlerInfo(String infoJson) {
+        HotelResponse response = JSON.parseObject(infoJson, HotelResponse.class);
+        return response.getData();
     }
 }
