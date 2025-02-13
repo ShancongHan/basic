@@ -2,10 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.basic.dao.DidaHotelInfoDao">
     <insert id="saveBatch" parameterType="com.example.basic.entity.DidaHotelInfo">
-        insert into dida_country (code, `name`, name_en)
+        insert into dida_hotel_info (hotel_id, name_en, address, country_code, country_name_en,
+        destination_code, destination_name_en, longitude, latitude, state_code,
+        telephone, star_rating, zip_code, airport_code, category_code, category_en,
+        giata_codes, description_en)
         values
         <foreach collection="list" separator="," item="item">
-            (#{item.code}, #{item.name}, #{item.nameEn})
+            (#{item.hotelId}, #{item.nameEn}, #{item.address}, #{item.countryCode}, #{item.countryNameEn},
+            #{item.destinationCode}
+            , #{item.destinationNameEn}, #{item.longitude}, #{item.latitude}, #{item.stateCode}, #{item.telephone},
+            #{item.starRating}
+            , #{item.zipCode}, #{item.airportCode}, #{item.categoryCode}, #{item.categoryEn}, #{item.giataCodes},
+            #{item.descriptionEn})
         </foreach>
     </insert>
+
+    <select id="selectHotelIds" resultType="java.lang.Long">
+        SELECT hotel_id
+        FROM dida_hotel_info
+    </select>
 </mapper>

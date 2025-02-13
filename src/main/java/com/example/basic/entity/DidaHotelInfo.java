@@ -10,6 +10,7 @@ import java.math.BigDecimal;
  */
 @Data
 public class DidaHotelInfo {
+
     private Long hotelId;	// wst酒店id
 
     private String nameEn;	// 英文名称

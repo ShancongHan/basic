@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.basic.dao.DidaHotelRoomImagesDao">
     <insert id="saveBatch" parameterType="com.example.basic.entity.DidaHotelRoomImages">
-        insert into dida_country (code, `name`, name_en)
+        insert into dida_hotel_room_images (hotel_id, room_id, hero_image, url)
         values
         <foreach collection="list" separator="," item="item">
-            (#{item.code}, #{item.name}, #{item.nameEn})
+            (#{item.hotelId}, #{item.roomId},#{item.heroImage}, #{item.url})
         </foreach>
     </insert>
 </mapper>

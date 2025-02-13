@@ -3,13 +3,10 @@ package com.example.basic.service;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
-import com.example.basic.dao.DidaCountryDao;
-import com.example.basic.dao.DidaHotelIdDao;
+import com.example.basic.dao.*;
 import com.example.basic.domain.DidaResponse;
-import com.example.basic.domain.dida.DidaHotelInfoResult;
-import com.example.basic.domain.dida.HotelResponse;
-import com.example.basic.entity.DidaCountry;
-import com.example.basic.entity.DidaHotelId;
+import com.example.basic.domain.dida.*;
+import com.example.basic.entity.*;
 import com.example.basic.utils.HttpUtils;
 import com.google.common.collect.Lists;
 import com.google.common.io.Files;
@@ -21,8 +18,10 @@ import org.springframework.util.StopWatch;
 import org.springframework.util.StringUtils;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.nio.charset.Charset;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.*;
 
 /**
@@ -38,6 +37,19 @@ public class DidaService {
 
     @Resource
     private DidaHotelIdDao didaHotelIdDao;
+
+    @Resource
+    private DidaHotelInfoDao didaHotelInfoDao;
+    @Resource
+    private DidaHotelPolicyDao didaHotelPolicyDao;
+    @Resource
+    private DidaHotelImageDao didaHotelImageDao;
+    @Resource
+    private DidaHotelFacilitiesDao didaHotelFacilitiesDao;
+    @Resource
+    private DidaHotelRoomDao didaHotelRoomDao;
+    @Resource
+    private DidaHotelRoomImagesDao didaHotelRoomImagesDao;
 
     @Resource
     private HttpUtils httpUtils;
@@ -101,6 +113,8 @@ public class DidaService {
 
     public void pullHotelInfo() {
         List<Integer> hotelIds = didaHotelIdDao.selectAll();
+        Set<Long> ids = didaHotelInfoDao.selectHotelIds();
+        hotelIds = hotelIds.stream().filter(e->!ids.contains(Long.valueOf(e))).toList();
         int apiLimit = 10;
         int onceQueryHotelIdCount = 50;
         int onceBatchHotelIdSize = apiLimit * onceQueryHotelIdCount;
@@ -110,11 +124,137 @@ public class DidaService {
         for (int i = 0; i < total; ) {
             // 一次查询id列表
             List<Integer> onceBatchIdList = hotelIds.subList(i, Math.min(total, i + onceBatchHotelIdSize));
-            List<DidaHotelInfoResult> hotelInfoList = queryHotelInfo(onceBatchIdList, apiLimit, onceQueryHotelIdCount);
             StopWatch watch = new StopWatch();
+            watch.start("查询一批酒店");
+            List<DidaHotelInfoResult> hotelInfoList = queryHotelInfo(onceBatchIdList, apiLimit, onceQueryHotelIdCount);
+            watch.stop();
+            watch.start("转换并入库");
+            transferAndSaveEn(hotelInfoList);
+            watch.stop();
             i += onceBatchHotelIdSize;
             process++;
             log.info("当前批次{}/{}, 耗时{},分别耗时为:{}", process, totalProcess, watch.getTotalTimeSeconds(), watch.prettyPrint());
+        }
+    }
+
+    private void transferAndSaveEn(List<DidaHotelInfoResult> hotelInfoList) {
+        int size = hotelInfoList.size();
+        List<DidaHotelInfo> infos = Lists.newArrayListWithExpectedSize(size);
+        List<DidaHotelPolicy> policies = Lists.newArrayListWithExpectedSize(size);
+        List<DidaHotelImage> images = Lists.newArrayListWithExpectedSize(size * 50);
+        List<DidaHotelFacilities> facilities = Lists.newArrayListWithExpectedSize(size * 80);
+        List<DidaHotelRoom> rooms = Lists.newArrayListWithExpectedSize(size * 20);
+        List<DidaHotelRoomImages> roomImages = Lists.newArrayListWithExpectedSize(size * 80);
+        for (DidaHotelInfoResult hotelInfo : hotelInfoList) {
+            long hotelId = hotelInfo.getId();
+            DidaHotelInfo info = new DidaHotelInfo();
+            info.setHotelId(hotelId);
+            info.setNameEn(hotelInfo.getName());
+            info.setTelephone(hotelInfo.getTelephone());
+            info.setStarRating(BigDecimal.valueOf(hotelInfo.getStarRating()));
+            info.setZipCode(hotelInfo.getZipCode());
+            info.setAirportCode(hotelInfo.getAirportCode());
+            info.setDescriptionEn(hotelInfo.getDescription());
+            List<String> giataCodes = hotelInfo.getGiataCodes();
+            if (!CollectionUtils.isEmpty(giataCodes)) {
+                info.setGiataCodes(JSON.toJSONString(giataCodes));
+            }
+            Location location = hotelInfo.getLocation();
+            info.setAddress(location.getAddress());
+            info.setStateCode(location.getStateCode());
+            Country country = location.getCountry();
+            info.setCountryCode(country.getCode());
+            info.setCountryNameEn(country.getName());
+            Destination destination = location.getDestination();
+            info.setDestinationCode(StringUtils.hasLength(destination.getCode()) ? Long.valueOf(destination.getCode()) : null);
+            info.setDestinationNameEn(destination.getName());
+            Coordinate coordinate = location.getCoordinate();
+            if (coordinate != null) {
+                info.setLatitude(BigDecimal.valueOf(coordinate.getLatitude()));
+                info.setLongitude(BigDecimal.valueOf(coordinate.getLongitude()));
+            }
+            infos.add(info);
+            Policy policy = hotelInfo.getPolicy();
+            if (policy != null) {
+                DidaHotelPolicy didaHotelPolicy = new DidaHotelPolicy();
+                didaHotelPolicy.setHotelId(hotelId);
+                didaHotelPolicy.setDescriptionEn(policy.getDescription());
+                didaHotelPolicy.setCheckinFrom(policy.getCheckinFrom());
+                didaHotelPolicy.setCheckoutTo(policy.getCheckoutTo());
+                didaHotelPolicy.setImportantNotice(policy.getImportantNotice());
+                List<ExtraInfo> extraInfoList = policy.getExtraInfoList();
+                if (!CollectionUtils.isEmpty(extraInfoList)) {
+                    didaHotelPolicy.setExtraInfoListEn(JSON.toJSONString(extraInfoList));
+                }
+                policies.add(didaHotelPolicy);
+            }
+            List<Images> hotelInfoImages = hotelInfo.getImages();
+            if (!CollectionUtils.isEmpty(hotelInfoImages)) {
+                for (Images hotelInfoImage : hotelInfoImages) {
+                    DidaHotelImage image = new DidaHotelImage();
+                    image.setHotelId(hotelId);
+                    image.setHeroImage(hotelInfoImage.getIsDefault());
+                    image.setUrl(hotelInfoImage.getUrl());
+                    image.setCaptionEn(hotelInfoImage.getCaption());
+                    images.add(image);
+                }
+            }
+            List<Facility> hotelInfoFacilities = hotelInfo.getFacilities();
+            if (!CollectionUtils.isEmpty(hotelInfoFacilities)) {
+                for (Facility hotelInfoFacility : hotelInfoFacilities) {
+                    DidaHotelFacilities facility = new DidaHotelFacilities();
+                    facility.setHotelId(hotelId);
+                    facility.setType(hotelInfoFacility.getType());
+                    facility.setDescriptionEn(hotelInfoFacility.getDescription());
+                    facility.setValue(hotelInfoFacility.getValue());
+                    facilities.add(facility);
+                }
+            }
+            List<Room> hotelInfoRooms = hotelInfo.getRooms();
+            if (!CollectionUtils.isEmpty(hotelInfoRooms)) {
+                for (Room hotelInfoRoom : hotelInfoRooms) {
+                    DidaHotelRoom room = new DidaHotelRoom();
+                    room.setHotelId(hotelId);
+                    room.setRoomId(hotelInfoRoom.getId());
+                    room.setNameEn(hotelInfoRoom.getName());
+                    room.setSize(hotelInfoRoom.getSize());
+                    room.setFloor(hotelInfoRoom.getFloor());
+                    room.setHasWifi(hotelInfoRoom.getHasWifi());
+                    room.setHasWindow(hotelInfoRoom.getHasWindow());
+                    room.setMaxOccupancy(hotelInfoRoom.getMaxOccupancy());
+                    rooms.add(room);
+
+                    List<Images> infoRoomImages = hotelInfoRoom.getImages();
+                    if (!CollectionUtils.isEmpty(infoRoomImages)) {
+                        for (Images infoRoomImage : infoRoomImages) {
+                            DidaHotelRoomImages didaHotelRoomImages = new DidaHotelRoomImages();
+                            didaHotelRoomImages.setHotelId(hotelId);
+                            didaHotelRoomImages.setRoomId(hotelInfoRoom.getId());
+                            didaHotelRoomImages.setUrl(infoRoomImage.getUrl());
+                            didaHotelRoomImages.setHeroImage(infoRoomImage.getIsDefault());
+                            roomImages.add(didaHotelRoomImages);
+                        }
+                    }
+                }
+            }
+        }
+        if (!CollectionUtils.isEmpty(infos)) {
+            didaHotelInfoDao.saveBatch(infos);
+        }
+        if (!CollectionUtils.isEmpty(policies)) {
+            didaHotelPolicyDao.saveBatch(policies);
+        }
+        if (!CollectionUtils.isEmpty(images)) {
+            didaHotelImageDao.saveBatch(images);
+        }
+        if (!CollectionUtils.isEmpty(facilities)) {
+            didaHotelFacilitiesDao.saveBatch(facilities);
+        }
+        if (!CollectionUtils.isEmpty(rooms)) {
+            didaHotelRoomDao.saveBatch(rooms);
+        }
+        if (!CollectionUtils.isEmpty(roomImages)) {
+            didaHotelRoomImagesDao.saveBatch(roomImages);
         }
     }
 

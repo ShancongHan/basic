@@ -1,762 +1,346 @@
-2025-02-12T18:10:21.870+08:00  INFO 26920 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 26920 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
-2025-02-12T18:10:21.883+08:00  INFO 26920 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
-2025-02-12T18:10:24.256+08:00  INFO 26920 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2025-02-12T18:10:24.258+08:00  INFO 26920 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2025-02-12T18:10:24.281+08:00  INFO 26920 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 11 ms. Found 0 Redis repository interfaces.
-2025-02-12T18:10:24.695+08:00  INFO 26920 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
-2025-02-12T18:10:24.703+08:00  INFO 26920 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-02-12T18:10:24.703+08:00  INFO 26920 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
-2025-02-12T18:10:24.775+08:00  INFO 26920 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-02-12T18:10:24.775+08:00  INFO 26920 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2858 ms
-2025-02-12T18:10:26.737+08:00  INFO 26920 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
-2025-02-12T18:10:26.742+08:00  INFO 26920 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 5.164 seconds (process running for 6.061)
-2025-02-12T18:10:33.351+08:00  INFO 26920 --- [http-nio-9008-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-02-12T18:10:33.351+08:00  INFO 26920 --- [http-nio-9008-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2025-02-12T18:10:33.353+08:00  INFO 26920 --- [http-nio-9008-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
-2025-02-12T18:10:33.383+08:00  INFO 26920 --- [http-nio-9008-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-02-12T18:10:33.540+08:00  INFO 26920 --- [http-nio-9008-exec-2] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7edb7708
-2025-02-12T18:10:33.541+08:00  INFO 26920 --- [http-nio-9008-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-02-12T18:11:07.335+08:00  INFO 26920 --- [http-nio-9008-exec-2] com.example.basic.service.DidaService    : 当前批次2/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
+2025-02-13T14:10:37.767+08:00  INFO 1772 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 1772 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
+2025-02-13T14:10:37.777+08:00  INFO 1772 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
+2025-02-13T14:10:40.413+08:00  INFO 1772 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-02-13T14:10:40.415+08:00  INFO 1772 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-02-13T14:10:40.437+08:00  INFO 1772 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 11 ms. Found 0 Redis repository interfaces.
+2025-02-13T14:10:40.778+08:00  INFO 1772 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
+2025-02-13T14:10:40.784+08:00  INFO 1772 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-02-13T14:10:40.784+08:00  INFO 1772 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
+2025-02-13T14:10:40.853+08:00  INFO 1772 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-02-13T14:10:40.853+08:00  INFO 1772 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3044 ms
+2025-02-13T14:10:42.491+08:00  INFO 1772 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
+2025-02-13T14:10:42.497+08:00  INFO 1772 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 4.963 seconds (process running for 5.473)
+2025-02-13T14:10:57.667+08:00  INFO 1772 --- [http-nio-9008-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-02-13T14:10:57.667+08:00  INFO 1772 --- [http-nio-9008-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-02-13T14:10:57.668+08:00  INFO 1772 --- [http-nio-9008-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-02-13T14:10:57.694+08:00  INFO 1772 --- [http-nio-9008-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-02-13T14:10:57.827+08:00  INFO 1772 --- [http-nio-9008-exec-1] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6978a606
+2025-02-13T14:10:57.828+08:00  INFO 1772 --- [http-nio-9008-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-02-13T14:12:54.202+08:00  WARN 1772 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m26s272ms160µs900ns).
+2025-02-13T14:14:07.899+08:00  WARN 1772 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m13s697ms348µs701ns).
+2025-02-13T14:17:01.002+08:00  WARN 1772 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2m23s99ms476µs100ns).
+2025-02-13T14:17:01.281+08:00  INFO 1772 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-02-13T14:17:01.315+08:00  INFO 1772 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-02-13T14:17:03.217+08:00  INFO 18968 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 18968 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
+2025-02-13T14:17:03.219+08:00  INFO 18968 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
+2025-02-13T14:17:03.666+08:00  INFO 18968 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-02-13T14:17:03.668+08:00  INFO 18968 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-02-13T14:17:03.690+08:00  INFO 18968 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 13 ms. Found 0 Redis repository interfaces.
+2025-02-13T14:17:04.087+08:00  INFO 18968 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
+2025-02-13T14:17:04.093+08:00  INFO 18968 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-02-13T14:17:04.093+08:00  INFO 18968 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
+2025-02-13T14:17:04.166+08:00  INFO 18968 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-02-13T14:17:04.166+08:00  INFO 18968 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 920 ms
+2025-02-13T14:17:05.263+08:00  INFO 18968 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
+2025-02-13T14:17:05.269+08:00  INFO 18968 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 2.274 seconds (process running for 2.642)
+2025-02-13T14:17:08.822+08:00  INFO 18968 --- [http-nio-9008-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-02-13T14:17:08.822+08:00  INFO 18968 --- [http-nio-9008-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-02-13T14:17:08.823+08:00  INFO 18968 --- [http-nio-9008-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-02-13T14:17:08.848+08:00  INFO 18968 --- [http-nio-9008-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-02-13T14:17:08.968+08:00  INFO 18968 --- [http-nio-9008-exec-1] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@73dcf994
+2025-02-13T14:17:08.969+08:00  INFO 18968 --- [http-nio-9008-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-02-13T14:17:48.585+08:00  INFO 18968 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-02-13T14:17:48.588+08:00  INFO 18968 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-02-13T14:17:50.686+08:00  INFO 24580 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 24580 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
+2025-02-13T14:17:50.688+08:00  INFO 24580 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
+2025-02-13T14:17:51.127+08:00  INFO 24580 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-02-13T14:17:51.129+08:00  INFO 24580 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-02-13T14:17:51.151+08:00  INFO 24580 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 12 ms. Found 0 Redis repository interfaces.
+2025-02-13T14:17:51.533+08:00  INFO 24580 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
+2025-02-13T14:17:51.538+08:00  INFO 24580 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-02-13T14:17:51.539+08:00  INFO 24580 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
+2025-02-13T14:17:51.612+08:00  INFO 24580 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-02-13T14:17:51.612+08:00  INFO 24580 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 897 ms
+2025-02-13T14:17:52.674+08:00  INFO 24580 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
+2025-02-13T14:17:52.680+08:00  INFO 24580 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 2.217 seconds (process running for 2.601)
+2025-02-13T14:18:32.750+08:00  INFO 24580 --- [http-nio-9008-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-02-13T14:18:32.751+08:00  INFO 24580 --- [http-nio-9008-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-02-13T14:18:32.752+08:00  INFO 24580 --- [http-nio-9008-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-02-13T14:18:32.777+08:00  INFO 24580 --- [http-nio-9008-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-02-13T14:18:32.926+08:00  INFO 24580 --- [http-nio-9008-exec-1] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@71524b2e
+2025-02-13T14:18:32.927+08:00  INFO 24580 --- [http-nio-9008-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-02-13T14:19:56.166+08:00  INFO 24580 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-02-13T14:19:56.167+08:00  INFO 24580 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-02-13T14:19:59.098+08:00  INFO 24720 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 24720 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
+2025-02-13T14:19:59.101+08:00  INFO 24720 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
+2025-02-13T14:19:59.982+08:00  INFO 24720 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-02-13T14:19:59.985+08:00  INFO 24720 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-02-13T14:20:00.022+08:00  INFO 24720 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 22 ms. Found 0 Redis repository interfaces.
+2025-02-13T14:20:00.709+08:00  INFO 24720 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
+2025-02-13T14:20:00.719+08:00  INFO 24720 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-02-13T14:20:00.720+08:00  INFO 24720 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
+2025-02-13T14:20:00.842+08:00  INFO 24720 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-02-13T14:20:00.847+08:00  INFO 24720 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1689 ms
+2025-02-13T14:20:02.281+08:00  INFO 24720 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
+2025-02-13T14:20:02.288+08:00  INFO 24720 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 3.629 seconds (process running for 4.355)
+2025-02-13T14:20:04.784+08:00  INFO 24720 --- [http-nio-9008-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-02-13T14:20:04.785+08:00  INFO 24720 --- [http-nio-9008-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-02-13T14:20:04.786+08:00  INFO 24720 --- [http-nio-9008-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-02-13T14:20:04.812+08:00  INFO 24720 --- [http-nio-9008-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-02-13T14:20:04.939+08:00  INFO 24720 --- [http-nio-9008-exec-1] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4fb7166d
+2025-02-13T14:20:04.940+08:00  INFO 24720 --- [http-nio-9008-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-02-13T14:21:19.143+08:00  INFO 24720 --- [http-nio-9008-exec-2] com.example.basic.service.DidaService    : 当前批次2/3582, 耗时4.3678618,分别耗时为:StopWatch '': running time = 4367861800 ns
 ---------------------------------------------
 ns         %     Task name
 ---------------------------------------------
+169709100  004%  查询一批酒店
+4198152700  096%  转换并入库
 
-2025-02-12T18:11:10.924+08:00  INFO 26920 --- [http-nio-9008-exec-2] com.example.basic.service.DidaService    : 当前批次3/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
+2025-02-13T14:24:47.895+08:00  INFO 24720 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-02-13T14:24:47.896+08:00  INFO 24720 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-02-13T14:24:53.525+08:00  INFO 19228 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 19228 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
+2025-02-13T14:24:53.527+08:00  INFO 19228 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
+2025-02-13T14:24:53.990+08:00  INFO 19228 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-02-13T14:24:53.991+08:00  INFO 19228 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-02-13T14:24:54.013+08:00  INFO 19228 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 12 ms. Found 0 Redis repository interfaces.
+2025-02-13T14:24:54.427+08:00  INFO 19228 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
+2025-02-13T14:24:54.433+08:00  INFO 19228 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-02-13T14:24:54.434+08:00  INFO 19228 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
+2025-02-13T14:24:54.537+08:00  INFO 19228 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-02-13T14:24:54.537+08:00  INFO 19228 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 979 ms
+2025-02-13T14:24:55.774+08:00  INFO 19228 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
+2025-02-13T14:24:55.780+08:00  INFO 19228 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 2.489 seconds (process running for 2.864)
+2025-02-13T14:25:04.979+08:00  INFO 19228 --- [http-nio-9008-exec-3] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-02-13T14:25:04.979+08:00  INFO 19228 --- [http-nio-9008-exec-3] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-02-13T14:25:04.980+08:00  INFO 19228 --- [http-nio-9008-exec-3] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-02-13T14:25:05.007+08:00  INFO 19228 --- [http-nio-9008-exec-3] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-02-13T14:25:05.131+08:00  INFO 19228 --- [http-nio-9008-exec-3] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@445c2488
+2025-02-13T14:25:05.133+08:00  INFO 19228 --- [http-nio-9008-exec-3] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-02-13T14:25:14.158+08:00  INFO 19228 --- [http-nio-9008-exec-3] com.example.basic.service.DidaService    : 当前批次2/3581, 耗时2.475124201,分别耗时为:StopWatch '': running time = 2475124201 ns
 ---------------------------------------------
 ns         %     Task name
 ---------------------------------------------
+515859600  021%  查询一批酒店
+1959264601  079%  转换并入库
 
-2025-02-12T18:11:24.036+08:00  INFO 7016 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 7016 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
-2025-02-12T18:11:24.038+08:00  INFO 7016 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
-2025-02-12T18:11:24.619+08:00  INFO 7016 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2025-02-12T18:11:24.621+08:00  INFO 7016 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2025-02-12T18:11:24.648+08:00  INFO 7016 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 15 ms. Found 0 Redis repository interfaces.
-2025-02-12T18:11:25.143+08:00  INFO 7016 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
-2025-02-12T18:11:25.151+08:00  INFO 7016 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-02-12T18:11:25.151+08:00  INFO 7016 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
-2025-02-12T18:11:25.229+08:00  INFO 7016 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-02-12T18:11:25.229+08:00  INFO 7016 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1162 ms
-2025-02-12T18:11:26.276+08:00  INFO 7016 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
-2025-02-12T18:11:26.281+08:00  INFO 7016 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 2.486 seconds (process running for 2.871)
-2025-02-12T18:11:32.391+08:00  INFO 7016 --- [http-nio-9008-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-02-12T18:11:32.391+08:00  INFO 7016 --- [http-nio-9008-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2025-02-12T18:11:32.392+08:00  INFO 7016 --- [http-nio-9008-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
-2025-02-12T18:11:32.418+08:00  INFO 7016 --- [http-nio-9008-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-02-12T18:11:32.579+08:00  INFO 7016 --- [http-nio-9008-exec-1] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@797b32d1
-2025-02-12T18:11:32.580+08:00  INFO 7016 --- [http-nio-9008-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-02-12T18:15:08.940+08:00  WARN 7016 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3m5s803ms302µs600ns).
-2025-02-12T18:12:03.916+08:00  INFO 7016 --- [http-nio-9008-exec-1] com.example.basic.service.DidaService    : 当前批次2/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
+2025-02-13T14:25:16.150+08:00  INFO 19228 --- [http-nio-9008-exec-3] com.example.basic.service.DidaService    : 当前批次3/3581, 耗时1.9913447,分别耗时为:StopWatch '': running time = 1991344700 ns
 ---------------------------------------------
 ns         %     Task name
 ---------------------------------------------
+177751900  009%  查询一批酒店
+1813592800  091%  转换并入库
 
-2025-02-12T18:15:20.881+08:00  INFO 7016 --- [http-nio-9008-exec-1] com.example.basic.service.DidaService    : 当前批次3/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
+2025-02-13T14:25:18.095+08:00  INFO 19228 --- [http-nio-9008-exec-3] com.example.basic.service.DidaService    : 当前批次4/3581, 耗时1.944250101,分别耗时为:StopWatch '': running time = 1944250101 ns
 ---------------------------------------------
 ns         %     Task name
 ---------------------------------------------
+189118800  010%  查询一批酒店
+1755131301  090%  转换并入库
 
-2025-02-12T18:16:20.212+08:00  INFO 5332 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 5332 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
-2025-02-12T18:16:20.214+08:00  INFO 5332 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
-2025-02-12T18:16:20.660+08:00  INFO 5332 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2025-02-12T18:16:20.662+08:00  INFO 5332 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2025-02-12T18:16:20.685+08:00  INFO 5332 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 12 ms. Found 0 Redis repository interfaces.
-2025-02-12T18:16:21.066+08:00  INFO 5332 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
-2025-02-12T18:16:21.073+08:00  INFO 5332 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-02-12T18:16:21.073+08:00  INFO 5332 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
-2025-02-12T18:16:21.140+08:00  INFO 5332 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-02-12T18:16:21.141+08:00  INFO 5332 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 899 ms
-2025-02-12T18:16:22.408+08:00  INFO 5332 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
-2025-02-12T18:16:22.414+08:00  INFO 5332 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 2.423 seconds (process running for 2.789)
-2025-02-12T18:16:23.347+08:00  INFO 5332 --- [http-nio-9008-exec-4] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-02-12T18:16:23.348+08:00  INFO 5332 --- [http-nio-9008-exec-4] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2025-02-12T18:16:23.349+08:00  INFO 5332 --- [http-nio-9008-exec-4] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
-2025-02-12T18:16:23.373+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-02-12T18:16:23.483+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@57ec365c
-2025-02-12T18:16:23.484+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-02-12T18:16:32.277+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次2/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
+2025-02-13T14:25:19.829+08:00  INFO 19228 --- [http-nio-9008-exec-3] com.example.basic.service.DidaService    : 当前批次5/3581, 耗时1.732616501,分别耗时为:StopWatch '': running time = 1732616501 ns
 ---------------------------------------------
 ns         %     Task name
 ---------------------------------------------
+178108500  010%  查询一批酒店
+1554508001  090%  转换并入库
 
-2025-02-12T18:16:32.377+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次3/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
+2025-02-13T14:25:21.542+08:00  INFO 19228 --- [http-nio-9008-exec-3] com.example.basic.service.DidaService    : 当前批次6/3581, 耗时1.712511,分别耗时为:StopWatch '': running time = 1712511000 ns
 ---------------------------------------------
 ns         %     Task name
 ---------------------------------------------
+177767101  010%  查询一批酒店
+1534743899  090%  转换并入库
 
-2025-02-12T18:16:32.464+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次4/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
+2025-02-13T14:25:23.253+08:00  INFO 19228 --- [http-nio-9008-exec-3] com.example.basic.service.DidaService    : 当前批次7/3581, 耗时1.7104533,分别耗时为:StopWatch '': running time = 1710453300 ns
 ---------------------------------------------
 ns         %     Task name
 ---------------------------------------------
+179745400  011%  查询一批酒店
+1530707900  089%  转换并入库
 
-2025-02-12T18:16:32.551+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次5/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
+2025-02-13T14:25:25.234+08:00  INFO 19228 --- [http-nio-9008-exec-3] com.example.basic.service.DidaService    : 当前批次8/3581, 耗时1.980256101,分别耗时为:StopWatch '': running time = 1980256101 ns
 ---------------------------------------------
 ns         %     Task name
 ---------------------------------------------
+188434601  010%  查询一批酒店
+1791821500  090%  转换并入库
 
-2025-02-12T18:16:32.634+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次6/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
+2025-02-13T14:25:26.872+08:00  INFO 19228 --- [http-nio-9008-exec-3] com.example.basic.service.DidaService    : 当前批次9/3581, 耗时1.637732702,分别耗时为:StopWatch '': running time = 1637732702 ns
 ---------------------------------------------
 ns         %     Task name
 ---------------------------------------------
+168571201  010%  查询一批酒店
+1469161501  090%  转换并入库
 
-2025-02-12T18:16:32.718+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次7/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
+2025-02-13T14:25:28.546+08:00  INFO 19228 --- [http-nio-9008-exec-3] com.example.basic.service.DidaService    : 当前批次10/3581, 耗时1.672634499,分别耗时为:StopWatch '': running time = 1672634499 ns
 ---------------------------------------------
 ns         %     Task name
 ---------------------------------------------
+179250699  011%  查询一批酒店
+1493383800  089%  转换并入库
 
-2025-02-12T18:16:32.797+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次8/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
+2025-02-13T14:25:30.141+08:00  INFO 19228 --- [http-nio-9008-exec-3] com.example.basic.service.DidaService    : 当前批次11/3581, 耗时1.593753499,分别耗时为:StopWatch '': running time = 1593753499 ns
 ---------------------------------------------
 ns         %     Task name
 ---------------------------------------------
+172187600  011%  查询一批酒店
+1421565899  089%  转换并入库
 
-2025-02-12T18:16:32.881+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次9/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
+2025-02-13T14:25:31.830+08:00  INFO 19228 --- [http-nio-9008-exec-3] com.example.basic.service.DidaService    : 当前批次12/3581, 耗时1.687349302,分别耗时为:StopWatch '': running time = 1687349302 ns
 ---------------------------------------------
 ns         %     Task name
 ---------------------------------------------
+185358601  011%  查询一批酒店
+1501990701  089%  转换并入库
 
-2025-02-12T18:16:32.955+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次10/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
+2025-02-13T14:25:33.601+08:00  INFO 19228 --- [http-nio-9008-exec-3] com.example.basic.service.DidaService    : 当前批次13/3581, 耗时1.769695201,分别耗时为:StopWatch '': running time = 1769695201 ns
 ---------------------------------------------
 ns         %     Task name
 ---------------------------------------------
+180207900  010%  查询一批酒店
+1589487301  090%  转换并入库
 
-2025-02-12T18:16:33.038+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次11/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
+2025-02-13T14:25:35.358+08:00  INFO 19228 --- [http-nio-9008-exec-3] com.example.basic.service.DidaService    : 当前批次14/3581, 耗时1.7572437,分别耗时为:StopWatch '': running time = 1757243700 ns
 ---------------------------------------------
 ns         %     Task name
 ---------------------------------------------
+177573000  010%  查询一批酒店
+1579670700  090%  转换并入库
 
-2025-02-12T18:16:33.121+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次12/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
+2025-02-13T14:25:37.140+08:00  INFO 19228 --- [http-nio-9008-exec-3] com.example.basic.service.DidaService    : 当前批次15/3581, 耗时1.780066101,分别耗时为:StopWatch '': running time = 1780066101 ns
 ---------------------------------------------
 ns         %     Task name
 ---------------------------------------------
+175423900  010%  查询一批酒店
+1604642201  090%  转换并入库
 
-2025-02-12T18:16:33.205+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次13/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
+2025-02-13T14:25:38.745+08:00  INFO 19228 --- [http-nio-9008-exec-3] com.example.basic.service.DidaService    : 当前批次16/3581, 耗时1.603014001,分别耗时为:StopWatch '': running time = 1603014001 ns
 ---------------------------------------------
 ns         %     Task name
 ---------------------------------------------
+174658100  011%  查询一批酒店
+1428355901  089%  转换并入库
 
-2025-02-12T18:16:33.302+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次14/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
+2025-02-13T14:25:40.381+08:00  INFO 19228 --- [http-nio-9008-exec-3] com.example.basic.service.DidaService    : 当前批次17/3581, 耗时1.6356657,分别耗时为:StopWatch '': running time = 1635665700 ns
 ---------------------------------------------
 ns         %     Task name
 ---------------------------------------------
+171885700  011%  查询一批酒店
+1463780000  089%  转换并入库
 
-2025-02-12T18:16:33.381+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次15/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
+2025-02-13T14:25:42.217+08:00  INFO 19228 --- [http-nio-9008-exec-3] com.example.basic.service.DidaService    : 当前批次18/3581, 耗时1.835530301,分别耗时为:StopWatch '': running time = 1835530301 ns
 ---------------------------------------------
 ns         %     Task name
 ---------------------------------------------
+185743000  010%  查询一批酒店
+1649787301  090%  转换并入库
 
-2025-02-12T18:16:33.861+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次16/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
+2025-02-13T14:25:44.071+08:00  INFO 19228 --- [http-nio-9008-exec-3] com.example.basic.service.DidaService    : 当前批次19/3581, 耗时1.853517799,分别耗时为:StopWatch '': running time = 1853517799 ns
 ---------------------------------------------
 ns         %     Task name
 ---------------------------------------------
+182328999  010%  查询一批酒店
+1671188800  090%  转换并入库
 
-2025-02-12T18:16:33.921+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次17/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
+2025-02-13T14:25:45.740+08:00  INFO 19228 --- [http-nio-9008-exec-3] com.example.basic.service.DidaService    : 当前批次20/3581, 耗时1.6690129,分别耗时为:StopWatch '': running time = 1669012900 ns
 ---------------------------------------------
 ns         %     Task name
 ---------------------------------------------
+172204600  010%  查询一批酒店
+1496808300  090%  转换并入库
 
-2025-02-12T18:16:33.977+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次18/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
+2025-02-13T14:25:47.313+08:00  INFO 19228 --- [http-nio-9008-exec-3] com.example.basic.service.DidaService    : 当前批次21/3581, 耗时1.572180499,分别耗时为:StopWatch '': running time = 1572180499 ns
 ---------------------------------------------
 ns         %     Task name
 ---------------------------------------------
+177603799  011%  查询一批酒店
+1394576700  089%  转换并入库
 
-2025-02-12T18:16:34.034+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次19/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
+2025-02-13T14:25:49.106+08:00  INFO 19228 --- [http-nio-9008-exec-3] com.example.basic.service.DidaService    : 当前批次22/3581, 耗时1.792548801,分别耗时为:StopWatch '': running time = 1792548801 ns
 ---------------------------------------------
 ns         %     Task name
 ---------------------------------------------
+177673001  010%  查询一批酒店
+1614875800  090%  转换并入库
 
-2025-02-12T18:16:34.092+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次20/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
+2025-02-13T14:25:50.941+08:00  INFO 19228 --- [http-nio-9008-exec-3] com.example.basic.service.DidaService    : 当前批次23/3581, 耗时1.8336879,分别耗时为:StopWatch '': running time = 1833687900 ns
 ---------------------------------------------
 ns         %     Task name
 ---------------------------------------------
+181271601  010%  查询一批酒店
+1652416299  090%  转换并入库
 
-2025-02-12T18:16:34.149+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次21/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
+2025-02-13T14:25:53.165+08:00  INFO 19228 --- [http-nio-9008-exec-3] com.example.basic.service.DidaService    : 当前批次24/3581, 耗时2.2232838,分别耗时为:StopWatch '': running time = 2223283800 ns
 ---------------------------------------------
 ns         %     Task name
 ---------------------------------------------
+531238300  024%  查询一批酒店
+1692045500  076%  转换并入库
 
-2025-02-12T18:16:34.205+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次22/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
+2025-02-13T14:25:54.717+08:00  INFO 19228 --- [http-nio-9008-exec-3] com.example.basic.service.DidaService    : 当前批次25/3581, 耗时1.551167201,分别耗时为:StopWatch '': running time = 1551167201 ns
 ---------------------------------------------
 ns         %     Task name
 ---------------------------------------------
+215427901  014%  查询一批酒店
+1335739300  086%  转换并入库
 
-2025-02-12T18:16:34.261+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次23/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
+2025-02-13T14:25:56.367+08:00  INFO 19228 --- [http-nio-9008-exec-3] com.example.basic.service.DidaService    : 当前批次26/3581, 耗时1.649439399,分别耗时为:StopWatch '': running time = 1649439399 ns
 ---------------------------------------------
 ns         %     Task name
 ---------------------------------------------
+198513200  012%  查询一批酒店
+1450926199  088%  转换并入库
 
-2025-02-12T18:16:34.318+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次24/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
+2025-02-13T14:25:57.918+08:00  INFO 19228 --- [http-nio-9008-exec-3] com.example.basic.service.DidaService    : 当前批次27/3581, 耗时1.5510641,分别耗时为:StopWatch '': running time = 1551064100 ns
 ---------------------------------------------
 ns         %     Task name
 ---------------------------------------------
+183277800  012%  查询一批酒店
+1367786300  088%  转换并入库
 
-2025-02-12T18:16:34.374+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次25/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
+2025-02-13T14:25:59.438+08:00  INFO 19228 --- [http-nio-9008-exec-3] com.example.basic.service.DidaService    : 当前批次28/3581, 耗时1.520415701,分别耗时为:StopWatch '': running time = 1520415701 ns
 ---------------------------------------------
 ns         %     Task name
 ---------------------------------------------
+175471601  012%  查询一批酒店
+1344944100  088%  转换并入库
 
-2025-02-12T18:16:34.429+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次26/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
+2025-02-13T14:26:01.097+08:00  INFO 19228 --- [http-nio-9008-exec-3] com.example.basic.service.DidaService    : 当前批次29/3581, 耗时1.6582471,分别耗时为:StopWatch '': running time = 1658247100 ns
 ---------------------------------------------
 ns         %     Task name
 ---------------------------------------------
+176805400  011%  查询一批酒店
+1481441700  089%  转换并入库
 
-2025-02-12T18:16:34.486+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次27/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
+2025-02-13T14:26:02.827+08:00  INFO 19228 --- [http-nio-9008-exec-3] com.example.basic.service.DidaService    : 当前批次30/3581, 耗时1.729405902,分别耗时为:StopWatch '': running time = 1729405902 ns
 ---------------------------------------------
 ns         %     Task name
 ---------------------------------------------
+182315101  011%  查询一批酒店
+1547090801  089%  转换并入库
 
-2025-02-12T18:16:34.542+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次28/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
+2025-02-13T14:26:04.219+08:00  INFO 19228 --- [http-nio-9008-exec-3] com.example.basic.service.DidaService    : 当前批次31/3581, 耗时1.392290001,分别耗时为:StopWatch '': running time = 1392290001 ns
 ---------------------------------------------
 ns         %     Task name
 ---------------------------------------------
+169098301  012%  查询一批酒店
+1223191700  088%  转换并入库
 
-2025-02-12T18:16:34.598+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次29/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
+2025-02-13T14:26:06.008+08:00  INFO 19228 --- [http-nio-9008-exec-3] com.example.basic.service.DidaService    : 当前批次32/3581, 耗时1.7873893,分别耗时为:StopWatch '': running time = 1787389300 ns
 ---------------------------------------------
 ns         %     Task name
 ---------------------------------------------
+184279500  010%  查询一批酒店
+1603109800  090%  转换并入库
 
-2025-02-12T18:16:34.653+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次30/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
+2025-02-13T14:26:07.685+08:00  INFO 19228 --- [http-nio-9008-exec-3] com.example.basic.service.DidaService    : 当前批次33/3581, 耗时1.677258799,分别耗时为:StopWatch '': running time = 1677258799 ns
 ---------------------------------------------
 ns         %     Task name
 ---------------------------------------------
+182501400  011%  查询一批酒店
+1494757399  089%  转换并入库
 
-2025-02-12T18:16:34.708+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次31/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
+2025-02-13T14:26:09.837+08:00  INFO 19228 --- [http-nio-9008-exec-3] com.example.basic.service.DidaService    : 当前批次34/3581, 耗时2.1514873,分别耗时为:StopWatch '': running time = 2151487300 ns
 ---------------------------------------------
 ns         %     Task name
 ---------------------------------------------
+169536000  008%  查询一批酒店
+1981951300  092%  转换并入库
 
-2025-02-12T18:16:34.741+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次32/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
+2025-02-13T14:26:11.414+08:00  INFO 19228 --- [http-nio-9008-exec-3] com.example.basic.service.DidaService    : 当前批次35/3581, 耗时1.575297499,分别耗时为:StopWatch '': running time = 1575297499 ns
 ---------------------------------------------
 ns         %     Task name
 ---------------------------------------------
-
-2025-02-12T18:16:34.797+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次33/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:34.852+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次34/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:34.908+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次35/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:34.965+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次36/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:35.020+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次37/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:35.053+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次38/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:35.110+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次39/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:35.167+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次40/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:35.224+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次41/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:35.281+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次42/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:35.337+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次43/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:35.393+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次44/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:35.448+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次45/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:35.503+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次46/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:35.558+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次47/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:35.614+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次48/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:35.670+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次49/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:35.726+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次50/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:35.758+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次51/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:35.813+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次52/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:35.868+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次53/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:35.924+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次54/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:35.978+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次55/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:36.035+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次56/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:36.091+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次57/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:36.147+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次58/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:36.202+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次59/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:36.260+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次60/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:36.317+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次61/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:36.373+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次62/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:36.429+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次63/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:36.485+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次64/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:36.541+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次65/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:36.597+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次66/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:36.652+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次67/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:36.707+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次68/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:36.763+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次69/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:36.818+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次70/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:36.874+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次71/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:36.928+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次72/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:36.962+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次73/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:37.019+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次74/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:37.074+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次75/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:37.133+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次76/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:37.193+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次77/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:37.250+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次78/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:37.304+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次79/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:37.359+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次80/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:37.417+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次81/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:37.476+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次82/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:37.531+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次83/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:37.586+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次84/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:37.640+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次85/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:37.695+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次86/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:37.750+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次87/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:37.805+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次88/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:37.861+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次89/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:37.893+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次90/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:37.948+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次91/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:38.003+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次92/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:38.059+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次93/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:38.114+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次94/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:38.169+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次95/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:38.235+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次96/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:38.291+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次97/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:38.345+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次98/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:38.400+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次99/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:38.498+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次100/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:38.564+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次101/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:38.625+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次102/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:38.681+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次103/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:38.736+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次104/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:38.791+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次105/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:38.846+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次106/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:38.901+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次107/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:38.956+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次108/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:39.018+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次109/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:39.075+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次110/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:39.129+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次111/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:39.185+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次112/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:39.241+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次113/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:39.297+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次114/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:39.330+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次115/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:39.384+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次116/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:39.439+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次117/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:39.495+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次118/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:39.551+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次119/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:39.607+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次120/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:39.662+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次121/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:39.693+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次122/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:39.749+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次123/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:16:39.804+08:00  INFO 5332 --- [http-nio-9008-exec-4] com.example.basic.service.DidaService    : 当前批次124/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:17:00.420+08:00  INFO 28392 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 28392 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
-2025-02-12T18:17:00.422+08:00  INFO 28392 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
-2025-02-12T18:17:00.873+08:00  INFO 28392 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2025-02-12T18:17:00.874+08:00  INFO 28392 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2025-02-12T18:17:00.897+08:00  INFO 28392 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 13 ms. Found 0 Redis repository interfaces.
-2025-02-12T18:17:01.276+08:00  INFO 28392 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
-2025-02-12T18:17:01.281+08:00  INFO 28392 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-02-12T18:17:01.281+08:00  INFO 28392 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
-2025-02-12T18:17:01.357+08:00  INFO 28392 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-02-12T18:17:01.357+08:00  INFO 28392 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 905 ms
-2025-02-12T18:17:02.400+08:00  INFO 28392 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
-2025-02-12T18:17:02.406+08:00  INFO 28392 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 2.234 seconds (process running for 2.646)
-2025-02-12T18:17:05.252+08:00  INFO 28392 --- [http-nio-9008-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-02-12T18:17:05.252+08:00  INFO 28392 --- [http-nio-9008-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2025-02-12T18:17:05.253+08:00  INFO 28392 --- [http-nio-9008-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
-2025-02-12T18:17:05.287+08:00  INFO 28392 --- [http-nio-9008-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-02-12T18:17:05.402+08:00  INFO 28392 --- [http-nio-9008-exec-1] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@21c96d96
-2025-02-12T18:17:05.403+08:00  INFO 28392 --- [http-nio-9008-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-02-12T18:17:18.186+08:00  INFO 28392 --- [http-nio-9008-exec-1] com.example.basic.service.DidaService    : 当前批次2/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:17:18.361+08:00  INFO 28392 --- [http-nio-9008-exec-1] com.example.basic.service.DidaService    : 当前批次3/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:17:39.601+08:00  INFO 28392 --- [http-nio-9008-exec-1] com.example.basic.service.DidaService    : 当前批次4/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:17:39.661+08:00  INFO 28392 --- [http-nio-9008-exec-1] com.example.basic.service.DidaService    : 当前批次5/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:17:39.716+08:00  INFO 28392 --- [http-nio-9008-exec-1] com.example.basic.service.DidaService    : 当前批次6/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:21:35.882+08:00  INFO 19736 --- [main] com.example.basic.BasicApplication       : Starting BasicApplication using Java 17.0.6 with PID 19736 (C:\wst_han\basic\target\classes started by WST in C:\wst_han\basic)
-2025-02-12T18:21:35.884+08:00  INFO 19736 --- [main] com.example.basic.BasicApplication       : No active profile set, falling back to 1 default profile: "default"
-2025-02-12T18:21:36.326+08:00  INFO 19736 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2025-02-12T18:21:36.327+08:00  INFO 19736 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2025-02-12T18:21:36.350+08:00  INFO 19736 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 12 ms. Found 0 Redis repository interfaces.
-2025-02-12T18:21:36.724+08:00  INFO 19736 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9008 (http)
-2025-02-12T18:21:36.730+08:00  INFO 19736 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-02-12T18:21:36.730+08:00  INFO 19736 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
-2025-02-12T18:21:36.796+08:00  INFO 19736 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-02-12T18:21:36.796+08:00  INFO 19736 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 885 ms
-2025-02-12T18:21:37.800+08:00  INFO 19736 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9008 (http) with context path ''
-2025-02-12T18:21:37.805+08:00  INFO 19736 --- [main] com.example.basic.BasicApplication       : Started BasicApplication in 2.157 seconds (process running for 2.515)
-2025-02-12T18:22:04.365+08:00  INFO 19736 --- [http-nio-9008-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-02-12T18:22:04.366+08:00  INFO 19736 --- [http-nio-9008-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2025-02-12T18:22:04.366+08:00  INFO 19736 --- [http-nio-9008-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
-2025-02-12T18:22:04.391+08:00  INFO 19736 --- [http-nio-9008-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-02-12T18:22:04.533+08:00  INFO 19736 --- [http-nio-9008-exec-1] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@21c96d96
-2025-02-12T18:22:04.535+08:00  INFO 19736 --- [http-nio-9008-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-02-12T18:22:29.784+08:00  INFO 19736 --- [http-nio-9008-exec-1] com.example.basic.service.DidaService    : 当前批次2/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
-
-2025-02-12T18:24:41.130+08:00  WARN 19736 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2m5s962ms416µs200ns).
-2025-02-12T18:24:41.131+08:00  INFO 19736 --- [http-nio-9008-exec-1] com.example.basic.service.DidaService    : 当前批次3/3582, 耗时0.0,分别耗时为:StopWatch '': running time = 0 ns
----------------------------------------------
-ns         %     Task name
----------------------------------------------
+179037700  011%  查询一批酒店
+1396259799  089%  转换并入库
 

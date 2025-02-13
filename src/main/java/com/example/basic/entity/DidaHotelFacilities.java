@@ -16,6 +16,8 @@ public class DidaHotelFacilities {
 
     private String description;	// 设施描述
 
+    private String descriptionEn;	// 英文设施描述
+
     private String value;	// 值
 
 }

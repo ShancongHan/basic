@@ -10,5 +10,5 @@ import lombok.Data;
 public class Images {
     private String caption;
     private String url;
-    private String isDefault;
+    private Boolean isDefault;
 }

@@ -13,7 +13,7 @@ public class DidaHotelRoom {
 
     private Long hotelId;	// 酒店id
 
-    private String roomId;	// 房间id
+    private Integer roomId;	// 房间id
 
     private String nameEn;	// 房间名字(英文)
 

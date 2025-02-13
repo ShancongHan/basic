@@ -13,9 +13,9 @@ public class DidaHotelRoomImages {
 
     private Long hotelId;	// 酒店id
 
-    private String roomId;	// 房间id
+    private Integer roomId;	// 房间id
 
-    private Integer heroImage;	// 精选封面:1-true,0-false
+    private Boolean heroImage;	// 精选封面:1-true,0-false
 
     private String url;	// 图片url
 }
