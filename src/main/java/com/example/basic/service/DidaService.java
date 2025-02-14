@@ -141,6 +141,14 @@ public class DidaService {
             watch.start("转换并入库");
             transferAndSaveEn(hotelInfoList);
             watch.stop();
+            if (CollectionUtils.isEmpty(hotelInfoList)) {
+                try {
+                    Thread.sleep(1000L);
+                } catch (InterruptedException ignore) {
+                }
+                // 没返回猎豹，默认Too Many Requests,不进行步长累计
+                continue;
+            }
             i += onceBatchHotelIdSize;
             process++;
             log.info("当前批次{}/{}, 耗时{},分别耗时为:{}", process, totalProcess, watch.getTotalTimeSeconds(), watch.prettyPrint());
@@ -417,8 +425,4 @@ public class DidaService {
             }
         }
     }
-
-
-
-
 }
